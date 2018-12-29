@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  private calData: any;
+  public calData: any;
 
   constructor(private calDataService: CalDataService) {
     this.calDataService.get().pipe(
@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.calData);
   }
 
 }

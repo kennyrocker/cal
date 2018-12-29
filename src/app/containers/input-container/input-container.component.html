@@ -1,3 +1,7 @@
-<div>
-  
+<div *ngIf="data">
+  <div>constant income</div>
+  <div>constant expense</div>
+  <div>periodical income or expense</div>
+  <div>income or expense only occur once</div>
 </div>
+<div *ngIf="!data">...loading</div>
