@@ -11,6 +11,7 @@ import { DisplayContainerComponent } from './containers/display-container/displa
 
 // Services
 import { CalDataService } from 'src/app/services/cal-data-service';
+import { InputGroupComponentComponent } from './components/input-group-component/input-group-component.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CalDataService } from 'src/app/services/cal-data-service';
     QuickInputComponentComponent,
     ItemComponentComponent,
     InputContainerComponent,
-    DisplayContainerComponent
+    DisplayContainerComponent,
+    InputGroupComponentComponent
   ],
   imports: [
     BrowserModule

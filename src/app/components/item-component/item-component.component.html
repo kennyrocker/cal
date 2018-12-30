@@ -1,3 +1,25 @@
-<p>
-  item-component works!
-</p>
+<div *ngIf="itemData">
+  <div *ngIf="itemGroupType === groupType.CONSTANT_INCOME || itemGroupType === groupType.CONSTANT_EXPENSE">
+      <!-- constant item -->
+      <label for="">{{itemData.name}}</label>
+      <input type="text" value="{{itemData.amount}}"/>
+      <select [value]="itemData.cycle">
+        <option [value]="item.value" *ngFor="let item of cycle">
+          {{item.key}}</option>
+      </select>
+  </div>
+  <div *ngIf="itemGroupType === groupType.PERIODICAL_VARIBLE">
+    <!-- periodic item -->
+      <label for="">{{itemData.name}}</label>
+      <input type="text" value="{{itemData.amount}}"/>
+      <select [value]="itemData.cycle">
+        <option [value]="item.value" *ngFor="let item of cycle">
+          {{item.key}}</option>
+      </select>
+      <input type="text" value="{{affectiveMonth}}"/>
+  </div>
+  <div *ngIf="itemGroupType === groupType.STATIC_VARIBLE">
+    <!-- fix item -->
+  </div>
+  <div class="close-x">x</div>
+</div>

@@ -1,0 +1,10 @@
+<div>
+  <div class="group-title">{{groupType}}</div>
+  <app-quick-input-component></app-quick-input-component>
+  <div *ngIf="groupData && groupData.length > 0" class="group-items">
+      <div *ngFor="let item of groupData">
+          <app-item-component [itemData]="item" [itemGroupType]="groupType">
+          </app-item-component>
+      </div>
+  </div>
+</div>

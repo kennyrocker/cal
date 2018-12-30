@@ -1,4 +1,4 @@
-import { CalCycle } from '../cal-cycle';
+import { CalCycle } from '../enums/cal-cycle';
 
 export interface StandarItem {
     name: string;

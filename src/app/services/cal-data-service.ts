@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CalCycle } from '../constants/cal-cycle';
+import { CalCycle } from '../constants/enums/cal-cycle';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 
 @Injectable()
@@ -12,13 +12,13 @@ export class CalDataService {
         constantIncome : [
            {
                name: 'paycheck',
-               amount: 2000,
+               amount: 1760,
                cycle: CalCycle.BIWEEKLY
            }
         ],
         constantExpense: [
             {
-                name :  'morage',
+                name :  'mortage',
                 amount : 852,
                 cycle : CalCycle.MONTHLY
               },
@@ -77,9 +77,9 @@ export class CalDataService {
             affectiveMonth : [4]
           }
         ],
-        staticVariable: [
+        // staticVariable: [
 
-        ]
+        // ]
     };
 
 

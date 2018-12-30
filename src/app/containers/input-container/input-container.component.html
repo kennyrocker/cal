@@ -1,7 +1,11 @@
 <div *ngIf="data">
-  <div>constant income</div>
-  <div>constant expense</div>
-  <div>periodical income or expense</div>
-  <div>income or expense only occur once</div>
+  <app-input-group-component [groupData]="data.constantIncome" [groupType]="groupType.CONSTANT_INCOME">
+  </app-input-group-component>
+  <app-input-group-component [groupData]="data.constantExpense" [groupType]="groupType.CONSTANT_EXPENSE">
+  </app-input-group-component>
+  <app-input-group-component [groupData]="data.periodicalVarible" [groupType]="groupType.PERIODICAL_VARIBLE">
+  </app-input-group-component>
+  <app-input-group-component [groupData]="data.staticVariable" [groupType]="groupType.STATIC_VARIBLE">
+  </app-input-group-component>
 </div>
 <div *ngIf="!data">...loading</div>
