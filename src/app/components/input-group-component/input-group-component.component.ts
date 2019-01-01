@@ -8,6 +8,7 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 })
 export class InputGroupComponentComponent implements OnInit {
 
+  public group = InputGroup;
   // tslint:disable-next-line:no-input-rename
   @Input('groupData') groupData?: any;
   // tslint:disable-next-line:no-input-rename

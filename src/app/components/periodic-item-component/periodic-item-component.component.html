@@ -1,0 +1,10 @@
+<div class="periodic-item">
+    <label for="">{{itemData.name}}</label>
+    <input type="text" value="{{itemData.amount}}"/>
+    <select [value]="itemData.cycle">
+      <option [value]="item.value" *ngFor="let item of cycle">
+        {{item.key}}</option>
+    </select>    
+    <input type="text" value="{{affectiveMonth}}"/>
+    <span class="close-x">x</span>
+</div>

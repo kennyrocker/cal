@@ -1,10 +1,36 @@
 <div>
   <div class="group-title">{{groupType}}</div>
   <app-quick-input-component></app-quick-input-component>
-  <div *ngIf="groupData && groupData.length > 0" class="group-items">
-      <div *ngFor="let item of groupData">
-          <app-item-component [itemData]="item" [itemGroupType]="groupType">
-          </app-item-component>
-      </div>
+
+  <!-- // TODO:: might consider using ng template -->
+  <!-- constant income -->
+  <div *ngIf="groupType === group.CONSTANT_INCOME &&
+        groupData && groupData.length > 0" class="group-items">
+        <div *ngFor="let item of groupData">
+                <app-constant-item-component [itemData]="item" [itemGroupType]="groupType">
+                </app-constant-item-component>
+        </div>
   </div>
+  <!-- constant expense -->
+  <div *ngIf="groupType === group.CONSTANT_EXPENSE &&
+        groupData && groupData.length > 0" class="group-items">
+        <div *ngFor="let item of groupData">
+                <app-constant-item-component [itemData]="item" [itemGroupType]="groupType">
+                </app-constant-item-component>
+        </div>
+  </div>
+  <!-- periodic variable -->
+  <div *ngIf="groupType === group.PERIODICAL_VARIBLE &&
+        groupData && groupData.length > 0" class="group-items">
+        <div *ngFor="let item of groupData">
+                <app-periodic-item-component [itemData]="item" [itemGroupType]="groupType">
+                </app-periodic-item-component>
+        </div>
+  </div>
+  <!-- fix variable -->
+  <div *ngIf="groupType === group.STATIC_VARIBLE &&
+        groupData && groupData.length > 0" class="group-items">
+        <!-- // TODO :: -->
+  </div>
+
 </div>

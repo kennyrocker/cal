@@ -5,11 +5,11 @@ import { MapperUtil } from 'src/app/utils/mapper-util';
 import { format } from 'url';
 
 @Component({
-  selector: 'app-item-component',
-  templateUrl: './item-component.component.html',
-  styleUrls: ['./item-component.component.css']
+  selector: 'app-periodic-item-component',
+  templateUrl: './periodic-item-component.component.html',
+  styleUrls: ['./periodic-item-component.component.css']
 })
-export class ItemComponentComponent implements OnInit {
+export class PeriodicItemComponentComponent implements OnInit {
 
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;
@@ -32,16 +32,8 @@ export class ItemComponentComponent implements OnInit {
 
   private initSetup(): void {
     if (this.itemData.affectiveMonth) {
-      this.affectiveMonth = this.formateAffectiveMonth(this.itemData.affectiveMonth);
+      this.affectiveMonth = MapperUtil.FormatAffectiveMonth(this.itemData.affectiveMonth);
     }
-  }
-
-  private formateAffectiveMonth(months: number[]): string {
-    let nm = '';
-    months.forEach((element, index) => {
-      nm += (index === 0 ? '' : ', ') + element.toString();
-    });
-    return nm;
   }
 
 }

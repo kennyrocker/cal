@@ -9,7 +9,7 @@ import { reducer } from 'src/app/reducers';
 
 // Components and Containers
 import { QuickInputComponentComponent } from './components/quick-input-component/quick-input-component.component';
-import { ItemComponentComponent } from './components/item-component/item-component.component';
+import { PeriodicItemComponentComponent } from './components/periodic-item-component/periodic-item-component.component';
 import { InputContainerComponent } from './containers/input-container/input-container.component';
 import { DisplayContainerComponent } from './containers/display-container/display-container.component';
 
@@ -19,15 +19,17 @@ import { InputGroupComponentComponent } from './components/input-group-component
 
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuickInputComponentComponent,
-    ItemComponentComponent,
+    PeriodicItemComponentComponent,
     InputContainerComponent,
     DisplayContainerComponent,
-    InputGroupComponentComponent
+    InputGroupComponentComponent,
+    ConstantItemComponentComponent
   ],
   imports: [
     BrowserModule,
