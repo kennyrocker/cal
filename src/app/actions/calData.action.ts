@@ -2,12 +2,24 @@ import { Action } from '@ngrx/store';
 import { StandarItem } from 'src/app/constants/interfaces/standar-item';
 import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 import { FixItem } from 'src/app/constants/interfaces/fix-item';
+import { CalData } from 'src/app/constants/interfaces/cal-data';
 
 export enum CalDataActionTypes {
+    GetCalData = '[Cal Data] Get',
+    GetCalDataSuccess = '[Cal Data] Get Success',
     UpdateConstantIncomeItem = '[Constant Income Item] Update',
     UpdateConstantExpenseItem = '[Constant Expense Item] Update',
     UpdatePeriodicalVariableItem = '[Perodical Variable Item] Update',
     UpdateStaticVariableItem = '[Static Variable Item] Update'
+}
+
+export class GetCalDataAction implements Action {
+    readonly type = CalDataActionTypes.GetCalData;
+}
+
+export class GetCalDataSuccessAction implements Action {
+    readonly type = CalDataActionTypes.GetCalDataSuccess;
+    constructor(public payload: CalData) {}
 }
 
 export class UpdateConstantIncomeItemAction implements Action {
@@ -32,4 +44,4 @@ export class UpdateStaticVariableItemAction implements Action {
 
 export type CalDataActions = UpdateConstantIncomeItemAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
- | UpdateStaticVariableItemAction;
+ | UpdateStaticVariableItemAction | GetCalDataAction | GetCalDataSuccessAction;

@@ -20,6 +20,8 @@ import { InputGroupComponentComponent } from './components/input-group-component
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
+import { CalDataEffects } from 'src/app/effects/calData.effect';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { ConstantItemComponentComponent } from './components/constant-item-compo
     StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10
-    })
+    }),
+    EffectsModule.forRoot([CalDataEffects])
   ],
   providers: [
     CalDataService

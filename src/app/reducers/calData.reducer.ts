@@ -1,10 +1,9 @@
-import { Action } from '@ngrx/store';
-import { CalDataActionTypes } from '../actions/calData.action';
+import { CalDataActionTypes, CalDataActions } from '../actions/calData.action';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 
 const initalState: CalData = {};
 
-export function calDataReducer(state = initalState, action: Action) {
+export function calDataReducer(state = initalState, action: CalDataActions) {
     switch (action.type) {
 
         case CalDataActionTypes.UpdateConstantExpenseItem :
@@ -22,5 +21,11 @@ export function calDataReducer(state = initalState, action: Action) {
         case CalDataActionTypes.UpdateStaticVariableItem :
         // TODO:: logic
         return state;
+
+        case CalDataActionTypes.GetCalDataSuccess :
+            return {
+                ...state,
+                ...action.payload
+            };
     }
 }

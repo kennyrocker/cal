@@ -8,9 +8,6 @@ import { CalData } from 'src/app/constants/interfaces/cal-data';
 })
 export class DisplayContainerComponent implements OnInit {
 
-  // tslint:disable-next-line:no-input-rename
-  @Input('data') data: CalData;
-
   constructor() { }
 
   ngOnInit() {
