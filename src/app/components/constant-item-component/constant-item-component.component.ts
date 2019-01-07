@@ -58,8 +58,9 @@ export class ConstantItemComponentComponent implements OnInit {
   }
 
   // helper method
-  private updateConstantIncomeAction(name: string, amount: number, cycle: CalCycle): void {
+  private updateConstantIncomeAction( name: string, amount: number, cycle: CalCycle): void {
     const payload = {
+      id: this.itemData.id,
       name: name,
       amount: amount,
       cycle: cycle
@@ -69,6 +70,7 @@ export class ConstantItemComponentComponent implements OnInit {
 
   private updateConstantExpenseAction(name: string, amount: number, cycle: CalCycle): void {
     const payload = {
+      id: this.itemData.id,
       name: name,
       amount: amount,
       cycle: cycle
