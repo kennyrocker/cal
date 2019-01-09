@@ -10,7 +10,11 @@ export enum CalDataActionTypes {
     UpdateConstantIncomeItem = '[Constant Income Item] Update',
     UpdateConstantExpenseItem = '[Constant Expense Item] Update',
     UpdatePeriodicalVariableItem = '[Perodical Variable Item] Update',
-    UpdateStaticVariableItem = '[Static Variable Item] Update'
+    UpdateStaticVariableItem = '[Static Variable Item] Update',
+    DeleteConstantIncomeItem = '[Constant Income Item] Delete',
+    DeleteConstantExpenseItem = '[Constant Expense Item] Delete',
+    DeletePeriodicalVariableItem = '[Perodical Variable Item] Delete',
+    DeleteStaticVariableItem = '[Static Variable Item] Delete'
 }
 
 export class GetCalDataAction implements Action {
@@ -42,6 +46,28 @@ export class UpdateStaticVariableItemAction implements Action {
     constructor(public payload: FixItem) {}
 }
 
+export class DeleteConstantIcomeItemAction implements Action {
+    readonly type = CalDataActionTypes.DeleteConstantIncomeItem;
+    constructor(public itemId: number) {}
+}
+
+export class DeleteConstantExpenseItemAction implements Action {
+    readonly type = CalDataActionTypes.DeleteConstantExpenseItem;
+    constructor(public itemId: number) {}
+}
+
+export class DeletePeriodicalVariableItemAction implements Action {
+    readonly type = CalDataActionTypes.DeletePeriodicalVariableItem;
+    constructor(public itemId: number) {}
+}
+
+export class DeleteStaticVariableItemAction implements Action {
+    readonly type = CalDataActionTypes.DeleteStaticVariableItem;
+    constructor(public itemId: number) {}
+}
+
 export type CalDataActions = UpdateConstantIncomeItemAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
- | UpdateStaticVariableItemAction | GetCalDataAction | GetCalDataSuccessAction;
+ | UpdateStaticVariableItemAction | GetCalDataAction | GetCalDataSuccessAction
+ | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
+ | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction;

@@ -7,15 +7,16 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
 
     switch (action.type) {
 
+        // UPDATE
         case CalDataActionTypes.UpdateConstantIncomeItem :
             return {
-                ...state, 
+                ...state,
                 constantIncome: state.constantIncome.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
             };
 
         case CalDataActionTypes.UpdateConstantExpenseItem :
             return {
-                ...state, 
+                ...state,
                 constantExpense: state.constantExpense.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
             };
 
@@ -27,6 +28,32 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
         // TODO:: logic
         return state;
 
+        // DELETE
+        case CalDataActionTypes.DeleteConstantIncomeItem :
+            return {
+                ...state,
+                constantIncome: state.constantIncome.filter(obj => obj.id !== action.itemId)
+            };
+
+        case CalDataActionTypes.DeleteConstantExpenseItem :
+            return {
+                ...state,
+                constantExpense: state.constantExpense.filter(obj => obj.id !== action.itemId)
+            };
+
+        case CalDataActionTypes.DeletePeriodicalVariableItem :
+            return {
+                ...state,
+                periodicalVarible: state.periodicalVarible.filter(obj => obj.id !== action.itemId)
+            };
+
+        case CalDataActionTypes.DeleteStaticVariableItem :
+            return {
+                ...state,
+                staticVariable: state.staticVariable.filter(obj => obj.id !== action.itemId)
+            };
+
+        // GET
         case CalDataActionTypes.GetCalDataSuccess :
             return {
                 ...state,

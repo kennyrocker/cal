@@ -3,16 +3,26 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 
+import { FormControl } from '@angular/forms';
+import { Subscription, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { debounce } from 'rxjs/internal/operators/debounce';
+import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
+
 import * as reducerRoot from '../../reducers/index';
 import { Store } from '@ngrx/store';
-import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction } from 'src/app/actions/calData.action';
+import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
+   DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-constant-item-component',
   templateUrl: './constant-item-component.component.html',
   styleUrls: ['./constant-item-component.component.css']
 })
-export class ConstantItemComponentComponent implements OnInit {
+export class ConstantItemComponentComponent implements OnInit, OnDestroy {
+
+  DEBOUNCE_TIME = 300;
 
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;
@@ -22,40 +32,98 @@ export class ConstantItemComponentComponent implements OnInit {
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
+  private isIncome: boolean;
+
+  private nameChangeSub: Subscription;
+  private nameChangeSubject = new Subject<any>();
+  private amountChangeSub: Subscription;
+  private amountChangeSubject = new Subject<any>();
+  private cycleChangeSub: Subscription;
+  private cycleChangeSubject = new Subject<any>();
 
   constructor(public store: Store<reducerRoot.CalDataState>) {
     this.cycle = MapperUtil.EnumMapToArray(this.calCycleEnum);
   }
 
   ngOnInit() {
+    // TODO:: make itemData input with its own model, then set the modal data only once when init container
+    this.isIncome = (this.itemGroupType === this.groupType.CONSTANT_INCOME);
+    this.initSub();
   }
 
-  public nameChange(value: string): void {
-    if (this.itemGroupType === this.groupType.CONSTANT_INCOME) {
-      this.updateConstantIncomeAction(value, this.itemData.amount, this.itemData.cycle);
+  ngOnDestroy() {
+  }
+
+  private initSub(): void {
+
+    this.nameChangeSub = this.nameChangeSubject.pipe(
+                              debounceTime(this.DEBOUNCE_TIME),
+                              distinctUntilChanged()
+                          ).subscribe((value) => {
+                              this.nameChange(value);
+                          });
+
+    this.amountChangeSub = this.amountChangeSubject.pipe(
+                              debounceTime(this.DEBOUNCE_TIME)
+                          ).subscribe((value) => {
+                              this.amountChange(value);
+                          });
+
+    this.cycleChangeSub = this.cycleChangeSubject.pipe(
+                            debounceTime(this.DEBOUNCE_TIME),
+                            distinctUntilChanged()
+                        ).subscribe((value) => {
+                            this.cycleChange(value);
+                        });
+
+  }
+
+
+  public bindNameChangeSubject(value): void {
+    this.nameChangeSubject.next(value);
+  }
+
+  public bindAmountChangeSubject(value): void {
+    this.amountChangeSubject.next(value);
+  }
+
+  public bindCycleChangeSubject(value): void {
+    this.cycleChangeSubject.next(value);
+  }
+
+
+  public removeItem(): void {
+    if (this.isIncome) {
+      this.store.dispatch(new DeleteConstantIcomeItemAction(this.itemData.id));
+    } else {
+      this.store.dispatch(new DeleteConstantExpenseItemAction(this.itemData.id));
     }
-    if (this.itemGroupType === this.groupType.CONSTANT_EXPENSE) {
+  }
+
+  private nameChange(value: string): void {
+    if (this.isIncome) {
+      this.updateConstantIncomeAction(value, this.itemData.amount, this.itemData.cycle);
+    } else {
       this.updateConstantExpenseAction(value, this.itemData.amount, this.itemData.cycle);
     }
   }
 
   public amountChange(value: any): void {
-    if (this.itemGroupType === this.groupType.CONSTANT_INCOME) {
+    if (this.isIncome) {
       this.updateConstantIncomeAction(this.itemData.name, value, this.itemData.cycle);
-    }
-    if (this.itemGroupType === this.groupType.CONSTANT_EXPENSE) {
+    } else {
       this.updateConstantExpenseAction(this.itemData.name, value, this.itemData.cycle);
     }
   }
 
   public cycleChange(value: CalCycle): void {
-    if (this.itemGroupType === this.groupType.CONSTANT_INCOME) {
+    if (this.isIncome) {
       this.updateConstantIncomeAction(this.itemData.name, this.itemData.amount, value);
-    }
-    if (this.itemGroupType === this.groupType.CONSTANT_EXPENSE) {
+    } else {
       this.updateConstantExpenseAction(this.itemData.name, this.itemData.amount, value);
     }
   }
+
 
   // helper method
   private updateConstantIncomeAction( name: string, amount: number, cycle: CalCycle): void {

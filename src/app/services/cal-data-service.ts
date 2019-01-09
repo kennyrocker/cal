@@ -18,7 +18,7 @@ export class CalDataService {
            }
         ],
         constantExpense: [
-            {   
+            {
                 id: 2223521,
                 name :  'mortage',
                 amount : 852,

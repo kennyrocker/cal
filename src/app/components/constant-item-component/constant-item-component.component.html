@@ -1,10 +1,10 @@
 <div class="constant-item">
   <!-- <label for="">{{itemData.name}}</label> -->
-  <input #name type="text" value="{{itemData.name}}" (keyup)="nameChange(name.value)"/>
-  <input #amount type="text" value="{{itemData.amount}}" (keyup)="amountChange(amount.value)"/>
-  <select #amountCycle [value]="itemData.cycle" (change)=cycleChange(amountCycle.value)>
+  <input #name type="text" value="{{itemData.name}}" (keyup)="bindNameChangeSubject(name.value)"/>
+  <input #amount type="text" value="{{itemData.amount}}" (keyup)="bindAmountChangeSubject(amount.value)"/>
+  <select #amountCycle [value]="itemData.cycle" (change)=bindCycleChangeSubject(amountCycle.value)>
     <option [value]="item.value" *ngFor="let item of cycle">
       {{item.key}}</option>
   </select>
-  <span class="close-x">x</span>
+  <span class="close-x" (click)="removeItem()">x</span>
 </div>
