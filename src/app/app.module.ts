@@ -12,16 +12,22 @@ import { QuickInputComponentComponent } from './components/quick-input-component
 import { PeriodicItemComponentComponent } from './components/periodic-item-component/periodic-item-component.component';
 import { InputContainerComponent } from './containers/input-container/input-container.component';
 import { DisplayContainerComponent } from './containers/display-container/display-container.component';
+import { InputGroupComponentComponent } from './components/input-group-component/input-group-component.component';
 
 // Services
 import { CalDataService } from 'src/app/services/cal-data-service';
-import { InputGroupComponentComponent } from './components/input-group-component/input-group-component.component';
+import { CalculateService } from './services/calucate-service';
+
+// 3d Party
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { EffectsModule } from '@ngrx/effects';
+
 
 @NgModule({
   declarations: [
@@ -39,10 +45,13 @@ import { EffectsModule } from '@ngrx/effects';
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
-    EffectsModule.forRoot([CalDataEffects])
+    EffectsModule.forRoot([CalDataEffects]),
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
-    CalDataService
+    CalDataService,
+    CalculateService
   ],
   bootstrap: [AppComponent]
 })

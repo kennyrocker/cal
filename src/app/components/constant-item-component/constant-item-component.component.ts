@@ -22,7 +22,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class ConstantItemComponentComponent implements OnInit, OnDestroy {
 
-  DEBOUNCE_TIME = 300;
+  DEBOUNCE_TIME = 1000;
 
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;

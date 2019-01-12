@@ -5,7 +5,6 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 import * as reducerRoot from '../../reducers/index';
 import { Store } from '@ngrx/store';
 import { GetCalDataAction } from 'src/app/actions/calData.action';
-import { Observable } from 'rxjs/internal/Observable';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { map } from 'rxjs/operators';
 
