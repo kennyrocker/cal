@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalData } from '../constants/interfaces/cal-data';
+import { CalData } from '../../constants/interfaces/cal-data';
 
 /* ////////////////////////////// */
 /* All Caculation Logic park here */

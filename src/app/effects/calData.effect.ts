@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetCalDataAction, GetCalDataSuccessAction } from 'src/app/actions/calData.action';
-import { CalDataService } from 'src/app/services/cal-data-service';
+import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CalData } from 'src/app/constants/interfaces/cal-data';

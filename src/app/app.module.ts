@@ -15,8 +15,8 @@ import { DisplayContainerComponent } from './containers/display-container/displa
 import { InputGroupComponentComponent } from './components/input-group-component/input-group-component.component';
 
 // Services
-import { CalDataService } from 'src/app/services/cal-data-service';
-import { CalculateService } from './services/calucate-service';
+import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
+import { CalculateService } from './services/calculation/calculate-service';
 
 // 3d Party
 import { NgxChartsModule } from '@swimlane/ngx-charts';

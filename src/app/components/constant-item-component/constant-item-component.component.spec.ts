@@ -1,25 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConstantItemComponentComponent } from './constant-item-component.component';
+// import { ConstantItemComponentComponent } from './constant-item-component.component';
 
-describe('ConstantItemComponentComponent', () => {
-  let component: ConstantItemComponentComponent;
-  let fixture: ComponentFixture<ConstantItemComponentComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ConstantItemComponentComponent ]
-    })
-    .compileComponents();
-  }));
+// describe('ConstantItemComponentComponent', () => {
+//   let component: ConstantItemComponentComponent;
+//   let fixture: ComponentFixture<ConstantItemComponentComponent>;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ConstantItemComponentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ ConstantItemComponentComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(ConstantItemComponentComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CalCycle } from '../constants/enums/cal-cycle';
+import { CalCycle } from '../../constants/enums/cal-cycle';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 
 @Injectable()

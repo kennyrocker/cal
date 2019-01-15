@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
-import { CalculateService } from 'src/app/services/calucate-service';
+import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { DisplayItem } from 'src/app/constants/interfaces/display-item';
 
 import * as reducerRoot from '../../reducers/index';
@@ -37,7 +37,7 @@ export class DisplayContainerComponent implements OnInit {
   yAxisLabel = 'Balance';
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#132a13', '#31572c', '#4f772d', '#90a955', '#ecf39e']
   };
 
   constructor(private calService: CalculateService, private store: Store<reducerRoot.CalDataState>) { }
