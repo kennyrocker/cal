@@ -45,7 +45,10 @@ export class DisplayContainerComponent implements OnInit {
   ngOnInit() {
     this.store.select(reducerRoot.getCalData).pipe(
       map((calData) => {
-        this.monthlyData = this.calService.calculateMonthly(calData);
+        // monthly
+        //this.monthlyData = this.calService.getMonthlyProjection(0, 1, 12, calData);
+        // annally
+        this.monthlyData = this.calService.getAnnallyProjection(0, 12, calData);
       })
     ).subscribe();
 

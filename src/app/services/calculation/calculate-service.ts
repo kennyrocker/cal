@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { CalData } from '../../constants/interfaces/cal-data';
 import { StandarItem } from 'src/app/constants/interfaces/standar-item';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
+import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
+import { DisplayItem } from 'src/app/constants/interfaces/display-item';
 
 /* ////////////////////////////// */
 /* All Caculation Logic park here */
@@ -10,47 +12,25 @@ import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 @Injectable()
 export class CalculateService {
 
-    constructor() {}
-
-    public calculateMonthly(data: CalData): any {
-        // TODO:: implement calculation logic
-        const mock = [
-            {
-              "name": "Jan",
-              "value": 40632
-            },
-            {
-              "name": "Feb",
-              "value": 49737
-            },
-            {
-              "name": "March",
-              "value": 36745
-            },
-            {
-              "name": "April",
-              "value": 33745
-            },
-            {
-              "name": "May",
-              "value": 36240
-            },
-            {
-              "name": "June",
-              "value": 33000
-            },
-            {
-              "name": "July",
-              "value": 35800
-            }
-        ];
-
-        return mock;
+    /* ///////////////////////////////////// */
+    /*                 UTILITY               */
+    /* ///////////////////////////////////// */
+    
+    /* floor to cent, since there no currency for 1/10 of cent */
+    public roundToCents(input: number): number {
+      return Math.floor(input * 100) / 100;
     }
 
+    private isProjectionUnhandle(calData: CalData): boolean {
+      return !calData.constantIncome && !calData.constantExpense && !calData.periodicalVarible;
+    }
 
-    // converters
-    protected getStaticTotalOfBiWeeklyCycleConversion(items: StandarItem[]): number {
+    /* ///////////////////////////////////// */
+    /*          CONSTANT CONVERSION          */
+    /* ///////////////////////////////////// */
+
+    public getConstantSumWithBiWeeklyConversion(items: StandarItem[]): number {
+      if (!items || items.length === 0) return 0;
       let total = 0;
       for (let i = 0;  i < items.length; i++) {
         if (items[i].cycle === CalCycle.BIWEEKLY) {
@@ -63,7 +43,146 @@ export class CalculateService {
           total += (items[i].amount / CalCycle.BIWEEKLY);
         }
       }
-      return total;
+      return this.roundToCents(total);
+    }
+
+    public getConstantSumWithMonthlyConversion(items: StandarItem[]): number {
+      if (!items || items.length === 0) return 0;
+      let total = 0;
+      for (let i = 0;  i < items.length; i++) {
+        if (items[i].cycle === CalCycle.BIWEEKLY) {
+          total += (items[i].amount * CalCycle.BIWEEKLY / CalCycle.MONTHLY );
+        }
+        if (items[i].cycle === CalCycle.MONTHLY) {
+          total += items[i].amount;
+        }
+        if (items[i].cycle === CalCycle.ANNALLY) {
+          total += (items[i].amount / CalCycle.MONTHLY);
+        }
+      }
+      return this.roundToCents(total);
+    };
+
+    public getConstantSumWithAnnallyConversion(items: StandarItem[]): number {
+        if (!items || items.length === 0) return 0;
+        let total = 0;
+        for (let i = 0; i < items.length; i++) { 
+            if (items[i].cycle === CalCycle.BIWEEKLY) {
+                total += (items[i].amount * CalCycle.BIWEEKLY );
+            } 
+            if (items[i].cycle === CalCycle.MONTHLY) {
+                total += (items[i].amount * CalCycle.MONTHLY);
+            } 
+            if (items[i].cycle === CalCycle.ANNALLY) {
+                total += items[i].amount;
+            }
+        }
+        return this.roundToCents(total);
+    };
+
+    /* ///////////////////////////////////// */
+    /*          PERIODIC CONVERSION          */
+    /* ///////////////////////////////////// */
+    
+    public getPeriodicSumWithMonthlyConverstion(items: PeriodicItem[], monthOfYear: number): number {
+        if (!items || items.length === 0 || monthOfYear < 1) return 0;
+        let balance = 0;
+        for (let i = 0; i < items.length; i++) {
+            let itemAmount = items[i].amount;
+            if (items[i].cycle === CalCycle.MONTHLY) {
+               let months = items[i].affectiveMonth;
+               for (let j = 0; j < months.length; j++) {
+                  if (months[j] === monthOfYear) {
+                    balance += itemAmount;
+                  }
+               }
+            }
+            if (items[i].cycle === CalCycle.ANNALLY) {
+                if (items[i].affectiveMonth[0] === monthOfYear) {
+                    balance += itemAmount;
+                }
+            }
+        }
+        return this.roundToCents(balance);
+    }
+
+    public getPeriodicSumWithAnnallyConverstion(items: PeriodicItem[]): number {
+        if (!items || items.length === 0) return 0;
+        let balance = 0;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].cycle === CalCycle.ANNALLY) {
+                balance += items[i].amount;
+            }
+            if (items[i].cycle === CalCycle.MONTHLY) {
+                balance += (items[i].amount * items[i].affectiveMonth.length);
+            }
+        }
+        return this.roundToCents(balance);
+    }
+
+    /* ///////////////////////////////////// */
+    /*         PROJECTION WITH CYCLE         */
+    /* ///////////////////////////////////// */
+    
+    public getMonthlyProjection(initBalance: number, startingMonthOfYear: number,
+                                numberOfMonths: number, calData: CalData): DisplayItem[] {
+        
+        if (this.isProjectionUnhandle(calData)) return [];
+        if (numberOfMonths < 1) return [];                        
+
+        let output: DisplayItem[] = [];
+        let balance = initBalance ? initBalance : 0;
+
+        let monthlyIncomeBalance = this.getConstantSumWithMonthlyConversion(calData.constantIncome);
+        let monthlyExpenseBalance = this.getConstantSumWithMonthlyConversion(calData.constantExpense);
+        let monthlyConstantBalance = monthlyIncomeBalance - monthlyExpenseBalance;
+        
+        for (let i = startingMonthOfYear; i < (startingMonthOfYear + numberOfMonths); i++) {
+            let month = i;
+            if (i > CalCycle.MONTHLY) {
+                month = i % CalCycle.MONTHLY;
+            }
+            if (month == CalCycle.MONTHLY) {
+                month = CalCycle.MONTHLY;
+            }
+            let cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVarible, month);
+            balance +=  this.roundToCents(monthlyConstantBalance + cyclePeriodicBalance);
+            let displayItem = {
+                name: month.toString(),
+                value: balance
+            };
+            output.push(displayItem);
+        }
+        return output;
+    }
+
+    public getAnnallyProjection(initBalance: number, numberOfYears: number, calData: CalData): DisplayItem[] {
+
+        if (this.isProjectionUnhandle(calData)) return [];
+        if (numberOfYears < 1) return [];
+       
+        let output: DisplayItem[] = [];
+        let balance = initBalance ? initBalance : 0;
+
+        let annalConstantIncome = this.getConstantSumWithAnnallyConversion(calData.constantIncome);
+        let annalConstantExpense = this.getConstantSumWithAnnallyConversion(calData.constantExpense);
+        let annalConstantBalance = annalConstantIncome - annalConstantExpense;
+
+        for (let i = 0; i < numberOfYears; i++) {
+            let annalPeriodicalBalance = this.getPeriodicSumWithAnnallyConverstion(calData.periodicalVarible);
+            balance += (annalConstantBalance + annalPeriodicalBalance);
+            
+            let displayItem = {
+                name: (i + 1).toString(),
+                value: balance
+            };
+            output.push(displayItem);
+            
+        }
+
+        console.log(output);
+
+        return output;
     }
 
   }
@@ -72,11 +191,6 @@ export class CalculateService {
 
 
 
-
-
-
-    // Money View
-// This app display cycle of money balance base on variables of income and expense
 
 
 // cycle constant from annal prepective
