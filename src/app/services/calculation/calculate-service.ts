@@ -25,6 +25,35 @@ export class CalculateService {
       return !calData.constantIncome && !calData.constantExpense && !calData.periodicalVarible;
     }
 
+    public isMonthBelongInBiweeklyCycle(week: number, month: number): boolean {
+        // 30.41 days = 1 month
+        // 1 biweek = 14 days
+        // to see if the by week include in the month
+        //  1  2  3  4  5  6  7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
+        // 14 28 42 56 70 84 98 112 126 140 154 168 182 196 210 224 238 252 266 280 294 308 322 336 350 364
+        // 30.41 60.82 91.23 121.64 152.05 182.46 212.87 243.28 273.69 304.10 334.51 364.92  
+        let biWeeklyDayOfYear = week * 14;
+        let monthlyDayOfYear = month * 365 / 12;
+        let previousMonthEndDayOfYear = ((month - 1) < 0) ? (365 / 12) : (month - 1) * (365 / 12);
+        return (monthlyDayOfYear > biWeeklyDayOfYear) && (previousMonthEndDayOfYear < biWeeklyDayOfYear);
+    }
+
+    public isWeekFirstOfMonth(week: number, month: number): boolean {
+        if ((week == 1 && month == 1) 
+        || (week == 3 && month == 2) 
+        || (week == 5 && month == 3)
+        || (week == 7 && month == 4)
+        || (week == 9 && month == 5)
+        || (week == 11 && month == 6)
+        || (week == 14 && month == 7)
+        || (week == 16 && month == 8)
+        || (week == 18 && month == 9)
+        || (week == 20 && month == 10)
+        || (week == 22 && month == 11)
+        || (week == 24 && month == 12)) return true;
+        return false;
+    }
+
     /* ///////////////////////////////////// */
     /*          CONSTANT CONVERSION          */
     /* ///////////////////////////////////// */
@@ -120,6 +149,32 @@ export class CalculateService {
         return this.roundToCents(balance);
     }
 
+    public getPeriodicSumWithBiweeklyConvertsion(items: PeriodicItem[], biWeekOfYear: number): number {
+        if(!items || items.length === 0) return 0;
+        let balance = 0;
+
+        for (let i = 0; i < items.length; i++) {
+            // monthly
+            if (items[i].cycle === CalCycle.MONTHLY) {
+                for (let j = 0; j < items[i].affectiveMonth.length; j++) {
+                   const month = items[i].affectiveMonth[j];
+                   if (this.isMonthBelongInBiweeklyCycle(month, biWeekOfYear)) {
+                        balance += (items[i].amount * 12 / 26);
+                   }
+                }
+            }
+            // annally
+            if (items[i].cycle === CalCycle.ANNALLY) {
+                const month = items[i].affectiveMonth[0];
+                if (this.isWeekFirstOfMonth(month, biWeekOfYear)) {
+                    balance += items[i].amount;
+                }
+            }
+        }
+
+        return this.roundToCents(balance);
+    }
+
     /* ///////////////////////////////////// */
     /*         PROJECTION WITH CYCLE         */
     /* ///////////////////////////////////// */
@@ -141,9 +196,6 @@ export class CalculateService {
             let month = i;
             if (i > CalCycle.MONTHLY) {
                 month = i % CalCycle.MONTHLY;
-            }
-            if (month == CalCycle.MONTHLY) {
-                month = CalCycle.MONTHLY;
             }
             let cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVarible, month);
             balance +=  this.roundToCents(monthlyConstantBalance + cyclePeriodicBalance);
@@ -171,305 +223,46 @@ export class CalculateService {
         for (let i = 0; i < numberOfYears; i++) {
             let annalPeriodicalBalance = this.getPeriodicSumWithAnnallyConverstion(calData.periodicalVarible);
             balance += (annalConstantBalance + annalPeriodicalBalance);
-            
             let displayItem = {
                 name: (i + 1).toString(),
                 value: balance
             };
             output.push(displayItem);
-            
         }
+        return output;
+    }
 
-        console.log(output);
+    // TODO:: fix balance off, test needed
+    public getBiWeeklyProjection(initBalance: number, startingWeekOfYear: number,
+                                 numberOfWeeks: number, calData: CalData): DisplayItem[] {
+        
+        if (this.isProjectionUnhandle(calData)) return [];
+        if (numberOfWeeks < 1) return [];
 
+        let output: DisplayItem[] = [];
+        let balance = initBalance ? initBalance : 0;
+
+        let biweeklyIncomeBalance = this.getConstantSumWithBiWeeklyConversion(calData.constantIncome);
+        let biweeklyExpenseBalance = this.getConstantSumWithBiWeeklyConversion(calData.constantExpense);
+        let biweeklyConstantBalance = biweeklyIncomeBalance - biweeklyExpenseBalance;
+
+        for (let i = startingWeekOfYear; i < (startingWeekOfYear + numberOfWeeks); i++) {
+            let week = i;
+            if (i > CalCycle.BIWEEKLY) {
+                week = i % CalCycle.BIWEEKLY;
+            }
+
+            let cyclePeriodicBalance = this.getPeriodicSumWithBiweeklyConvertsion(calData.periodicalVarible, week);
+            balance += this.roundToCents(biweeklyConstantBalance + cyclePeriodicBalance);
+
+            let displayItem = {
+              name: week.toString(),
+              value: balance
+            };
+            output.push(displayItem);
+
+        }                          
         return output;
     }
 
   }
-
-
-
-
-
-
-
-// cycle constant from annal prepective
-// var ANNALLY = 1;
-// var MONTHLY = 12;
-// var BIWEEKLY = 26;
-
-
-
-
-// // get cycle by input
-// function cycle(it){
-  
-  // this.getBiWeekly = function(){
-  //    var b = 0;
-  //    for(var i=0;  i<it.length; i++){
-  //      if(it[i].cycle === BIWEEKLY){
-  //        b += it[i].amount;
-  //      }
-       
-  //      if(it[i].cycle === MONTHLY){
-  //        b += (it[i].amount * MONTHLY / BIWEEKLY);
-  //      }
-       
-  //      if(it[i].cycle === ANNALLY){
-  //        b += (it[i].amount / BIWEEKLY);
-  //      }
-       
-  //    }
-  //    return b;
-  //  };
-   
-//    this.getMonthly = function(){
-//      var b = 0;
-//      for(var i=0;  i<it.length; i++){
-       
-//        if(it[i].cycle === BIWEEKLY){
-//          b += (it[i].amount * BIWEEKLY / MONTHLY );
-//        }
-       
-//        if(it[i].cycle === MONTHLY){
-//          b += it[i].amount;
-//        }
-       
-//        if(it[i].cycle === ANNALLY){
-//          b += (it[i].amount / MONTHLY);
-//        }
-       
-//      }
-//      return b;
-//    };
-   
-//    this.getAnnal = function(){
-//      var b = 0;
-//      for(var i=0;  i<it.length; i++){
-       
-//        if(it[i].cycle === BIWEEKLY){
-//          b += (it[i].amount * BIWEEKLY );
-//        }
-       
-//        if(it[i].cycle === MONTHLY){
-//          b += (it[i].amount * MONTHLY);
-//        }
-       
-//        if(it[i].cycle === ANNALLY){
-//          b += it[i].amount;
-//        }
-//      }
-//      return b;
-//    };
-// }
-
-
-
-
-
-
-
-// // data constructor
-// var ic = new income();
-// var incomeItems = new cycle(ic);
-// var ex = new expense();
-// var expenseItems = new cycle(ex);
-// var pv = new periodic();
-
-
-// // varian calculation
-// var sumBy = function(cycle){
-//   var b = 0;
-  
-//   if(cycle === MONTHLY){
-//      var income1 = incomeItems.getMonthly();
-//      var expense1 = expenseItems.getMonthly();
-//      b = income1 - expense1;
-//   }else if (cycle === BIWEEKLY){
-//      var income2 = incomeItems.getBiWeekly();
-//      var expense2 = expenseItems.getBiWeekly();
-//      b = income2 - expense2;
-//   }else { // ANNALLY
-//      var income3 = incomeItems.getAnnal();
-//      var expense3 = expenseItems.getAnnal();
-//      b = income3 - expense3;
-//   }
-    
-//   return b;
-// };
-
-
-//console.log("BIWEEKLY SUM => " + sumBy(BIWEEKLY));
-//console.log("MONTHLY SUM => " + sumBy(MONTHLY));
-//console.log("ANNALLY SUM => " + sumBy(ANNALLY));
-
-
-
-
-// //  biweekly projection 
-// var bwProjection = function(base, start ,n){
-
-//   var b = base;
-//   var growth = sumBy(BIWEEKLY);
-  
-//   for (var i = start; i< (start+n); i++){
-//     // month
-//     var m = i;
-//     if(i > BIWEEKLY){
-//       m = i % BIWEEKLY ;
-//     }
-//     if(m === 0){
-//       m = BIWEEKLY;
-//     }
-    
-//     var pg = getDurationBalanceBiWeekly(BIWEEKLY, m, pv);
-    
-//     // balance
-//     b += growth;
-
-//     console.log( " BIWEEKLY :: " + m + " || BLANCE :: $" + b);
-//   }
-  
-// };
-
-
-
-// //  monthly projection 
-// var mProjection = function(base, start ,n){
-
-//   var b = base;
-//   // static growth
-//   var growth = sumBy(MONTHLY);
-  
-//   for (var i = start; i< (start+n); i++){
-//     // month
-//     var m = i;
-//     if(i > MONTHLY){
-//       m = i % MONTHLY ;
-//     }
-//     if(m === 0){
-//       m = MONTHLY;
-//     }
-    
-//     // periodic growth by month
-//     var pg = getDurationBalanceMonthly(MONTHLY, m, pv);
-   
-//     // balance
-//     b += (growth + pg);
-
-//     console.log( " MOTNH :: " + m + " || BLANCE :: $" + b);
-//   }
-  
-// };
-
-// // annal projection
-// var yProjection = function(base ,start ,n){
-
-//   var b = base;
-//   var growth = sumBy(ANNALLY);
-  
-//   for (var i = start; i< (start+n); i++){
-    
-//     // periodic growth by month
-//     var pg = getDurationBalanceYearly(pv);
-//     // balance
-//     b += (growth + pg);
-    
-
-//     console.log( " YEAR :: " + i + " || BLANCE :: $" + b);
-//   }
-  
-// };
-
-
-
-
-// // TODO :: ADD periodic into caculation
-// // get biweekly duration balance base on cycle and point
-// var getDurationBalanceBiWeekly = function(cycle, pointX, data){
-//   console.log("CYCLE : "+cycle);
-//   console.log("POINT : "+pointX);
-//   //console.log("DATA",data);
-  
-  
-  
-//   var point = Math.floor(pointX * 12 / 26); // this is a decemal, need to round it to int with accuracy
-//   console.log("NEW POINT : FLOOR "+point);
-  
-//   var b = 0;
-  
-//   for(var i=0; i< data.length; i++){
-//     var am = data[i].amount;
-//     if(data[i].cycle === MONTHLY){
-//       var pArr = data[i].affectiveMonth;
-//       for(var j=0; j<pArr.length; j++){
-//         if(pArr[j] === point){
-//           b += am;
-//         }
-//       }
-//     }
-//     if(data[i].cycle === ANNALLY){
-//       if(data[i].affectiveMonth[0] === point){
-//         b += am;
-//       }
-//     }
-//   }
-  
-//   return b;
-  
-// };
-
-
-
-// // get monthly duration balance base on cycle and point
-// var getDurationBalanceMonthly = function(cycle, point, data){
-//   var b = 0;
-//   for(var i=0; i< data.length; i++){
-//     var am = data[i].amount;
-//     if(data[i].cycle === MONTHLY){
-//       var pArr = data[i].affectiveMonth;
-//       for(var j=0; j<pArr.length; j++){
-//         if(pArr[j] === point){
-//           b += am;
-//         }
-//       }
-//     }
-//     if(data[i].cycle === ANNALLY){
-//       if(data[i].affectiveMonth[0] === point){
-//         b += am;
-//       }
-//     }
-//   }
-//   return b;
-// };
-
-
-// // get yearly duration blance base on cycle and month
-// var getDurationBalanceYearly = function(data){
-//   var b = 0;
-//   for(var m = 1; m<= 12; m++){
-//       for(var i=0; i< data.length; i++){
-//           var am = data[i].amount;
-//           if(data[i].cycle === MONTHLY){
-//               var pArr = data[i].affectiveMonth;
-//               for(var j=0; j<pArr.length; j++){
-//                   if(pArr[j] === m){
-//                       b += am;
-//                   }
-//               }
-//           }
-//           if(data[i].cycle === ANNALLY){
-//             if(data[i].affectiveMonth[0] === m){
-//               b += am;
-//             }
-//           }
-//       }
-//   }
-//   return b;
-// };
-
-
-
-
-
-//}

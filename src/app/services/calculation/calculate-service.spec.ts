@@ -353,7 +353,6 @@ describe('Calculate Service', () => {
         }
     ];
 
-
     const fullAnnalInput = {
         constantIncome : [
            {
@@ -614,7 +613,7 @@ describe('Calculate Service', () => {
     ];
 
 
-
+    // Setup
     let service: CalculateService;
 
     beforeEach(() => {
@@ -640,6 +639,30 @@ describe('Calculate Service', () => {
 
     it('#roundToCents with 1245.49934 should return 1245.49', () => {
         expect(service.roundToCents(1245.49934)).toEqual(1245.49);
+    });
+
+    it('#isMonthBelongInBiweeklyCycle with 1 as week and 1 as month should return true', () => {
+        expect(service.isMonthBelongInBiweeklyCycle(1, 1)).toBeTruthy();
+    });
+
+    it('#isMonthBelongInBiweeklyCycle with 2 as week and 1 as month should return true', () => {
+        expect(service.isMonthBelongInBiweeklyCycle(2, 1)).toBeTruthy();
+    });
+
+    it('#isMonthBelongInBiweeklyCycle with 2 as week and 2 as month should return false', () => {
+        expect(service.isMonthBelongInBiweeklyCycle(2, 2)).toBeFalsy();
+    });
+
+    it('#isMonthBelongInBiweeklyCycle with 26 as week and 12 as month should return true', () => {
+        expect(service.isMonthBelongInBiweeklyCycle(26, 12)).toBeTruthy();
+    });
+
+    it('#isMonthBelongInBiweeklyCycle with 25 as week and 12 as month should return true', () => {
+        expect(service.isMonthBelongInBiweeklyCycle(25, 12)).toBeTruthy();
+    });
+
+    it('#isMonthBelongInBiweeklyCycle with 24 as week and 12 as month should return true', () => {
+        expect(service.isMonthBelongInBiweeklyCycle(24, 12)).toBeTruthy();
     });
 
 
