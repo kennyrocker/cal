@@ -258,17 +258,13 @@ export class CalculateService {
             if (i > CalCycle.BIWEEKLY) {
                 week = i % CalCycle.BIWEEKLY;
             }
-
             let cyclePeriodicBalance = this.getPeriodicSumWithBiweeklyConvertsion(calData.periodicalVarible, week);
             balance += this.roundToCents(biweeklyConstantBalance + cyclePeriodicBalance);
-
             let displayItem = {
               name: week.toString(),
               value: balance
             };
             output.push(displayItem);
-
-            console.log(output);
         }                          
         return output;
     }
