@@ -669,44 +669,6 @@ describe('Calculate Service', () => {
         },
     ];
 
-    const biWeeklyNoConstantOutput = [
-        {
-            name: '1',
-            value: 250
-        },
-        {
-            name: '2',
-            value: 200
-        },
-        {
-            name: '3',
-            value: 150
-        },
-        {
-            name: '4',
-            value: 100
-        },{
-            name: '5',
-            value: 50
-        },
-        {
-            name: '6',
-            value: 0
-        },
-        {
-            name: '7',
-            value: 0
-        },
-        {
-            name: '8',
-            value: 0
-        },
-        {
-            name: '9',
-            value: 0
-        },
-    ];
-
     const fullBiWeekNoPeriodicInput2 = {
         constantIncome : [
             {
@@ -771,6 +733,44 @@ describe('Calculate Service', () => {
         ]
     };
 
+    const biWeeklyNoConstantOutput = [
+        {
+            name: '1',
+            value: 250
+        },
+        {
+            name: '2',
+            value: 200
+        },
+        {
+            name: '3',
+            value: 150
+        },
+        {
+            name: '4',
+            value: 100
+        },{
+            name: '5',
+            value: 50
+        },
+        {
+            name: '6',
+            value: 0
+        },
+        {
+            name: '7',
+            value: 300
+        },
+        {
+            name: '8',
+            value: 300
+        },
+        {
+            name: '9',
+            value: 300
+        },
+    ];
+
     // Setup
     let service: CalculateService;
 
@@ -823,12 +823,11 @@ describe('Calculate Service', () => {
         expect(service.isBiWeeklyCycleBelongToTheMonth(24, 12)).toBeTruthy();
     });
 
-
     /* ///////////////////////////////////// */
     /*               CONVERSION              */
     /* ///////////////////////////////////// */ 
-
-    /* BiWeeklyCycleConversion */
+    
+    // BiWeeklyCycleConversion
     it('#getConstantSumWithBiWeeklyConversion with undefined input should return 0', () => {
         expect(service.getConstantSumWithBiWeeklyConversion(undefined)).toEqual(0);
     });
@@ -860,7 +859,7 @@ describe('Calculate Service', () => {
         .toEqual(0);
     });
 
-    /* MonthlyConversion */
+    // MonthlyConversion
     it('#getConstantSumWithMonthlyConversion with undefined input should return 0', () => {
         expect(service.getConstantSumWithMonthlyConversion(undefined)).toEqual(0);
     });
@@ -892,7 +891,7 @@ describe('Calculate Service', () => {
         .toEqual(0);
     });
 
-    /* AnnallyConversion */
+    // AnnallyConversion
     it('#getConstantSumWithAnnallyConversion with undefined input should return 0', () => {
         expect(service.getConstantSumWithAnnallyConversion(undefined)).toEqual(0);
     });

@@ -16,7 +16,9 @@ export class CalculateService {
     /*                 UTILITY               */
     /* ///////////////////////////////////// */
     
-    /* floor to cent, since there no currency for 1/10 of cent */
+    /* floor to cent, since there no currency for 1/10 of cent .        */
+    /* due to this being use frequently in a lot of the sub methods,    */
+    /* the acurracy of the between caculation is off by 10 cents        */
     public roundToCents(input: number): number {
       return Math.floor(input * 100) / 100;
     }
@@ -172,7 +174,7 @@ export class CalculateService {
             // annally
             if (items[i].cycle === CalCycle.ANNALLY) {
                 const month = items[i].affectiveMonth[0];
-                if (this.isWeekFirstOfMonth(month, biWeekOfYear)) {
+                if (this.isWeekFirstOfMonth(biWeekOfYear, month)) {
                     balance += items[i].amount;
                 }
             }
@@ -265,6 +267,8 @@ export class CalculateService {
               value: balance
             };
             output.push(displayItem);
+
+            console.log(output);
         }                          
         return output;
     }
