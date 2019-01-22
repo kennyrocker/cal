@@ -76,7 +76,7 @@ export class CalDataService {
           {
             id: 2223512,
             name : 'auto matainence',
-            amount : -270,
+            amount : 100,
             cycle : CalCycle.MONTHLY,
             affectiveMonth : [3, 8, 12]
           },

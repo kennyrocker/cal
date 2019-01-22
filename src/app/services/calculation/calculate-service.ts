@@ -25,13 +25,16 @@ export class CalculateService {
       return !calData.constantIncome && !calData.constantExpense && !calData.periodicalVarible;
     }
 
-    public isMonthBelongInBiweeklyCycle(week: number, month: number): boolean {
+    public isBiWeeklyCycleBelongToTheMonth(week: number, month: number): boolean {
         // 30.41 days = 1 month
         // 1 biweek = 14 days
         // to see if the by week include in the month
         //  1  2  3  4  5  6  7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
         // 14 28 42 56 70 84 98 112 126 140 154 168 182 196 210 224 238 252 266 280 294 308 322 336 350 364
-        // 30.41 60.82 91.23 121.64 152.05 182.46 212.87 243.28 273.69 304.10 334.51 364.92  
+        // 30.41 60.82 91.23 121.64 152.05 182.46 212.87 243.28 273.69 304.10 334.51 364.92
+        
+        // each year there is 2 month of 3 weeks with bi weekly cycle
+        // default 3 weeks months to 7 and 12
         let biWeeklyDayOfYear = week * 14;
         let monthlyDayOfYear = month * 365 / 12;
         let previousMonthEndDayOfYear = ((month - 1) < 0) ? (365 / 12) : (month - 1) * (365 / 12);
@@ -158,8 +161,11 @@ export class CalculateService {
             if (items[i].cycle === CalCycle.MONTHLY) {
                 for (let j = 0; j < items[i].affectiveMonth.length; j++) {
                    const month = items[i].affectiveMonth[j];
-                   if (this.isMonthBelongInBiweeklyCycle(month, biWeekOfYear)) {
-                        balance += (items[i].amount * 12 / 26);
+                   if (this.isBiWeeklyCycleBelongToTheMonth(biWeekOfYear, month)) {
+                        // each year there is 2 month of 3 weeks with bi weekly cycle
+                        // default 3 weeks months to 7 and 12
+                        const itemAmount = (month === 7 || month === 12) ? (items[i].amount / 3) : (items[i].amount / 2);
+                        balance += itemAmount;
                    }
                 }
             }
@@ -232,7 +238,6 @@ export class CalculateService {
         return output;
     }
 
-    // TODO:: fix balance off, test needed
     public getBiWeeklyProjection(initBalance: number, startingWeekOfYear: number,
                                  numberOfWeeks: number, calData: CalData): DisplayItem[] {
         
@@ -260,7 +265,6 @@ export class CalculateService {
               value: balance
             };
             output.push(displayItem);
-
         }                          
         return output;
     }

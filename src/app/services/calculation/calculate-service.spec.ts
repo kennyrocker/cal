@@ -613,6 +613,164 @@ describe('Calculate Service', () => {
     ];
 
 
+    const fullBiWeekNoPeriodicInput = {
+        constantIncome : [
+            {
+                id: 2323523,
+                name: 'income1',
+                amount: 100,
+                cycle: CalCycle.MONTHLY
+            },
+            {
+             id: 2323529,
+             name: 'income2',
+             amount: 200,
+             cycle: CalCycle.MONTHLY
+            }
+         ],
+         constantExpense: [
+             {
+                 id: 2223521,
+                 name :  'expense1',
+                 amount : 100,
+                 cycle : CalCycle.MONTHLY
+               },
+               {
+                 id: 2223522,
+                 name : 'expense2',
+                 amount : 100,
+                 cycle : CalCycle.MONTHLY
+               },
+               {
+                 id: 2225652,
+                 name : 'expense3',
+                 amount : 100,
+                 cycle : CalCycle.MONTHLY
+               }
+         ]
+    };
+
+    const fullBiWeekNoPeriodicOutput = [
+        {
+            name: '1',
+            value: 0
+        },
+        {
+            name: '2',
+            value: 0
+        },
+        {
+            name: '3',
+            value: 0
+        },
+        {
+            name: '4',
+            value: 0
+        },
+    ];
+
+    const biWeeklyNoConstantOutput = [
+        {
+            name: '1',
+            value: 250
+        },
+        {
+            name: '2',
+            value: 200
+        },
+        {
+            name: '3',
+            value: 150
+        },
+        {
+            name: '4',
+            value: 100
+        },{
+            name: '5',
+            value: 50
+        },
+        {
+            name: '6',
+            value: 0
+        },
+        {
+            name: '7',
+            value: 0
+        },
+        {
+            name: '8',
+            value: 0
+        },
+        {
+            name: '9',
+            value: 0
+        },
+    ];
+
+    const fullBiWeekNoPeriodicInput2 = {
+        constantIncome : [
+            {
+                id: 2323523,
+                name: 'income1',
+                amount: 100,
+                cycle: CalCycle.ANNALLY
+            },
+            {
+             id: 2323529,
+             name: 'income2',
+             amount: 200,
+             cycle: CalCycle.BIWEEKLY
+            }
+         ],
+         constantExpense: [
+             {
+                 id: 2223521,
+                 name :  'expense1',
+                 amount : 100,
+                 cycle : CalCycle.ANNALLY
+               },
+               {
+                 id: 2223522,
+                 name : 'expense2',
+                 amount : 100,
+                 cycle : CalCycle.BIWEEKLY
+               },
+               {
+                 id: 2225652,
+                 name : 'expense3',
+                 amount : 100,
+                 cycle : CalCycle.BIWEEKLY
+               }
+         ]
+    };
+
+    const biWeeklyNoConstantInput = {
+
+        periodicalVarible: [
+          {
+            id: 2223512,
+            name : 'p1',
+            amount : -100,
+            cycle : CalCycle.MONTHLY,
+            affectiveMonth : [1, 2, 3]
+          },
+          {
+            id: 2223522,
+            name : 'p2',
+            amount : 300,
+            cycle : CalCycle.ANNALLY,
+            affectiveMonth : [4]
+          },
+          {
+            id: 2223522,
+            name : 'p2',
+            amount : 300,
+            cycle : CalCycle.ANNALLY,
+            affectiveMonth : [1]
+          }
+        ]
+    };
+
     // Setup
     let service: CalculateService;
 
@@ -641,28 +799,28 @@ describe('Calculate Service', () => {
         expect(service.roundToCents(1245.49934)).toEqual(1245.49);
     });
 
-    it('#isMonthBelongInBiweeklyCycle with 1 as week and 1 as month should return true', () => {
-        expect(service.isMonthBelongInBiweeklyCycle(1, 1)).toBeTruthy();
+    it('#isBiWeeklyCycleBelongToTheMonth with 1 as week and 1 as month should return true', () => {
+        expect(service.isBiWeeklyCycleBelongToTheMonth(1, 1)).toBeTruthy();
     });
 
-    it('#isMonthBelongInBiweeklyCycle with 2 as week and 1 as month should return true', () => {
-        expect(service.isMonthBelongInBiweeklyCycle(2, 1)).toBeTruthy();
+    it('#isBiWeeklyCycleBelongToTheMonth with 2 as week and 1 as month should return true', () => {
+        expect(service.isBiWeeklyCycleBelongToTheMonth(2, 1)).toBeTruthy();
     });
 
-    it('#isMonthBelongInBiweeklyCycle with 2 as week and 2 as month should return false', () => {
-        expect(service.isMonthBelongInBiweeklyCycle(2, 2)).toBeFalsy();
+    it('#isBiWeeklyCycleBelongToTheMonth with 2 as week and 2 as month should return false', () => {
+        expect(service.isBiWeeklyCycleBelongToTheMonth(2, 2)).toBeFalsy();
     });
 
-    it('#isMonthBelongInBiweeklyCycle with 26 as week and 12 as month should return true', () => {
-        expect(service.isMonthBelongInBiweeklyCycle(26, 12)).toBeTruthy();
+    it('#isBiWeeklyCycleBelongToTheMonth with 26 as week and 12 as month should return true', () => {
+        expect(service.isBiWeeklyCycleBelongToTheMonth(26, 12)).toBeTruthy();
     });
 
-    it('#isMonthBelongInBiweeklyCycle with 25 as week and 12 as month should return true', () => {
-        expect(service.isMonthBelongInBiweeklyCycle(25, 12)).toBeTruthy();
+    it('#isBiWeeklyCycleBelongToTheMonth with 25 as week and 12 as month should return true', () => {
+        expect(service.isBiWeeklyCycleBelongToTheMonth(25, 12)).toBeTruthy();
     });
 
-    it('#isMonthBelongInBiweeklyCycle with 24 as week and 12 as month should return true', () => {
-        expect(service.isMonthBelongInBiweeklyCycle(24, 12)).toBeTruthy();
+    it('#isBiWeeklyCycleBelongToTheMonth with 24 as week and 12 as month should return true', () => {
+        expect(service.isBiWeeklyCycleBelongToTheMonth(24, 12)).toBeTruthy();
     });
 
 
@@ -847,6 +1005,28 @@ describe('Calculate Service', () => {
 
     it('#getAnnallyProjection with fullAnnalNoConstantExpenseInput and numberOfYears of 4 input should return fullAnnalNoConstantExpenseOutput', () => {
         expect(service.getAnnallyProjection(0, 4, fullAnnalNoConstantExpenseInput)).toEqual(fullAnnalNoConstantExpenseOutput);
+    });
+
+    // BiWeekly Projection
+
+    it('#getBiWeeklyProjection with empty object input should return empty array', () => {
+        expect(service.getBiWeeklyProjection(0, 1, 26, {})).toEqual([]);
+    });
+
+    it('#getBiWeeklyProjection with 0 numberOfWeeks input should return empty array', () => {
+        expect(service.getBiWeeklyProjection(0, 1, 0, {})).toEqual([]);
+    });
+
+    it('#getBiWeeklyProjection with fullBiWeekNoPeriodicInput and numberOfWeeks of 4 input should return fullBiWeekNoPeriodicOutput', () => {
+        expect(service.getBiWeeklyProjection(0, 1, 4, fullBiWeekNoPeriodicInput)).toEqual(fullBiWeekNoPeriodicOutput);
+    });
+
+    it('#getBiWeeklyProjection with fullBiWeekNoPeriodicInput2 and numberOfWeeks of 4 input should return fullBiWeekNoPeriodicOutput', () => {
+        expect(service.getBiWeeklyProjection(0, 1, 4, fullBiWeekNoPeriodicInput2)).toEqual(fullBiWeekNoPeriodicOutput);
+    });
+
+    it('#getBiWeeklyProjection with biWeeklyNoConstantInput and numberOfWeeks of 9  and biWeeklyNoConstantInput input should return biWeeklyNoConstantOutput', () => {
+        expect(service.getBiWeeklyProjection(0, 1, 9, biWeeklyNoConstantInput)).toEqual(biWeeklyNoConstantOutput);
     });
 
 });
