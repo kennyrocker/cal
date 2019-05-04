@@ -4,6 +4,10 @@ import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 import { format } from 'url';
 
+import { Store } from '@ngrx/store';
+import * as reducerRoot from '../../reducers/index';
+import { DeletePeriodicalVariableItemAction } from 'src/app/actions/calData.action';
+
 @Component({
   selector: 'app-periodic-item-component',
   templateUrl: './periodic-item-component.component.html',
@@ -22,7 +26,7 @@ export class PeriodicItemComponentComponent implements OnInit {
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
 
-  constructor() {
+  constructor(public store: Store<reducerRoot.CalDataState>) {
     this.cycle = MapperUtil.EnumMapToArray(this.calCycleEnum);
   }
 
@@ -34,6 +38,10 @@ export class PeriodicItemComponentComponent implements OnInit {
     if (this.itemData.affectiveMonth) {
       this.affectiveMonth = MapperUtil.FormatAffectiveMonth(this.itemData.affectiveMonth);
     }
+  }
+
+  public removeItem(): void {
+    this.store.dispatch(new DeletePeriodicalVariableItemAction(this.itemData.id));
   }
 
 }

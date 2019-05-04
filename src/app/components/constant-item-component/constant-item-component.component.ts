@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -13,7 +13,7 @@ import * as reducerRoot from '../../reducers/index';
 import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+
 
 @Component({
   selector: 'app-constant-item-component',
@@ -52,6 +52,9 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.nameChangeSub.unsubscribe();
+    this.amountChangeSub.unsubscribe();
+    this.cycleChangeSub.unsubscribe();
   }
 
   private initSub(): void {
@@ -144,6 +147,11 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
       cycle: cycle
     };
     this.store.dispatch(new UpdateConstantExpenseItemAction(payload));
+  }
+
+  // performance boost
+  public trackByItem(index, item): any {
+    return item ? item.id : undefined;
   }
 
 }

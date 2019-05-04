@@ -6,7 +6,7 @@
   <!-- constant income -->
   <div *ngIf="groupType === group.CONSTANT_INCOME &&
         groupData && groupData.length > 0" class="group-items">
-        <div *ngFor="let item of groupData">
+        <div *ngFor="let item of groupData; trackBy: trackByItem">
                 <app-constant-item-component [itemData]="item" [itemGroupType]="groupType">
                 </app-constant-item-component>
         </div>
@@ -14,7 +14,7 @@
   <!-- constant expense -->
   <div *ngIf="groupType === group.CONSTANT_EXPENSE &&
         groupData && groupData.length > 0" class="group-items">
-        <div *ngFor="let item of groupData">
+        <div *ngFor="let item of groupData; trackBy: trackByItem">
                 <app-constant-item-component [itemData]="item" [itemGroupType]="groupType">
                 </app-constant-item-component>
         </div>
@@ -22,7 +22,7 @@
   <!-- periodic variable -->
   <div *ngIf="groupType === group.PERIODICAL_VARIBLE &&
         groupData && groupData.length > 0" class="group-items">
-        <div *ngFor="let item of groupData">
+        <div *ngFor="let item of groupData; trackBy: trackByItem">
                 <app-periodic-item-component [itemData]="item" [itemGroupType]="groupType">
                 </app-periodic-item-component>
         </div>
