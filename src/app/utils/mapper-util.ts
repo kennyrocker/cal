@@ -4,7 +4,7 @@ export class MapperUtil {
         return Object.keys(data)
         .filter(n => !isNaN(Number(n)))
         .map(
-            item => ( {key: data[item], value: item} )
+            item => ( {key: MapperUtil.formateKeyString(data[item]) , value: item} )
         );
     }
 
@@ -15,4 +15,9 @@ export class MapperUtil {
         });
         return nm;
     }
+
+    private static formateKeyString(description: string): string {
+        return description.replace(/_/g, ' ');
+    }
+
 }

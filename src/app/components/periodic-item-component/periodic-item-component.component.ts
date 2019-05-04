@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
-import { CalCycle } from 'src/app/constants/enums/cal-cycle';
+import { CalCycle, PeriodCalCycleUI } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 import { format } from 'url';
 
@@ -16,7 +16,7 @@ import { DeletePeriodicalVariableItemAction } from 'src/app/actions/calData.acti
 export class PeriodicItemComponentComponent implements OnInit {
 
   public groupType = InputGroup;
-  private calCycleEnum = CalCycle;
+  private calCycleEnum = PeriodCalCycleUI;
   public cycle = [];
 
   public affectiveMonth: string;
