@@ -5,7 +5,7 @@ import { MapperUtil } from 'src/app/utils/mapper-util';
 import { format } from 'url';
 
 import { Store } from '@ngrx/store';
-import * as reducerRoot from '../../reducers/index';
+import * as reducerRoot from '../../../../reducers/index';
 import { DeletePeriodicalVariableItemAction } from 'src/app/actions/calData.action';
 
 @Component({

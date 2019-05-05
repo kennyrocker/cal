@@ -9,7 +9,7 @@ import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { debounce } from 'rxjs/internal/operators/debounce';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 
-import * as reducerRoot from '../../reducers/index';
+import * as reducerRoot from '../../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';

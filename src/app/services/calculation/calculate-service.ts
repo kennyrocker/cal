@@ -196,6 +196,8 @@ export class CalculateService {
         let output: DisplayItem[] = [];
         let balance = initBalance ? initBalance : 0;
 
+        console.log('A', balance);
+
         let monthlyIncomeBalance = this.getConstantSumWithMonthlyConversion(calData.constantIncome);
         let monthlyExpenseBalance = this.getConstantSumWithMonthlyConversion(calData.constantExpense);
         let monthlyConstantBalance = monthlyIncomeBalance - monthlyExpenseBalance;
@@ -206,10 +208,11 @@ export class CalculateService {
                 month = i % CalCycle.MONTHLY;
             }
             let cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVarible, month);
-            balance +=  this.roundToCents(monthlyConstantBalance + cyclePeriodicBalance);
+            balance = this.roundToCents(balance) + this.roundToCents(monthlyConstantBalance + cyclePeriodicBalance);
+            console.log(balance);
             let displayItem = {
                 name: month.toString(),
-                value: balance
+                value: this.roundToCents(balance)
             };
             output.push(displayItem);
         }

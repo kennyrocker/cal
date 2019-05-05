@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
-import * as reducerRoot from '../../reducers/index';
+import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { GetCalDataAction } from 'src/app/actions/calData.action';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
