@@ -81,26 +81,28 @@ export class CalculateService {
     }
 
     public getConstantSumWithMonthlyConversion(items: StandarItem[]): number {
-      if (!items || items.length === 0) return 0;
+      if (!items || items.length === 0) {
+          return 0;
+      }
       let total = 0;
       for (let i = 0;  i < items.length; i++) {
         if (items[i].cycle === CalCycle.BIWEEKLY) {
-          total += (items[i].amount * CalCycle.BIWEEKLY / CalCycle.MONTHLY );
+          total = parseFloat((total + (items[i].amount * CalCycle.BIWEEKLY / CalCycle.MONTHLY)).toString());
         }
         if (items[i].cycle === CalCycle.MONTHLY) {
-          total += items[i].amount;
+          total = parseFloat((total + items[i].amount).toString());
         }
         if (items[i].cycle === CalCycle.ANNALLY) {
-          total += (items[i].amount / CalCycle.MONTHLY);
+          total = parseFloat((total + (items[i].amount / CalCycle.MONTHLY)).toString());
         }
       }
       return this.roundToCents(total);
-    };
+    }
 
     public getConstantSumWithAnnallyConversion(items: StandarItem[]): number {
         if (!items || items.length === 0) return 0;
         let total = 0;
-        for (let i = 0; i < items.length; i++) { 
+        for (let i = 0; i < items.length; i++) {
             if (items[i].cycle === CalCycle.BIWEEKLY) {
                 total += (items[i].amount * CalCycle.BIWEEKLY );
             } 
@@ -186,31 +188,31 @@ export class CalculateService {
     /* ///////////////////////////////////// */
     /*         PROJECTION WITH CYCLE         */
     /* ///////////////////////////////////// */
-    
+
     public getMonthlyProjection(initBalance: number, startingMonthOfYear: number,
                                 numberOfMonths: number, calData: CalData): DisplayItem[] {
-        
-        if (this.isProjectionUnhandle(calData)) return [];
-        if (numberOfMonths < 1) return [];                        
 
-        let output: DisplayItem[] = [];
+        if (this.isProjectionUnhandle(calData)) {
+            return [];
+        }
+
+        if (numberOfMonths < 1) {
+            return [];
+        }
+
+        const output: DisplayItem[] = [];
         let balance = initBalance ? initBalance : 0;
-
-        console.log('A', balance);
-
-        let monthlyIncomeBalance = this.getConstantSumWithMonthlyConversion(calData.constantIncome);
-        let monthlyExpenseBalance = this.getConstantSumWithMonthlyConversion(calData.constantExpense);
-        let monthlyConstantBalance = monthlyIncomeBalance - monthlyExpenseBalance;
-        
+        const monthlyIncomeBalance = this.getConstantSumWithMonthlyConversion(calData.constantIncome);
+        const monthlyExpenseBalance = this.getConstantSumWithMonthlyConversion(calData.constantExpense);
+        const monthlyConstantBalance = parseFloat((monthlyIncomeBalance - monthlyExpenseBalance).toString());
         for (let i = startingMonthOfYear; i < (startingMonthOfYear + numberOfMonths); i++) {
             let month = i;
             if (i > CalCycle.MONTHLY) {
                 month = i % CalCycle.MONTHLY;
             }
-            let cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVarible, month);
-            balance = this.roundToCents(balance) + this.roundToCents(monthlyConstantBalance + cyclePeriodicBalance);
-            console.log(balance);
-            let displayItem = {
+            const cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVarible, month);
+            balance = parseFloat((balance + monthlyConstantBalance + cyclePeriodicBalance).toString());
+            const displayItem = {
                 name: month.toString(),
                 value: this.roundToCents(balance)
             };
