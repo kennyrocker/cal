@@ -15,7 +15,6 @@ import { DeletePeriodicalVariableItemAction } from 'src/app/actions/calData.acti
 })
 export class PeriodicItemComponentComponent implements OnInit {
 
-  public groupType = InputGroup;
   private calCycleEnum = PeriodCalCycleUI;
   public cycle = [];
 

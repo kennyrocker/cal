@@ -133,8 +133,8 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
     const payload = {
       id: this.itemData.id,
       name: name,
-      amount: amount,
-      cycle: cycle
+      amount: Number(amount),
+      cycle: Number(cycle)
     };
     this.store.dispatch(new UpdateConstantIncomeItemAction(payload));
   }
@@ -143,8 +143,8 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
     const payload = {
       id: this.itemData.id,
       name: name,
-      amount: amount,
-      cycle: cycle
+      amount: Number(amount),
+      cycle: Number(cycle)
     };
     this.store.dispatch(new UpdateConstantExpenseItemAction(payload));
   }

@@ -18,10 +18,6 @@ import { CalculateService } from '../../services/calculation/calculate-service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Dev Only, Remove in production
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-
 
 @NgModule({
     declarations: [
@@ -30,9 +26,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     imports: [
         BrowserModule,
         StoreModule.forRoot(reducer),
-        StoreDevtoolsModule.instrument({
-            maxAge: 10
-        }),
         EffectsModule.forFeature([CalDataEffects]),
         NgxChartsModule,
         BrowserAnimationsModule

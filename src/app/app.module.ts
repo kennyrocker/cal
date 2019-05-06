@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 // Ngrx
 import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/app/reducers';
+import { CalDataEffects } from 'src/app/effects/calData.effect';
+import { EffectsModule } from '@ngrx/effects';
 
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { CalDataEffects } from 'src/app/effects/calData.effect';
-import { EffectsModule } from '@ngrx/effects';
+
 
 // modules
 import { DisplayModule } from 'src/app/modules/display/app.display.module';

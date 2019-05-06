@@ -781,22 +781,22 @@ describe('Calculate Service', () => {
 
     /* ///////////////////////////////////// */
     /*                ROUNDING               */
-    /* ///////////////////////////////////// */ 
+    /* ///////////////////////////////////// */
 
     it('#roundToCents with 0 should return 0', () => {
-        expect(service.roundToCents(0)).toEqual(0);
+        expect(CalculateService.roundToCents(0)).toEqual(0);
     });
 
     it('#roundToCents with 45.499 should return 45.49', () => {
-        expect(service.roundToCents(45.499)).toEqual(45.49);
+        expect(CalculateService.roundToCents(45.499)).toEqual(45.49);
     });
 
     it('#roundToCents with 1245.49434 should return 1245.49', () => {
-        expect(service.roundToCents(1245.49434)).toEqual(1245.49);
+        expect(CalculateService.roundToCents(1245.49434)).toEqual(1245.49);
     });
 
     it('#roundToCents with 1245.49934 should return 1245.49', () => {
-        expect(service.roundToCents(1245.49934)).toEqual(1245.49);
+        expect(CalculateService.roundToCents(1245.49934)).toEqual(1245.49);
     });
 
     it('#isBiWeeklyCycleBelongToTheMonth with 1 as week and 1 as month should return true', () => {
@@ -825,8 +825,8 @@ describe('Calculate Service', () => {
 
     /* ///////////////////////////////////// */
     /*               CONVERSION              */
-    /* ///////////////////////////////////// */ 
-    
+    /* ///////////////////////////////////// */
+
     // BiWeeklyCycleConversion
     it('#getConstantSumWithBiWeeklyConversion with undefined input should return 0', () => {
         expect(service.getConstantSumWithBiWeeklyConversion(undefined)).toEqual(0);
@@ -841,17 +841,17 @@ describe('Calculate Service', () => {
     });
 
     it('#getConstantSumWithBiWeeklyConversion with constantStandarItemMONTHLY input should expect toatl of 300 * 12 / 26', () => {
-        expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemMONTHLY)).toEqual(service.roundToCents(300 * 12 / 26));
+        expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemMONTHLY)).toEqual(CalculateService.roundToCents(300 * 12 / 26));
     });
 
     it('#getConstantSumWithBiWeeklyConversion with constantStandarItemANNALLY input should expect toatl of 300 / 26', () => {
-        expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemANNALLY)).toEqual(service.roundToCents(300 / 26));
+        expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemANNALLY)).toEqual(CalculateService.roundToCents(300 / 26));
     });
 
     it('#getConstantSumWithBiWeeklyConversion with constantStandarItemMixCycle input'
         + 'should expect toatl of 100.5 + (100.49 * 12 / 26) + (100.51 / 26)', () => {
         expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemMixCycle))
-        .toEqual(service.roundToCents(100.5 + (100.49 * 12 / 26) + (100.51 / 26)));
+        .toEqual(CalculateService.roundToCents(100.5 + (100.49 * 12 / 26) + (100.51 / 26)));
     });
 
     it('#getConstantSumWithBiWeeklyConversion with constantStandarItemEmpty input should expect toatl of 0', () => {
@@ -873,7 +873,7 @@ describe('Calculate Service', () => {
     });
 
     it('#getConstantSumWithMonthlyConversion with constantStandarItemBIWEEKLY input should expect toatl of 301.5 * 26 / 12', () => {
-        expect(service.getConstantSumWithMonthlyConversion(constantStandarItemBIWEEKLY)).toEqual(service.roundToCents(301.5 * 26 / 12));
+        expect(service.getConstantSumWithMonthlyConversion(constantStandarItemBIWEEKLY)).toEqual(CalculateService.roundToCents(301.5 * 26 / 12));
     });
 
     it('#getConstantSumWithMonthlyConversion with constantStandarItemANNALLY input should expect toatl of 300 / 12', () => {
@@ -883,7 +883,7 @@ describe('Calculate Service', () => {
     it('#getConstantSumWithMonthlyConversion with constantStandarItemMixCycle input'
         + 'should expect toatl of 100.49 + (100.5 * 26 / 12) + (100.51 / 12)', () => {
         expect(service.getConstantSumWithMonthlyConversion(constantStandarItemMixCycle))
-        .toEqual(service.roundToCents(100.49 + (100.5 * 26 / 12) + (100.51 / 12)));
+        .toEqual(CalculateService.roundToCents(100.49 + (100.5 * 26 / 12) + (100.51 / 12)));
     });
 
     it('#getConstantSumWithMonthlyConversion with constantStandarItemEmpty input should expect toatl of 0', () => {
@@ -905,19 +905,19 @@ describe('Calculate Service', () => {
     });
 
     it('#getConstantSumWithAnnallyConversion with constantStandarItemBIWEEKLY input should expect toatl of 301.5 * 26', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemBIWEEKLY)).toEqual(service.roundToCents(301.5 * 26));
+        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemBIWEEKLY)).toEqual(CalculateService.roundToCents(301.5 * 26));
     });
 
     it('#getConstantSumWithAnnallyConversion with constantStandarItemMONTHLY input should expect toatl of 300 * 12', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemMONTHLY)).toEqual(service.roundToCents(300 * 12));
+        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemMONTHLY)).toEqual(CalculateService.roundToCents(300 * 12));
     });
 
     it('#getConstantSumWithAnnallyConversion with constantStandarItemMixCycle input should expect toatl of (100.49 * 12) + 100.51 + (100.5 * 26)', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemMixCycle)).toEqual(service.roundToCents((100.49 * 12) + 100.51 + (100.5 * 26)));
+        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemMixCycle)).toEqual(CalculateService.roundToCents((100.49 * 12) + 100.51 + (100.5 * 26)));
     });
 
     it('#getConstantSumWithAnnallyConversion with constantStandarItemMixCycle input should expect toatl of 0', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemEmpty)).toEqual(service.roundToCents(0));
+        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemEmpty)).toEqual(CalculateService.roundToCents(0));
     });
 
     /* ///////////////////////////////////// */
