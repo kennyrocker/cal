@@ -38,9 +38,9 @@ export class DisplayContainerComponent implements OnInit {
     this.store.select(reducerRoot.getCalData).pipe(
       map((calData) => {
         // biweekly
-        this.monthlyData = this.calService.getBiWeeklyProjection(0, 1, 26, calData);
+        //this.monthlyData = this.calService.getBiWeeklyProjection(0, 1, 26, calData);
         // monthly
-        //this.monthlyData = this.calService.getMonthlyProjection(0, 1, 12, calData);
+        this.monthlyData = this.calService.getMonthlyProjection(0, 1, 12, calData);
         // annally
         //this.monthlyData = this.calService.getAnnallyProjection(0, 1, calData);
       })

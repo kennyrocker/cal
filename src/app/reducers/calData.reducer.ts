@@ -21,8 +21,10 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
             };
 
         case CalDataActionTypes.UpdatePeriodicalVariableItem :
-        // TODO:: logic
-        return state;
+            return {
+                ...state,
+                periodicalVarible: state.periodicalVarible.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
+            };
 
         case CalDataActionTypes.UpdateStaticVariableItem :
         // TODO:: logic

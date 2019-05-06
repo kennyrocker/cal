@@ -1,10 +1,10 @@
 <div class="periodic-item">
-    <label for="">{{itemData.name}}</label>
-    <input type="text" value="{{itemData.amount}}"/>
-    <select [value]="itemData.cycle">
+    <input #name type="text" value="{{itemData.name}}" (keyup)="bindNameChangeSubject(name.value)"/>
+    <input #amount type="text" value="{{itemData.amount}}" (keyup)="bindAmountChangeSubject(amount.value)"/>
+    <select #amountCycle [value]="itemData.cycle" (change)=bindCycleChangeSubject(amountCycle.value)>
       <option [value]="item.value" *ngFor="let item of cycle">
         {{item.key}}</option>
-    </select>    
-    <input type="text" value="{{affectiveMonth}}"/>
+    </select>
+    <input #month type="text" value="{{affectiveMonth}}" (keyup)="bindMonthChangeSubject(month.value)"/>
     <span class="close-x" (click)="removeItem()">x</span>
 </div>
