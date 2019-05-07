@@ -10,6 +10,7 @@ import { debounceTime} from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { Subject, Subscription } from 'rxjs';
 import { PeriodicItem } from '../../../../constants/interfaces/periodic-item';
+import { Constant } from '../../../../constants/constant';
 
 @Component({
   selector: 'app-periodic-item-component',
@@ -17,8 +18,6 @@ import { PeriodicItem } from '../../../../constants/interfaces/periodic-item';
   styleUrls: ['./periodic-item-component.component.css']
 })
 export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
-
-  DEBOUNCE_TIME = 1000;
 
   private nameChangeSub: Subscription;
   private nameChangeSubject = new Subject<any>();
@@ -57,27 +56,27 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   private initSub(): void {
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
-      debounceTime(this.DEBOUNCE_TIME),
+      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
       this.nameChange(value);
     });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
-      debounceTime(this.DEBOUNCE_TIME)
+      debounceTime(Constant.INPUT_DEBOUNCE_TIME)
     ).subscribe((value) => {
       this.amountChange(value);
     });
 
     this.cycleChangeSub = this.cycleChangeSubject.pipe(
-      debounceTime(this.DEBOUNCE_TIME),
+      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
       this.cycleChange(value);
     });
 
     this.monthChangeSub = this.monthChangeSubject.pipe(
-      debounceTime(this.DEBOUNCE_TIME),
+      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
       this.monthChange(value);

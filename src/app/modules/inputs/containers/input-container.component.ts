@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { GetCalDataAction } from 'src/app/actions/calData.action';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-input-container',
@@ -15,6 +16,7 @@ import { map } from 'rxjs/operators';
 })
 export class InputContainerComponent implements OnInit, OnDestroy {
 
+  private sub: Subscription;
   public groupType = InputGroup;
   private data: CalData;
 
@@ -23,8 +25,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // TODO :: make sure this only happen once, and unsubcribe this on destory
-    this.store.select(reducerRoot.getCalData).pipe(
+    this.sub = this.store.select(reducerRoot.getCalData).pipe(
       map((calData) => {
         this.data = calData;
       })
@@ -32,7 +33,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // unsubscribe
+    this.sub.unsubscribe();
   }
 
 }

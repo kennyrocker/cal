@@ -10,6 +10,7 @@ import * as reducerRoot from '../../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';
+import { Constant } from '../../../../constants/constant';
 
 
 @Component({
@@ -18,8 +19,6 @@ import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
   styleUrls: ['./constant-item-component.component.css']
 })
 export class ConstantItemComponentComponent implements OnInit, OnDestroy {
-
-  DEBOUNCE_TIME = 1000;
 
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;
@@ -57,20 +56,20 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
   private initSub(): void {
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
-                              debounceTime(this.DEBOUNCE_TIME),
+                              debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                               distinctUntilChanged()
                           ).subscribe((value) => {
                               this.nameChange(value);
                           });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
-                              debounceTime(this.DEBOUNCE_TIME)
+                              debounceTime(Constant.INPUT_DEBOUNCE_TIME)
                           ).subscribe((value) => {
                               this.amountChange(value);
                           });
 
     this.cycleChangeSub = this.cycleChangeSubject.pipe(
-                            debounceTime(this.DEBOUNCE_TIME),
+                            debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                             distinctUntilChanged()
                         ).subscribe((value) => {
                             this.cycleChange(value);
