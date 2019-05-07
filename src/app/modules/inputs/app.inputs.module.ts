@@ -10,7 +10,6 @@ import { EffectsModule } from '@ngrx/effects';
 // Components and Containers
 import { QuickInputComponentComponent } from './components/quick-input-component/quick-input-component.component';
 import { PeriodicItemComponentComponent } from './components/periodic-item-component/periodic-item-component.component';
-import { InputGroupComponentComponent } from './components/input-group-component/input-group-component.component';
 import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
 import { InputContainerComponent } from './containers/input-container.component';
 
@@ -24,7 +23,6 @@ import { CalculateService } from '../../services/calculation/calculate-service';
     declarations: [
         QuickInputComponentComponent,
         PeriodicItemComponentComponent,
-        InputGroupComponentComponent,
         ConstantItemComponentComponent,
         InputContainerComponent
     ],

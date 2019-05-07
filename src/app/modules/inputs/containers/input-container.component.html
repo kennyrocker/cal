@@ -1,11 +1,38 @@
 <div *ngIf="data">
-  <app-input-group-component [groupData]="data.constantIncome" [groupType]="groupType.CONSTANT_INCOME">
-  </app-input-group-component>
-  <app-input-group-component [groupData]="data.constantExpense" [groupType]="groupType.CONSTANT_EXPENSE">
-  </app-input-group-component>
-  <app-input-group-component [groupData]="data.periodicalVarible" [groupType]="groupType.PERIODICAL_VARIBLE">
-  </app-input-group-component>
-  <!--<app-input-group-component [groupData]="data.staticVariable" [groupType]="groupType.STATIC_VARIBLE">-->
-  <!--</app-input-group-component>-->
+
+  <section>
+    <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
+    <app-quick-input-component></app-quick-input-component>
+    <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
+      <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
+        <app-constant-item-component [itemData]="item" [itemGroupType]="groupType.CONSTANT_INCOME">
+        </app-constant-item-component>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="group-title">{{groupType.CONSTANT_EXPENSE}}</div>
+    <app-quick-input-component></app-quick-input-component>
+    <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
+      <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
+        <app-constant-item-component [itemData]="item" [itemGroupType]="groupType.CONSTANT_EXPENSE">
+        </app-constant-item-component>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="group-title">{{groupType.PERIODICAL_VARIBLE}}</div>
+    <app-quick-input-component></app-quick-input-component>
+    <div *ngIf="data.periodicalVarible && data.periodicalVarible.length > 0" class="group-items">
+      <div *ngFor="let item of data.periodicalVarible; trackBy: trackByItem">
+        <app-periodic-item-component [itemData]="item" [itemGroupType]="groupType.PERIODICAL_VARIBLE">
+        </app-periodic-item-component>
+      </div>
+    </div>
+  </section>
+
+  <!--TODO:: STATIC_VARIBLE-->
 </div>
 <div *ngIf="!data">...loading</div>

@@ -36,4 +36,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  // performance boost
+  public trackByItem(index, item): any {
+    return item ? item.id : undefined;
+  }
+
 }
