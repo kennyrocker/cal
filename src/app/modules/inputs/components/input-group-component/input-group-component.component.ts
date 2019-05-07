@@ -19,4 +19,8 @@ export class InputGroupComponentComponent implements OnInit {
   ngOnInit() {
   }
 
+  // performance boost
+  public trackByItem(index, item): any {
+    return item ? item.id : undefined;
+  }
 }

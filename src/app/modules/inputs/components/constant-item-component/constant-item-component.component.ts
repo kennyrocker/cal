@@ -2,11 +2,8 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
-
-import { FormControl } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { debounce } from 'rxjs/internal/operators/debounce';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 
 import * as reducerRoot from '../../../../reducers/index';
@@ -147,11 +144,6 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
       cycle: Number(cycle)
     };
     this.store.dispatch(new UpdateConstantExpenseItemAction(payload));
-  }
-
-  // performance boost
-  public trackByItem(index, item): any {
-    return item ? item.id : undefined;
   }
 
 }
