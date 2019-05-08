@@ -20,6 +20,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   public groupType = InputGroup;
   private data: CalData;
 
+
+  public addConstantIncome: boolean;
+
   constructor(public store: Store<reducerRoot.CalDataState>) {
     this.store.dispatch(new GetCalDataAction());
   }
