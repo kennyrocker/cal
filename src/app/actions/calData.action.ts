@@ -7,6 +7,9 @@ import { CalData } from 'src/app/constants/interfaces/cal-data';
 export enum CalDataActionTypes {
     GetCalData = '[Cal Data] Get',
     GetCalDataSuccess = '[Cal Data] Get Success',
+    AddConstantIncomeItem = '[Constant Income Item] Add',
+    AddConstantExpenseItem = '[Constant Expense Item] Add',
+    AddPeriodicalVariableItem = '[Perodical Variable Item] Add',
     UpdateConstantIncomeItem = '[Constant Income Item] Update',
     UpdateConstantExpenseItem = '[Constant Expense Item] Update',
     UpdatePeriodicalVariableItem = '[Perodical Variable Item] Update',
@@ -24,6 +27,21 @@ export class GetCalDataAction implements Action {
 export class GetCalDataSuccessAction implements Action {
     readonly type = CalDataActionTypes.GetCalDataSuccess;
     constructor(public payload: CalData) {}
+}
+
+export class AddConstantIncomeItemAction implements Action {
+    readonly type = CalDataActionTypes.AddConstantIncomeItem;
+    constructor() {}
+}
+
+export class AddConstantExpenseItemAction implements Action {
+    readonly type = CalDataActionTypes.AddConstantExpenseItem;
+    constructor() {}
+}
+
+export class AddPeriodicalVariableItemAction implements Action {
+    readonly type = CalDataActionTypes.AddPeriodicalVariableItem;
+    constructor() {}
 }
 
 export class UpdateConstantIncomeItemAction implements Action {
@@ -68,6 +86,8 @@ export class DeleteStaticVariableItemAction implements Action {
 
 export type CalDataActions = UpdateConstantIncomeItemAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
- | UpdateStaticVariableItemAction | GetCalDataAction | GetCalDataSuccessAction
+ | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
+ | AddConstantExpenseItemAction | AddPeriodicalVariableItemAction
+ | GetCalDataAction | GetCalDataSuccessAction
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction;

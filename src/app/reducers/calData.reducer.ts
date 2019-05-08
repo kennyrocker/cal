@@ -1,11 +1,40 @@
 import { CalDataActionTypes, CalDataActions } from '../actions/calData.action';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
+import { CalCycle } from 'src/app/constants/enums/cal-cycle';
+import { MapperUtil } from 'src/app/utils/mapper-util';
 
 const initalState: CalData = {};
 
 export function calDataReducer(state = initalState, action: CalDataActions) {
 
     switch (action.type) {
+        // ADD
+        case CalDataActionTypes.AddConstantIncomeItem :
+           return {
+                ...state,
+                constantIncome: [
+                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY },
+                     ...state.constantIncome
+                    ]
+            };
+
+        case CalDataActionTypes.AddConstantExpenseItem :
+            return {
+                ...state,
+                constantExpense: [
+                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY },
+                    ...state.constantExpense
+                    ]
+            };
+
+        case CalDataActionTypes.AddPeriodicalVariableItem :
+            return {
+                ...state,
+                periodicalVarible: [
+                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, affectiveMonth: [] },
+                    ...state.periodicalVarible
+                ]
+            };
 
         // UPDATE
         case CalDataActionTypes.UpdateConstantIncomeItem :

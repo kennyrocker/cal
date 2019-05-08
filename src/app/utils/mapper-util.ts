@@ -1,3 +1,5 @@
+import { Constant } from '../constants/constant';
+
 export class MapperUtil {
 
     public static EnumMapToArray(data: any): any[] {
@@ -18,6 +20,10 @@ export class MapperUtil {
 
     private static formateKeyString(description: string): string {
         return description.replace(/_/g, ' ');
+    }
+
+    public static generateRandomId() {
+        return Math.floor(Math.random() * Math.floor(Constant.MAX_ID_DIGIT));
     }
 
 }

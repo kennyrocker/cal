@@ -4,7 +4,7 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
-import { GetCalDataAction } from 'src/app/actions/calData.action';
+import { GetCalDataAction, AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction } from 'src/app/actions/calData.action';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,6 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   public groupType = InputGroup;
   private data: CalData;
-
 
   public addConstantIncome: boolean;
 
@@ -37,6 +36,18 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  public addConstantIncomeItem(): void {
+    this.store.dispatch(new AddConstantIncomeItemAction());
+  }
+
+  public addConstantExpenseItem(): void {
+    this.store.dispatch(new AddConstantExpenseItemAction());
+  }
+
+  public addPeriodicalVaribleItem(): void {
+    this.store.dispatch(new AddPeriodicalVariableItemAction());
   }
 
   // performance boost

@@ -3,12 +3,7 @@
   <section>
     <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
     <app-quick-input-component></app-quick-input-component>
-
-    <button (click)="addConstantIncome = !addConstantIncome">Add Constant Income Item</button>
-    <div *ngIf="addConstantIncome" class="group-items">
-      <app-constant-item-component [itemData]="" [itemGroupType]="groupType.CONSTANT_INCOME">
-      </app-constant-item-component>
-    </div>
+    <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
 
     <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
       <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
@@ -21,6 +16,7 @@
   <section>
     <div class="group-title">{{groupType.CONSTANT_EXPENSE}}</div>
     <app-quick-input-component></app-quick-input-component>
+    <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
     <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
       <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
         <app-constant-item-component [itemData]="item" [itemGroupType]="groupType.CONSTANT_EXPENSE">
@@ -32,6 +28,7 @@
   <section>
     <div class="group-title">{{groupType.PERIODICAL_VARIBLE}}</div>
     <app-quick-input-component></app-quick-input-component>
+    <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
     <div *ngIf="data.periodicalVarible && data.periodicalVarible.length > 0" class="group-items">
       <div *ngFor="let item of data.periodicalVarible; trackBy: trackByItem">
         <app-periodic-item-component [itemData]="item" [itemGroupType]="groupType.PERIODICAL_VARIBLE">
