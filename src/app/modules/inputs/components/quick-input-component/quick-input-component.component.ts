@@ -7,6 +7,7 @@ import * as reducerRoot from '../../../../reducers';
 import { Store } from '@ngrx/store';
 import { StandarItem } from '../../../../constants/interfaces/standar-item';
 import { MapperUtil } from '../../../../utils/mapper-util';
+import {BulkAddConstantIncomeItemAction} from '../../../../actions/calData.action';
 
 @Component({
   selector: 'app-quick-input-component',
@@ -33,7 +34,7 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
 
   private initSub(): void {
     this.inputChangeSub = this.inputChangeSubject.pipe(
-      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
+      debounceTime(Constant.QUICK_INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
         this.updateInputs(this.parseQuickInputStrings(value), this.itemGroupType);
@@ -67,20 +68,20 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
   }
 
   private mapStanderItems(arr: string[]): StandarItem[] {
-    if (arr && arr.length > 0) {
+    if (!arr || arr.length <= 0) {
       return [];
     }
     const output = [];
     arr.filter(x => x !== '' && x !== null )
        .map(item => {
-      output.push(MapperUtil.mapStanderItem(item));
-    });
+          output.push(MapperUtil.mapStanderItem(item));
+       });
     return output;
   }
 
   private updateConstantIncoms(incomes: StandarItem[]): void {
     if (incomes.length > 0) {
-      console.log(incomes);
+      this.store.dispatch(new BulkAddConstantIncomeItemAction(incomes));
     }
   }
 

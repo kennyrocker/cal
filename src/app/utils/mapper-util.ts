@@ -61,4 +61,34 @@ export class MapperUtil {
     };
   }
 
+  public static mergeRemoveDuplicateByKey(a1: any[], a2: any[], key: string): any[] {
+    const output = [];
+    const base = a1.concat(a2);
+
+    if (a1.length === 0) {
+      return a2;
+    }
+
+    if (a2.length === 0) {
+      return a1;
+    }
+
+    if (!key) {
+      return base;
+    }
+
+    const keys = [];
+    const reference = {};
+
+    base.map((i) => {
+      keys.push(i[key]);
+    });
+
+    keys.map((b, i) => {
+      reference[b] = reference[b] || output.push(base[i]);
+    });
+
+    return output;
+  }
+
 }

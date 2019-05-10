@@ -10,6 +10,9 @@ export enum CalDataActionTypes {
     AddConstantIncomeItem = '[Constant Income Item] Add',
     AddConstantExpenseItem = '[Constant Expense Item] Add',
     AddPeriodicalVariableItem = '[Perodical Variable Item] Add',
+    BulkAddConstantIncomeItem = '[Constant Income Item] Bulk Add',
+    BulkAddConstantExpenseItem = '[Constant Expense Item] Bulk Add',
+    BulkAddPeriodicalVariableItem = '[Perodical Variable Item] Bulk Add',
     UpdateConstantIncomeItem = '[Constant Income Item] Update',
     UpdateConstantExpenseItem = '[Constant Expense Item] Update',
     UpdatePeriodicalVariableItem = '[Perodical Variable Item] Update',
@@ -30,18 +33,33 @@ export class GetCalDataSuccessAction implements Action {
 }
 
 export class AddConstantIncomeItemAction implements Action {
-    readonly type = CalDataActionTypes.AddConstantIncomeItem;
-    constructor() {}
+  readonly type = CalDataActionTypes.AddConstantIncomeItem;
+  constructor() {}
 }
 
 export class AddConstantExpenseItemAction implements Action {
-    readonly type = CalDataActionTypes.AddConstantExpenseItem;
-    constructor() {}
+  readonly type = CalDataActionTypes.AddConstantExpenseItem;
+  constructor() {}
 }
 
 export class AddPeriodicalVariableItemAction implements Action {
-    readonly type = CalDataActionTypes.AddPeriodicalVariableItem;
-    constructor() {}
+  readonly type = CalDataActionTypes.AddPeriodicalVariableItem;
+  constructor() {}
+}
+
+export class BulkAddConstantIncomeItemAction implements Action {
+  readonly type = CalDataActionTypes.BulkAddConstantIncomeItem;
+  constructor(public payload: StandarItem[]) {}
+}
+
+export class BulkAddConstantExpenseItemAction implements Action {
+  readonly type = CalDataActionTypes.BulkAddConstantExpenseItem;
+  constructor(public payload: StandarItem[]) {}
+}
+
+export class BulkAddPeriodicalVariableItemAction implements Action {
+  readonly type = CalDataActionTypes.BulkAddPeriodicalVariableItem;
+  constructor() {}
 }
 
 export class UpdateConstantIncomeItemAction implements Action {
@@ -88,6 +106,7 @@ export type CalDataActions = UpdateConstantIncomeItemAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
  | AddConstantExpenseItemAction | AddPeriodicalVariableItemAction
- | GetCalDataAction | GetCalDataSuccessAction
+ | BulkAddConstantIncomeItemAction | BulkAddConstantExpenseItemAction
+ | BulkAddPeriodicalVariableItemAction | GetCalDataAction | GetCalDataSuccessAction
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction;
