@@ -113,13 +113,16 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   private monthChange(value: string): void {
-    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, this.parseMonthsToArray(value));
+    const months =  this.parseMonthsToUniqueArray(value);
+    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, months);
   }
 
-  private parseMonthsToArray(months: string): number[] {
-    return months ?
-      months.replace(/\s/g, '').split(',').map((i) => parseInt(i, 10))
-      : [];
+  private parseMonthsToUniqueArray(months: string): number[] {
+    if (!months) {
+      return [];
+    }
+    const m = months.replace(/\s/g, '').split(',').map((i) => parseInt(i, 10));
+    return MapperUtil.uniqueSingleKeyArry(m);
   }
 
   private updateItem(name: string, amount: number, cycle: PeriodCalCycleUI, affectiveMonth: number[]): void {

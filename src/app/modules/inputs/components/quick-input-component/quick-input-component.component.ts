@@ -7,7 +7,7 @@ import * as reducerRoot from '../../../../reducers';
 import { Store } from '@ngrx/store';
 import { StandarItem } from '../../../../constants/interfaces/standar-item';
 import { MapperUtil } from '../../../../utils/mapper-util';
-import {BulkAddConstantIncomeItemAction} from '../../../../actions/calData.action';
+import {BulkAddConstantIncomeItemAction, BulkAddConstantExpenseItemAction} from '../../../../actions/calData.action';
 
 @Component({
   selector: 'app-quick-input-component',
@@ -17,19 +17,34 @@ import {BulkAddConstantIncomeItemAction} from '../../../../actions/calData.actio
 export class QuickInputComponentComponent implements OnInit, OnDestroy {
 
   constructor(public store: Store<reducerRoot.CalDataState>) { }
-
+  // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
   public showQuickInput: boolean;
   private inputChangeSub: Subscription;
   private inputChangeSubject = new Subject<any>();
   public quickInput: string;
+  public placeHolder: string;
 
   ngOnInit() {
+    this.setupHintByInputType();
     this.initSub();
   }
 
   ngOnDestroy() {
     this.inputChangeSub.unsubscribe();
+  }
+
+  private setupHintByInputType(): void {
+    if (this.itemGroupType === InputGroup.CONSTANT_INCOME
+      || this.itemGroupType === InputGroup.CONSTANT_EXPENSE) {
+      this.placeHolder = 'Enter item with short cut for example "condo rental1000m" '
+          + '\n{ condo rental : name} { 1000 : amount } { m | a | b : monthly | annally | biweekly cycle}'
+          + '\nMultiple items can be enter seprated by comma such as "condo rental1000m, car lease250b"';
+    }
+    if (this.itemGroupType === InputGroup.PERIODICAL_VARIBLE) {
+      this.placeHolder = 'Enter item with short cut for example "property tax-500@2,8" '
+                      + '\n{ property tax : name} { -500 : amount } { 2, 8 : month of the year }';
+    }
   }
 
   private initSub(): void {
@@ -87,7 +102,7 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
 
   private updateConstantExpense(expenses: StandarItem[]): void {
     if (expenses.length > 0) {
-      console.log(expenses);
+      this.store.dispatch(new BulkAddConstantExpenseItemAction(expenses));
     }
   }
 

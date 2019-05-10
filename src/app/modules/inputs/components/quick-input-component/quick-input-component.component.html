@@ -1,7 +1,7 @@
 <div>
   <button (click)="showQuickInput = !showQuickInput">Quick Constant Income Inputs</button>
   <textarea *ngIf="showQuickInput" #input rows="5" class="quick-input"
-            placeholder="enter item name with spac to generate fomular item"
+            placeholder="{{placeHolder}}"
             value="{{quickInput}}"
             (keyup)="bindInputChangeSubject(input.value)"></textarea>
 </div>

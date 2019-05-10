@@ -17,6 +17,14 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
             ]
           };
 
+        case CalDataActionTypes.BulkAddConstantExpenseItem :
+            return {
+                ...state,
+                constantExpense: [
+                    ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, state.constantExpense, 'name')
+                ]
+            };
+
         case CalDataActionTypes.AddConstantIncomeItem :
            return {
                 ...state,
