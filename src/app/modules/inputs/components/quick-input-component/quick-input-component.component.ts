@@ -52,8 +52,11 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
       debounceTime(Constant.QUICK_INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
-        this.updateInputs(this.parseQuickInputStrings(value), this.itemGroupType);
-        this.quickInput = this.parseQuickInputStrings(value).join();
+        const m = this.parseQuickInputStrings(value);
+        const inputs = MapperUtil.uniqueSingleKeyArry(m);
+        console.log(m, inputs);
+        this.quickInput = inputs.join();
+        this.updateInputs(inputs, this.itemGroupType);
     });
   }
 
@@ -62,9 +65,13 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
   }
 
   private parseQuickInputStrings(input: string): string[] {
-    const output = input.split(',').filter(i => i !== '')
-      .map(i => i.replace(/^\s+|\s+$/g, ''));
-    return output ? output : [];
+    input = input.trim();
+    if (input.length > 0) {
+      const items = input.split(',');
+      return items.filter(i => i !== '' && i !== ' ')
+        .map(i => i.replace(/^\s+|\s+$/g, ''));
+    }
+    return [];
   }
 
   private updateInputs(arr: string[], itemGroupType: InputGroup): void {

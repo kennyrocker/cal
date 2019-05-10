@@ -1,6 +1,13 @@
 .header {
+  font-family: Arial, Helvetica, sans-serif;
   width: 100%;
+  box-sizing: border-box;
   text-align: center;
+}
+hr {
+  clear:both;
+  color: #000;
+  opacity: 0.2;
 }
 .title {
   font-family: Arial, Helvetica, sans-serif;
@@ -8,4 +15,19 @@
   font-size: 5rem;
   color: #000;
   text-align: center;
+}
+.footer {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  clear: both;
+}
+.copy-right {
+  text-align: center;
+  padding: 3rem 0rem 2rem 0rem;
+  color: #ccc;
+  font-size: 0.85rem;
+  font-weight: 100;
 }
