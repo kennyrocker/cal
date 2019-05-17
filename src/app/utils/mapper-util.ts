@@ -1,6 +1,7 @@
 import { Constant } from '../constants/constant';
 import { StanderItemCycleShortForm } from '../constants/enums/cal-cycle';
 import { StandarItem } from '../constants/interfaces/standar-item';
+import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 
 export class MapperUtil {
 
@@ -58,6 +59,33 @@ export class MapperUtil {
       name: name,
       amount: Number(amount),
       cycle: Number(cycle)
+    };
+  }
+
+  public static mapPeriodicItem(str: string): PeriodicItem {
+    if (!str) {
+      return null;
+    }
+    const digitRegex = /\d|\.|-/g;
+    const atRegex = /@/g;
+    const firstDigitIndex = str.search(digitRegex);
+    const atIndex = str.search(atRegex);
+    const name = str.substring(0, firstDigitIndex);
+    const amount = Number(str.substring(firstDigitIndex, atIndex));
+    const months = str.substring(atIndex + 1, str.length);
+    const monthsArr = months.split(',');
+    const cycle = months.length === 1 ? 1 : 12; // TODO:: might want to use Enum from input
+    const affectiveMonth = [];
+    monthsArr.map(x => {
+      affectiveMonth.push(Number(x));
+    });
+    console.log(affectiveMonth);
+    return {
+      id: MapperUtil.generateRandomId(),
+      name: name,
+      amount: Number(amount),
+      cycle: Number(cycle),
+      affectiveMonth: MapperUtil.uniqueSingleKeyArry(affectiveMonth)
     };
   }
 

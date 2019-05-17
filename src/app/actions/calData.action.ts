@@ -59,7 +59,7 @@ export class BulkAddConstantExpenseItemAction implements Action {
 
 export class BulkAddPeriodicalVariableItemAction implements Action {
   readonly type = CalDataActionTypes.BulkAddPeriodicalVariableItem;
-  constructor() {}
+  constructor(public payload: PeriodicItem[]) {}
 }
 
 export class UpdateConstantIncomeItemAction implements Action {
