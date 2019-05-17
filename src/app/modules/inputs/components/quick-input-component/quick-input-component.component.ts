@@ -110,7 +110,6 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
     return output;
   }
 
-
   private updateConstantIncoms(incomes: StandarItem[]): void {
     if (incomes.length > 0) {
       this.store.dispatch(new BulkAddConstantIncomeItemAction(incomes));

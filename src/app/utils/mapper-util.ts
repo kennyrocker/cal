@@ -79,7 +79,6 @@ export class MapperUtil {
     monthsArr.map(x => {
       affectiveMonth.push(Number(x));
     });
-    console.log(affectiveMonth);
     return {
       id: MapperUtil.generateRandomId(),
       name: name,
