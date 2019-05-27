@@ -54,9 +54,9 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
         case CalDataActionTypes.AddPeriodicalVariableItem :
             return {
                 ...state,
-                periodicalVarible: [
+                periodicalVariable: [
                     { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, affectiveMonth: [] },
-                    ...state.periodicalVarible
+                    ...state.periodicalVariable
                 ]
             };
 
@@ -76,7 +76,7 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
         case CalDataActionTypes.UpdatePeriodicalVariableItem :
             return {
                 ...state,
-                periodicalVarible: state.periodicalVarible.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
+                periodicalVariable: state.periodicalVariable.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
             };
 
         case CalDataActionTypes.UpdateStaticVariableItem :
@@ -99,7 +99,7 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
         case CalDataActionTypes.DeletePeriodicalVariableItem :
             return {
                 ...state,
-                periodicalVarible: state.periodicalVarible.filter(obj => obj.id !== action.itemId)
+                periodicalVariable: state.periodicalVariable.filter(obj => obj.id !== action.itemId)
             };
 
         case CalDataActionTypes.DeleteStaticVariableItem :

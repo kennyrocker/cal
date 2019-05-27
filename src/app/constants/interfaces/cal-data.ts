@@ -5,6 +5,6 @@ import { FixItem } from '../interfaces/fix-item';
 export interface CalData {
     constantIncome?: StandarItem[];
     constantExpense?: StandarItem[];
-    periodicalVarible?: PeriodicItem[];
+    periodicalVariable?: PeriodicItem[];
     staticVariable?: FixItem[];
 }

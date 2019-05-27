@@ -150,7 +150,7 @@ describe('Calculate Service', () => {
                 cycle : CalCycle.MONTHLY
               }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -208,7 +208,7 @@ describe('Calculate Service', () => {
                 cycle : CalCycle.MONTHLY
               }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -260,7 +260,7 @@ describe('Calculate Service', () => {
              cycle: CalCycle.MONTHLY
             }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -388,7 +388,7 @@ describe('Calculate Service', () => {
                 cycle : CalCycle.MONTHLY
               }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -509,7 +509,7 @@ describe('Calculate Service', () => {
                 cycle : CalCycle.MONTHLY
               }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -568,7 +568,7 @@ describe('Calculate Service', () => {
             cycle: CalCycle.MONTHLY
            }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -708,7 +708,7 @@ describe('Calculate Service', () => {
 
     const biWeeklyNoConstantInput = {
 
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'p1',
@@ -932,11 +932,11 @@ describe('Calculate Service', () => {
         expect(service.getPeriodicSumWithMonthlyConverstion([], 1)).toEqual(0);
     });
 
-    it('#getPeriodicSumWithMonthlyConverstion with periodicalVarible and monthOfYear as 2 should return -100', () => {
+    it('#getPeriodicSumWithMonthlyConverstion with periodicalVariable and monthOfYear as 2 should return -100', () => {
         expect(service.getPeriodicSumWithMonthlyConverstion(periodicalVarible, 2)).toEqual(-100);
     });
 
-    it('#getPeriodicSumWithMonthlyConverstion with periodicalVarible and monthOfYear as 8 should return -100', () => {
+    it('#getPeriodicSumWithMonthlyConverstion with periodicalVariable and monthOfYear as 8 should return -100', () => {
         expect(service.getPeriodicSumWithMonthlyConverstion(periodicalVarible, 8)).toEqual(100);
     });
 
@@ -948,7 +948,7 @@ describe('Calculate Service', () => {
         expect(service.getPeriodicSumWithAnnallyConverstion([])).toEqual(0);
     });
 
-    it('#getPeriodicSumWithAnnallyConverstion with periodicalVarible input should return -100', () => {
+    it('#getPeriodicSumWithAnnallyConverstion with periodicalVariable input should return -100', () => {
         expect(service.getPeriodicSumWithAnnallyConverstion(periodicalVarible)).toEqual(-100);
     });
 

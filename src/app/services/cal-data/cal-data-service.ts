@@ -72,7 +72,7 @@ export class CalDataService {
                 cycle  : CalCycle.MONTHLY
               }
         ],
-        periodicalVarible: [
+        periodicalVariable: [
           {
             id: 2223512,
             name : 'auto matainence',

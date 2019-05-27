@@ -24,7 +24,7 @@ export class CalculateService {
     }
 
     private isProjectionUnhandle(calData: CalData): boolean {
-      return !calData.constantIncome && !calData.constantExpense && !calData.periodicalVarible;
+      return !calData.constantIncome && !calData.constantExpense && !calData.periodicalVariable;
     }
 
     public isBiWeeklyCycleBelongToTheMonth(week: number, month: number): boolean {
@@ -220,7 +220,7 @@ export class CalculateService {
             if (i > CalCycle.MONTHLY) {
                 month = i % CalCycle.MONTHLY;
             }
-            const cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVarible, month);
+            const cyclePeriodicBalance = this.getPeriodicSumWithMonthlyConverstion(calData.periodicalVariable, month);
             balance += (monthlyConstantBalance + cyclePeriodicBalance);
             const displayItem = {
                 name: month.toString(),
@@ -245,7 +245,7 @@ export class CalculateService {
         const annalConstantBalance = annalConstantIncome - annalConstantExpense;
         let balance = initBalance ? initBalance : 0;
         for (let i = 0; i < numberOfYears; i++) {
-            const annalPeriodicalBalance = this.getPeriodicSumWithAnnallyConverstion(calData.periodicalVarible);
+            const annalPeriodicalBalance = this.getPeriodicSumWithAnnallyConverstion(calData.periodicalVariable);
             balance += (annalConstantBalance + annalPeriodicalBalance);
             const displayItem = {
                 name: (i + 1).toString(),
@@ -275,7 +275,7 @@ export class CalculateService {
             if (i > CalCycle.BIWEEKLY) {
                 week = i % CalCycle.BIWEEKLY;
             }
-            const cyclePeriodicBalance = this.getPeriodicSumWithBiweeklyConvertsion(calData.periodicalVarible, week);
+            const cyclePeriodicBalance = this.getPeriodicSumWithBiweeklyConvertsion(calData.periodicalVariable, week);
             balance += (biweeklyConstantBalance + cyclePeriodicBalance);
             const displayItem = {
               name: week.toString(),
