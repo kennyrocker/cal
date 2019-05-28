@@ -28,8 +28,8 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
         case CalDataActionTypes.BulkAddPeriodicalVariableItem :
             return {
                 ...state,
-                periodicalVarible: [
-                    ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, state.periodicalVarible, 'name')
+                periodicalVariable: [
+                    ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, state.periodicalVariable, 'name')
                 ]
             };
 
