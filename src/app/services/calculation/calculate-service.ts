@@ -71,6 +71,9 @@ export class CalculateService {
       }
       let total = 0;
       for (let i = 0;  i < items.length; i++) {
+        if (items[i].active === false) {
+          continue;
+        }
         if (items[i].cycle === CalCycle.BIWEEKLY) {
           total += items[i].amount;
         }
@@ -90,6 +93,9 @@ export class CalculateService {
       }
       let total = 0;
       for (let i = 0;  i < items.length; i++) {
+        if (items[i].active === false) {
+          continue;
+        }
         if (items[i].cycle === CalCycle.BIWEEKLY) {
           total += Number(items[i].amount) * CalCycle.BIWEEKLY / CalCycle.MONTHLY;
         }
@@ -109,6 +115,9 @@ export class CalculateService {
         }
         let total = 0;
         for (let i = 0; i < items.length; i++) {
+            if (items[i].active === false) {
+              continue;
+            }
             if (items[i].cycle === CalCycle.BIWEEKLY) {
                 total += (items[i].amount * CalCycle.BIWEEKLY );
             }
@@ -132,6 +141,9 @@ export class CalculateService {
         }
         let balance = 0;
         for (let i = 0; i < items.length; i++) {
+            if (items[i].active === false) {
+              continue;
+            }
             const itemAmount = items[i].amount;
             if (items[i].cycle === CalCycle.MONTHLY) {
                const months = items[i].affectiveMonth;
@@ -156,6 +168,9 @@ export class CalculateService {
         }
         let balance = 0;
         for (let i = 0; i < items.length; i++) {
+            if (items[i].active === false) {
+              continue;
+            }
             if (items[i].cycle === CalCycle.ANNALLY) {
                 balance += items[i].amount;
             }
@@ -172,6 +187,9 @@ export class CalculateService {
         }
         let balance = 0;
         for (let i = 0; i < items.length; i++) {
+            if (items[i].active === false) {
+              continue;
+            }
             // monthly
             if (items[i].cycle === CalCycle.MONTHLY) {
                 for (let j = 0; j < items[i].affectiveMonth.length; j++) { // TODO:: improve O(n^2)

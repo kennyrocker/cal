@@ -58,7 +58,8 @@ export class MapperUtil {
       id: MapperUtil.generateRandomId(),
       name: name,
       amount: Number(amount),
-      cycle: Number(cycle)
+      cycle: Number(cycle),
+      active: true
     };
   }
 
@@ -84,7 +85,8 @@ export class MapperUtil {
       name: name,
       amount: Number(amount),
       cycle: Number(cycle),
-      affectiveMonth: MapperUtil.uniqueSingleKeyArry(affectiveMonth)
+      affectiveMonth: MapperUtil.uniqueSingleKeyArry(affectiveMonth),
+      active: true
     };
   }
 

@@ -10,19 +10,22 @@ describe('Calculate Service', () => {
             id: 2323523,
             name: 'income1',
             amount: 100.51,
-            cycle: CalCycle.BIWEEKLY
+            cycle: CalCycle.BIWEEKLY,
+            active: true
         },
         {
             id: 2323529,
             name: 'income2',
             amount: 100.49,
-            cycle: CalCycle.BIWEEKLY
+            cycle: CalCycle.BIWEEKLY,
+            active: true
         },
         {
             id: 2323529,
             name: 'income2',
             amount: 100.50,
-            cycle: CalCycle.BIWEEKLY
+            cycle: CalCycle.BIWEEKLY,
+            active: true
         }
     ];
 
@@ -31,19 +34,22 @@ describe('Calculate Service', () => {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.MONTHLY
+            cycle: CalCycle.MONTHLY,
+            active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.MONTHLY
+            cycle: CalCycle.MONTHLY,
+            active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.MONTHLY
+            cycle: CalCycle.MONTHLY,
+            active: true
         },
     ];
 
@@ -52,19 +58,22 @@ describe('Calculate Service', () => {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.ANNALLY
+            cycle: CalCycle.ANNALLY,
+            active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.ANNALLY
+            cycle: CalCycle.ANNALLY,
+            active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.ANNALLY
+            cycle: CalCycle.ANNALLY,
+            active: true
         },
     ];
 
@@ -73,19 +82,22 @@ describe('Calculate Service', () => {
             id: 2323523,
             name: 'income1',
             amount: 100.49,
-            cycle: CalCycle.MONTHLY
+            cycle: CalCycle.MONTHLY,
+            active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100.51,
-            cycle: CalCycle.ANNALLY
+            cycle: CalCycle.ANNALLY,
+            active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100.50,
-            cycle: CalCycle.BIWEEKLY
+            cycle: CalCycle.BIWEEKLY,
+            active: true
         },
     ];
 
@@ -97,21 +109,24 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
         },
         {
             id: 2223522,
             name : 'p2',
             amount : 100,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
         },
         {
             id: 2223522,
             name : 'p3',
             amount : 100,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [8]
+            affectiveMonth : [8],
+            active: true
         }
     ];
 
@@ -121,13 +136,15 @@ describe('Calculate Service', () => {
                id: 2323523,
                name: 'income1',
                amount: 100,
-               cycle: CalCycle.MONTHLY
+               cycle: CalCycle.MONTHLY,
+               active: true
            },
            {
-            id: 2323529,
-            name: 'income2',
-            amount: 200,
-            cycle: CalCycle.MONTHLY
+               id: 2323529,
+               name: 'income2',
+               amount: 200,
+               cycle: CalCycle.MONTHLY,
+               active: true
            }
         ],
         constantExpense: [
@@ -135,20 +152,23 @@ describe('Calculate Service', () => {
                 id: 2223521,
                 name :  'expense1',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2223522,
                 name : 'expense2',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2225652,
                 name : 'expense3',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              }
+                cycle : CalCycle.MONTHLY,
+                active: true
+            }
         ],
         periodicalVariable: [
           {
@@ -156,14 +176,16 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           }
         ]
     };
@@ -193,20 +215,23 @@ describe('Calculate Service', () => {
                 id: 2223521,
                 name :  'expense1',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2223522,
                 name : 'expense2',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2225652,
                 name : 'expense3',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              }
+                cycle : CalCycle.MONTHLY,
+                active: true
+            }
         ],
         periodicalVariable: [
           {
@@ -214,14 +239,16 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           }
         ]
     };
@@ -251,13 +278,15 @@ describe('Calculate Service', () => {
                 id: 2323523,
                 name: 'income1',
                 amount: 100,
-                cycle: CalCycle.MONTHLY
+                cycle: CalCycle.MONTHLY,
+                active: true
             },
             {
-             id: 2323529,
-             name: 'income2',
-             amount: 200,
-             cycle: CalCycle.MONTHLY
+                id: 2323529,
+                name: 'income2',
+                amount: 200,
+                cycle: CalCycle.MONTHLY,
+                active: true
             }
         ],
         periodicalVariable: [
@@ -266,14 +295,16 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           }
         ]
     };
@@ -303,13 +334,15 @@ describe('Calculate Service', () => {
                id: 2323523,
                name: 'income1',
                amount: 100,
-               cycle: CalCycle.MONTHLY
+               cycle: CalCycle.MONTHLY,
+               active: true
            },
            {
-            id: 2323529,
-            name: 'income2',
-            amount: 200,
-            cycle: CalCycle.MONTHLY
+               id: 2323529,
+               name: 'income2',
+               amount: 200,
+               cycle: CalCycle.MONTHLY,
+               active: true
            }
         ],
         constantExpense: [
@@ -317,20 +350,23 @@ describe('Calculate Service', () => {
                 id: 2223521,
                 name :  'expense1',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2223522,
                 name : 'expense2',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2225652,
                 name : 'expense3',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              }
+                cycle : CalCycle.MONTHLY,
+                active: true
+            }
         ]
     };
 
@@ -359,13 +395,15 @@ describe('Calculate Service', () => {
                id: 2323523,
                name: 'income1',
                amount: 100,
-               cycle: CalCycle.MONTHLY
+               cycle: CalCycle.MONTHLY,
+               active: true
            },
            {
-            id: 2323529,
-            name: 'income2',
-            amount: 200,
-            cycle: CalCycle.MONTHLY
+               id: 2323529,
+               name: 'income2',
+               amount: 200,
+               cycle: CalCycle.MONTHLY,
+               active: true
            }
         ],
         constantExpense: [
@@ -373,20 +411,23 @@ describe('Calculate Service', () => {
                 id: 2223521,
                 name :  'expense1',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2223522,
                 name : 'expense2',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2225652,
                 name : 'expense3',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              }
+                cycle : CalCycle.MONTHLY,
+                active: true
+            }
         ],
         periodicalVariable: [
           {
@@ -394,21 +435,24 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [7]
+            affectiveMonth : [7],
+            active: true
           }
         ]
     };
@@ -438,13 +482,15 @@ describe('Calculate Service', () => {
                id: 2323523,
                name: 'income1',
                amount: 100,
-               cycle: CalCycle.MONTHLY
+               cycle: CalCycle.MONTHLY,
+              active: true
            },
            {
-            id: 2323529,
-            name: 'income2',
-            amount: 200,
-            cycle: CalCycle.MONTHLY
+              id: 2323529,
+              name: 'income2',
+              amount: 200,
+              cycle: CalCycle.MONTHLY,
+              active: true
            }
         ],
         constantExpense: [
@@ -452,20 +498,23 @@ describe('Calculate Service', () => {
                 id: 2223521,
                 name :  'expense1',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2223522,
                 name : 'expense2',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              },
-              {
+                cycle : CalCycle.MONTHLY,
+                active: true
+            },
+            {
                 id: 2225652,
                 name : 'expense3',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
-              }
+                cycle : CalCycle.MONTHLY,
+                active: true
+            }
         ]
     };
 
@@ -494,19 +543,22 @@ describe('Calculate Service', () => {
                 id: 2223521,
                 name :  'expense1',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
+                cycle : CalCycle.MONTHLY,
+                active: true
               },
               {
                 id: 2223522,
                 name : 'expense2',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
+                cycle : CalCycle.MONTHLY,
+                active: true
               },
               {
                 id: 2225652,
                 name : 'expense3',
                 amount : 100,
-                cycle : CalCycle.MONTHLY
+                cycle : CalCycle.MONTHLY,
+                active: true
               }
         ],
         periodicalVariable: [
@@ -515,21 +567,24 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [7]
+            affectiveMonth : [7],
+            active: true
           }
         ]
     };
@@ -559,13 +614,15 @@ describe('Calculate Service', () => {
                id: 2323523,
                name: 'income1',
                amount: 100,
-               cycle: CalCycle.MONTHLY
+               cycle: CalCycle.MONTHLY,
+               active: true
            },
            {
-            id: 2323529,
-            name: 'income2',
-            amount: 200,
-            cycle: CalCycle.MONTHLY
+               id: 2323529,
+               name: 'income2',
+               amount: 200,
+               cycle: CalCycle.MONTHLY,
+               active: true
            }
         ],
         periodicalVariable: [
@@ -574,21 +631,24 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [7]
+            affectiveMonth : [7],
+            active: true
           }
         ]
     };
@@ -619,13 +679,15 @@ describe('Calculate Service', () => {
                 id: 2323523,
                 name: 'income1',
                 amount: 100,
-                cycle: CalCycle.MONTHLY
+                cycle: CalCycle.MONTHLY,
+                active: true
             },
             {
-             id: 2323529,
-             name: 'income2',
-             amount: 200,
-             cycle: CalCycle.MONTHLY
+                id: 2323529,
+                name: 'income2',
+                amount: 200,
+                cycle: CalCycle.MONTHLY,
+                active: true
             }
          ],
          constantExpense: [
@@ -633,20 +695,23 @@ describe('Calculate Service', () => {
                  id: 2223521,
                  name :  'expense1',
                  amount : 100,
-                 cycle : CalCycle.MONTHLY
-               },
-               {
+                 cycle : CalCycle.MONTHLY,
+                 active: true
+             },
+             {
                  id: 2223522,
                  name : 'expense2',
                  amount : 100,
-                 cycle : CalCycle.MONTHLY
-               },
-               {
+                 cycle : CalCycle.MONTHLY,
+                 active: true
+             },
+             {
                  id: 2225652,
                  name : 'expense3',
                  amount : 100,
-                 cycle : CalCycle.MONTHLY
-               }
+                 cycle : CalCycle.MONTHLY,
+                 active: true
+             }
          ]
     };
 
@@ -675,13 +740,15 @@ describe('Calculate Service', () => {
                 id: 2323523,
                 name: 'income1',
                 amount: 100,
-                cycle: CalCycle.ANNALLY
+                cycle: CalCycle.ANNALLY,
+                active: true
             },
             {
-             id: 2323529,
-             name: 'income2',
-             amount: 200,
-             cycle: CalCycle.BIWEEKLY
+                id: 2323529,
+                name: 'income2',
+                amount: 200,
+                cycle: CalCycle.BIWEEKLY,
+                active: true
             }
          ],
          constantExpense: [
@@ -689,20 +756,23 @@ describe('Calculate Service', () => {
                  id: 2223521,
                  name :  'expense1',
                  amount : 100,
-                 cycle : CalCycle.ANNALLY
-               },
-               {
+                 cycle : CalCycle.ANNALLY,
+                 active: true
+             },
+             {
                  id: 2223522,
                  name : 'expense2',
                  amount : 100,
-                 cycle : CalCycle.BIWEEKLY
-               },
-               {
+                 cycle : CalCycle.BIWEEKLY,
+                 active: true
+             },
+             {
                  id: 2225652,
                  name : 'expense3',
                  amount : 100,
-                 cycle : CalCycle.BIWEEKLY
-               }
+                 cycle : CalCycle.BIWEEKLY,
+                 active: true
+             }
          ]
     };
 
@@ -714,21 +784,24 @@ describe('Calculate Service', () => {
             name : 'p1',
             amount : -100,
             cycle : CalCycle.MONTHLY,
-            affectiveMonth : [1, 2, 3]
+            affectiveMonth : [1, 2, 3],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [4]
+            affectiveMonth : [4],
+            active: true
           },
           {
             id: 2223522,
             name : 'p2',
             amount : 300,
             cycle : CalCycle.ANNALLY,
-            affectiveMonth : [1]
+            affectiveMonth : [1],
+            active: true
           }
         ]
     };
@@ -770,6 +843,86 @@ describe('Calculate Service', () => {
             value: 300
         },
     ];
+
+
+  const fullInputWithInactive = {
+    constantIncome : [
+      {
+        id: 2323523,
+        name: 'income1',
+        amount: 100,
+        cycle: CalCycle.MONTHLY,
+        active: false
+      },
+      {
+        id: 2323529,
+        name: 'income2',
+        amount: 200,
+        cycle: CalCycle.MONTHLY,
+        active: true
+      }
+    ],
+    constantExpense: [
+      {
+        id: 2223521,
+        name :  'expense1',
+        amount : 100,
+        cycle : CalCycle.MONTHLY,
+        active: true
+      },
+      {
+        id: 2223522,
+        name : 'expense2',
+        amount : 100,
+        cycle : CalCycle.MONTHLY,
+        active: true
+      },
+      {
+        id: 2225652,
+        name : 'expense3',
+        amount : 100,
+        cycle : CalCycle.MONTHLY,
+        active: true
+      }
+    ],
+    periodicalVariable: [
+      {
+        id: 2223512,
+        name : 'p1',
+        amount : -100,
+        cycle : CalCycle.MONTHLY,
+        affectiveMonth : [1, 2, 3],
+        active: true
+      },
+      {
+        id: 2223522,
+        name : 'p2',
+        amount : 300,
+        cycle : CalCycle.ANNALLY,
+        affectiveMonth : [4],
+        active: true
+      }
+    ]
+  };
+
+  const fullOutputWithInactive = [
+    {
+      name: '1',
+      value: -200
+    },
+    {
+      name: '2',
+      value: -400
+    },
+    {
+      name: '3',
+      value: -600
+    },
+    {
+      name: '4',
+      value: -400
+    }
+  ];
 
     // Setup
     let service: CalculateService;
@@ -1027,5 +1180,15 @@ describe('Calculate Service', () => {
     it('#getBiWeeklyProjection with biWeeklyNoConstantInput and numberOfWeeks of 9  and biWeeklyNoConstantInput input should return biWeeklyNoConstantOutput', () => {
         expect(service.getBiWeeklyProjection(0, 1, 9, biWeeklyNoConstantInput)).toEqual(biWeeklyNoConstantOutput);
     });
+
+
+    /* ///////////////////////////////////// */
+    /*       PROJECTION WITH INACTIVE        */
+    /* ///////////////////////////////////// */
+
+    // Full Porjection With Inactive
+  it('#getMonthlyProjection with fullInputWithInactive should equal to fullOutputWithInactive', () => {
+    expect(service.getMonthlyProjection(0, 1, 4, fullInputWithInactive)).toEqual(fullOutputWithInactive);
+  });
 
 });
