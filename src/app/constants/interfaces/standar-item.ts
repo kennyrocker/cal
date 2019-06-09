@@ -5,4 +5,5 @@ export interface StandarItem {
     name: string;
     amount: number;
     cycle: CalCycle;
+    active: boolean;
 }

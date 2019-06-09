@@ -30,6 +30,8 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
   @Input('itemGroupType') itemGroupType: InputGroup;
   private isIncome: boolean;
 
+  private activeChangeSub: Subscription;
+  private activeChangeSubject = new Subject<any>();
   private nameChangeSub: Subscription;
   private nameChangeSubject = new Subject<any>();
   private amountChangeSub: Subscription;
@@ -48,12 +50,20 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.activeChangeSub.unsubscribe();
     this.nameChangeSub.unsubscribe();
     this.amountChangeSub.unsubscribe();
     this.cycleChangeSub.unsubscribe();
   }
 
   private initSub(): void {
+
+    this.activeChangeSub = this.activeChangeSubject.pipe(
+                            debounceTime(Constant.INPUT_DEBOUNCE_TIME),
+                            distinctUntilChanged()
+                          ).subscribe((value) => {
+                            this.activeChange(value);
+                          });
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
                               debounceTime(Constant.INPUT_DEBOUNCE_TIME),
@@ -71,12 +81,14 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
     this.cycleChangeSub = this.cycleChangeSubject.pipe(
                             debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                             distinctUntilChanged()
-                        ).subscribe((value) => {
+                          ).subscribe((value) => {
                             this.cycleChange(value);
-                        });
-
+                          });
   }
 
+  public bindActiveChangeSubject(value): void {
+    this.activeChangeSubject.next(value);
+  }
 
   public bindNameChangeSubject(value): void {
     this.nameChangeSubject.next(value);
@@ -90,7 +102,6 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
     this.cycleChangeSubject.next(value);
   }
 
-
   public removeItem(): void {
     if (this.isIncome) {
       this.store.dispatch(new DeleteConstantIcomeItemAction(this.itemData.id));
@@ -99,48 +110,58 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
     }
   }
 
+  public activeChange(value: boolean): void {
+    if (this.isIncome) {
+      this.updateConstantIncomeAction(this.itemData.name, this.itemData.amount, this.itemData.cycle, value);
+    } else {
+      this.updateConstantExpenseAction(this.itemData.name, this.itemData.amount, this.itemData.cycle, value);
+    }
+  }
+
   private nameChange(value: string): void {
     if (this.isIncome) {
-      this.updateConstantIncomeAction(value, this.itemData.amount, this.itemData.cycle);
+      this.updateConstantIncomeAction(value, this.itemData.amount, this.itemData.cycle, this.itemData.active);
     } else {
-      this.updateConstantExpenseAction(value, this.itemData.amount, this.itemData.cycle);
+      this.updateConstantExpenseAction(value, this.itemData.amount, this.itemData.cycle, this.itemData.active);
     }
   }
 
   public amountChange(value: any): void {
     if (this.isIncome) {
-      this.updateConstantIncomeAction(this.itemData.name, value, this.itemData.cycle);
+      this.updateConstantIncomeAction(this.itemData.name, value, this.itemData.cycle, this.itemData.active);
     } else {
-      this.updateConstantExpenseAction(this.itemData.name, value, this.itemData.cycle);
+      this.updateConstantExpenseAction(this.itemData.name, value, this.itemData.cycle, this.itemData.active);
     }
   }
 
   public cycleChange(value: CalCycle): void {
     if (this.isIncome) {
-      this.updateConstantIncomeAction(this.itemData.name, this.itemData.amount, value);
+      this.updateConstantIncomeAction(this.itemData.name, this.itemData.amount, value, this.itemData.active);
     } else {
-      this.updateConstantExpenseAction(this.itemData.name, this.itemData.amount, value);
+      this.updateConstantExpenseAction(this.itemData.name, this.itemData.amount, value, this.itemData.active);
     }
   }
 
 
   // helper method
-  private updateConstantIncomeAction( name: string, amount: number, cycle: CalCycle): void {
+  private updateConstantIncomeAction( name: string, amount: number, cycle: CalCycle, active: boolean): void {
     const payload = {
       id: this.itemData.id,
       name: name,
       amount: Number(amount),
-      cycle: Number(cycle)
+      cycle: Number(cycle),
+      active: active
     };
     this.store.dispatch(new UpdateConstantIncomeItemAction(payload));
   }
 
-  private updateConstantExpenseAction(name: string, amount: number, cycle: CalCycle): void {
+  private updateConstantExpenseAction(name: string, amount: number, cycle: CalCycle, active: boolean): void {
     const payload = {
       id: this.itemData.id,
       name: name,
       amount: Number(amount),
-      cycle: Number(cycle)
+      cycle: Number(cycle),
+      active: active
     };
     this.store.dispatch(new UpdateConstantExpenseItemAction(payload));
   }

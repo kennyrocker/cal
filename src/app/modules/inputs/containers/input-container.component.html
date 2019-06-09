@@ -1,6 +1,6 @@
 <div *ngIf="data">
 
-  <section>
+  <section class="input-section constant-income">
     <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
     <app-quick-input-component [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
@@ -12,7 +12,7 @@
     </div>
   </section>
 
-  <section>
+  <section class="input-section constant-expense">
     <div class="group-title">{{groupType.CONSTANT_EXPENSE}}</div>
     <app-quick-input-component [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
@@ -24,7 +24,7 @@
     </div>
   </section>
 
-  <section>
+  <section class="input-section periodic-variable">
     <div class="group-title">{{groupType.PERIODICAL_VARIBLE}}</div>
     <app-quick-input-component [itemGroupType]="groupType.PERIODICAL_VARIBLE"></app-quick-input-component>
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>

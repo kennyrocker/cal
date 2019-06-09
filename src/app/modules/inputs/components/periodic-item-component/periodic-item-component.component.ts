@@ -19,6 +19,8 @@ import { Constant } from '../../../../constants/constant';
 })
 export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
 
+  private activeChangeSub: Subscription;
+  private activeChangeSubject = new Subject<any>();
   private nameChangeSub: Subscription;
   private nameChangeSubject = new Subject<any>();
   private amountChangeSub: Subscription;
@@ -48,12 +50,20 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.activeChangeSub.unsubscribe();
     this.nameChangeSub.unsubscribe();
     this.amountChangeSub.unsubscribe();
     this.cycleChangeSub.unsubscribe();
   }
 
   private initSub(): void {
+
+    this.activeChangeSub = this.activeChangeSubject.pipe(
+      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
+      distinctUntilChanged()
+    ).subscribe((value) => {
+      this.activeChange(value);
+    });
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
       debounceTime(Constant.INPUT_DEBOUNCE_TIME),
@@ -84,6 +94,10 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
 
   }
 
+  public bindActiveChangeSubject(value): void {
+    this.activeChangeSubject.next(value);
+  }
+
   public bindNameChangeSubject(value): void {
     this.nameChangeSubject.next(value);
   }
@@ -100,21 +114,25 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
     this.monthChangeSubject.next(value);
   }
 
+  public activeChange(value: boolean): void {
+    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, this.itemData.affectiveMonth, value);
+  }
+
   private nameChange(value: string): void {
-    this.updateItem(value, this.itemData.amount, this.itemData.cycle, this.itemData.affectiveMonth);
+    this.updateItem(value, this.itemData.amount, this.itemData.cycle, this.itemData.affectiveMonth, this.itemData.active);
   }
 
   public amountChange(value: any): void {
-    this.updateItem(this.itemData.name, value, this.itemData.cycle, this.itemData.affectiveMonth);
+    this.updateItem(this.itemData.name, value, this.itemData.cycle, this.itemData.affectiveMonth, this.itemData.active);
   }
 
   public cycleChange(value: PeriodCalCycleUI): void {
-    this.updateItem(this.itemData.name, this.itemData.amount, value, this.itemData.affectiveMonth);
+    this.updateItem(this.itemData.name, this.itemData.amount, value, this.itemData.affectiveMonth, this.itemData.active);
   }
 
   private monthChange(value: string): void {
     const months =  this.parseMonthsToUniqueArray(value);
-    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, months);
+    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, months, this.itemData.active);
   }
 
   private parseMonthsToUniqueArray(months: string): number[] {
@@ -125,9 +143,10 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
     return MapperUtil.uniqueSingleKeyArry(m);
   }
 
-  private updateItem(name: string, amount: number, cycle: PeriodCalCycleUI, affectiveMonth: number[]): void {
+  private updateItem(name: string, amount: number, cycle: PeriodCalCycleUI, affectiveMonth: number[], active: boolean): void {
     const payload: PeriodicItem = {
       id: this.itemData.id,
+      active: active,
       name: name,
       amount: Number(amount),
       cycle: Number(cycle),
