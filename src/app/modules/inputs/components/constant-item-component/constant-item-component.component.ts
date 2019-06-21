@@ -11,23 +11,25 @@ import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';
 import { Constant } from '../../../../constants/constant';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
   selector: 'app-constant-item-component',
   templateUrl: './constant-item-component.component.html',
-  styleUrls: ['./constant-item-component.component.css']
+  styleUrls: ['./constant-item-component.component.scss']
 })
 export class ConstantItemComponentComponent implements OnInit, OnDestroy {
-
-  public groupType = InputGroup;
-  private calCycleEnum = CalCycle;
-  public cycle = [];
 
   // tslint:disable-next-line:no-input-rename
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
+
+  public groupType = InputGroup;
+  private calCycleEnum = CalCycle;
+  public cycleArr = [];
+  public constantForm: FormGroup;
   private isIncome: boolean;
 
   private activeChangeSub: Subscription;
@@ -39,11 +41,13 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
   private cycleChangeSub: Subscription;
   private cycleChangeSubject = new Subject<any>();
 
+
   constructor(public store: Store<reducerRoot.CalDataState>) {
-    this.cycle = MapperUtil.EnumMapToArray(this.calCycleEnum);
+    this.cycleArr = MapperUtil.EnumMapToArray(this.calCycleEnum);
   }
 
   ngOnInit() {
+    this.initForm();
     // TODO:: make itemData input with its own model, then set the modal data only once when init container
     this.isIncome = (this.itemGroupType === this.groupType.CONSTANT_INCOME);
     this.initSub();
@@ -54,6 +58,16 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
     this.nameChangeSub.unsubscribe();
     this.amountChangeSub.unsubscribe();
     this.cycleChangeSub.unsubscribe();
+  }
+
+  private initForm(): void {
+    this.constantForm = new FormGroup({
+      id: new FormControl(this.itemData.id, [ Validators.required ]),
+      name: new FormControl(this.itemData.name, [ Validators.required ]),
+      amount: new FormControl(this.itemData.amount, [ Validators.required ]),
+      cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
+      active: new FormControl(this.itemData.active, [ Validators.required ])
+    });
   }
 
   private initSub(): void {
@@ -111,59 +125,34 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
   }
 
   public activeChange(value: boolean): void {
-    if (this.isIncome) {
-      this.updateConstantIncomeAction(this.itemData.name, this.itemData.amount, this.itemData.cycle, value);
-    } else {
-      this.updateConstantExpenseAction(this.itemData.name, this.itemData.amount, this.itemData.cycle, value);
-    }
+    this.constantForm.patchValue({active: value});
+    this.updateAction();
   }
 
-  private nameChange(value: string): void {
-    if (this.isIncome) {
-      this.updateConstantIncomeAction(value, this.itemData.amount, this.itemData.cycle, this.itemData.active);
-    } else {
-      this.updateConstantExpenseAction(value, this.itemData.amount, this.itemData.cycle, this.itemData.active);
-    }
+  public nameChange(value: string): void {
+    this.constantForm.patchValue({name: value});
+    this.updateAction();
   }
 
   public amountChange(value: any): void {
-    if (this.isIncome) {
-      this.updateConstantIncomeAction(this.itemData.name, value, this.itemData.cycle, this.itemData.active);
-    } else {
-      this.updateConstantExpenseAction(this.itemData.name, value, this.itemData.cycle, this.itemData.active);
-    }
+    this.constantForm.patchValue({amount: Number(value)});
+    this.updateAction();
   }
 
   public cycleChange(value: CalCycle): void {
-    if (this.isIncome) {
-      this.updateConstantIncomeAction(this.itemData.name, this.itemData.amount, value, this.itemData.active);
-    } else {
-      this.updateConstantExpenseAction(this.itemData.name, this.itemData.amount, value, this.itemData.active);
+    this.constantForm.patchValue({cycle: Number(value)});
+    this.updateAction();
+  }
+
+  private updateAction(): void {
+    if (this.constantForm.invalid) {
+      return;
     }
-  }
-
-
-  // helper method
-  private updateConstantIncomeAction( name: string, amount: number, cycle: CalCycle, active: boolean): void {
-    const payload = {
-      id: this.itemData.id,
-      name: name,
-      amount: Number(amount),
-      cycle: Number(cycle),
-      active: active
-    };
-    this.store.dispatch(new UpdateConstantIncomeItemAction(payload));
-  }
-
-  private updateConstantExpenseAction(name: string, amount: number, cycle: CalCycle, active: boolean): void {
-    const payload = {
-      id: this.itemData.id,
-      name: name,
-      amount: Number(amount),
-      cycle: Number(cycle),
-      active: active
-    };
-    this.store.dispatch(new UpdateConstantExpenseItemAction(payload));
+    if (this.isIncome) {
+      this.store.dispatch(new UpdateConstantIncomeItemAction(this.constantForm.value));
+    } else {
+      this.store.dispatch(new UpdateConstantExpenseItemAction(this.constantForm.value));
+    }
   }
 
 }

@@ -1,10 +1,39 @@
 <div class="constant-item">
-  <input type="checkbox" [checked]="itemData.active" (change)=bindActiveChangeSubject(!itemData.active) />
-  <input #name type="text" value="{{itemData.name}}" (keyup)="bindNameChangeSubject(name.value)"/>
-  <input #amount type="number" value="{{itemData.amount}}" (keyup)="bindAmountChangeSubject(amount.value)"/>
-  <select #amountCycle [value]="itemData.cycle" (change)=bindCycleChangeSubject(amountCycle.value)>
-    <option [value]="item.value" *ngFor="let item of cycle">
-      {{item.key}}</option>
-  </select>
+  <input type="checkbox" [checked]="itemData.active"
+         (change)=bindActiveChangeSubject(!itemData.active) />
+
+  <form name="constantForm" [formGroup]="constantForm">
+
+    <div class="input-field" [ngClass]="{'field-error' :
+      constantForm.get('name').touched && constantForm.get('name').invalid}">
+      <input #name type="text" value="{{itemData.name}}"
+             formControlName="name"
+             (keyup)="bindNameChangeSubject(name.value)"/>
+      <div *ngIf="constantForm.get('name').touched && constantForm.get('name').invalid"
+           class="field-message">
+           name is required
+      </div>
+    </div>
+
+    <div class="input-field" [ngClass]="{'field-error' :
+      constantForm.get('amount').touched && constantForm.get('amount').invalid}">
+      <input #amount type="number" value="{{itemData.amount}}"
+             formControlName="amount"
+             (keyup)="bindAmountChangeSubject(amount.value)"/>
+      <div *ngIf="constantForm.get('amount').touched && constantForm.get('amount').invalid"
+           class="field-message">
+        amount is required
+      </div>
+    </div>
+
+    <select #amountCycle [value]="itemData.cycle"
+            formControlName="cycle"
+            (change)=bindCycleChangeSubject(amountCycle.value)>
+      <option [value]="item.value" *ngFor="let item of cycleArr">
+        {{item.key}}</option>
+    </select>
+
+  </form>
+
   <span class="close-x" (click)="removeItem()">x</span>
 </div>

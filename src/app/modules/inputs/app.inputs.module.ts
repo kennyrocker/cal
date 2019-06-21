@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Ngrx
 import { StoreModule } from '@ngrx/store';
@@ -28,6 +29,7 @@ import { CalculateService } from '../../services/calculation/calculate-service';
     ],
     imports: [
         BrowserModule,
+        ReactiveFormsModule,
         StoreModule.forRoot(reducer),
         EffectsModule.forFeature([CalDataEffects])
     ],

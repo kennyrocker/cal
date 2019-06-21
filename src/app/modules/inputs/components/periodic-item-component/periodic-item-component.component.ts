@@ -11,13 +11,23 @@ import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChang
 import { Subject, Subscription } from 'rxjs';
 import { PeriodicItem } from '../../../../constants/interfaces/periodic-item';
 import { Constant } from '../../../../constants/constant';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-periodic-item-component',
   templateUrl: './periodic-item-component.component.html',
-  styleUrls: ['./periodic-item-component.component.css']
+  styleUrls: ['./periodic-item-component.component.scss']
 })
 export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('itemData') itemData: any;
+  // tslint:disable-next-line:no-input-rename
+  @Input('itemGroupType') itemGroupType: InputGroup;
+  private calCycleEnum = PeriodCalCycleUI;
+  public cycleArr = [];
+  public affectiveMonth: string;
+  public constantForm: FormGroup;
 
   private activeChangeSub: Subscription;
   private activeChangeSubject = new Subject<any>();
@@ -30,21 +40,13 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   private monthChangeSub: Subscription;
   private monthChangeSubject = new Subject<any>();
 
-  private calCycleEnum = PeriodCalCycleUI;
-  public cycle = [];
-
-  public affectiveMonth: string;
-
-  // tslint:disable-next-line:no-input-rename
-  @Input('itemData') itemData: any;
-  // tslint:disable-next-line:no-input-rename
-  @Input('itemGroupType') itemGroupType: InputGroup;
 
   constructor(public store: Store<reducerRoot.CalDataState>) {
-    this.cycle = MapperUtil.EnumMapToArray(this.calCycleEnum);
+    this.cycleArr = MapperUtil.EnumMapToArray(this.calCycleEnum);
   }
 
   ngOnInit() {
+    this.initForm();
     this.initSetup();
     this.initSub();
   }
@@ -54,6 +56,17 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
     this.nameChangeSub.unsubscribe();
     this.amountChangeSub.unsubscribe();
     this.cycleChangeSub.unsubscribe();
+  }
+
+  private initForm(): void {
+    this.constantForm = new FormGroup({
+      id: new FormControl(this.itemData.id, [ Validators.required ]),
+      name: new FormControl(this.itemData.name, [ Validators.required ]),
+      amount: new FormControl(this.itemData.amount, [ Validators.required ]),
+      cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
+      active: new FormControl(this.itemData.active, [ Validators.required ]),
+      affectiveMonth: new FormControl(this.itemData.affectiveMonth, [Validators.required])
+    });
   }
 
   private initSub(): void {
@@ -115,24 +128,29 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   public activeChange(value: boolean): void {
-    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, this.itemData.affectiveMonth, value);
+    this.constantForm.patchValue({active: value});
+    this.updateAction();
   }
 
-  private nameChange(value: string): void {
-    this.updateItem(value, this.itemData.amount, this.itemData.cycle, this.itemData.affectiveMonth, this.itemData.active);
+  public nameChange(value: string): void {
+    this.constantForm.patchValue({name: value});
+    this.updateAction();
   }
 
   public amountChange(value: any): void {
-    this.updateItem(this.itemData.name, value, this.itemData.cycle, this.itemData.affectiveMonth, this.itemData.active);
+    this.constantForm.patchValue({amount: Number(value)});
+    this.updateAction();
   }
 
   public cycleChange(value: PeriodCalCycleUI): void {
-    this.updateItem(this.itemData.name, this.itemData.amount, value, this.itemData.affectiveMonth, this.itemData.active);
+    this.constantForm.patchValue({cycle: Number(value)});
+    this.updateAction();
   }
 
   private monthChange(value: string): void {
     const months =  this.parseMonthsToUniqueArray(value);
-    this.updateItem(this.itemData.name, this.itemData.amount, this.itemData.cycle, months, this.itemData.active);
+    this.constantForm.patchValue({affectiveMonth: months});
+    this.updateAction();
   }
 
   private parseMonthsToUniqueArray(months: string): number[] {
@@ -143,16 +161,11 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
     return MapperUtil.uniqueSingleKeyArry(m);
   }
 
-  private updateItem(name: string, amount: number, cycle: PeriodCalCycleUI, affectiveMonth: number[], active: boolean): void {
-    const payload: PeriodicItem = {
-      id: this.itemData.id,
-      active: active,
-      name: name,
-      amount: Number(amount),
-      cycle: Number(cycle),
-      affectiveMonth: affectiveMonth
-    };
-    this.store.dispatch(new UpdatePeriodicalVariableItemAction(payload));
+  private updateAction(): void {
+    if (this.constantForm.invalid) {
+      return;
+    }
+    this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.constantForm.value));
   }
 
   private initSetup(): void {
