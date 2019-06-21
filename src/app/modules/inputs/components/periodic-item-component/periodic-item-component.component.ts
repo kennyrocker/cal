@@ -27,7 +27,7 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   private calCycleEnum = PeriodCalCycleUI;
   public cycleArr = [];
   public affectiveMonth: string;
-  public constantForm: FormGroup;
+  public periodicForm: FormGroup;
 
   private activeChangeSub: Subscription;
   private activeChangeSubject = new Subject<any>();
@@ -59,7 +59,7 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    this.constantForm = new FormGroup({
+    this.periodicForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
       name: new FormControl(this.itemData.name, [ Validators.required ]),
       amount: new FormControl(this.itemData.amount, [ Validators.required ]),
@@ -128,28 +128,28 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   public activeChange(value: boolean): void {
-    this.constantForm.patchValue({active: value});
+    this.periodicForm.patchValue({active: value});
     this.updateAction();
   }
 
   public nameChange(value: string): void {
-    this.constantForm.patchValue({name: value});
+    this.periodicForm.patchValue({name: value});
     this.updateAction();
   }
 
   public amountChange(value: any): void {
-    this.constantForm.patchValue({amount: Number(value)});
+    this.periodicForm.patchValue({amount: Number(value)});
     this.updateAction();
   }
 
   public cycleChange(value: PeriodCalCycleUI): void {
-    this.constantForm.patchValue({cycle: Number(value)});
+    this.periodicForm.patchValue({cycle: Number(value)});
     this.updateAction();
   }
 
   private monthChange(value: string): void {
     const months =  this.parseMonthsToUniqueArray(value);
-    this.constantForm.patchValue({affectiveMonth: months});
+    this.periodicForm.patchValue({affectiveMonth: months});
     this.updateAction();
   }
 
@@ -162,10 +162,10 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   private updateAction(): void {
-    if (this.constantForm.invalid) {
+    if (this.periodicForm.invalid) {
       return;
     }
-    this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.constantForm.value));
+    this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.periodicForm.value));
   }
 
   private initSetup(): void {

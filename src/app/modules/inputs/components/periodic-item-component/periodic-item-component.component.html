@@ -1,25 +1,25 @@
 <div class="periodic-item">
     <input type="checkbox" [checked]="itemData.active" (change)=bindActiveChangeSubject(!itemData.active) />
 
-    <form name="constantForm" [formGroup]="constantForm">
+    <form name="periodicForm" [formGroup]="periodicForm">
 
       <div class="input-field" [ngClass]="{'field-error' :
-        constantForm.get('name').touched && constantForm.get('name').invalid}">
+        periodicForm.get('name').touched && periodicForm.get('name').invalid}">
         <input #name type="text" value="{{itemData.name}}"
                formControlName="name"
                (keyup)="bindNameChangeSubject(name.value)"/>
-        <div *ngIf="constantForm.get('name').touched && constantForm.get('name').invalid"
+        <div *ngIf="periodicForm.get('name').touched && periodicForm.get('name').invalid"
              class="field-message">
           name is required
         </div>
       </div>
 
       <div class="input-field" [ngClass]="{'field-error' :
-        constantForm.get('amount').touched && constantForm.get('amount').invalid}">
+        periodicForm.get('amount').touched && periodicForm.get('amount').invalid}">
         <input #amount type="text" value="{{itemData.amount}}"
                formControlName="amount"
                (keyup)="bindAmountChangeSubject(amount.value)"/>
-        <div *ngIf="constantForm.get('amount').touched && constantForm.get('amount').invalid"
+        <div *ngIf="periodicForm.get('amount').touched && periodicForm.get('amount').invalid"
              class="field-message">
           amount is required
         </div>
@@ -31,11 +31,11 @@
       </select>
 
       <div class="input-field" [ngClass]="{'field-error' :
-        constantForm.get('affectiveMonth').touched && constantForm.get('affectiveMonth').invalid}">
+        periodicForm.get('affectiveMonth').touched && periodicForm.get('affectiveMonth').invalid}">
         <input #month type="text" value="{{affectiveMonth}}"
                formControlName="affectiveMonth"
                (keyup)="bindMonthChangeSubject(month.value)"/>
-        <div *ngIf="constantForm.get('affectiveMonth').touched && constantForm.get('affectiveMonth').invalid"
+        <div *ngIf="periodicForm.get('affectiveMonth').touched && periodicForm.get('affectiveMonth').invalid"
              class="field-message">
           affectiveMonth is required
         </div>
