@@ -37,7 +37,7 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
            return {
                 ...state,
                 constantIncome: [
-                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY },
+                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true },
                      ...state.constantIncome
                     ]
             };
@@ -46,7 +46,7 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
             return {
                 ...state,
                 constantExpense: [
-                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY },
+                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true},
                     ...state.constantExpense
                     ]
             };
@@ -55,7 +55,7 @@ export function calDataReducer(state = initalState, action: CalDataActions) {
             return {
                 ...state,
                 periodicalVariable: [
-                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, affectiveMonth: [] },
+                    { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true },
                     ...state.periodicalVariable
                 ]
             };
