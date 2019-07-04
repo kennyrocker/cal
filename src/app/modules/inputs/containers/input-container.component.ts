@@ -19,7 +19,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
   public groupType = InputGroup;
-  private data: CalData;
+  public data: CalData;
 
   constructor(public store: Store<reducerRoot.CalDataState>) {
     this.store.dispatch(new GetCalDataAction());
