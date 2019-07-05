@@ -1,9 +1,17 @@
+<div class="display-options">
+  <span class="">Display Cycle</span>:
+  <select #amountCycle [value]="displayCalCycle"
+          (change)=bindCycleChangeSubject(amountCycle.value)>
+    <option [value]="item.value" *ngFor="let item of cycleArr">
+      {{item.key}}</option>
+  </select>
+</div>
 <div class="display-container">
   <ngx-charts-bar-vertical
     class="chart-wrapper"
     [view]="view"
     [scheme]="colorScheme"
-    [results]="monthlyData"
+    [results]="displayData"
     [gradient]="gradient"
     [xAxis]="showXAxis"
     [yAxis]="showYAxis"
