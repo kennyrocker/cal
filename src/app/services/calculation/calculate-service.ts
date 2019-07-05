@@ -43,22 +43,9 @@ export class CalculateService {
         return (monthlyDayOfYear > biWeeklyDayOfYear) && (previousMonthEndDayOfYear < biWeeklyDayOfYear);
     }
 
-    public isWeekFirstOfMonth(week: number, month: number): boolean {
-        if ((week === 1 && month === 1)
-            || (week === 3 && month === 2)
-            || (week === 5 && month === 3)
-            || (week === 7 && month === 4)
-            || (week === 9 && month === 5)
-            || (week === 11 && month === 6)
-            || (week === 14 && month === 7)
-            || (week === 16 && month === 8)
-            || (week === 18 && month === 9)
-            || (week === 20 && month === 10)
-            || (week === 22 && month === 11)
-            || (week === 24 && month === 12)) {
-            return true;
-        }
-        return false;
+    /* This is base off a very generic week/month separation, not accurate to the calendar */
+    public isBiWeekFirstOfMonth(biWeek: number, month: number): boolean {
+        return month < 7 && biWeek === ((month * 2) - 1) || month > 6 && biWeek === month * 2;
     }
 
     /* ///////////////////////////////////// */
@@ -205,7 +192,7 @@ export class CalculateService {
             // annally
             if (items[i].cycle === CalCycle.ANNALLY) {
                 const month = items[i].affectiveMonth[0];
-                if (this.isWeekFirstOfMonth(biWeekOfYear, month)) {
+                if (this.isBiWeekFirstOfMonth(biWeekOfYear, month)) {
                     balance += items[i].amount;
                 }
             }
