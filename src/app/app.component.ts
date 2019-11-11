@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',

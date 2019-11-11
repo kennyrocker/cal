@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // modules
 import { DisplayModule } from 'src/app/modules/display/app.display.module';
 import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
     BrowserModule,
     InputsModule,
     DisplayModule,
-    StoreModule.forRoot(reducer),
+    HttpClientModule,
+    StoreModule.forFeature('display', reducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),

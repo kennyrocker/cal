@@ -49,10 +49,13 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.select(reducerRoot.getCalData).pipe(
-      map((calData) => {
-        this.calData = calData;
-        this.renderChart();
+
+    this.store.select(reducerRoot.displayGetCalData).pipe(
+      map((data) => {
+        this.calData = data.calData;
+        if (this.calData) {
+          this.renderChart();
+        }
       })
     ).subscribe();
 

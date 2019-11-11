@@ -26,9 +26,10 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sub = this.store.select(reducerRoot.getCalData).pipe(
-      map((calData) => {
-        this.data = calData;
+
+    this.sub = this.store.select(reducerRoot.inputGetCalData).pipe(
+      map((data) => {
+        this.data = data.calData;
       })
     ).subscribe();
   }

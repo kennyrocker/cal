@@ -3,9 +3,9 @@ import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 
-const initalState: CalData = {};
+const initialState: CalData = {};
 
-export function calDataReducer(state = initalState, action: CalDataActions) {
+export function calDataReducer(state = initialState, action: CalDataActions) {
 
     switch (action.type) {
         // ADD
