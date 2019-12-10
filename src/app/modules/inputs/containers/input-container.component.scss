@@ -1,0 +1,157 @@
+/**
+ *  Input Container
+ */
+
+.input-section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.constant-income,
+.constant-expense {
+  width: 30%;
+}
+
+.periodic-variable {
+  width: 40%;
+}
+
+.group-title {
+    text-align: center;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 3rem 0.5rem 0 0.5rem;
+    font-size: 2rem;
+    color: #333;
+}
+
+button {
+    width: 100%;
+    border-radius: 3px;
+    padding: 5px 20px;
+    background-color: #00a862;
+    color: #ffff;
+    font-size: 1.25rem;
+    &:hover {
+      background-color: #00c46c;
+      cursor: pointer;
+    }
+}
+
+
+/**
+ *  Item component
+ */
+
+$error-red: red;
+
+.periodic-item,
+.constant-item {
+  border-bottom: 1px solid #f1f1f1;
+  border-left: 1px solid #f1f1f1;
+  padding: 0.5rem 0.5rem;
+}
+
+
+.item-checkbox {
+  display: inline-block;
+  width: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.item-form {
+  display: inline-block;
+  font-size: 1.4rem;
+
+
+
+  .input-field {
+    display: inline-block;
+
+    input {
+      height: 1.75rem;
+      width: 100%;
+      font-size: 0.9rem;
+      vertical-align: middle;
+      box-sizing: border-box;
+      border-radius: 0.25rem;
+      box-shadow: none;
+      border: 1px solid #ccc;
+      padding-left: 5px;
+    }
+  }
+
+  .field-cycle  {
+    height: 1.75rem;
+    font-size: 0.7rem;
+    margin-left: 0.25rem;
+    vertical-align: middle;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .field-name {
+    width: 170px;
+  }
+
+  .field-amount {
+    position: relative;
+    width: 100px;
+    margin-left: 0.25rem;
+
+    label {
+      position: absolute;
+      font-size: 0.9rem;
+      font-family: 'arial';
+      top: 7px;
+      left: 4px;
+      color: #1d515a;
+    }
+
+    input {
+      padding-left: 12px;
+    }
+  }
+
+  .field-affective {
+    margin-left: 0.25rem;
+    width: 100px;
+  }
+
+}
+
+.close-x {
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  vertical-align: middle;
+  float: right;
+  border: 1px solid;
+  padding: 0 0.4rem;
+  border-radius: 0.25rem;
+  height: 1.35rem;
+  line-height: 1.25rem;
+  background-color: #ff9800;
+  margin-top: 0.25rem;
+
+  &:hover {
+    background: #c97100;
+  }
+}
+
+.clear-both {
+  clear: both;
+}
+
+.field-error {
+  input {
+    border: 1px solid $error-red;
+  }
+  .field-message {
+    color: $error-red;
+  }
+}

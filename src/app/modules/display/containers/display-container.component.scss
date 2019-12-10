@@ -20,3 +20,20 @@
   box-sizing: border-box;
   display: block;
 }
+
+.field-label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.field-cycle  {
+  height: 1.75rem;
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+  vertical-align: top;
+  margin-top: -0.125rem;
+  &:hover {
+    cursor: pointer;
+  }
+}

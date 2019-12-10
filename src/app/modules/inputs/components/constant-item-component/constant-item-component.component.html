@@ -1,8 +1,8 @@
 <div class="constant-item">
-  <input type="checkbox" [checked]="itemData.active" class="constant-item-checkbox"
+  <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
          (change)=bindActiveChangeSubject(!itemData.active) />
 
-  <form name="constantForm" [formGroup]="constantForm" class="constant-item-form">
+  <form name="constantForm" [formGroup]="constantForm" class="item-form">
 
     <div class="input-field field-name" [ngClass]="{'field-error' :
       constantForm.get('name').touched && constantForm.get('name').invalid}">

@@ -1,9 +1,10 @@
 <div class="periodic-item">
-    <input type="checkbox" [checked]="itemData.active" (change)=bindActiveChangeSubject(!itemData.active) />
+    <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
+           (change)=bindActiveChangeSubject(!itemData.active) />
 
-    <form name="periodicForm" [formGroup]="periodicForm">
+    <form name="periodicForm" [formGroup]="periodicForm" class="item-form">
 
-      <div class="input-field" [ngClass]="{'field-error' :
+      <div class="input-field field-name" [ngClass]="{'field-error' :
         periodicForm.get('name').touched && periodicForm.get('name').invalid}">
         <input #name type="text" value="{{itemData.name}}"
                formControlName="name"
@@ -14,8 +15,9 @@
         </div>
       </div>
 
-      <div class="input-field" [ngClass]="{'field-error' :
+      <div class="input-field field-amount" [ngClass]="{'field-error' :
         periodicForm.get('amount').touched && periodicForm.get('amount').invalid}">
+        <label>$</label>
         <input #amount type="text" value="{{itemData.amount}}"
                formControlName="amount"
                (keyup)="bindAmountChangeSubject(amount.value)"/>
@@ -25,12 +27,13 @@
         </div>
       </div>
 
-      <select #amountCycle [value]="itemData.cycle" (change)=bindCycleChangeSubject(amountCycle.value)>
+      <select #amountCycle [value]="itemData.cycle" class="field-cycle"
+              (change)=bindCycleChangeSubject(amountCycle.value)>
         <option [value]="item.value" *ngFor="let item of cycleArr">
           {{item.key}}</option>
       </select>
 
-      <div class="input-field" [ngClass]="{'field-error' :
+      <div class="input-field field-affective" [ngClass]="{'field-error' :
         periodicForm.get('affectiveMonth').touched && periodicForm.get('affectiveMonth').invalid}">
         <input #month type="text" value="{{affectiveMonth}}"
                formControlName="affectiveMonth"
@@ -44,4 +47,5 @@
     </form>
 
     <span class="close-x" (click)="removeItem()">x</span>
+    <span class="clear-both"></span>
 </div>

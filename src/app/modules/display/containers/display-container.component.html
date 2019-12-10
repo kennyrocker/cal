@@ -1,6 +1,6 @@
 <div class="display-options">
-  <span class="">Display Cycle</span>:
-  <select #amountCycle [value]="displayCalCycle"
+  <span class="field-label">Display Cycle:</span>
+  <select #amountCycle [value]="displayCalCycle" class="field-cycle"
           (change)=bindCycleChangeSubject(amountCycle.value)>
     <option [value]="item.value" *ngFor="let item of cycleArr">
       {{item.key}}</option>
