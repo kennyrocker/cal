@@ -1,16 +1,93 @@
 $error-red: red;
 
 .constant-item {
-    border: 1px dashed #ccc;
-    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid #f1f1f1;
+    border-left: 1px solid #f1f1f1;
+    padding: 0.5rem 0.5rem;
+}
+
+.constant-item-checkbox {
+  display: inline-block;
+  width: 1rem;
+}
+
+.constant-item-form {
+  display: inline-block;
+
+  font-size: 1.4rem;
+
+  .input-field {
+    display: inline-block;
+
+    input {
+      height: 1.75rem;
+      width: 100%;
+      font-size: 0.9rem;
+      vertical-align: middle;
+      box-sizing: border-box;
+      border-radius: 0.25rem;
+      box-shadow: none;
+      border: 1px solid #ccc;
+      padding-left: 5px;
+    }
+  }
+
+  .field-cycle  {
+    height: 1.75rem;
+    font-size: 0.7rem;
+    margin-left: 0.25rem;
+    vertical-align: middle;
+  }
+
+  .field-name {
+    width: 170px;
+  }
+
+  .field-amount {
+    position: relative;
+    width: 100px;
+    margin-left: 0.25rem;
+
+    label {
+      position: absolute;
+      font-size: 0.9rem;
+      font-family: 'arial';
+      top: 7px;
+      left: 4px;
+      color: #1d515a;
+    }
+
+    input {
+      padding-left: 12px;
+    }
+  }
+
+
+
 }
 
 .close-x {
-    padding: 0.75rem;
-    color: red;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.25rem;
-    cursor: pointer;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  vertical-align: middle;
+  float: right;
+  border: 1px solid;
+  padding: 0 0.4rem;
+  border-radius: 0.25rem;
+  height: 1.35rem;
+  line-height: 1.25rem;
+  background-color: #2998ab;
+  margin-top: 0.25rem;
+
+  &:hover {
+    background: #1d515a;
+  }
+}
+
+.clear-both {
+  clear: both;
 }
 
 .field-error {

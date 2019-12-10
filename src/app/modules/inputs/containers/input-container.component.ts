@@ -9,6 +9,7 @@ import { GetCalDataAction, AddConstantIncomeItemAction,
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import {filter} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-input-container',
@@ -26,10 +27,10 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    this.sub = this.store.select(reducerRoot.inputGetCalData).pipe(
+    this.sub = this.store.select(reducerRoot.getCalData).pipe(
+      filter(data => data !== undefined),
       map((data) => {
-        this.data = data.calData;
+        this.data = data;
       })
     ).subscribe();
   }

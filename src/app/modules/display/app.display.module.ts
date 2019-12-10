@@ -26,7 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     imports: [
         BrowserModule,
         StoreModule.forRoot(reducer),
-        EffectsModule.forFeature([CalDataEffects]),
+        EffectsModule.forRoot([CalDataEffects]),
         NgxChartsModule,
         BrowserAnimationsModule
     ],

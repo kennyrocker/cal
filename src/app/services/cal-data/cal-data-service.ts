@@ -12,7 +12,7 @@ export class CalDataService {
     constructor(private http: HttpClient) {}
 
     public get(): Observable<any> {
-        return this.http.get('../../../assets/mock/cal.json');
+        return this.http.get('../../../assets/mock/cal-r.json');
     }
 
     public update(content: CalData): Observable<CalData> {

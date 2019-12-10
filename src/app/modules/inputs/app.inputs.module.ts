@@ -30,8 +30,8 @@ import { CalculateService } from '../../services/calculation/calculate-service';
     imports: [
         BrowserModule,
         ReactiveFormsModule,
-        StoreModule.forFeature('input', reducer),
-        EffectsModule.forFeature([CalDataEffects])
+        StoreModule.forRoot(reducer),
+        EffectsModule.forRoot([CalDataEffects])
     ],
     providers: [
         CalDataService,

@@ -1,10 +1,10 @@
 <div class="constant-item">
-  <input type="checkbox" [checked]="itemData.active"
+  <input type="checkbox" [checked]="itemData.active" class="constant-item-checkbox"
          (change)=bindActiveChangeSubject(!itemData.active) />
 
-  <form name="constantForm" [formGroup]="constantForm">
+  <form name="constantForm" [formGroup]="constantForm" class="constant-item-form">
 
-    <div class="input-field" [ngClass]="{'field-error' :
+    <div class="input-field field-name" [ngClass]="{'field-error' :
       constantForm.get('name').touched && constantForm.get('name').invalid}">
       <input #name type="text" value="{{itemData.name}}"
              formControlName="name"
@@ -15,8 +15,9 @@
       </div>
     </div>
 
-    <div class="input-field" [ngClass]="{'field-error' :
+    <div class="input-field field-amount" [ngClass]="{'field-error' :
       constantForm.get('amount').touched && constantForm.get('amount').invalid}">
+      <label>$</label>
       <input #amount type="number" value="{{itemData.amount}}"
              formControlName="amount"
              (keyup)="bindAmountChangeSubject(amount.value)"/>
@@ -26,7 +27,7 @@
       </div>
     </div>
 
-    <select #amountCycle [value]="itemData.cycle"
+    <select #amountCycle [value]="itemData.cycle" class="field-cycle"
             formControlName="cycle"
             (change)=bindCycleChangeSubject(amountCycle.value)>
       <option [value]="item.value" *ngFor="let item of cycleArr">
@@ -36,4 +37,5 @@
   </form>
 
   <span class="close-x" (click)="removeItem()">x</span>
+  <span class="clear-both"></span>
 </div>

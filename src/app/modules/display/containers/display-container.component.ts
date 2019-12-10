@@ -9,6 +9,7 @@ import {MapperUtil} from '../../../utils/mapper-util';
 import {Subject, Subscription} from 'rxjs';
 import {distinctUntilChanged} from 'rxjs/internal/operators/distinctUntilChanged';
 import {CalData} from '../../../constants/interfaces/cal-data';
+import {filter} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-display-container',
@@ -50,12 +51,11 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.store.select(reducerRoot.displayGetCalData).pipe(
+    this.store.select(reducerRoot.getCalData).pipe(
+      filter( data => data !== undefined),
       map((data) => {
-        this.calData = data.calData;
-        if (this.calData) {
+          this.calData = data;
           this.renderChart();
-        }
       })
     ).subscribe();
 

@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     InputsModule,
     DisplayModule,
     HttpClientModule,
-    StoreModule.forFeature('display', reducer),
+    StoreModule.forRoot( reducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
