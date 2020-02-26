@@ -6,7 +6,7 @@ import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { GetCalDataAction, AddConstantIncomeItemAction,
   AddConstantExpenseItemAction, AddPeriodicalVariableItemAction } from 'src/app/actions/calData.action';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnDestroy } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import {filter} from 'rxjs/internal/operators';
