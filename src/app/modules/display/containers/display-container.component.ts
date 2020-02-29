@@ -97,8 +97,8 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
           this.displayData = this.calService.getMonthlyProjection(0, 1, 12, this.calData);
           break;
 
-      case CalCycle.ANNALLY :
-          this.displayData = this.calService.getAnnallyProjection(0, 1, this.calData);
+      case CalCycle.ANNUALLY :
+          this.displayData = this.calService.getAnnuallyProjection(0, 1, this.calData);
           break;
     }
 

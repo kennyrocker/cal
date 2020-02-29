@@ -40,7 +40,7 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
     if (this.itemGroupType === InputGroup.CONSTANT_INCOME
       || this.itemGroupType === InputGroup.CONSTANT_EXPENSE) {
       this.placeHolder = 'Enter item with short cut for example "condo rental1000m" '
-          + '\n{ condo rental : name} { 1000 : amount } { m | a | b : monthly | annally | biweekly cycle}'
+          + '\n{ condo rental : name} { 1000 : amount } { m | a | b : monthly | annually | biweekly cycle}'
           + '\nMultiple items can be enter seprated by ; such as "condo rental1000m; car lease250b"';
     }
     if (this.itemGroupType === InputGroup.PERIODICAL_VARIBLE) {

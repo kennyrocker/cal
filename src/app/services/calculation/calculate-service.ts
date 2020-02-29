@@ -67,7 +67,7 @@ export class CalculateService {
         if (items[i].cycle === CalCycle.MONTHLY) {
           total += (items[i].amount * CalCycle.MONTHLY / CalCycle.BIWEEKLY);
         }
-        if (items[i].cycle === CalCycle.ANNALLY) {
+        if (items[i].cycle === CalCycle.ANNUALLY) {
           total += (items[i].amount / CalCycle.BIWEEKLY);
         }
       }
@@ -89,14 +89,14 @@ export class CalculateService {
         if (items[i].cycle === CalCycle.MONTHLY) {
           total += Number(items[i].amount);
         }
-        if (items[i].cycle === CalCycle.ANNALLY) {
+        if (items[i].cycle === CalCycle.ANNUALLY) {
           total += Number(items[i].amount) / CalCycle.MONTHLY;
         }
       }
       return CalculateService.roundToCents(total);
     }
 
-    public getConstantSumWithAnnallyConversion(items: StandarItem[]): number {
+    public getConstantSumWithAnnuallyConversion(items: StandarItem[]): number {
         if (!items || items.length === 0) {
           return 0;
         }
@@ -111,7 +111,7 @@ export class CalculateService {
             if (items[i].cycle === CalCycle.MONTHLY) {
                 total += (items[i].amount * CalCycle.MONTHLY);
             }
-            if (items[i].cycle === CalCycle.ANNALLY) {
+            if (items[i].cycle === CalCycle.ANNUALLY) {
                 total += items[i].amount;
             }
         }
@@ -140,7 +140,7 @@ export class CalculateService {
                   }
                }
             }
-            if (items[i].cycle === CalCycle.ANNALLY) {
+            if (items[i].cycle === CalCycle.ANNUALLY) {
                 if (items[i].affectiveMonth[0] === monthOfYear) {
                     balance += itemAmount;
                 }
@@ -149,7 +149,7 @@ export class CalculateService {
         return CalculateService.roundToCents(balance);
     }
 
-    public getPeriodicSumWithAnnallyConverstion(items: PeriodicItem[]): number {
+    public getPeriodicSumWithAnnuallyConverstion(items: PeriodicItem[]): number {
         if (!items || items.length === 0) {
           return 0;
         }
@@ -158,7 +158,7 @@ export class CalculateService {
             if (items[i].active === false) {
               continue;
             }
-            if (items[i].cycle === CalCycle.ANNALLY) {
+            if (items[i].cycle === CalCycle.ANNUALLY) {
                 balance += items[i].amount;
             }
             if (items[i].cycle === CalCycle.MONTHLY) {
@@ -189,8 +189,8 @@ export class CalculateService {
                    }
                 }
             }
-            // annally
-            if (items[i].cycle === CalCycle.ANNALLY) {
+            // annually
+            if (items[i].cycle === CalCycle.ANNUALLY) {
                 const month = items[i].affectiveMonth[0];
                 if (this.isBiWeekFirstOfMonth(biWeekOfYear, month)) {
                     balance += items[i].amount;
@@ -236,7 +236,7 @@ export class CalculateService {
         return output;
     }
 
-    public getAnnallyProjection(initBalance: number, numberOfYears: number, calData: CalData): DisplayItem[] {
+    public getAnnuallyProjection(initBalance: number, numberOfYears: number, calData: CalData): DisplayItem[] {
 
         if (this.isProjectionUnhandle(calData)) {
           return [];
@@ -245,12 +245,12 @@ export class CalculateService {
           return [];
         }
         const output: DisplayItem[] = [];
-        const annalConstantIncome = this.getConstantSumWithAnnallyConversion(calData.constantIncome);
-        const annalConstantExpense = this.getConstantSumWithAnnallyConversion(calData.constantExpense);
+        const annalConstantIncome = this.getConstantSumWithAnnuallyConversion(calData.constantIncome);
+        const annalConstantExpense = this.getConstantSumWithAnnuallyConversion(calData.constantExpense);
         const annalConstantBalance = annalConstantIncome - annalConstantExpense;
         let balance = initBalance ? initBalance : 0;
         for (let i = 0; i < numberOfYears; i++) {
-            const annalPeriodicalBalance = this.getPeriodicSumWithAnnallyConverstion(calData.periodicalVariable);
+            const annalPeriodicalBalance = this.getPeriodicSumWithAnnuallyConverstion(calData.periodicalVariable);
             balance += (annalConstantBalance + annalPeriodicalBalance);
             const displayItem = {
                 name: (i + 1).toString(),

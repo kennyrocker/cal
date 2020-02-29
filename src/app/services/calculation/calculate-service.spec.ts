@@ -53,26 +53,26 @@ describe('Calculate Service', () => {
         },
     ];
 
-    const constantStandarItemANNALLY = [
+    const constantStandarItemANNUALLY = [
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.ANNALLY,
+            cycle: CalCycle.ANNUALLY,
             active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.ANNALLY,
+            cycle: CalCycle.ANNUALLY,
             active: true
         },
         {
             id: 2323523,
             name: 'income1',
             amount: 100,
-            cycle: CalCycle.ANNALLY,
+            cycle: CalCycle.ANNUALLY,
             active: true
         },
     ];
@@ -89,7 +89,7 @@ describe('Calculate Service', () => {
             id: 2323523,
             name: 'income1',
             amount: 100.51,
-            cycle: CalCycle.ANNALLY,
+            cycle: CalCycle.ANNUALLY,
             active: true
         },
         {
@@ -116,7 +116,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 100,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
         },
@@ -124,7 +124,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p3',
             amount : 100,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [8],
             active: true
         }
@@ -183,7 +183,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           }
@@ -246,7 +246,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           }
@@ -302,7 +302,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           }
@@ -442,7 +442,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           },
@@ -450,7 +450,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [7],
             active: true
           }
@@ -574,7 +574,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           },
@@ -582,7 +582,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [7],
             active: true
           }
@@ -638,7 +638,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           },
@@ -646,7 +646,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [7],
             active: true
           }
@@ -740,7 +740,7 @@ describe('Calculate Service', () => {
                 id: 2323523,
                 name: 'income1',
                 amount: 100,
-                cycle: CalCycle.ANNALLY,
+                cycle: CalCycle.ANNUALLY,
                 active: true
             },
             {
@@ -756,7 +756,7 @@ describe('Calculate Service', () => {
                  id: 2223521,
                  name :  'expense1',
                  amount : 100,
-                 cycle : CalCycle.ANNALLY,
+                 cycle : CalCycle.ANNUALLY,
                  active: true
              },
              {
@@ -791,7 +791,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [4],
             active: true
           },
@@ -799,7 +799,7 @@ describe('Calculate Service', () => {
             id: 2223522,
             name : 'p2',
             amount : 300,
-            cycle : CalCycle.ANNALLY,
+            cycle : CalCycle.ANNUALLY,
             affectiveMonth : [1],
             active: true
           }
@@ -898,7 +898,7 @@ describe('Calculate Service', () => {
         id: 2223522,
         name : 'p2',
         amount : 300,
-        cycle : CalCycle.ANNALLY,
+        cycle : CalCycle.ANNUALLY,
         affectiveMonth : [4],
         active: true
       }
@@ -997,8 +997,8 @@ describe('Calculate Service', () => {
         expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemMONTHLY)).toEqual(CalculateService.roundToCents(300 * 12 / 26));
     });
 
-    it('#getConstantSumWithBiWeeklyConversion with constantStandarItemANNALLY input should expect toatl of 300 / 26', () => {
-        expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemANNALLY)).toEqual(CalculateService.roundToCents(300 / 26));
+    it('#getConstantSumWithBiWeeklyConversion with constantStandarItemANNUALLY input should expect toatl of 300 / 26', () => {
+        expect(service.getConstantSumWithBiWeeklyConversion(constantStandarItemANNUALLY)).toEqual(CalculateService.roundToCents(300 / 26));
     });
 
     it('#getConstantSumWithBiWeeklyConversion with constantStandarItemMixCycle input'
@@ -1029,8 +1029,8 @@ describe('Calculate Service', () => {
         expect(service.getConstantSumWithMonthlyConversion(constantStandarItemBIWEEKLY)).toEqual(CalculateService.roundToCents(301.5 * 26 / 12));
     });
 
-    it('#getConstantSumWithMonthlyConversion with constantStandarItemANNALLY input should expect toatl of 300 / 12', () => {
-        expect(service.getConstantSumWithMonthlyConversion(constantStandarItemANNALLY)).toEqual(300 / 12);
+    it('#getConstantSumWithMonthlyConversion with constantStandarItemANNUALLY input should expect toatl of 300 / 12', () => {
+        expect(service.getConstantSumWithMonthlyConversion(constantStandarItemANNUALLY)).toEqual(300 / 12);
     });
 
     it('#getConstantSumWithMonthlyConversion with constantStandarItemMixCycle input'
@@ -1044,33 +1044,33 @@ describe('Calculate Service', () => {
         .toEqual(0);
     });
 
-    // AnnallyConversion
-    it('#getConstantSumWithAnnallyConversion with undefined input should return 0', () => {
-        expect(service.getConstantSumWithAnnallyConversion(undefined)).toEqual(0);
+    // AnnuallyConversion
+    it('#getConstantSumWithAnnuallyConversion with undefined input should return 0', () => {
+        expect(service.getConstantSumWithAnnuallyConversion(undefined)).toEqual(0);
     });
 
-    it('#getConstantSumWithAnnallyConversion with empty array input should return 0', () => {
-        expect(service.getConstantSumWithAnnallyConversion([])).toEqual(0);
+    it('#getConstantSumWithAnnuallyConversion with empty array input should return 0', () => {
+        expect(service.getConstantSumWithAnnuallyConversion([])).toEqual(0);
     });
 
-    it('#getConstantSumWithAnnallyConversion with constantStandarItemANNALLY input should expect toatl of 300', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemANNALLY)).toEqual(300);
+    it('#getConstantSumWithAnnuallyConversion with constantStandarItemANNUALLY input should expect toatl of 300', () => {
+        expect(service.getConstantSumWithAnnuallyConversion(constantStandarItemANNUALLY)).toEqual(300);
     });
 
-    it('#getConstantSumWithAnnallyConversion with constantStandarItemBIWEEKLY input should expect toatl of 301.5 * 26', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemBIWEEKLY)).toEqual(CalculateService.roundToCents(301.5 * 26));
+    it('#getConstantSumWithAnnuallyConversion with constantStandarItemBIWEEKLY input should expect toatl of 301.5 * 26', () => {
+        expect(service.getConstantSumWithAnnuallyConversion(constantStandarItemBIWEEKLY)).toEqual(CalculateService.roundToCents(301.5 * 26));
     });
 
-    it('#getConstantSumWithAnnallyConversion with constantStandarItemMONTHLY input should expect toatl of 300 * 12', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemMONTHLY)).toEqual(CalculateService.roundToCents(300 * 12));
+    it('#getConstantSumWithAnnuallyConversion with constantStandarItemMONTHLY input should expect toatl of 300 * 12', () => {
+        expect(service.getConstantSumWithAnnuallyConversion(constantStandarItemMONTHLY)).toEqual(CalculateService.roundToCents(300 * 12));
     });
 
-    it('#getConstantSumWithAnnallyConversion with constantStandarItemMixCycle input should expect toatl of (100.49 * 12) + 100.51 + (100.5 * 26)', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemMixCycle)).toEqual(CalculateService.roundToCents((100.49 * 12) + 100.51 + (100.5 * 26)));
+    it('#getConstantSumWithAnnuallyConversion with constantStandarItemMixCycle input should expect toatl of (100.49 * 12) + 100.51 + (100.5 * 26)', () => {
+        expect(service.getConstantSumWithAnnuallyConversion(constantStandarItemMixCycle)).toEqual(CalculateService.roundToCents((100.49 * 12) + 100.51 + (100.5 * 26)));
     });
 
-    it('#getConstantSumWithAnnallyConversion with constantStandarItemMixCycle input should expect toatl of 0', () => {
-        expect(service.getConstantSumWithAnnallyConversion(constantStandarItemEmpty)).toEqual(CalculateService.roundToCents(0));
+    it('#getConstantSumWithAnnuallyConversion with constantStandarItemMixCycle input should expect toatl of 0', () => {
+        expect(service.getConstantSumWithAnnuallyConversion(constantStandarItemEmpty)).toEqual(CalculateService.roundToCents(0));
     });
 
     /* ///////////////////////////////////// */
@@ -1093,16 +1093,16 @@ describe('Calculate Service', () => {
         expect(service.getPeriodicSumWithMonthlyConverstion(periodicalVarible, 8)).toEqual(100);
     });
 
-    it('#getPeriodicSumWithAnnallyConverstion with undefined items input should return 0', () => {
-        expect(service.getPeriodicSumWithAnnallyConverstion(undefined)).toEqual(0);
+    it('#getPeriodicSumWithAnnuallyConverstion with undefined items input should return 0', () => {
+        expect(service.getPeriodicSumWithAnnuallyConverstion(undefined)).toEqual(0);
     });
 
-    it('#getPeriodicSumWithAnnallyConverstion with empty array input should return 0', () => {
-        expect(service.getPeriodicSumWithAnnallyConverstion([])).toEqual(0);
+    it('#getPeriodicSumWithAnnuallyConverstion with empty array input should return 0', () => {
+        expect(service.getPeriodicSumWithAnnuallyConverstion([])).toEqual(0);
     });
 
-    it('#getPeriodicSumWithAnnallyConverstion with periodicalVariable input should return -100', () => {
-        expect(service.getPeriodicSumWithAnnallyConverstion(periodicalVarible)).toEqual(-100);
+    it('#getPeriodicSumWithAnnuallyConverstion with periodicalVariable input should return -100', () => {
+        expect(service.getPeriodicSumWithAnnuallyConverstion(periodicalVarible)).toEqual(-100);
     });
 
     /* ///////////////////////////////////// */
@@ -1134,29 +1134,29 @@ describe('Calculate Service', () => {
         expect(service.getMonthlyProjection(0, 1, 4, noPeriodicInput)).toEqual(noPeriodicOutput);
     });
 
-    // Annally Projection
-    it('#getAnnallyProjection with empty object input should return empty array', () => {
-        expect(service.getAnnallyProjection(0, 5, {})).toEqual([]);
+    // Annually Projection
+    it('#getAnnuallyProjection with empty object input should return empty array', () => {
+        expect(service.getAnnuallyProjection(0, 5, {})).toEqual([]);
     });
 
-    it('#getAnnallyProjection with 0 numberOfYears input should return empty array', () => {
-        expect(service.getAnnallyProjection(0, 0, {})).toEqual([]);
+    it('#getAnnuallyProjection with 0 numberOfYears input should return empty array', () => {
+        expect(service.getAnnuallyProjection(0, 0, {})).toEqual([]);
     });
 
-    it('#getAnnallyProjection with fullAnnalInput and numberOfYears of 4 input should return fullAnnalOutput', () => {
-        expect(service.getAnnallyProjection(0, 4, fullAnnalInput)).toEqual(fullAnnalOutput);
+    it('#getAnnuallyProjection with fullAnnalInput and numberOfYears of 4 input should return fullAnnalOutput', () => {
+        expect(service.getAnnuallyProjection(0, 4, fullAnnalInput)).toEqual(fullAnnalOutput);
     });
 
-    it('#getAnnallyProjection with fullAnnalNoPeriodicInput and numberOfYears of 4 input should return fullAnnalNoPeriodicOutput', () => {
-        expect(service.getAnnallyProjection(0, 4, fullAnnalNoPeriodicInput)).toEqual(fullAnnalNoPeriodicOutput);
+    it('#getAnnuallyProjection with fullAnnalNoPeriodicInput and numberOfYears of 4 input should return fullAnnalNoPeriodicOutput', () => {
+        expect(service.getAnnuallyProjection(0, 4, fullAnnalNoPeriodicInput)).toEqual(fullAnnalNoPeriodicOutput);
     });
 
-    it('#getAnnallyProjection with fullAnnalNoConstantIncomeInput and numberOfYears of 4 input should return fullAnnalNoConstantIncomeOutput', () => {
-        expect(service.getAnnallyProjection(0, 4, fullAnnalNoConstantIncomeInput)).toEqual(fullAnnalNoConstantIncomeOutput);
+    it('#getAnnuallyProjection with fullAnnalNoConstantIncomeInput and numberOfYears of 4 input should return fullAnnalNoConstantIncomeOutput', () => {
+        expect(service.getAnnuallyProjection(0, 4, fullAnnalNoConstantIncomeInput)).toEqual(fullAnnalNoConstantIncomeOutput);
     });
 
-    it('#getAnnallyProjection with fullAnnalNoConstantExpenseInput and numberOfYears of 4 input should return fullAnnalNoConstantExpenseOutput', () => {
-        expect(service.getAnnallyProjection(0, 4, fullAnnalNoConstantExpenseInput)).toEqual(fullAnnalNoConstantExpenseOutput);
+    it('#getAnnuallyProjection with fullAnnalNoConstantExpenseInput and numberOfYears of 4 input should return fullAnnalNoConstantExpenseOutput', () => {
+        expect(service.getAnnuallyProjection(0, 4, fullAnnalNoConstantExpenseInput)).toEqual(fullAnnalNoConstantExpenseOutput);
     });
 
     // BiWeekly Projection
