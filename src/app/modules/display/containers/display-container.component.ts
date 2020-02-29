@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { DisplayItem } from 'src/app/constants/interfaces/display-item';
 import * as reducerRoot from '../../../reducers/index';
@@ -18,6 +18,8 @@ import {filter} from 'rxjs/internal/operators';
 })
 export class DisplayContainerComponent implements OnInit, OnDestroy {
 
+  @ViewChild('amountCycle') monthSelector: any;
+
   private calCycleEnum = CalCycle;
   public cycleArr = [];
   private cycleChangeSub: Subscription;
@@ -27,7 +29,6 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
   public displayData: DisplayItem[];
 
   multi: any[];
-
   view: any[] = [700, 400];
 
   // options
@@ -50,7 +51,6 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.store.select(reducerRoot.getCalData).pipe(
       filter( data => data !== undefined),
       map((data) => {
@@ -59,6 +59,11 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
       })
     ).subscribe();
 
+  }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngAfterViewInit() {
+    this.monthSelector.nativeElement.value = this.displayCalCycle;
   }
 
   ngOnDestroy() {
