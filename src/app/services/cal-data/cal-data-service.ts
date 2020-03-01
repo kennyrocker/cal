@@ -13,7 +13,7 @@ export class CalDataService {
 
     public get(): Observable<any> {
         return this.http.get('../../../assets/mock/ken-copper.json');
-        //return this.http.get('../../../assets/mock/ken-hd.json');
+        // return this.http.get('../../../assets/mock/ken-hd.json');
     }
 
     public update(content: CalData): Observable<CalData> {

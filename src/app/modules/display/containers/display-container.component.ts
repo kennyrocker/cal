@@ -25,7 +25,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
   private cycleChangeSub: Subscription;
   private cycleChangeSubject = new Subject<any>();
   public displayCalCycle = CalCycle.MONTHLY;
-  public calData: CalData = {};
+  public calData: CalData;
   public displayData: DisplayItem[];
 
   multi: any[];
