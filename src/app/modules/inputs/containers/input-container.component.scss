@@ -91,6 +91,8 @@ $error-red: red;
     height: 1.75rem;
     font-size: 0.7rem;
     margin-left: 0.25rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
     vertical-align: middle;
     &:hover {
       cursor: pointer;
