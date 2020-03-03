@@ -19,7 +19,7 @@
     "@angular/forms": "~7.1.0",
     "@angular/platform-browser": "~9.0.2",
     "@angular/platform-browser-dynamic": "~9.0.2",
-    "@angular/router": "~7.1.0",
+    "@angular/router": "~9.0.0",
     "@ngrx/effects": "^7.0.0",
     "@ngrx/store": "^7.0.0",
     "@ngrx/store-devtools": "^7.0.0",

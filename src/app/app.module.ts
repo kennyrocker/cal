@@ -17,16 +17,20 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DisplayModule } from 'src/app/modules/display/app.display.module';
 import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from 'src/app/app.routes';
+import { ProjectionComponent } from 'src/app/containers/projection/projection';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     InputsModule,
     DisplayModule,
+    AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot( reducer),
     StoreDevtoolsModule.instrument({
