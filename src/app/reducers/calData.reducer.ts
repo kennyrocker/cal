@@ -6,20 +6,7 @@ import { Entites } from 'src/app/constants/interfaces/entites';
 
 
 const initialState: Entites = {
-    snapshot: [
-        {
-            "id": '106363041',
-            "name": "Copper CRM",
-            "lastUpdated": 1583079462358,
-            "collectionLoaded": false
-        },
-        {
-            "id": '1003023041',
-            "name": "Home Depot",
-            "lastUpdated": 1583079462358,
-            "collectionLoaded": false
-        }
-    ],
+    snapshot: [],
     collection: []
 };
 

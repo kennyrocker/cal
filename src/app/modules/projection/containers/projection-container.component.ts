@@ -44,18 +44,8 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
         this.projectionSub = this.store.pipe(
             select(getProjectionById, {id: this.projectionId}),
         ).subscribe( data => {
-            console.log(data);
+            if (data) { console.log(data); }
         });
-
-
-
-
-        // TODO::
-        // base of projectionId
-        // check if projection data existed from store
-        // if not dispatch getProjectionById with id
-        // subscribe to the particular projection data from store
-        // feed the data to input and display componet (module need to rewrite to accept input, and change action dispatch)
 
     }
 

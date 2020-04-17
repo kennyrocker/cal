@@ -9,7 +9,7 @@ export const getAllSnapShots = createSelector(
 
 export const getSnapShotById = createSelector(
     getAllSnapShots,
-    (snapshots, props) => snapshots.filter((i) => i.id === props.id)[0]
+    (snapshots, props) => snapshots.find((i) => i.id === props.id)
 );
 
 export const getSnapShotByIdisLoaded = createSelector(
@@ -26,5 +26,5 @@ export const getCollections = createSelector(
 
 export const getProjectionById = createSelector(
     getCollections,
-    (collections, props) => collections.filter((i) => i.id === props.id)[0]
+    (collections, props) => collections.find((i) => i.id === props.id)
 );
