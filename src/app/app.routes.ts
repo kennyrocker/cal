@@ -2,13 +2,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ProjectionContainerComponent } from 'src/app/modules/projection/containers/projection-container.component';
 
-import { ProjectionComponent } from './containers/projection/projection';
 
 const routes: Routes = [
     {
         path: 'projection/:id',
-        component: ProjectionComponent,
+        loadChildren: () => import('./modules/projection/app.projection.module').then(m => m.ProjectionModule),
+        component: ProjectionContainerComponent,
         pathMatch: 'full'
     }
 ];

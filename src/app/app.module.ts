@@ -18,7 +18,7 @@ import { DisplayModule } from 'src/app/modules/display/app.display.module';
 import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from 'src/app/app.routes';
-import { ProjectionComponent } from 'src/app/containers/projection/projection';
+import { ProjectionModule } from 'src/app/modules/projection/app.projection.module';
 
 
 

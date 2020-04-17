@@ -3,8 +3,29 @@ import { StandarItem } from 'src/app/constants/interfaces/standar-item';
 import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 import { FixItem } from 'src/app/constants/interfaces/fix-item';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
+import { Snapshot } from 'src/app/constants/interfaces/snapshot';
 
 export enum CalDataActionTypes {
+
+    GetAllProjectionSnapshot = '[Get All Projection Snapshot] Get',
+    GetAllProjectionSnapshotSuccess = '[Get All Projection Snapshot] Get Success',
+    GetProjectionById = '[Get Projection By Id] Get',
+    GetProjectionByIdSuccess = '[Get Projection By Id] Get Success',
+    UpdateSnapShot = '[Update Snapshot] Update',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     GetCalData = '[Cal Data] Get',
     GetCalDataSuccess = '[Cal Data] Get Success',
     AddConstantIncomeItem = '[Constant Income Item] Add',
@@ -22,6 +43,8 @@ export enum CalDataActionTypes {
     DeletePeriodicalVariableItem = '[Perodical Variable Item] Delete',
     DeleteStaticVariableItem = '[Static Variable Item] Delete'
 }
+
+// OLD
 
 export class GetCalDataAction implements Action {
     readonly type = CalDataActionTypes.GetCalData;
@@ -102,7 +125,49 @@ export class DeleteStaticVariableItemAction implements Action {
     constructor(public itemId: number) {}
 }
 
-export type CalDataActions = UpdateConstantIncomeItemAction
+
+
+
+
+
+
+
+
+
+
+// NEW
+export class GetAllProjectionSnapshotAction implements Action {
+    readonly type = CalDataActionTypes.GetAllProjectionSnapshot;
+    constructor(public userId: string) {}
+}
+
+export class GetAllProjectionSnapshotActionSuccess implements Action {
+    readonly type = CalDataActionTypes.GetAllProjectionSnapshotSuccess;
+    constructor(public payload: any) {}
+}
+
+export class GetProjectionByIdAction implements Action {
+    readonly type = CalDataActionTypes.GetProjectionById;
+    constructor(public projectionId: string) {}
+}
+
+export class GetProjectionByIdActionSuccess implements Action {
+    readonly type = CalDataActionTypes.GetProjectionByIdSuccess;
+    constructor(public payload: any) {}
+}
+
+export class UpdateSnapShotAction implements Action {
+    readonly type = CalDataActionTypes.UpdateSnapShot;
+    constructor(public payload: Snapshot) {}
+}
+
+
+
+
+
+export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
+ | GetProjectionByIdAction | GetProjectionByIdActionSuccess | UpdateSnapShotAction
+ | UpdateConstantIncomeItemAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
  | AddConstantExpenseItemAction | AddPeriodicalVariableItemAction
