@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // Ngrx
 import { StoreModule } from '@ngrx/store';
@@ -9,17 +9,16 @@ import { reducer } from 'src/app/reducers';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { EffectsModule } from '@ngrx/effects';
 
+// Modules
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from 'src/app/app.routes';
+
+// Services
+import { CalculateService } from 'src/app/services/calculation/calculate-service';
+import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
+
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-
-// modules
-import { DisplayModule } from 'src/app/modules/display/app.display.module';
-import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from 'src/app/app.routes';
-import { ProjectionModule } from 'src/app/modules/projection/app.projection.module';
-
 
 
 @NgModule({
@@ -28,15 +27,18 @@ import { ProjectionModule } from 'src/app/modules/projection/app.projection.modu
   ],
   imports: [
     BrowserModule,
-    InputsModule,
-    DisplayModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot( reducer),
+    StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
     EffectsModule.forRoot([CalDataEffects])
+  ],
+  providers: [
+    CalculateService,
+    CalDataService
   ],
   bootstrap: [AppComponent]
 })

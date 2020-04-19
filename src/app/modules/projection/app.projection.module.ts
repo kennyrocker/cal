@@ -12,10 +12,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProjectionContainerComponent } from 'src/app/modules/projection/containers/projection-container.component';
 
 // Services
-import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
-import { CalculateService } from '../../services/calculation/calculate-service';
+import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
+import { DisplayModule } from 'src/app/modules/display/app.display.module';
 
-
+// 3d Party
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -24,13 +25,12 @@ import { CalculateService } from '../../services/calculation/calculate-service';
     ],
     imports: [
         CommonModule,
+        DisplayModule,
+        InputsModule,
+        NgxChartsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducer),
         EffectsModule.forRoot([CalDataEffects])
-    ],
-    providers: [
-        CalDataService,
-        CalculateService
     ]
 })
 export class ProjectionModule { }

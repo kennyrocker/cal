@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import { Input, Component, OnDestroy, OnInit, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { DisplayItem } from 'src/app/constants/interfaces/display-item';
-import * as reducerRoot from '../../../reducers/index';
-import { Store } from '@ngrx/store';
+
 import { map } from 'rxjs/operators';
 import {CalCycle} from '../../../constants/enums/cal-cycle';
 import {MapperUtil} from '../../../utils/mapper-util';
@@ -18,6 +17,9 @@ import {filter} from 'rxjs/internal/operators';
 })
 export class DisplayContainerComponent implements OnInit, OnDestroy {
 
+  // tslint:disable-next-line:no-input-rename
+  @Input() calData: any;
+
   @ViewChild('amountCycle') monthSelector: any;
 
   private calCycleEnum = CalCycle;
@@ -25,7 +27,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
   private cycleChangeSub: Subscription;
   private cycleChangeSubject = new Subject<any>();
   public displayCalCycle = CalCycle.MONTHLY;
-  public calData: CalData;
+
   public displayData: DisplayItem[];
 
   multi: any[];
@@ -45,25 +47,26 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
     domain: ['#132a13', '#31572c', '#4f772d', '#90a955', '#ecf39e']
   };
 
-  constructor(private calService: CalculateService, private store: Store<reducerRoot.CalDataState>) {
+  constructor(private calService: CalculateService) {
     this.cycleArr = MapperUtil.EnumMapToArray(this.calCycleEnum);
     this.initSub();
   }
 
   ngOnInit() {
-    this.store.select(reducerRoot.getCalData).pipe(
-      filter( data => data !== undefined),
-      map((data) => {
-          this.calData = data;
-          this.renderChart();
-      })
-    ).subscribe();
 
+  }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnChanges() {
+    if (this.calData) {
+      this.renderChart();
+    }
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit() {
     this.monthSelector.nativeElement.value = this.displayCalCycle;
+
   }
 
   ngOnDestroy() {

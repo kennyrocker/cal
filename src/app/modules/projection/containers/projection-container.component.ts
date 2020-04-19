@@ -22,6 +22,8 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private isLoadedSub: Subscription;
     private projectionSub: Subscription;
 
+    public projection: any;
+
     constructor(private route: ActivatedRoute,
         public store: Store<reducerRoot.CalDataState>) {
 
@@ -44,7 +46,7 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
         this.projectionSub = this.store.pipe(
             select(getProjectionById, {id: this.projectionId}),
         ).subscribe( data => {
-            if (data) { console.log(data); }
+            if (data) { this.projection = data; }
         });
 
     }

@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -14,11 +14,6 @@ import { PeriodicItemComponentComponent } from './components/periodic-item-compo
 import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
 import { InputContainerComponent } from './containers/input-container.component';
 
-// Services
-import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
-import { CalculateService } from '../../services/calculation/calculate-service';
-
-
 
 @NgModule({
     declarations: [
@@ -28,14 +23,10 @@ import { CalculateService } from '../../services/calculation/calculate-service';
         InputContainerComponent
     ],
     imports: [
-        BrowserModule,
+        CommonModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducer),
         EffectsModule.forRoot([CalDataEffects])
-    ],
-    providers: [
-        CalDataService,
-        CalculateService
     ],
     exports: [
         InputContainerComponent
