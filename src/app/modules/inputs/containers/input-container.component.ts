@@ -1,54 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
-import { GetCalDataAction, AddConstantIncomeItemAction,
+import { AddConstantIncomeItemAction,
   AddConstantExpenseItemAction, AddPeriodicalVariableItemAction } from 'src/app/actions/calData.action';
-import { OnDestroy } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import {filter} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-input-container',
   templateUrl: './input-container.component.html',
   styleUrls: ['./input-container.component.scss']
 })
-export class InputContainerComponent implements OnInit, OnDestroy {
+export class InputContainerComponent  {
 
-  private sub: Subscription;
-  public groupType = InputGroup;
+  // tslint:disable-next-line:no-input-rename
+  @Input('data')
   public data: CalData;
+  public groupType = InputGroup;
 
   constructor(public store: Store<reducerRoot.CalDataState>) {
-    this.store.dispatch(new GetCalDataAction());
-  }
-
-  ngOnInit() {
-    this.sub = this.store.select(reducerRoot.getCalData).pipe(
-      filter(data => data !== undefined),
-      map((data) => {
-        this.data = data;
-      })
-    ).subscribe();
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 
   public addConstantIncomeItem(): void {
-    this.store.dispatch(new AddConstantIncomeItemAction());
+    this.store.dispatch(new AddConstantIncomeItemAction(this.data.id));
   }
 
   public addConstantExpenseItem(): void {
-    this.store.dispatch(new AddConstantExpenseItemAction());
+    this.store.dispatch(new AddConstantExpenseItemAction(this.data.id));
   }
 
   public addPeriodicalVaribleItem(): void {
-    this.store.dispatch(new AddPeriodicalVariableItemAction());
+    this.store.dispatch(new AddPeriodicalVariableItemAction(this.data.id));
   }
 
   // performance boost

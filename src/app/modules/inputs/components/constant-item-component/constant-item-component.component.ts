@@ -20,7 +20,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./constant-item-component.component.scss']
 })
 export class ConstantItemComponentComponent implements OnInit, OnDestroy {
-
+  // tslint:disable-next-line:no-input-rename
+  @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
@@ -118,9 +119,9 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
 
   public removeItem(): void {
     if (this.isIncome) {
-      this.store.dispatch(new DeleteConstantIcomeItemAction(this.itemData.id));
+      this.store.dispatch(new DeleteConstantIcomeItemAction(this.projectionId, this.itemData.id));
     } else {
-      this.store.dispatch(new DeleteConstantExpenseItemAction(this.itemData.id));
+      this.store.dispatch(new DeleteConstantExpenseItemAction(this.projectionId, this.itemData.id));
     }
   }
 
@@ -149,9 +150,9 @@ export class ConstantItemComponentComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.isIncome) {
-      this.store.dispatch(new UpdateConstantIncomeItemAction(this.constantForm.value));
+      this.store.dispatch(new UpdateConstantIncomeItemAction(this.projectionId, this.constantForm.value));
     } else {
-      this.store.dispatch(new UpdateConstantExpenseItemAction(this.constantForm.value));
+      this.store.dispatch(new UpdateConstantExpenseItemAction(this.projectionId, this.constantForm.value));
     }
   }
 

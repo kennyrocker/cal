@@ -18,7 +18,7 @@ import {filter} from 'rxjs/internal/operators';
 export class DisplayContainerComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:no-input-rename
-  @Input() calData: any;
+  @Input('data') public data: CalData;
 
   @ViewChild('amountCycle') monthSelector: any;
 
@@ -58,7 +58,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
-    if (this.calData) {
+    if (this.data) {
       this.renderChart();
     }
   }
@@ -93,15 +93,18 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
     switch (this.displayCalCycle) {
 
       case CalCycle.BIWEEKLY :
-          this.displayData = this.calService.getBiWeeklyProjection(0, 1, 26, this.calData);
+          this.displayData = this.calService.getBiWeeklyProjection(0, 1, 26, this.data);
+          console.log("Cal Result data :: ", this.displayData);
           break;
 
       case CalCycle.MONTHLY :
-          this.displayData = this.calService.getMonthlyProjection(0, 1, 12, this.calData);
+          this.displayData = this.calService.getMonthlyProjection(0, 1, 12, this.data);
+          console.log("Cal Result data :: ", this.displayData);
           break;
 
       case CalCycle.ANNUALLY :
-          this.displayData = this.calService.getAnnuallyProjection(0, 1, this.calData);
+          this.displayData = this.calService.getAnnuallyProjection(0, 1, this.data);
+          console.log("Cal Result data :: ", this.displayData);
           break;
     }
 

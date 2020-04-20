@@ -17,8 +17,8 @@ import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
   styleUrls: ['./quick-input-component.component.css']
 })
 export class QuickInputComponentComponent implements OnInit, OnDestroy {
-
-  constructor(public store: Store<reducerRoot.CalDataState>) { }
+  // tslint:disable-next-line:no-input-rename
+  @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
   public showQuickInput: boolean;
@@ -26,6 +26,8 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
   private inputChangeSubject = new Subject<any>();
   public quickInput: string;
   public placeHolder: string;
+
+  constructor(public store: Store<reducerRoot.CalDataState>) { }
 
   ngOnInit() {
     this.setupHintByInputType();
@@ -112,19 +114,19 @@ export class QuickInputComponentComponent implements OnInit, OnDestroy {
 
   private updateConstantIncoms(incomes: StandarItem[]): void {
     if (incomes.length > 0) {
-      this.store.dispatch(new BulkAddConstantIncomeItemAction(incomes));
+      this.store.dispatch(new BulkAddConstantIncomeItemAction(this.projectionId, incomes));
     }
   }
 
   private updateConstantExpense(expenses: StandarItem[]): void {
     if (expenses.length > 0) {
-      this.store.dispatch(new BulkAddConstantExpenseItemAction(expenses));
+      this.store.dispatch(new BulkAddConstantExpenseItemAction(this.projectionId, expenses));
     }
   }
 
   private updatePeriodicVariables(variables: PeriodicItem[]): void {
     if (variables.length > 0) {
-      this.store.dispatch(new BulkAddPeriodicalVariableItemAction(variables));
+      this.store.dispatch(new BulkAddPeriodicalVariableItemAction(this.projectionId, variables));
     }
   }
 

@@ -19,7 +19,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./periodic-item-component.component.scss']
 })
 export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
-
+  // tslint:disable-next-line:no-input-rename
+  @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
@@ -165,7 +166,7 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
     if (this.periodicForm.invalid) {
       return;
     }
-    this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.periodicForm.value));
+    this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.projectionId, this.periodicForm.value));
   }
 
   private initSetup(): void {
@@ -175,7 +176,7 @@ export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
   }
 
   public removeItem(): void {
-    this.store.dispatch(new DeletePeriodicalVariableItemAction(this.itemData.id));
+    this.store.dispatch(new DeletePeriodicalVariableItemAction(this.projectionId, this.itemData.id));
   }
 
 }

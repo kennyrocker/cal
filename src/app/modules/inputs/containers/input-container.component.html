@@ -2,11 +2,11 @@
 
   <section class="input-section constant-income">
     <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
-    <app-quick-input-component [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
+    <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
     <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
       <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-        <app-constant-item-component [itemData]="item" [itemGroupType]="groupType.CONSTANT_INCOME">
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [itemGroupType]="groupType.CONSTANT_INCOME">
         </app-constant-item-component>
       </div>
     </div>
@@ -14,11 +14,11 @@
 
   <section class="input-section constant-expense">
     <div class="group-title">{{groupType.CONSTANT_EXPENSE}}</div>
-    <app-quick-input-component [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
+    <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
     <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
       <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-        <app-constant-item-component [itemData]="item" [itemGroupType]="groupType.CONSTANT_EXPENSE">
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [itemGroupType]="groupType.CONSTANT_EXPENSE">
         </app-constant-item-component>
       </div>
     </div>
@@ -26,11 +26,11 @@
 
   <section class="input-section periodic-variable">
     <div class="group-title">{{groupType.PERIODICAL_VARIBLE}}</div>
-    <app-quick-input-component [itemGroupType]="groupType.PERIODICAL_VARIBLE"></app-quick-input-component>
+    <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.PERIODICAL_VARIBLE"></app-quick-input-component>
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
     <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
       <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-        <app-periodic-item-component [itemData]="item" [itemGroupType]="groupType.PERIODICAL_VARIBLE">
+        <app-periodic-item-component [projectionId]="data.id" [itemData]="item" [itemGroupType]="groupType.PERIODICAL_VARIBLE">
         </app-periodic-item-component>
       </div>
     </div>

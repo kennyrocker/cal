@@ -15,6 +15,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
 
     switch (action.type) {
 
+        /* Get Data */
         case CalDataActionTypes.GetAllProjectionSnapshotSuccess :
             return {
                 ...state,
@@ -36,132 +37,234 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 snapshot: state.snapshot.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
             };
 
+
+        /* Add Blank */
+        case CalDataActionTypes.AddConstantIncomeItem :
+            const constantIncomeItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true };
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantIncome: [
+                                constantIncomeItem,
+                                ...obj.constantIncome
+                            ]
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.AddConstantExpenseItem :
+            const constantExpenseItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true};
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantExpense: [
+                                constantExpenseItem,
+                                ...obj.constantExpense
+                            ]
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.AddPeriodicalVariableItem :
+            const periodicVariableItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0,
+                                           cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true };
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            periodicalVariable: [
+                                periodicVariableItem,
+                                ...obj.periodicalVariable
+                            ]
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+
+
+        /* Delete Single */
+        case CalDataActionTypes.DeleteConstantIncomeItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantIncome: obj.constantIncome.filter(i => i.id !== action.itemId)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.DeleteConstantExpenseItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantExpense: obj.constantExpense.filter(i => i.id !== action.itemId)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.DeletePeriodicalVariableItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            periodicalVariable: obj.periodicalVariable.filter(i => i.id !== action.itemId)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+
+        case CalDataActionTypes.DeleteStaticVariableItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            staticVariable: obj.staticVariable.filter(i => i.id !== action.itemId)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+
+        /* Add Multi */
+        case CalDataActionTypes.BulkAddConstantIncomeItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantIncome: [
+                                ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, obj.constantIncome, 'name')
+                            ]
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.BulkAddConstantExpenseItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantExpense: [
+                                ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, obj.constantExpense, 'name')
+                            ]
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.BulkAddPeriodicalVariableItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            periodicalVariable: [
+                                ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, obj.periodicalVariable, 'name')
+                            ]
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+
+        /* Update Single */
+        case CalDataActionTypes.UpdateConstantIncomeItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantIncome: obj.constantIncome.map(i => (i.id === action.payload.id) ? action.payload : i)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.UpdateConstantExpenseItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantExpense: obj.constantExpense.map(i => (i.id === action.payload.id) ? action.payload : i)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+        case CalDataActionTypes.UpdatePeriodicalVariableItem :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            periodicalVariable: obj.periodicalVariable.map(i => (i.id === action.payload.id) ? action.payload : i)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
+
+
+        /* Fall back */
         default:
             return state;
 
     }
 }
-
-
-
-
-
-
-
-
-// REFERNCE
-
-
-// const initialState: CalData = {};
-
-// export function calDataReducer(state = initialState, action: CalDataActions) {
-
-//     switch (action.type) {
-//         // ADD
-//         case CalDataActionTypes.BulkAddConstantIncomeItem :
-//           return {
-//             ...state,
-//             constantIncome: [
-//               ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, state.constantIncome, 'name')
-//             ]
-//           };
-
-//         case CalDataActionTypes.BulkAddConstantExpenseItem :
-//             return {
-//                 ...state,
-//                 constantExpense: [
-//                     ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, state.constantExpense, 'name')
-//                 ]
-//             };
-
-//         case CalDataActionTypes.BulkAddPeriodicalVariableItem :
-//             return {
-//                 ...state,
-//                 periodicalVariable: [
-//                     ...MapperUtil.mergeRemoveDuplicateByKey(action.payload, state.periodicalVariable, 'name')
-//                 ]
-//             };
-
-//         case CalDataActionTypes.AddConstantIncomeItem :
-//            return {
-//                 ...state,
-//                 constantIncome: [
-//                     { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true },
-//                      ...state.constantIncome
-//                     ]
-//             };
-
-//         case CalDataActionTypes.AddConstantExpenseItem :
-//             return {
-//                 ...state,
-//                 constantExpense: [
-//                     { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true},
-//                     ...state.constantExpense
-//                     ]
-//             };
-
-//         case CalDataActionTypes.AddPeriodicalVariableItem :
-//             return {
-//                 ...state,
-//                 periodicalVariable: [
-//                     { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true },
-//                     ...state.periodicalVariable
-//                 ]
-//             };
-
-//         // UPDATE
-//         case CalDataActionTypes.UpdateConstantIncomeItem :
-//             return {
-//                 ...state,
-//                 constantIncome: state.constantIncome.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
-//             };
-
-//         case CalDataActionTypes.UpdateConstantExpenseItem :
-//             return {
-//                 ...state,
-//                 constantExpense: state.constantExpense.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
-//             };
-
-//         case CalDataActionTypes.UpdatePeriodicalVariableItem :
-//             return {
-//                 ...state,
-//                 periodicalVariable: state.periodicalVariable.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
-//             };
-
-//         case CalDataActionTypes.UpdateStaticVariableItem :
-//         // TODO:: logic
-//         return state;
-
-//         // DELETE
-//         case CalDataActionTypes.DeleteConstantIncomeItem :
-//             return {
-//                 ...state,
-//                 constantIncome: state.constantIncome.filter(obj => obj.id !== action.itemId)
-//             };
-
-//         case CalDataActionTypes.DeleteConstantExpenseItem :
-//             return {
-//                 ...state,
-//                 constantExpense: state.constantExpense.filter(obj => obj.id !== action.itemId)
-//             };
-
-//         case CalDataActionTypes.DeletePeriodicalVariableItem :
-//             return {
-//                 ...state,
-//                 periodicalVariable: state.periodicalVariable.filter(obj => obj.id !== action.itemId)
-//             };
-
-//         case CalDataActionTypes.DeleteStaticVariableItem :
-//             return {
-//                 ...state,
-//                 staticVariable: state.staticVariable.filter(obj => obj.id !== action.itemId)
-//             };
-
-//         // GET
-//         case CalDataActionTypes.GetCalDataSuccess :
-//             return {
-//                 ...state,
-//                 ...action.payload
-//             };
-//     }
-// }
