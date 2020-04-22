@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ProjectionContainerComponent } from 'src/app/modules/projection/containers/projection-container.component';
 import { SnapshotContainerComponent } from 'src/app/modules/snapshot/containers/snapshot-container.component';
+import { NotFoundComponent } from 'src/app/modules/static/components/not-found/not-found-component';
 
 
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: '404',
+        component: NotFoundComponent,
+        pathMatch: 'full'
+    },
+    {
         path: '',
         redirectTo: 'snapshot',
         pathMatch: 'full'
@@ -29,7 +35,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'ignore' })],
+    imports: [RouterModule.forRoot(
+                    routes,
+                    { onSameUrlNavigation: 'ignore'}
+                )
+            ],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -12,12 +12,14 @@ import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { error } from '@angular/compiler/src/util';
 import { dispatch } from 'rxjs/internal/observable/range';
 import { Snapshot } from 'src/app/constants/interfaces/snapshot';
+import { tap } from 'rxjs/internal/operators';
+import { Router } from '@angular/router';
 
 
 @Injectable()
 export class CalDataEffects {
 
-    constructor(private actions$: Actions, private calDataService: CalDataService) {}
+    constructor(private actions$: Actions, private calDataService: CalDataService, private router: Router) {}
 
     @Effect()
     public getSnapshot$: Observable<Action> = this.actions$.pipe(
@@ -61,6 +63,12 @@ export class CalDataEffects {
                     catchError((e) => of ({ type: 'Get Snapshot Data Error', error: e }))
                 )
         )
+    );
+
+    @Effect({ dispatch: false })
+        pageNotFound = this.actions$.pipe(
+            ofType(CalDataActionTypes.GetProjectionByIdFailed),
+            tap(() => this.router.navigate(['404']))
     );
 
 }

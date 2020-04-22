@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 // Modules
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from 'src/app/app.routes';
+import { StaticModule } from 'src/app/modules/static/app.static.module';
 
 // Services
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
@@ -19,6 +20,7 @@ import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    StaticModule,
     StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10
