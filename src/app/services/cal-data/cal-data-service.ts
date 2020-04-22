@@ -11,26 +11,18 @@ export class CalDataService {
 
     constructor(private http: HttpClient) {}
 
-    // TODO:: make this into a get All projection snapshot by userId
-    public get(): Observable<any> {
-        return of({});
-        // return this.http.get('../../../assets/mock/ken-copper.json');
-        // return this.http.get('../../../assets/mock/ken-hd.json');
-    }
-
-    // TODO:: replace by updateProjectionById
-    public update(content: CalData): Observable<CalData> {
-        return of({});
-    }
-
-
-
     public getSnapshotsByUserId(userId: string): Observable<any> {
         return this.http.get('../../../assets/mock/snapshot.json');
     }
 
-    public getProjectionById(id: string): Observable<CalData> {
-        return this.http.get('../../../assets/mock/ken-hd.json');
+    public getProjectionById(id: string): Observable<any> {
+        if (id === '1003023041') {
+            return this.http.get('../../../assets/mock/ken-hd.json');
+        } else if (id === '106363041') {
+            return this.http.get('../../../assets/mock/ken-copper.json');
+        } else {
+            return of ({});
+        }
     }
 
     public updateProjection(content: CalData): Observable<CalData> {

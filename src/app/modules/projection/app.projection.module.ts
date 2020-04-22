@@ -17,7 +17,12 @@ import { DisplayModule } from 'src/app/modules/display/app.display.module';
 
 // 3d Party
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { RouterModule, Routes } from '@angular/router';
 
+
+const routes: Routes = [
+    { path: 'projection/:id', component: ProjectionContainerComponent }
+];
 
 @NgModule({
     declarations: [
@@ -25,6 +30,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ],
     imports: [
         CommonModule,
+        RouterModule.forChild(routes),
         DisplayModule,
         InputsModule,
         NgxChartsModule,

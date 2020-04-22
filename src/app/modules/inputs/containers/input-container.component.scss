@@ -1,9 +1,29 @@
+@import '../../../styles/index';
+
 /**
  *  Input Container
  */
 
 .input-wrapper {
   width: 100%;
+}
+
+.input-projection-name {
+  display: block;
+  text-align: center;
+
+  input {
+    
+    height: 1.75rem;
+    width: 25%;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    padding-left: 5px;
+  }
 }
 
 .input-section {
@@ -26,18 +46,18 @@
     font-family: Arial, Helvetica, sans-serif;
     padding: 3rem 0.5rem 0 0.5rem;
     font-size: 2rem;
-    color: #333;
+    color: $gray-3;
 }
 
 button {
     width: 100%;
     border-radius: 3px;
     padding: 5px 20px;
-    background-color: #00a862;
-    color: #ffff;
+    background-color: $green-2;
+    color: $white-1;
     font-size: 1.25rem;
     &:hover {
-      background-color: #00c46c;
+      background-color: $green-1;
       cursor: pointer;
     }
 }
@@ -47,12 +67,10 @@ button {
  *  Item component
  */
 
-$error-red: red;
-
 .periodic-item,
 .constant-item {
-  border-bottom: 1px solid #f1f1f1;
-  border-left: 1px solid #f1f1f1;
+  border-bottom: 1px solid $white-2;
+  border-left: 1px solid $white-2;
   padding: 0.5rem 0.5rem;
 }
 
@@ -82,7 +100,7 @@ $error-red: red;
       box-sizing: border-box;
       border-radius: 0.25rem;
       box-shadow: none;
-      border: 1px solid #ccc;
+      border: 1px solid $gray-1;
       padding-left: 5px;
     }
   }
@@ -92,7 +110,7 @@ $error-red: red;
     font-size: 0.7rem;
     margin-left: 0.25rem;
     border-radius: 0.25rem;
-    border: 1px solid #ccc;
+    border: 1px solid $gray-1;
     vertical-align: middle;
     &:hover {
       cursor: pointer;
@@ -114,7 +132,7 @@ $error-red: red;
       font-family: 'arial';
       top: 7px;
       left: 4px;
-      color: #1d515a;
+      color: $blue-3;
     }
 
     input {
@@ -130,7 +148,7 @@ $error-red: red;
 }
 
 .close-x {
-  color: #fff;
+  color: $white-1;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   cursor: pointer;
@@ -141,11 +159,11 @@ $error-red: red;
   border-radius: 0.25rem;
   height: 1.35rem;
   line-height: 1.25rem;
-  background-color: #ff9800;
+  background-color: $orange-1;
   margin-top: 0.25rem;
 
   &:hover {
-    background: #c97100;
+    background: $orange-2;
   }
 }
 
@@ -155,9 +173,9 @@ $error-red: red;
 
 .field-error {
   input {
-    border: 1px solid $error-red;
+    border: 1px solid $red-1;
   }
   .field-message {
-    color: $error-red;
+    color: $red-1;
   }
 }

@@ -1,0 +1,64 @@
+@import '../../../styles/index';
+
+.snapshot {
+    min-height: 80vh;
+}
+
+.snapshot-filter {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1.5rem;
+}
+
+.snapshot-wrapper {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+
+
+
+    .snapshot-item {
+        text-align: center;
+        padding: 50px;
+
+        width: 150px;
+        justify-content: space-around;
+        margin: 10px;
+        border-radius: 0.25rem;
+        background-color: $green-2;
+        color: $white-1;
+        border: 1px solid $gray-1;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $green-1;
+            color: $white-2;
+        }
+
+        .name {
+            font-size: 1.5rem;
+        }
+
+        .last-updated {
+            padding-top: 0.45rem;
+            font-size: 1rem;
+            color: $white-2;
+        }
+
+        &.create-button {
+            background-color: $orange-1;
+
+            &:hover {
+                background-color: $orange-2;
+                color: $white-2;
+            }
+        }
+
+        
+    }
+
+}
+

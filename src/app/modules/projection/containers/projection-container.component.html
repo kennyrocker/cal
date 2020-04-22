@@ -1,7 +1,9 @@
 <div *ngIf="projection">
+
+    
     <app-input-container [data]="projection"></app-input-container>
     <app-display-container [data]="projection"></app-display-container>
 </div>
 <div *ngIf="!projection">
-    <h1>Projection Not Found</h1>
+    <h1>Projection Not Found!!</h1>
 </div>

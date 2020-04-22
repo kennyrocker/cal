@@ -1,0 +1,15 @@
+<div class="snapshot">
+    <div class="snapshot-filter">
+    </div>
+    
+    <div class="snapshot-wrapper">
+        <div class="snapshot-item create-button">
+            <div class="name">Create New Projection</div>
+        </div>
+        <div *ngFor="let item of list" class="snapshot-item" routerLink="/projection/{{item.id}}">
+            <div class="name">{{item.name}}</div>
+            <div class="last-updated">{{ item.lastUpdated | time }}</div>
+        </div>
+    </div>
+</div>
+

@@ -10,6 +10,7 @@ export enum CalDataActionTypes {
     GetAllProjectionSnapshotSuccess = '[Get All Projection Snapshot] Get Success',
     GetProjectionById = '[Get Projection By Id] Get',
     GetProjectionByIdSuccess = '[Get Projection By Id] Get Success',
+    GetProjectionByIdFailed = '[Get Projection By Id] Get Failed',
     UpdateSnapShot = '[Update Snapshot] Update',
     AddConstantIncomeItem = '[Constant Income Item] Add',
     AddConstantExpenseItem = '[Constant Expense Item] Add',
@@ -46,6 +47,10 @@ export class GetProjectionByIdAction implements Action {
 export class GetProjectionByIdActionSuccess implements Action {
     readonly type = CalDataActionTypes.GetProjectionByIdSuccess;
     constructor(public payload: any) {}
+}
+
+export class GetProjectionByIdActionFailed implements Action {
+    readonly type = CalDataActionTypes.GetProjectionByIdFailed;
 }
 
 export class UpdateSnapShotAction implements Action {
@@ -125,7 +130,8 @@ export class UpdateStaticVariableItemAction implements Action {
 
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
- | GetProjectionByIdAction | GetProjectionByIdActionSuccess | UpdateSnapShotAction
+ | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
+ | UpdateSnapShotAction
  | UpdateConstantIncomeItemAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction

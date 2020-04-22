@@ -1,11 +1,14 @@
 import {createSelector } from '@ngrx/store';
 
+export const isSnapShotsLoaded = createSelector(
+    (state: any) => state.calData.ui.snapshotLoaded,
+    (loaded) => loaded
+);
 
 export const getAllSnapShots = createSelector(
     (state: any) => state.calData.snapshot,
     (snapshots) => snapshots
 );
-
 
 export const getSnapShotById = createSelector(
     getAllSnapShots,

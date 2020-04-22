@@ -3,7 +3,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
-    GetProjectionByIdAction, GetProjectionByIdActionSuccess, UpdateSnapShotAction } from 'src/app/actions/calData.action';
+    GetProjectionByIdAction, GetProjectionByIdActionSuccess,
+    UpdateSnapShotAction, GetProjectionByIdActionFailed } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -39,18 +40,25 @@ export class CalDataEffects {
                 .getProjectionById(action.projectionId)
                 .pipe(
                     switchMap((data: CalData) => {
-                        const snapshot: Snapshot = {
-                                        id: data.id,
-                                        name: data.name,
-                                        lastUpdated: data.lastUpdated,
-                                        collectionLoaded: true
-                                    };
-                        return [
-                            new UpdateSnapShotAction(snapshot),
-                            new GetProjectionByIdActionSuccess(data)
-                        ];
+                        if (data.id) {
+                            const snapshot: Snapshot = {
+                                                id: data.id,
+                                                name: data.name,
+                                                lastUpdated: data.lastUpdated,
+                                                collectionLoaded: true
+                                            };
+                            return [
+                                    new UpdateSnapShotAction(snapshot),
+                                    new GetProjectionByIdActionSuccess(data)
+                            ];
+                        } else {
+                            return of ({
+                                type: CalDataActionTypes.GetProjectionByIdFailed
+                            });
+                        }
+
                     }),
-                    catchError((e) => of ({ type: 'Get Project By Id Error', error: e }))
+                    catchError((e) => of ({ type: 'Get Snapshot Data Error', error: e }))
                 )
         )
     );

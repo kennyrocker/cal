@@ -6,6 +6,9 @@ import { Entites } from 'src/app/constants/interfaces/entites';
 
 
 const initialState: Entites = {
+    ui: {
+        snapshotLoaded: false
+    },
     snapshot: [],
     collection: []
 };
@@ -19,6 +22,10 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
         case CalDataActionTypes.GetAllProjectionSnapshotSuccess :
             return {
                 ...state,
+                ui : {
+                    ...state.ui,
+                    snapshotLoaded: true
+                },
                 snapshot : action.payload
             };
 
@@ -30,6 +37,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     action.payload
                 ]
             };
+
 
         case CalDataActionTypes.UpdateSnapShot:
             return {
@@ -260,6 +268,12 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     }
                 })
             };
+
+
+        /* TODO:: FIX THIS */
+        case CalDataActionTypes.GetProjectionByIdFailed :
+            console.log(' when faild in reducer state :: ', state);
+            return state;
 
 
         /* Fall back */
