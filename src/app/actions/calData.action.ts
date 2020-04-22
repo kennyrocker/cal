@@ -25,7 +25,8 @@ export enum CalDataActionTypes {
     UpdateConstantIncomeItem = '[Constant Income Item] Update',
     UpdateConstantExpenseItem = '[Constant Expense Item] Update',
     UpdatePeriodicalVariableItem = '[Perodical Variable Item] Update',
-    UpdateStaticVariableItem = '[Static Variable Item] Update'
+    UpdateStaticVariableItem = '[Static Variable Item] Update',
+    UpdateProjectionName = '[Projection Name] Update'
 }
 
 
@@ -128,11 +129,16 @@ export class UpdateStaticVariableItemAction implements Action {
     constructor(public projectionId: string, public payload: FixItem) {}
 }
 
+export class UpdateProjectionNameAction implements Action {
+    readonly type = CalDataActionTypes.UpdateProjectionName;
+    constructor(public projectionId: string, public name: string) {}
+}
+
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
  | UpdateSnapShotAction
- | UpdateConstantIncomeItemAction
+ | UpdateConstantIncomeItemAction | UpdateProjectionNameAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
  | AddConstantExpenseItemAction | AddPeriodicalVariableItemAction

@@ -1,12 +1,9 @@
 <div *ngIf="data" class="input-wrapper">
   
   <div class="input-projection-name">
-
-        <input class="group-title" type="text" value="{{data.name}}">
-     
+        <app-name-component [projectionId]="data.id" [name]="data.name"></app-name-component>
   </div>
   
-
   <section class="input-section constant-income">
     <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
     <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>

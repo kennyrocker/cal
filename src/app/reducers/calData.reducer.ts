@@ -269,11 +269,20 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 })
             };
 
-
-        /* TODO:: FIX THIS */
-        case CalDataActionTypes.GetProjectionByIdFailed :
-            console.log(' when faild in reducer state :: ', state);
-            return state;
+        case CalDataActionTypes.UpdateProjectionName :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            name: action.name
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };
 
 
         /* Fall back */

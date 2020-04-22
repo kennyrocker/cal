@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
 import { filter, map } from 'rxjs/operators';
 import { select } from '@ngrx/store';
-import { getSnapShotByIdisLoaded, getProjectionById } from 'src/app/selectors/selectors';
+import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { GetProjectionByIdAction } from 'src/app/actions/calData.action';
 
@@ -27,7 +27,6 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute,
         public store: Store<reducerRoot.CalDataState>) {
-
     }
 
     ngOnInit() {
@@ -37,7 +36,7 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
         });
 
         this.isLoadedSub = this.store.pipe(
-            select(getSnapShotByIdisLoaded, {id:  this.projectionId})
+            select(isProjectionExistedFromCollection, {id:  this.projectionId})
         ).subscribe((isLoaded) => {
             if (!isLoaded) {
                 this.store.dispatch(new GetProjectionByIdAction(this.projectionId));

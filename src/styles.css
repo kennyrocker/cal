@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+input,
+select {
+    outline: 0 none;
+}

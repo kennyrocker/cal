@@ -13,6 +13,7 @@ import { QuickInputComponentComponent } from './components/quick-input-component
 import { PeriodicItemComponentComponent } from './components/periodic-item-component/periodic-item-component.component';
 import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
 import { InputContainerComponent } from './containers/input-container.component';
+import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { InputContainerComponent } from './containers/input-container.component'
         QuickInputComponentComponent,
         PeriodicItemComponentComponent,
         ConstantItemComponentComponent,
+        NameComponent,
         InputContainerComponent
     ],
     imports: [

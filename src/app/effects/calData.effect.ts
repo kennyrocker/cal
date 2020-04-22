@@ -43,14 +43,7 @@ export class CalDataEffects {
                 .pipe(
                     switchMap((data: CalData) => {
                         if (data.id) {
-                            const snapshot: Snapshot = {
-                                                id: data.id,
-                                                name: data.name,
-                                                lastUpdated: data.lastUpdated,
-                                                collectionLoaded: true
-                                            };
                             return [
-                                    new UpdateSnapShotAction(snapshot),
                                     new GetProjectionByIdActionSuccess(data)
                             ];
                         } else {
