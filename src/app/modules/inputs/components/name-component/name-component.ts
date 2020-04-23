@@ -45,7 +45,6 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
         });
     }
 
-
     private initForm(): void {
         this.nameForm = new FormGroup({
             projectionName: new FormControl(this.name, [ Validators.required ])
@@ -59,4 +58,5 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
     private updateNameAction(name: string): void {
         this.store.dispatch(new UpdateProjectionNameAction(this.projectionId, name));
     }
+
 }

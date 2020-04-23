@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
@@ -7,6 +7,14 @@ import { Store } from '@ngrx/store';
 import { AddConstantIncomeItemAction,
   AddConstantExpenseItemAction, AddPeriodicalVariableItemAction } from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
+// tslint:disable-next-line:import-spacing
+import { ConstantItemComponentComponent }
+from 'src/app/modules/inputs/components/constant-item-component/constant-item-component.component';
+// tslint:disable-next-line:import-spacing
+import { PeriodicItemComponentComponent }
+from 'src/app/modules/inputs/components/periodic-item-component/periodic-item-component.component';
+import { constants } from 'buffer';
 
 @Component({
   selector: 'app-input-container',
@@ -14,6 +22,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./input-container.component.scss']
 })
 export class InputContainerComponent implements OnInit {
+
+  @ViewChild(NameComponent) nameCmp: NameComponent;
+  @ViewChildren(ConstantItemComponentComponent) constantCmps: QueryList<ConstantItemComponentComponent>;
+  @ViewChildren(PeriodicItemComponentComponent) periodicCmps: QueryList<PeriodicItemComponentComponent>;
 
   // tslint:disable-next-line:no-input-rename
   @Input('data')
@@ -50,5 +62,33 @@ export class InputContainerComponent implements OnInit {
   public routeBack(): void {
     this.router.navigateByUrl(this.backUrl);
   }
+
+  private isValidToSave(): boolean {
+      const condition = 'VALID';
+      let validToSave = true;
+      this.constantCmps.forEach(ele => {
+          if (ele.constantForm.status !== condition) {
+              validToSave = false;
+          }
+      });
+      this.periodicCmps.forEach(ele => {
+          if ( ele.periodicForm.status !== condition) {
+              validToSave = false;
+          }
+      });
+      if (this.nameCmp.nameForm.status !== condition) {
+          validToSave = false;
+      }
+      return validToSave;
+  }
+
+  public save(): void {
+      if (this.isValidToSave()) {
+          // do save
+          console.log('save this data :  ', this.data);
+      }
+  }
+
+
 
 }
