@@ -18,9 +18,11 @@ import { StaticModule } from 'src/app/modules/static/app.static.module';
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 
+// 3d Party
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     HttpClientModule,
     StaticModule,
+    NgxChartsModule,
     StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10

@@ -15,8 +15,7 @@ import { ProjectionContainerComponent } from 'src/app/modules/projection/contain
 import { InputsModule } from 'src/app/modules/inputs/app.inputs.module';
 import { DisplayModule } from 'src/app/modules/display/app.display.module';
 
-// 3d Party
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+// Route
 import { RouterModule, Routes } from '@angular/router';
 
 
@@ -33,7 +32,6 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         DisplayModule,
         InputsModule,
-        NgxChartsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducer),
         EffectsModule.forRoot([CalDataEffects])
