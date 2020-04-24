@@ -9,18 +9,18 @@ import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { EffectsModule } from '@ngrx/effects';
 
 // Components and Containers
-import { QuickInputComponentComponent } from './components/quick-input-component/quick-input-component.component';
-import { PeriodicItemComponentComponent } from './components/periodic-item-component/periodic-item-component.component';
-import { ConstantItemComponentComponent } from './components/constant-item-component/constant-item-component.component';
+import { QuickInputComponent } from './components/quick-input-component/quick-input.component';
+import { PeriodicItemComponent } from './components/periodic-item-component/periodic-item.component';
+import { ConstantItemComponent } from './components/constant-item-component/constant-item.component';
 import { InputContainerComponent } from './containers/input-container.component';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 
 
 @NgModule({
     declarations: [
-        QuickInputComponentComponent,
-        PeriodicItemComponentComponent,
-        ConstantItemComponentComponent,
+        QuickInputComponent,
+        PeriodicItemComponent,
+        ConstantItemComponent,
         NameComponent,
         InputContainerComponent
     ],

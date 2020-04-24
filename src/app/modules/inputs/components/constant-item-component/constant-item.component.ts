@@ -16,10 +16,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-constant-item-component',
-  templateUrl: './constant-item-component.component.html',
-  styleUrls: ['./constant-item-component.component.scss']
+  templateUrl: './constant-item.component.html',
+  styleUrls: ['./constant-item.component.scss']
 })
-export class ConstantItemComponentComponent implements OnInit, OnDestroy {
+export class ConstantItemComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename

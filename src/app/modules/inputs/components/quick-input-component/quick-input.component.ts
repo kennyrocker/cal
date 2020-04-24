@@ -13,10 +13,10 @@ import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 
 @Component({
   selector: 'app-quick-input-component',
-  templateUrl: './quick-input-component.component.html',
-  styleUrls: ['./quick-input-component.component.css']
+  templateUrl: './quick-input.component.html',
+  styleUrls: ['./quick-input.component.css']
 })
-export class QuickInputComponentComponent implements OnInit, OnDestroy {
+export class QuickInputComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename

@@ -15,10 +15,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-periodic-item-component',
-  templateUrl: './periodic-item-component.component.html',
-  styleUrls: ['./periodic-item-component.component.scss']
+  templateUrl: './periodic-item.component.html',
+  styleUrls: ['./periodic-item.component.scss']
 })
-export class PeriodicItemComponentComponent implements OnInit, OnDestroy {
+export class PeriodicItemComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename

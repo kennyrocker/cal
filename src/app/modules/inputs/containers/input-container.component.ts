@@ -9,11 +9,11 @@ import { AddConstantIncomeItemAction,
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
-import { ConstantItemComponentComponent }
-from 'src/app/modules/inputs/components/constant-item-component/constant-item-component.component';
+import { ConstantItemComponent }
+from 'src/app/modules/inputs/components/constant-item-component/constant-item.component';
 // tslint:disable-next-line:import-spacing
-import { PeriodicItemComponentComponent }
-from 'src/app/modules/inputs/components/periodic-item-component/periodic-item-component.component';
+import { PeriodicItemComponent }
+from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
 import { constants } from 'buffer';
 
 @Component({
@@ -24,8 +24,8 @@ import { constants } from 'buffer';
 export class InputContainerComponent implements OnInit {
 
   @ViewChild(NameComponent) nameCmp: NameComponent;
-  @ViewChildren(ConstantItemComponentComponent) constantCmps: QueryList<ConstantItemComponentComponent>;
-  @ViewChildren(PeriodicItemComponentComponent) periodicCmps: QueryList<PeriodicItemComponentComponent>;
+  @ViewChildren(ConstantItemComponent) constantCmps: QueryList<ConstantItemComponent>;
+  @ViewChildren(PeriodicItemComponent) periodicCmps: QueryList<PeriodicItemComponent>;
 
   // tslint:disable-next-line:no-input-rename
   @Input('data')
