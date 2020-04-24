@@ -13,7 +13,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ],
     imports: [
         CommonModule,
-        NgxChartsModule,
+        NgxChartsModule
     ],
     exports: [
         DisplayContainerComponent
