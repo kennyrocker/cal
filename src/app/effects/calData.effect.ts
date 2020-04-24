@@ -3,8 +3,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
-    GetProjectionByIdAction, GetProjectionByIdActionSuccess,
-    PostPorjectionAction, PostPorjectionActionSuccess, UpdateSnapShotAction, UpdateProjectionLastUpdatedAction } from 'src/app/actions/calData.action';
+    GetProjectionByIdAction, GetProjectionByIdActionSuccess, UpdatePorjectionAction,
+     UpdateSnapShotAction, UpdateProjectionLastUpdatedAction } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -65,7 +65,7 @@ export class CalDataEffects {
     @Effect()
     public updateProjection$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.UpdateProjection),
-        switchMap((action: PostPorjectionAction) => {
+        switchMap((action: UpdatePorjectionAction) => {
             // TODO:: use real user id here
             const userId = 'mockUser';
             return this.calDataService
@@ -87,10 +87,9 @@ export class CalDataEffects {
                                         type: CalDataActionTypes.UpdateProjectionFailed
                                     });
                                 }
-        
                             }),
                             catchError((e) => of ({ type: 'Post Projection Error', error: e }))
-                        )
+                        );
             }
         )
     );

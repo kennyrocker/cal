@@ -10,7 +10,7 @@ import { CalData } from 'src/app/constants/interfaces/cal-data';
 export class CalDataService {
 
     constructor(private http: HttpClient) {}
-    
+
     // GET
     public getSnapshotsByUserId(userId: string): Observable<any> {
         return this.http.get('../../../assets/mock/snapshot.json');
