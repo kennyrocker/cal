@@ -94,17 +94,14 @@ export class DisplayContainerComponent implements OnInit, OnDestroy {
 
       case CalCycle.BIWEEKLY :
           this.displayData = this.calService.getBiWeeklyProjection(0, 1, 26, this.data);
-          console.log("Cal Result data :: ", this.displayData);
           break;
 
       case CalCycle.MONTHLY :
           this.displayData = this.calService.getMonthlyProjection(0, 1, 12, this.data);
-          console.log("Cal Result data :: ", this.displayData);
           break;
 
       case CalCycle.ANNUALLY :
           this.displayData = this.calService.getAnnuallyProjection(0, 1, this.data);
-          console.log("Cal Result data :: ", this.displayData);
           break;
     }
 

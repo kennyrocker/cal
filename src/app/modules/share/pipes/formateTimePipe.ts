@@ -10,7 +10,7 @@ export class FormateTimePipe implements PipeTransform {
     }
 
     private formateTime(ts: number): any {
-        const a = new Date(ts * 1000);
+        const a = new Date(ts);
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const year = a.getFullYear().toString().slice(2, 4);
         const month = months[a.getMonth()];

@@ -4,16 +4,14 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
     GetProjectionByIdAction, GetProjectionByIdActionSuccess,
-    UpdateSnapShotAction, GetProjectionByIdActionFailed } from 'src/app/actions/calData.action';
+    PostPorjectionAction, PostPorjectionActionSuccess, UpdateSnapShotAction, UpdateProjectionLastUpdatedAction } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
-import { error } from '@angular/compiler/src/util';
-import { dispatch } from 'rxjs/internal/observable/range';
-import { Snapshot } from 'src/app/constants/interfaces/snapshot';
 import { tap } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
+import { Snapshot } from '../constants/interfaces/snapshot';
 
 
 @Injectable()
@@ -63,5 +61,40 @@ export class CalDataEffects {
             ofType(CalDataActionTypes.GetProjectionByIdFailed),
             tap(() => this.router.navigate(['404']))
     );
+
+    @Effect()
+    public updateProjection$: Observable<Action> = this.actions$.pipe(
+        ofType(CalDataActionTypes.UpdateProjection),
+        switchMap((action: PostPorjectionAction) => {
+            // TODO:: use real user id here
+            const userId = 'mockUser';
+            return this.calDataService
+                        .updatePorjection(userId, action.projection)
+                        .pipe(
+                            switchMap((data: CalData) => {
+                                if (data.lastUpdated) {
+                                    const snapshot: Snapshot = {
+                                        id: data.id,
+                                        name: data.name,
+                                        lastUpdated: data.lastUpdated
+                                    };
+                                    return [
+                                            new UpdateSnapShotAction(snapshot),
+                                            new UpdateProjectionLastUpdatedAction(data.id, data.lastUpdated)
+                                    ];
+                                } else {
+                                    return of ({
+                                        type: CalDataActionTypes.UpdateProjectionFailed
+                                    });
+                                }
+        
+                            }),
+                            catchError((e) => of ({ type: 'Post Projection Error', error: e }))
+                        )
+            }
+        )
+    );
+
+
 
 }

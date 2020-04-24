@@ -284,6 +284,21 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 })
             };
 
+        case CalDataActionTypes.UpdateProjectionLastUpdated :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            lastUpdated: action.lastUpdated
+                        }
+                    } else {
+                        return obj;
+                    }
+                })
+            };    
+
 
         /* Fall back */
         default:

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { PeriodCalCycleUI } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -9,7 +9,6 @@ import {DeletePeriodicalVariableItemAction, UpdatePeriodicalVariableItemAction} 
 import { debounceTime} from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { Subject, Subscription } from 'rxjs';
-import { PeriodicItem } from '../../../../constants/interfaces/periodic-item';
 import { Constant } from '../../../../constants/constant';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -19,6 +18,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./periodic-item.component.scss']
 })
 export class PeriodicItemComponent implements OnInit, OnDestroy {
+
+  @Output() deleted: EventEmitter<boolean> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
@@ -177,6 +178,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
 
   public removeItem(): void {
     this.store.dispatch(new DeletePeriodicalVariableItemAction(this.projectionId, this.itemData.id));
+    this.deleted.emit(true);
   }
 
 }

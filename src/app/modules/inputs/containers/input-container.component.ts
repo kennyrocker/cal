@@ -4,8 +4,8 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
-import { AddConstantIncomeItemAction,
-  AddConstantExpenseItemAction, AddPeriodicalVariableItemAction } from 'src/app/actions/calData.action';
+import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, 
+  AddPeriodicalVariableItemAction, UpdatePorjectionAction } from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
@@ -14,7 +14,6 @@ from 'src/app/modules/inputs/components/constant-item-component/constant-item.co
 // tslint:disable-next-line:import-spacing
 import { PeriodicItemComponent }
 from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
-import { constants } from 'buffer';
 
 @Component({
   selector: 'app-input-container',
@@ -32,6 +31,7 @@ export class InputContainerComponent implements OnInit {
   public data: CalData;
   public groupType = InputGroup;
   private backUrl: string;
+  private hasDeletedItem = false;
 
   constructor(public store: Store<reducerRoot.CalDataState>,
               private route: ActivatedRoute,
@@ -60,32 +60,48 @@ export class InputContainerComponent implements OnInit {
   }
 
   public routeBack(): void {
+    // TODO:: if form state is touched && status is VALID, 
+    // ask user if they want to save data before redirect
     this.router.navigateByUrl(this.backUrl);
+  }
+
+  public hasDeleted(bool: boolean): void {
+    this.hasDeletedItem = bool;
   }
 
   private isValidToSave(): boolean {
       const condition = 'VALID';
-      let validToSave = true;
+      let valid = true;
+      let touched = false;
       this.constantCmps.forEach(ele => {
           if (ele.constantForm.status !== condition) {
-              validToSave = false;
+              valid = false;
+          }
+          if (ele.constantForm.touched === true) {
+            touched = true;
           }
       });
       this.periodicCmps.forEach(ele => {
-          if ( ele.periodicForm.status !== condition) {
-              validToSave = false;
+          if (ele.periodicForm.status !== condition) {
+              valid = false;
+          }
+          if (ele.periodicForm.touched === true) {
+              touched = true;
           }
       });
       if (this.nameCmp.nameForm.status !== condition) {
-          validToSave = false;
+          valid = false;
       }
-      return validToSave;
+      if (this.nameCmp.nameForm.touched === true) {
+          touched = true;
+      }
+      return (valid === true && touched === true) || this.hasDeletedItem;
   }
 
   public save(): void {
       if (this.isValidToSave()) {
-          // do save
-          console.log('save this data :  ', this.data);
+          // when is update aka this.data.id is not null
+          this.store.dispatch(new UpdatePorjectionAction(this.data));
       }
   }
 

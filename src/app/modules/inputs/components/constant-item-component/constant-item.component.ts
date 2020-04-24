@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -20,6 +20,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./constant-item.component.scss']
 })
 export class ConstantItemComponent implements OnInit, OnDestroy {
+
+  @Output() deleted: EventEmitter<boolean> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
@@ -123,6 +125,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(new DeleteConstantExpenseItemAction(this.projectionId, this.itemData.id));
     }
+    this.deleted.emit(true);
   }
 
   public activeChange(value: boolean): void {

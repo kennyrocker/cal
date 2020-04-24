@@ -14,7 +14,8 @@
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
     <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
       <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [itemGroupType]="groupType.CONSTANT_INCOME">
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+            [itemGroupType]="groupType.CONSTANT_INCOME" (deleted)="hasDeleted($event)">
         </app-constant-item-component>
       </div>
     </div>
@@ -26,7 +27,8 @@
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
     <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
       <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [itemGroupType]="groupType.CONSTANT_EXPENSE">
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item" 
+            [itemGroupType]="groupType.CONSTANT_EXPENSE" (deleted)="hasDeleted($event)">
         </app-constant-item-component>
       </div>
     </div>
@@ -38,7 +40,8 @@
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
     <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
       <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-        <app-periodic-item-component [projectionId]="data.id" [itemData]="item" [itemGroupType]="groupType.PERIODICAL_VARIBLE">
+        <app-periodic-item-component [projectionId]="data.id" [itemData]="item" 
+            [itemGroupType]="groupType.PERIODICAL_VARIBLE" (deleted)="hasDeleted($event)">
         </app-periodic-item-component>
       </div>
     </div>

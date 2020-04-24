@@ -11,7 +11,6 @@ export enum CalDataActionTypes {
     GetProjectionById = '[Get Projection By Id] Get',
     GetProjectionByIdSuccess = '[Get Projection By Id] Get Success',
     GetProjectionByIdFailed = '[Get Projection By Id] Get Failed',
-    UpdateSnapShot = '[Update Snapshot] Update',
     AddConstantIncomeItem = '[Constant Income Item] Add',
     AddConstantExpenseItem = '[Constant Expense Item] Add',
     AddPeriodicalVariableItem = '[Perodical Variable Item] Add',
@@ -26,7 +25,11 @@ export enum CalDataActionTypes {
     UpdateConstantExpenseItem = '[Constant Expense Item] Update',
     UpdatePeriodicalVariableItem = '[Perodical Variable Item] Update',
     UpdateStaticVariableItem = '[Static Variable Item] Update',
-    UpdateProjectionName = '[Projection Name] Update'
+    UpdateProjectionName = '[Projection Name] Update',
+    UpdateProjectionLastUpdated = '[Projection Last Updated] Update',
+    UpdateProjection = '[Update Projection] Update',
+    UpdateProjectionFailed = '[Update Projection] Update Failed',
+    UpdateSnapShot = '[Update Snapshot] Update',
 }
 
 
@@ -52,11 +55,6 @@ export class GetProjectionByIdActionSuccess implements Action {
 
 export class GetProjectionByIdActionFailed implements Action {
     readonly type = CalDataActionTypes.GetProjectionByIdFailed;
-}
-
-export class UpdateSnapShotAction implements Action {
-    readonly type = CalDataActionTypes.UpdateSnapShot;
-    constructor(public payload: Snapshot) {}
 }
 
 export class AddConstantIncomeItemAction implements Action {
@@ -134,9 +132,30 @@ export class UpdateProjectionNameAction implements Action {
     constructor(public projectionId: string, public name: string) {}
 }
 
+export class UpdateProjectionLastUpdatedAction implements Action {
+    readonly type = CalDataActionTypes.UpdateProjectionLastUpdated;
+    constructor(public projectionId: string, public lastUpdated: number) {}
+}
+
+export class UpdatePorjectionAction implements Action {
+    readonly type = CalDataActionTypes.UpdateProjection;
+    constructor(public projection: CalData) {}
+}
+
+export class UpdatePorjectionActionFailed implements Action {
+    readonly type = CalDataActionTypes.UpdateProjectionFailed;
+}
+
+export class UpdateSnapShotAction implements Action {
+    readonly type = CalDataActionTypes.UpdateSnapShot;
+    constructor(public payload: Snapshot) {}
+}
+
+
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
+ | UpdatePorjectionAction | UpdateProjectionLastUpdatedAction | UpdatePorjectionActionFailed
  | UpdateSnapShotAction
  | UpdateConstantIncomeItemAction | UpdateProjectionNameAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
