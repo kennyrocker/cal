@@ -6,6 +6,7 @@
 
 .input-wrapper {
   width: 100%;
+  padding-top: 155px;
 }
 
 .input-projection-name {
@@ -19,10 +20,18 @@
   width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  background-color: $white-1;
+  padding: 0 10px 20px;
+  z-index: $lvl-1;
+  box-sizing: border-box;
 }
 
 .primary-button {
   width: 200px;
+  height: 42px;
 }
 
 .input-section {
@@ -41,20 +50,24 @@
 
 .group-title {
     text-align: center;
-    font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 3rem 0.5rem 0 0.5rem;
+    padding: 1.3rem 0.5rem 0.25rem 0.5rem;
     font-size: 1.4rem;
     color: $gray-3;
 }
 
 button {
     width: 100%;
-    border-radius: 3px;
-    padding: 5px 20px;
+    border-radius: 0 0 3px 3px;
+    padding: 10px 0;
     background-color: $green-2;
     color: $white-1;
     font-size: 1rem;
+    box-sizing: border-box;
+    border-left: 1px solid $white-3;
+    border-top: 1px solid $white-3;
+    outline: 0 none;
+
     &:hover {
       background-color: $green-1;
       cursor: pointer;

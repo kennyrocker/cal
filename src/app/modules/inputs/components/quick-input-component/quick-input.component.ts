@@ -14,7 +14,7 @@ import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 @Component({
   selector: 'app-quick-input-component',
   templateUrl: './quick-input.component.html',
-  styleUrls: ['./quick-input.component.css']
+  styleUrls: ['./quick-input.component.scss']
 })
 export class QuickInputComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename

@@ -1,19 +1,26 @@
+@import './styles/index.scss';
+
 .header {
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
+  background-color: $white-1;
+  height: 100px;
+  top: 0;
+  position: fixed;
+  z-index: $lvl-1;
 }
 hr {
   clear:both;
-  color: #000;
+  color: $black;
   opacity: 0.2;
 }
 .title {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 5rem;
-  color: #000;
+  color: $black;
   text-align: center;
 }
 .footer {
@@ -27,7 +34,7 @@ hr {
 .copy-right {
   text-align: center;
   padding: 3rem 0rem 2rem 0rem;
-  color: #ccc;
+  color: $gray-1;
   font-size: 0.85rem;
   font-weight: 100;
 }
