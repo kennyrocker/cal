@@ -13,10 +13,18 @@ const initialState: Entites = {
     collection: []
 };
 
-const constantIncomeItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true };
-const constantExpenseItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true};
-const periodicVariableItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0,
-                               cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true };
+function getNewConstantIncomeItem() {
+    return { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true };
+}
+
+function getNewConstantExpenseItem() {
+    return { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true};
+}
+
+function getNewPeriodicVariableItem() {
+    return { id: MapperUtil.generateRandomId(), name: '', amount: 0,
+             cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true };
+}
 
 
 export function calDataReducer(state = initialState, action: CalDataActions) {
@@ -57,9 +65,9 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 id: action.projectionId,
                 name: '',
                 lastUpdated: new Date().getTime(),
-                constantIncome: [ constantIncomeItem ],
-                constantExpense: [ constantExpenseItem ],
-                periodicalVariable: [ periodicVariableItem ]
+                constantIncome: [ getNewConstantIncomeItem() ],
+                constantExpense: [ getNewConstantExpenseItem() ],
+                periodicalVariable: [ getNewPeriodicVariableItem() ]
             };
             return {
                 ...state,
@@ -77,7 +85,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                         return {
                             ...obj,
                             constantIncome: [
-                                constantIncomeItem,
+                                getNewConstantIncomeItem(),
                                 ...obj.constantIncome
                             ]
                         };
@@ -95,7 +103,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                         return {
                             ...obj,
                             constantExpense: [
-                                constantExpenseItem,
+                                getNewConstantExpenseItem(),
                                 ...obj.constantExpense
                             ]
                         };
@@ -113,7 +121,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                         return {
                             ...obj,
                             periodicalVariable: [
-                                periodicVariableItem,
+                                getNewPeriodicVariableItem(),
                                 ...obj.periodicalVariable
                             ]
                         };
