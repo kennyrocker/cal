@@ -1,5 +1,4 @@
 import { CalDataActionTypes, CalDataActions } from '../actions/calData.action';
-import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 import { Entites } from 'src/app/constants/interfaces/entites';
