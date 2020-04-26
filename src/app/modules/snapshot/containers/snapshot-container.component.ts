@@ -11,6 +11,7 @@ import { getAllSnapShots, isSnapShotsLoaded } from 'src/app/selectors/selectors'
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 
 import { FormateTimePipe } from '../../share/pipes/formateTimePipe';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     private snapShotSub: Subscription;
     private snapShotLoadedSub: Subscription;
 
-    constructor(public store: Store<reducerRoot.CalDataState>) {}
+    constructor(public store: Store<reducerRoot.CalDataState>, private router: Router) {}
 
     ngOnInit() {
         this.snapShotLoadedSub = this.store.select(isSnapShotsLoaded)
@@ -45,5 +46,9 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.snapShotLoadedSub.unsubscribe();
         this.snapShotSub.unsubscribe();
+    }
+
+    public createProjection(): void {
+        this.router.navigateByUrl('/projection/new');
     }
 }

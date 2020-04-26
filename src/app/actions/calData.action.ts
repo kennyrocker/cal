@@ -29,7 +29,11 @@ export enum CalDataActionTypes {
     UpdateProjectionLastUpdated = '[Projection Last Updated] Update',
     UpdateProjection = '[Update Projection] Update',
     UpdateProjectionFailed = '[Update Projection] Update Failed',
+    PostProjection = '[Post Projection] Post',
     UpdateSnapShot = '[Update Snapshot] Update',
+    AddProjection = '[Add Projection] Add',
+    AddSnapShot = '[Add SnapShot] Add',
+    DeleteProjection = '[Delete Projection] Delete',
 }
 
 
@@ -57,6 +61,16 @@ export class GetProjectionByIdActionFailed implements Action {
     readonly type = CalDataActionTypes.GetProjectionByIdFailed;
 }
 
+export class AddSnapShotAction implements Action {
+    readonly type = CalDataActionTypes.AddSnapShot;
+    constructor(public snapshot: Snapshot) {}
+}
+
+export class AddProjectionAction implements Action {
+    readonly type = CalDataActionTypes.AddProjection;
+    constructor(public projectionId: string) {}
+}
+
 export class AddConstantIncomeItemAction implements Action {
     readonly type = CalDataActionTypes.AddConstantIncomeItem;
     constructor(public projectionId: string) {}
@@ -69,6 +83,11 @@ export class AddConstantExpenseItemAction implements Action {
 
 export class AddPeriodicalVariableItemAction implements Action {
     readonly type = CalDataActionTypes.AddPeriodicalVariableItem;
+    constructor(public projectionId: string) {}
+}
+
+export class DeleteProjectionAction implements Action {
+    readonly type = CalDataActionTypes.DeleteProjection;
     constructor(public projectionId: string) {}
 }
 
@@ -142,6 +161,11 @@ export class UpdatePorjectionAction implements Action {
     constructor(public projection: CalData) {}
 }
 
+export class PostProjectionAction implements Action {
+    readonly type = CalDataActionTypes.PostProjection;
+    constructor(public projection: CalData) {}
+}
+
 export class UpdatePorjectionActionFailed implements Action {
     readonly type = CalDataActionTypes.UpdateProjectionFailed;
 }
@@ -156,12 +180,13 @@ export class UpdateSnapShotAction implements Action {
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
  | UpdatePorjectionAction | UpdateProjectionLastUpdatedAction | UpdatePorjectionActionFailed
- | UpdateSnapShotAction
+ | UpdateSnapShotAction | PostProjectionAction | AddSnapShotAction
  | UpdateConstantIncomeItemAction | UpdateProjectionNameAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
  | AddConstantExpenseItemAction | AddPeriodicalVariableItemAction
+ | AddProjectionAction
  | BulkAddConstantIncomeItemAction | BulkAddConstantExpenseItemAction
- | BulkAddPeriodicalVariableItemAction
+ | BulkAddPeriodicalVariableItemAction | DeleteProjectionAction
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction;

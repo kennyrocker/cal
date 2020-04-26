@@ -13,6 +13,11 @@ const initialState: Entites = {
     collection: []
 };
 
+const constantIncomeItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true };
+const constantExpenseItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true};
+const periodicVariableItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0,
+                               cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true };
+
 
 export function calDataReducer(state = initialState, action: CalDataActions) {
 
@@ -47,8 +52,24 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
 
 
         /* Add Blank */
+        case CalDataActionTypes.AddProjection :
+            const newProjection = {
+                id: action.projectionId,
+                name: '',
+                lastUpdated: new Date().getTime(),
+                constantIncome: [ constantIncomeItem ],
+                constantExpense: [ constantExpenseItem ],
+                periodicalVariable: [ periodicVariableItem ]
+            };
+            return {
+                ...state,
+                collection: [
+                    newProjection,
+                    ...state.collection
+                ]
+            };
+
         case CalDataActionTypes.AddConstantIncomeItem :
-            const constantIncomeItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true };
             return {
                 ...state,
                 collection: state.collection.map((obj) => {
@@ -67,7 +88,6 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
             };
 
         case CalDataActionTypes.AddConstantExpenseItem :
-            const constantExpenseItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0, cycle: CalCycle.MONTHLY, active: true};
             return {
                 ...state,
                 collection: state.collection.map((obj) => {
@@ -86,8 +106,6 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
             };
 
         case CalDataActionTypes.AddPeriodicalVariableItem :
-            const periodicVariableItem = { id: MapperUtil.generateRandomId(), name: '', amount: 0,
-                                           cycle: CalCycle.MONTHLY, affectiveMonth: [], active: true };
             return {
                 ...state,
                 collection: state.collection.map((obj) => {
@@ -105,9 +123,23 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 })
             };
 
+        case CalDataActionTypes.AddSnapShot :
+            return {
+                ...state,
+                snapshot: [
+                    action.snapshot,
+                    ...state.snapshot
+                ]
+            };
 
 
         /* Delete Single */
+        case CalDataActionTypes.DeleteProjection :
+            return {
+                ...state,
+                collection: state.collection.filter(obj => obj.id !== action.projectionId)
+            };
+
         case CalDataActionTypes.DeleteConstantIncomeItem :
             return {
                 ...state,
@@ -297,7 +329,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                         return obj;
                     }
                 })
-            };    
+            };
 
 
         /* Fall back */

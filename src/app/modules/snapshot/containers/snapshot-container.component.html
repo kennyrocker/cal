@@ -3,7 +3,7 @@
     </div>
     
     <div class="snapshot-wrapper">
-        <div class="snapshot-item create-button">
+        <div class="snapshot-item create-button" (click)="createProjection()">
             <div class="name">Create New Projection</div>
         </div>
         <div *ngFor="let item of list" class="snapshot-item" routerLink="/projection/{{item.id}}">

@@ -4,8 +4,8 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
-import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, 
-  AddPeriodicalVariableItemAction, UpdatePorjectionAction } from 'src/app/actions/calData.action';
+import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction,
+   UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction } from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
@@ -29,9 +29,13 @@ export class InputContainerComponent implements OnInit {
   // tslint:disable-next-line:no-input-rename
   @Input('data')
   public data: CalData;
+  // tslint:disable-next-line:no-input-rename
+  @Input('isNewProjection')
+  public isNewProjection: boolean;
   public groupType = InputGroup;
   private backUrl: string;
   private hasDeletedItem = false;
+  private saved = false;
 
   constructor(public store: Store<reducerRoot.CalDataState>,
               private route: ActivatedRoute,
@@ -62,6 +66,10 @@ export class InputContainerComponent implements OnInit {
   public routeBack(): void {
     // TODO:: if form state is touched && status is VALID,
     // ask user if they want to save data before redirect
+    // if isNewProjection and not saved, before navigate back, need to clear data from collection
+    if (this.isNewProjection && !this.saved) {
+        this.store.dispatch(new DeleteProjectionAction(this.data.id));
+    }
     this.router.navigateByUrl(this.backUrl);
   }
 
@@ -101,7 +109,12 @@ export class InputContainerComponent implements OnInit {
   public save(): void {
       if (this.isValidToSave()) {
           // when is update aka this.data.id is not null
-          this.store.dispatch(new UpdatePorjectionAction(this.data));
+          if (this.isNewProjection) {
+              this.store.dispatch(new PostProjectionAction(this.data));
+              this.saved = true;
+          } else {
+              this.store.dispatch(new UpdatePorjectionAction(this.data));
+          }
       }
   }
 

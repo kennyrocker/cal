@@ -19,6 +19,13 @@ const routes: Routes = [
         path: 'projection/:id',
         loadChildren: () => import('./modules/projection/app.projection.module').then(m => m.ProjectionModule),
         component: ProjectionContainerComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: 'projection/new',
+        loadChildren: () => import('./modules/projection/app.projection.module').then(m => m.ProjectionModule),
+        component: ProjectionContainerComponent,
+        pathMatch: 'full'
     },
     {
         path: '404',

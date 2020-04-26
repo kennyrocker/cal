@@ -29,95 +29,99 @@ export class MapperUtil {
         return Math.floor(Math.random() * Math.floor(Constant.MAX_ID_DIGIT));
     }
 
+    public static generateProjectionId(userId: string): string {
+        const t = new Date().getTime().toString();
+        return userId + 'pq' + t;
+    }
 
-  private static mapToStanderItemCycle(str: string): number {
-    switch (str) {
-      case 'a' :
-        return StanderItemCycleShortForm.a;
-      case 'b' :
-        return StanderItemCycleShortForm.b;
-      case 'm' :
-        return StanderItemCycleShortForm.m;
-      default :
-        return StanderItemCycleShortForm.m;  // default is monthly
+    private static mapToStanderItemCycle(str: string): number {
+      switch (str) {
+        case 'a' :
+          return StanderItemCycleShortForm.a;
+        case 'b' :
+          return StanderItemCycleShortForm.b;
+        case 'm' :
+          return StanderItemCycleShortForm.m;
+        default :
+          return StanderItemCycleShortForm.m;  // default is monthly
+      }
     }
-  }
 
-  public static mapStanderItem(str: string): StandarItem {
-    if (!str) {
-      return null;
+    public static mapStanderItem(str: string): StandarItem {
+      if (!str) {
+        return null;
+      }
+      const digitRegex = /\d|\./g;
+      const amountStartIndex = str.search(digitRegex);
+      const amountEndIndex = str.length - 1;
+      const name = str.substring(0, amountStartIndex);
+      const amount = str.substring(amountStartIndex, amountEndIndex);
+      const cycle = MapperUtil.mapToStanderItemCycle(
+        str.substring(amountEndIndex, str.length));
+      return {
+        id: MapperUtil.generateRandomId(),
+        name: name,
+        amount: Number(amount),
+        cycle: Number(cycle),
+        active: true
+      };
     }
-    const digitRegex = /\d|\./g;
-    const amountStartIndex = str.search(digitRegex);
-    const amountEndIndex = str.length - 1;
-    const name = str.substring(0, amountStartIndex);
-    const amount = str.substring(amountStartIndex, amountEndIndex);
-    const cycle = MapperUtil.mapToStanderItemCycle(
-      str.substring(amountEndIndex, str.length));
-    return {
-      id: MapperUtil.generateRandomId(),
-      name: name,
-      amount: Number(amount),
-      cycle: Number(cycle),
-      active: true
-    };
-  }
 
-  public static mapPeriodicItem(str: string): PeriodicItem {
-    if (!str) {
-      return null;
+    public static mapPeriodicItem(str: string): PeriodicItem {
+      if (!str) {
+        return null;
+      }
+      const digitRegex = /\d|\.|-/g;
+      const atRegex = /@/g;
+      const firstDigitIndex = str.search(digitRegex);
+      const atIndex = str.search(atRegex);
+      const name = str.substring(0, firstDigitIndex);
+      const amount = Number(str.substring(firstDigitIndex, atIndex));
+      const months = str.substring(atIndex + 1, str.length);
+      const monthsArr = months.split(',');
+      const cycle = months.length === 1 ? 1 : 12; // TODO:: might want to use Enum from input
+      const affectiveMonth = [];
+      monthsArr.map(x => {
+        affectiveMonth.push(Number(x));
+      });
+      return {
+        id: MapperUtil.generateRandomId(),
+        name: name,
+        amount: Number(amount),
+        cycle: Number(cycle),
+        affectiveMonth: MapperUtil.uniqueSingleKeyArry(affectiveMonth),
+        active: true
+      };
     }
-    const digitRegex = /\d|\.|-/g;
-    const atRegex = /@/g;
-    const firstDigitIndex = str.search(digitRegex);
-    const atIndex = str.search(atRegex);
-    const name = str.substring(0, firstDigitIndex);
-    const amount = Number(str.substring(firstDigitIndex, atIndex));
-    const months = str.substring(atIndex + 1, str.length);
-    const monthsArr = months.split(',');
-    const cycle = months.length === 1 ? 1 : 12; // TODO:: might want to use Enum from input
-    const affectiveMonth = [];
-    monthsArr.map(x => {
-      affectiveMonth.push(Number(x));
-    });
-    return {
-      id: MapperUtil.generateRandomId(),
-      name: name,
-      amount: Number(amount),
-      cycle: Number(cycle),
-      affectiveMonth: MapperUtil.uniqueSingleKeyArry(affectiveMonth),
-      active: true
-    };
-  }
 
-  public static mergeRemoveDuplicateByKey(a1: any[], a2: any[], key: string): any[] {
-    const output = [];
-    const base = a1.concat(a2);
-    if (a1.length === 0) {
-      return a2;
+    public static mergeRemoveDuplicateByKey(a1: any[], a2: any[], key: string): any[] {
+      const output = [];
+      const base = a1.concat(a2);
+      if (a1.length === 0) {
+        return a2;
+      }
+      if (a2.length === 0) {
+        return a1;
+      }
+      if (!key) {
+        return base;
+      }
+      const keys = [];
+      const reference = {};
+      base.map((i) => {
+        keys.push(i[key]);
+      });
+      keys.map((b, i) => {
+        reference[b] = reference[b] || output.push(base[i]);
+      });
+      return output;
     }
-    if (a2.length === 0) {
-      return a1;
-    }
-    if (!key) {
-      return base;
-    }
-    const keys = [];
-    const reference = {};
-    base.map((i) => {
-      keys.push(i[key]);
-    });
-    keys.map((b, i) => {
-      reference[b] = reference[b] || output.push(base[i]);
-    });
-    return output;
-  }
 
-  public static uniqueSingleKeyArry(arr: any[]): any[] {
-    const reference = {};
-    const output = [];
-    arr.map((b) => { reference[b] = reference[b] || output.push(b) });
-    return output;
-  }
+    public static uniqueSingleKeyArry(arr: any[]): any[] {
+      const reference = {};
+      const output = [];
+      arr.map((b) => { reference[b] = reference[b] || output.push(b) });
+      return output;
+    }
 
 }

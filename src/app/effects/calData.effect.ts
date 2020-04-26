@@ -4,7 +4,8 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
     GetProjectionByIdAction, GetProjectionByIdActionSuccess, UpdatePorjectionAction,
-     UpdateSnapShotAction, UpdateProjectionLastUpdatedAction } from 'src/app/actions/calData.action';
+    UpdateSnapShotAction, UpdateProjectionLastUpdatedAction,
+    PostProjectionAction, AddSnapShotAction } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -73,13 +74,35 @@ export class CalDataEffects {
                         .pipe(
                             switchMap((data: CalData) => {
                                 if (data.lastUpdated) {
-                                    const snapshot: Snapshot = {
-                                        id: data.id,
-                                        name: data.name,
-                                        lastUpdated: data.lastUpdated
-                                    };
                                     return [
-                                            new UpdateSnapShotAction(snapshot),
+                                            new UpdateSnapShotAction(this.constuctSnapShot(data)),
+                                            new UpdateProjectionLastUpdatedAction(data.id, data.lastUpdated)
+                                    ];
+                                } else {
+                                    return of ({
+                                        type: CalDataActionTypes.UpdateProjectionFailed
+                                    });
+                                }
+                            }),
+                            catchError((e) => of ({ type: 'Update Projection Error', error: e }))
+                        );
+            }
+        )
+    );
+
+    @Effect()
+    public postProjection$: Observable<Action> = this.actions$.pipe(
+        ofType(CalDataActionTypes.PostProjection),
+        switchMap((action: PostProjectionAction) => {
+            // TODO:: use real user id here
+            const userId = 'mockUser';
+            return this.calDataService
+                        .updatePorjection(userId, action.projection)
+                        .pipe(
+                            switchMap((data: CalData) => {
+                                if (data.lastUpdated) {
+                                    return [
+                                            new AddSnapShotAction(this.constuctSnapShot(data)),
                                             new UpdateProjectionLastUpdatedAction(data.id, data.lastUpdated)
                                     ];
                                 } else {
@@ -93,6 +116,14 @@ export class CalDataEffects {
             }
         )
     );
+
+    protected constuctSnapShot(data: CalData): Snapshot {
+        return {
+            id: data.id,
+            name: data.name,
+            lastUpdated: data.lastUpdated
+        };
+    }
 
 
 

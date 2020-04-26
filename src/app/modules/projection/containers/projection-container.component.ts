@@ -8,7 +8,8 @@ import { filter, map } from 'rxjs/operators';
 import { select } from '@ngrx/store';
 import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { GetProjectionByIdAction } from 'src/app/actions/calData.action';
+import { GetProjectionByIdAction, AddProjectionAction } from 'src/app/actions/calData.action';
+import { MapperUtil } from 'src/app/utils/mapper-util';
 
 @Component({
     selector: 'app-projection-container',
@@ -24,17 +25,26 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
 
     public projection: any;
     public projectionFound: boolean;
+    private MapperUtil: MapperUtil;
+    private isNewProjection = false;
 
     constructor(private route: ActivatedRoute,
         public store: Store<reducerRoot.CalDataState>) {
     }
 
     ngOnInit() {
-
         this.routeSub = this.route.params.subscribe(params => {
-            this.projectionId = params['id'];
+            if (params['id'] === 'new') { // projection/new route
+                this.prepareNewProjection();
+            } else {                      // projection/:id route
+                this.prepareProjection(params['id']);
+            }
         });
+        this.initProjectionSub();
+    }
 
+    private prepareProjection(projectionId: string): void {
+        this.projectionId = projectionId;
         this.isLoadedSub = this.store.pipe(
             select(isProjectionExistedFromCollection, {id:  this.projectionId})
         ).subscribe((isLoaded) => {
@@ -42,20 +52,30 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
                 this.store.dispatch(new GetProjectionByIdAction(this.projectionId));
             }
         });
+    }
 
+    private prepareNewProjection(): void {
+        this.isNewProjection = true;
+        // TODO:: user real userid
+        this.projectionId = MapperUtil.generateProjectionId('userId');
+        this.store.dispatch(new AddProjectionAction(this.projectionId));
+    }
+
+    private initProjectionSub(): void {
         this.projectionSub = this.store.pipe(
             select(getProjectionById, {id: this.projectionId}),
             filter(data => data !== undefined)
         ).subscribe( data => {
             this.projection = data;
         });
-
     }
 
     ngOnDestroy() {
         this.routeSub.unsubscribe();
-        this.isLoadedSub.unsubscribe();
         this.projectionSub.unsubscribe();
+        if (!this.isNewProjection) {
+            this.isLoadedSub.unsubscribe();
+        }
     }
 
 }
