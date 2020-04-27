@@ -1,6 +1,7 @@
 <div class="snapshot">
     <div class="snapshot-filter">
-        <button class="primary-button" (click)="compare()">Compare Selected</button>
+        <button *ngIf="snapshotSelected.length > 1" 
+                class="primary-button" (click)="compare()">Compare Selected</button>
     </div>
     
     <div class="snapshot-wrapper">
@@ -16,8 +17,8 @@
                 <div class="last-updated">{{ item.lastUpdated | time }}</div>
             </div>
             <div class="bottom">
-                <input type="checkbox" [checked]="" class="action-checkbox" />
-                <!-- (change)=bindActiveChangeSubject(!itemData.active) /> -->
+                <input type="checkbox" [checked]="isItemSelected(item.id)" 
+                        class="action-checkbox" (change)=bindSelectionChangeSubject(item.id)/>
             </div>
             
         </div>

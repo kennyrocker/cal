@@ -1,5 +1,12 @@
 {
-    
+    "ui" : {
+        "snapshotLoaded" : true,
+        "snapshotSelected" : [
+            "106363041",
+            "1003023041"
+        ]
+    },
+
     "snapshot" : [
         
         {

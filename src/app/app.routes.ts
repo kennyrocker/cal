@@ -29,7 +29,7 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'compare',
+        path: 'compare/:ids',
         loadChildren: () => import('./modules/compare/app.compare.module').then(m => m.CompareModule),
         component: CompareContainerComponent,
         pathMatch: 'full'

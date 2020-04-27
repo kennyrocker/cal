@@ -74,7 +74,6 @@ export class CalDataEffects {
                 .pipe(
                     switchMap((data: any) => {
                         if (data && data.length > 0) {
-                            console.log('effect data got from api ', data);
                             return [
                                     new GetProjectionBatchByIdsActionSuccess(data)
                             ];

@@ -47,3 +47,8 @@ export const getProjectionsByIds = createSelector(
         return collections.filter(i => props.ids[i.id] === undefined);
     }
 );
+
+export const getSnapshotSelected = createSelector(
+    (state: any) => state.calData.ui.snapshotSelected,
+    (snapshotSelected) => snapshotSelected 
+)

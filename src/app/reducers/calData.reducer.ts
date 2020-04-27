@@ -6,7 +6,8 @@ import { Entites } from 'src/app/constants/interfaces/entites';
 
 const initialState: Entites = {
     ui: {
-        snapshotLoaded: false
+        snapshotLoaded: false,
+        snapshotSelected: []
     },
     snapshot: [],
     collection: []
@@ -346,7 +347,16 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     }
                 })
             };
-
+        
+        /* UI Update*/
+        case CalDataActionTypes.SnapShotSelectedUpdateUI :
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    snapshotSelected: action.payload
+                }
+            };    
 
         /* Fall back */
         default:
