@@ -26,3 +26,24 @@ export const isProjectionExistedFromCollection = createSelector(
         return collections.find((i) => i.id === props.id) ? true : false;
     }
 );
+
+// compare module selector
+export const isProjectionsExistedFromCollection = createSelector(
+    getCollections,
+    (collections, props) => {
+        const map = props.ids;
+        for (const obj in props.ids) {
+            if (collections.find(i => i.id === obj)) {
+                delete map[obj];
+            }
+        } 
+        return map;
+    }
+);
+
+export const getProjectionsByIds = createSelector(
+    getCollections,
+    (collections, props) => {
+        return collections.filter(i => props.ids[i.id] === undefined);
+    }
+);

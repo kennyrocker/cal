@@ -1,7 +1,7 @@
 <div *ngIf="data" class="input-wrapper">
   
   <div class="input-heading">
-      <button class="primary-button" (click)="routeBack()">Back</button>
+      <button *ngIf="!isCompareMode" class="primary-button" (click)="routeBack()">Back</button>
       <div class="input-projection-name">
           <app-name-component [projectionId]="data.id" [name]="data.name"></app-name-component>
       </div>

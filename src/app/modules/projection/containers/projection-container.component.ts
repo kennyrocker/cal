@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as reducerRoot from '../../../reducers/index';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { select } from '@ngrx/store';
 import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
-import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { GetProjectionByIdAction, AddProjectionAction } from 'src/app/actions/calData.action';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 
@@ -22,10 +21,8 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private routeSub: Subscription;
     private isLoadedSub: Subscription;
     private projectionSub: Subscription;
-
     public projection: any;
     public projectionFound: boolean;
-    private MapperUtil: MapperUtil;
     private isNewProjection = false;
 
     constructor(private route: ActivatedRoute,

@@ -1,0 +1,8 @@
+
+
+
+    <div *ngIf="compares && compares.length > 0" class="compare-wrapper">
+        <div *ngFor="let data of compares; trackBy: trackByItem" class="compare-item">
+            <app-input-container [data]="data" [isNewProjection]="false" [isCompareMode]="true"></app-input-container>
+        </div>
+    </div>

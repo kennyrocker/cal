@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectionContainerComponent } from 'src/app/modules/projection/containers/projection-container.component';
 import { SnapshotContainerComponent } from 'src/app/modules/snapshot/containers/snapshot-container.component';
 import { NotFoundComponent } from 'src/app/modules/static/components/not-found/not-found-component';
+import { CompareContainerComponent } from './modules/compare/container/compare-container.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,12 @@ const routes: Routes = [
         path: 'projection/new',
         loadChildren: () => import('./modules/projection/app.projection.module').then(m => m.ProjectionModule),
         component: ProjectionContainerComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: 'compare',
+        loadChildren: () => import('./modules/compare/app.compare.module').then(m => m.CompareModule),
+        component: CompareContainerComponent,
         pathMatch: 'full'
     },
     {

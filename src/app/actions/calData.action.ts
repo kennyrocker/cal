@@ -11,6 +11,9 @@ export enum CalDataActionTypes {
     GetProjectionById = '[Get Projection By Id] Get',
     GetProjectionByIdSuccess = '[Get Projection By Id] Get Success',
     GetProjectionByIdFailed = '[Get Projection By Id] Get Failed',
+    GetProjectionBatchByIds = '[Get Projection Batch By Ids] Get',
+    GetProjectionBatchByIdsSuccess = '[Get Projection Batch By Ids] Get Success',
+    GetProjectionBatchByIdsFailed = '[Get Projection Batch By Ids] Get Failed',
     AddConstantIncomeItem = '[Constant Income Item] Add',
     AddConstantExpenseItem = '[Constant Expense Item] Add',
     AddPeriodicalVariableItem = '[Perodical Variable Item] Add',
@@ -59,6 +62,20 @@ export class GetProjectionByIdActionSuccess implements Action {
 
 export class GetProjectionByIdActionFailed implements Action {
     readonly type = CalDataActionTypes.GetProjectionByIdFailed;
+}
+
+export class GetProjectionBatchByIdsAction implements Action {
+    readonly type = CalDataActionTypes.GetProjectionBatchByIds;
+    constructor(public ids: any[]) {}
+}
+
+export class GetProjectionBatchByIdsActionSuccess implements Action {
+    readonly type = CalDataActionTypes.GetProjectionBatchByIdsSuccess;
+    constructor(public payload: any) {}
+}
+
+export class GetProjectionBatchByIdsActionFailed implements Action {
+    readonly type = CalDataActionTypes.GetProjectionBatchByIdsFailed;
 }
 
 export class AddSnapShotAction implements Action {
@@ -179,6 +196,7 @@ export class UpdateSnapShotAction implements Action {
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
+ | GetProjectionBatchByIdsAction | GetProjectionBatchByIdsActionSuccess | GetProjectionBatchByIdsActionFailed
  | UpdatePorjectionAction | UpdateProjectionLastUpdatedAction | UpdatePorjectionActionFailed
  | UpdateSnapShotAction | PostProjectionAction | AddSnapShotAction
  | UpdateConstantIncomeItemAction | UpdateProjectionNameAction

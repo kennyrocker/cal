@@ -25,6 +25,17 @@ export class CalDataService {
             return of ({});
         }
     }
+    // GET
+    public getProjectionBatchByIds(userId: string, ids: string[]): Observable<any> {
+        // mocking for now
+        if (ids.length === 1 && ids[0] === '1003023041') {
+            return this.http.get('../../../assets/mock/batch-hd.json');
+        } else if (ids.length === 1 && ids[0] === '106363041') {
+            return this.http.get('../../../assets/mock/batch-cp.json');
+        } else {
+            return this.http.get('../../../assets/mock/batch-hd-cp.json');
+        }
+    }
     // POST
     public postProjection(content: CalData): Observable<CalData> {
         return of({});

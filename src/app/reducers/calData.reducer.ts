@@ -57,6 +57,15 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 snapshot: state.snapshot.map(obj => (obj.id === action.payload.id) ? action.payload : obj)
             };
 
+        case CalDataActionTypes.GetProjectionBatchByIdsSuccess:
+            return {
+                ...state,
+                collection: [
+                    ...state.collection,
+                    ...action.payload
+                ]
+            };  
+
 
         /* Add Blank */
         case CalDataActionTypes.AddProjection :

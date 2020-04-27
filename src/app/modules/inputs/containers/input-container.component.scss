@@ -191,3 +191,39 @@ button {
     color: $red-1;
   }
 }
+
+
+// this is more of for the compare view, TODO:: try to move this to compare module later
+.compare-wrapper {
+
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+
+    .compare-item {
+        
+        flex: 1;
+
+        .input-heading {
+          position: relative;
+          top: 0;
+          left: 0;
+        }
+
+        .input-section {
+          display: block;
+          width: 100%;
+        }
+
+        .group-items {
+          border-right: 1px solid $white-3;
+        }
+
+        .input-projection-name input {
+          text-align: left;
+        }
+
+    }
+
+}

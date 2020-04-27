@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
@@ -18,7 +18,8 @@ from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.co
 @Component({
   selector: 'app-input-container',
   templateUrl: './input-container.component.html',
-  styleUrls: ['./input-container.component.scss']
+  styleUrls: ['./input-container.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class InputContainerComponent implements OnInit {
 
@@ -32,6 +33,10 @@ export class InputContainerComponent implements OnInit {
   // tslint:disable-next-line:no-input-rename
   @Input('isNewProjection')
   public isNewProjection: boolean;
+  // tslint:disable-next-line:no-input-rename
+  @Input('isCompareMode')
+  public isCompareMode: boolean;
+
   public groupType = InputGroup;
   private backUrl: string;
   private hasDeletedItem = false;

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
     GetProjectionByIdAction, GetProjectionByIdActionSuccess, UpdatePorjectionAction,
     UpdateSnapShotAction, UpdateProjectionLastUpdatedAction,
-    PostProjectionAction, AddSnapShotAction } from 'src/app/actions/calData.action';
+    PostProjectionAction, AddSnapShotAction, GetProjectionBatchByIdsAction, GetProjectionBatchByIdsActionSuccess } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -61,6 +61,34 @@ export class CalDataEffects {
         pageNotFound = this.actions$.pipe(
             ofType(CalDataActionTypes.GetProjectionByIdFailed),
             tap(() => this.router.navigate(['404']))
+    );
+    
+    @Effect()
+    public getProjectionBatch$: Observable<Action> = this.actions$.pipe(
+        ofType(CalDataActionTypes.GetProjectionBatchByIds),
+        switchMap((action: GetProjectionBatchByIdsAction) => {
+            // TODO:: use real user id here
+            const userId = 'mockUser';
+            return this.calDataService
+                .getProjectionBatchByIds(userId, action.ids)
+                .pipe(
+                    switchMap((data: any) => {
+                        if (data && data.length > 0) {
+                            console.log('effect data got from api ', data);
+                            return [
+                                    new GetProjectionBatchByIdsActionSuccess(data)
+                            ];
+                        } else {
+                            return of ({
+                                type: CalDataActionTypes.GetProjectionBatchByIdsFailed
+                            });
+                        }
+
+                    }),
+                    catchError((e) => of ({ type: 'Get Projection Batch Error', error: e }))
+                )
+            }
+        )
     );
 
     @Effect()
