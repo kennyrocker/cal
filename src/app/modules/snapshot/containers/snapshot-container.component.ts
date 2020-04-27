@@ -25,6 +25,8 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     private snapShotSub: Subscription;
     private snapShotLoadedSub: Subscription;
 
+    private actionArray = [];
+
     constructor(public store: Store<reducerRoot.CalDataState>, private router: Router) {}
 
     ngOnInit() {
@@ -50,5 +52,9 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
 
     public createProjection(): void {
         this.router.navigateByUrl('/projection/new');
+    }
+
+    public compare(): void {
+        //
     }
 }

@@ -1,64 +1,102 @@
 @import '../../../styles/index';
 
 .snapshot {
-    min-height: 80vh;
+    min-height: 75vh;
     padding-top: 100px;
 }
 
 .snapshot-filter {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    background-color: $white-1;
+    z-index: $lvl-2;
     width: 100%;
     box-sizing: border-box;
-    padding: 1.5rem;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+
+    .primary-button {
+        height: 42px;
+    }
 }
 
 .snapshot-wrapper {
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     width: 100%;
-    padding: 1.5rem;
+    padding: 50px 0 0 30px;
     display: flex;
     flex-wrap: wrap;
 
 
-
     .snapshot-item {
-        text-align: center;
-        padding: 50px;
-
-        width: 150px;
+        text-align: center;        
         justify-content: space-around;
         margin: 10px;
         border-radius: 0.25rem;
         background-color: $green-2;
         color: $white-1;
         border: 1px solid $gray-1;
+        z-index: $lvl-1;
 
-        &:hover {
-            cursor: pointer;
-            background-color: $green-1;
-            color: $white-2;
+        .top {
+            
+            width: 205px;
+            padding: 50px 20px 20px 20px;
+
+            .name {
+                font-size: 1.5rem;
+            }
+    
+            .last-updated {
+                padding-top: 0.45rem;
+                font-size: 1rem;
+                color: $white-2;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: $green-1;
+                color: $white-2;
+                outline: 0 none;
+            }
+
         }
 
-        .name {
-            font-size: 1.5rem;
-        }
+        .bottom {
+            position: relative;
+            padding: 20px;
 
-        .last-updated {
-            padding-top: 0.45rem;
-            font-size: 1rem;
-            color: $white-2;
+            .action-checkbox {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                z-index: $lvl-2;
+                outline: 0 none;
+    
+                &:hover {
+                    cursor: pointer;
+                    outline: 0 none;
+                }
+            }
         }
 
         &.create-button {
             background-color: $orange-1;
 
+            .bottom:hover,
+            .top:hover,
             &:hover {
                 background-color: $orange-2;
                 color: $white-2;
+                cursor: pointer;
+                outline: 0 none;
             }
+
         }
 
-        
     }
 
 }

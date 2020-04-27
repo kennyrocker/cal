@@ -196,14 +196,13 @@ button {
 // this is more of for the compare view, TODO:: try to move this to compare module later
 .compare-wrapper {
 
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-
     .compare-item {
         
-        flex: 1;
+
+
+        .input-wrapper {
+          padding-top: 100px;
+        }
 
         .input-heading {
           position: relative;
