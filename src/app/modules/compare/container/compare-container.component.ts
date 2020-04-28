@@ -55,7 +55,6 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
             select(getProjectionsByIds, {ids: this.idsForLoad}),
             filter(collection => (collection !== undefined  && collection.length > 0))
         ).subscribe((collection) => {
-            console.log('compare data : ', collection);
             this.compares = collection;
         });
 

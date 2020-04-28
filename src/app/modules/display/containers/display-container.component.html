@@ -7,19 +7,41 @@
   </select>
 </div>
 <div class="display-container">
-  <ngx-charts-bar-vertical
-    class="chart-wrapper"
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="displayData"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical>
+  
+  <div *ngIf="single" class="single-chart">
+      <ngx-charts-bar-vertical
+        class="chart-wrapper"
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="displayDataSingle"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+  </div>
+
+  <div *ngIf="multi" class="multiple-chart">
+      <ngx-charts-bar-vertical-2d
+        class="chart-wrapper"
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="displayDataMulti"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical-2d>
+  </div>
+  
 </div>

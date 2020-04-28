@@ -1,3 +1,5 @@
+@import '../../../styles/index.scss';
+
 .display-options {
   font-family: Arial, Helvetica, sans-serif;
   display: block;
@@ -15,8 +17,8 @@
 }
 
 .chart-wrapper {
+  width: 1080px; /* keep align with viewport states at ts view field */
   margin: 0 auto;
-  width: 700px; /* keep align with viewport states at ts view field */
   box-sizing: border-box;
   display: block;
 }
@@ -31,7 +33,7 @@
   margin-left: 0.25rem;
   vertical-align: top;
   margin-top: -0.125rem;
-  border: 1px solid #ccc;
+  border: 1px solid $gray-1;
   border-radius: 0.25rem;
 
   &:hover {

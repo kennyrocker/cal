@@ -1,5 +1,5 @@
 
-export interface DisplayItem {
+export interface DisplaySingleItem {
     name: string;
     value: number;
 }

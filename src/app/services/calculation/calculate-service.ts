@@ -3,7 +3,7 @@ import { CalData } from '../../constants/interfaces/cal-data';
 import { StandarItem } from 'src/app/constants/interfaces/standar-item';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
-import { DisplayItem } from 'src/app/constants/interfaces/display-item';
+import { DisplaySingleItem } from 'src/app/constants/interfaces/display-single-item';
 
 /* ////////////////////////////// */
 /* All Calculation Logic park here */
@@ -205,7 +205,7 @@ export class CalculateService {
     /* ///////////////////////////////////// */
 
     public getMonthlyProjection(initBalance: number, startingMonthOfYear: number,
-                                numberOfMonths: number, calData: CalData): DisplayItem[] {
+                                numberOfMonths: number, calData: CalData): DisplaySingleItem[] {
 
         if (this.isProjectionUnhandle(calData)) {
             return [];
@@ -215,7 +215,7 @@ export class CalculateService {
             return [];
         }
 
-        const output: DisplayItem[] = [];
+        const output: DisplaySingleItem[] = [];
         const monthlyIncomeBalance = this.getConstantSumWithMonthlyConversion(calData.constantIncome);
         const monthlyExpenseBalance = this.getConstantSumWithMonthlyConversion(calData.constantExpense);
         const monthlyConstantBalance = monthlyIncomeBalance - monthlyExpenseBalance;
@@ -236,7 +236,7 @@ export class CalculateService {
         return output;
     }
 
-    public getAnnuallyProjection(initBalance: number, numberOfYears: number, calData: CalData): DisplayItem[] {
+    public getAnnuallyProjection(initBalance: number, numberOfYears: number, calData: CalData): DisplaySingleItem[] {
 
         if (this.isProjectionUnhandle(calData)) {
           return [];
@@ -244,7 +244,7 @@ export class CalculateService {
         if (numberOfYears < 1) {
           return [];
         }
-        const output: DisplayItem[] = [];
+        const output: DisplaySingleItem[] = [];
         const annalConstantIncome = this.getConstantSumWithAnnuallyConversion(calData.constantIncome);
         const annalConstantExpense = this.getConstantSumWithAnnuallyConversion(calData.constantExpense);
         const annalConstantBalance = annalConstantIncome - annalConstantExpense;
@@ -262,7 +262,7 @@ export class CalculateService {
     }
 
     public getBiWeeklyProjection(initBalance: number, startingWeekOfYear: number,
-                                 numberOfWeeks: number, calData: CalData): DisplayItem[] {
+                                 numberOfWeeks: number, calData: CalData): DisplaySingleItem[] {
 
         if (this.isProjectionUnhandle(calData)) {
           return [];
@@ -270,7 +270,7 @@ export class CalculateService {
         if (numberOfWeeks < 1) {
           return [];
         }
-        const output: DisplayItem[] = [];
+        const output: DisplaySingleItem[] = [];
         const biweeklyIncomeBalance = this.getConstantSumWithBiWeeklyConversion(calData.constantIncome);
         const biweeklyExpenseBalance = this.getConstantSumWithBiWeeklyConversion(calData.constantExpense);
         const biweeklyConstantBalance = biweeklyIncomeBalance - biweeklyExpenseBalance;
