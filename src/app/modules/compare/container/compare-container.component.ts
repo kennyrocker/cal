@@ -15,11 +15,11 @@ import { filter } from 'rxjs/internal/operators/filter';
 })
 export class CompareContainerComponent implements OnInit, OnDestroy {
     
-    private ids;
+    private idsForCheck = {};
+    public idsForLoad = {};
     private preLoadProjectionSub: Subscription;
     private projectionSub: Subscription;
     private routeSub: Subscription;
-
     public compares = [];
 
     constructor(private route: ActivatedRoute,
@@ -27,31 +27,38 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.initSub();
+    }
+
+    private initSub(): void {
 
         this.routeSub = this.route.params.subscribe(params => {
             if (params['ids']) {
-                 this.ids = this.deserializeIds(params['ids']);
+                 this.idsForCheck = this.deserializeIds(params['ids']); // will be deleted
+                 this.idsForLoad = this.deserializeIds(params['ids']); // keep seperate reference
             }
         });
 
         this.preLoadProjectionSub = this.store.pipe(
-            select(isProjectionsExistedFromCollection, {ids: this.ids})
+            select(isProjectionsExistedFromCollection, {ids: this.idsForCheck})
         ).subscribe((notLoaded) => {
             if (notLoaded && Object.keys(notLoaded).length > 0) {
-                const ids = [];
+                const projectionIdsNotLoaded = [];
                 for(const id in notLoaded) {
-                    ids.push(id);
+                    projectionIdsNotLoaded.push(id);
                 }
-                this.store.dispatch(new GetProjectionBatchByIdsAction(ids));
+                this.store.dispatch(new GetProjectionBatchByIdsAction(projectionIdsNotLoaded));
             }
         });
 
         this.projectionSub = this.store.pipe(
-            select(getProjectionsByIds, {ids: this.ids}),
+            select(getProjectionsByIds, {ids: this.idsForLoad}),
             filter(collection => (collection !== undefined  && collection.length > 0))
         ).subscribe((collection) => {
+            console.log('compare data : ', collection);
             this.compares = collection;
         });
+
     }
 
     ngOnDestroy() {

@@ -44,7 +44,7 @@ export const isProjectionsExistedFromCollection = createSelector(
 export const getProjectionsByIds = createSelector(
     getCollections,
     (collections, props) => {
-        return collections.filter(i => props.ids[i.id] === undefined);
+        return collections.filter(o => props.ids[o.id] !== undefined);
     }
 );
 
