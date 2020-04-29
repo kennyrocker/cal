@@ -50,7 +50,7 @@
 
 .group-title {
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
     padding: 1.3rem 0.5rem 0.25rem 0.5rem;
     font-size: 1.4rem;
     color: $gray-3;
@@ -141,7 +141,7 @@ button {
     label {
       position: absolute;
       font-size: 0.9rem;
-      font-family: 'arial';
+      font-family: 'Roboto', Helvetica, Arial, sans-serif;
       top: 7px;
       left: 4px;
       color: $blue-3;
@@ -160,24 +160,8 @@ button {
 }
 
 .close-x {
-  color: $white-1;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-  cursor: pointer;
-  vertical-align: middle;
   float: right;
-  border: 1px solid;
-  padding: 0 0.4rem;
-  border-radius: 0.25rem;
-  height: 1.35rem;
-  line-height: 1.25rem;
-  background-color: $orange-1;
-  margin-top: 0.25rem;
-
-  &:hover {
-    background: $orange-2;
-  }
-}
+}  
 
 .clear-both {
   clear: both;

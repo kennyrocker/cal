@@ -99,6 +99,10 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
         }
     }
 
+    public removeProjection(projectionId: string): void {
+        //
+        console.log(projectionId);
+    }
     
 
 }

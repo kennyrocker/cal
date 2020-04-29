@@ -23,7 +23,7 @@
 }
 
 .snapshot-wrapper {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
     box-sizing: border-box;
     width: 100%;
     padding: 50px 0 0 30px;
@@ -40,11 +40,14 @@
         color: $white-1;
         border: 1px solid $gray-1;
         z-index: $lvl-1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
 
         .top {
             
             width: 205px;
             padding: 50px 20px 20px 20px;
+            transition: transform .2s; /* Animation */
 
             .name {
                 font-size: 1.5rem;
@@ -61,6 +64,7 @@
                 background-color: $green-1;
                 color: $white-2;
                 outline: 0 none;
+                transform: scale(1.01);
             }
 
         }
@@ -81,6 +85,13 @@
                     outline: 0 none;
                 }
             }
+
+            .close-x {
+                position: absolute;
+                right: 12px;
+                top: 7px;
+                border: 0 none;
+            }
         }
 
         &.create-button {
@@ -89,6 +100,8 @@
             .bottom:hover,
             .top:hover,
             &:hover {
+
+                transform: none;
                 background-color: $orange-2;
                 color: $white-2;
                 cursor: pointer;

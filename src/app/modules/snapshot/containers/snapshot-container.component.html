@@ -19,6 +19,7 @@
             <div class="bottom">
                 <input type="checkbox" [checked]="isItemSelected(item.id)" 
                         class="action-checkbox" (change)=bindSelectionChangeSubject(item.id)/>
+                <span class="close-x" (click)="removeProjection(item.id)">x</span>
             </div>
             
         </div>

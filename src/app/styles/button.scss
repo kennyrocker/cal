@@ -7,6 +7,7 @@
     padding: 5px 20px;
     border: 0 none;
     border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   
     &:hover {
         cursor: pointer;
@@ -14,3 +15,22 @@
         background-color: $orange-2;
     }
 }
+
+.close-x {
+    color: $white-1;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    vertical-align: middle;
+    border: 1px solid;
+    padding: 0 0.4rem;
+    border-radius: 0.25rem;
+    height: 1.35rem;
+    line-height: 1.25rem;
+    background-color: $orange-1;
+    margin-top: 0.25rem;
+  
+    &:hover {
+      background: $orange-2;
+    }
+  }
