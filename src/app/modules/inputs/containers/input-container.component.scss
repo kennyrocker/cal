@@ -90,6 +90,8 @@ button {
 .item-checkbox {
   display: inline-block;
   width: 1rem;
+  margin-right: 0.45rem;
+
   &:hover {
     cursor: pointer;
   }

@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
     GetProjectionByIdAction, GetProjectionByIdActionSuccess, UpdatePorjectionAction,
     UpdateSnapShotAction, UpdateProjectionLastUpdatedAction,
-    PostProjectionAction, AddSnapShotAction, GetProjectionBatchByIdsAction, GetProjectionBatchByIdsActionSuccess, PostProjectionActionSuccess } from 'src/app/actions/calData.action';
+    PostProjectionAction, AddSnapShotAction, GetProjectionBatchByIdsAction,
+    GetProjectionBatchByIdsActionSuccess, PostProjectionActionSuccess, DeleteProjectionAction, 
+    DeleteProjectionFromSnapshotAction, DeleteProjectionFromCollectionAction } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -143,6 +145,31 @@ export class CalDataEffects {
                         );
             }
         )
+    );
+
+    @Effect()
+    public deleteProjection$: Observable<Action> = this.actions$.pipe(
+        ofType(CalDataActionTypes.DeleteProjection),
+        switchMap((action: DeleteProjectionAction) => {
+            const userId = 'mockUser';
+            return this.calDataService
+                        .deleteProjection(userId, action.projectionId)
+                        .pipe(
+                            switchMap((projectionId: string) => {
+                                if (projectionId) {
+                                    return [
+                                            new DeleteProjectionFromSnapshotAction(projectionId),
+                                            new DeleteProjectionFromCollectionAction(projectionId)
+                                    ];
+                                } else {
+                                    return of ({
+                                        type: CalDataActionTypes.DeleteProjectionFailed
+                                    });
+                                }
+                            }),
+                            catchError((e) => of ({ type: 'Delete Projection Error', error: e }))
+                        )
+        })  
     );
 
     @Effect({ dispatch: false })

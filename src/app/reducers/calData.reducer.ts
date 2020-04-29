@@ -217,6 +217,18 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     }
                 })
             };
+        
+        case CalDataActionTypes.DeleteProjectionFromSnapshots :
+            return {
+                ...state,
+                snapshot: state.snapshot.filter(i => i.id !== action.projectionId)
+            };
+
+        case CalDataActionTypes.DeleteProjectionFromCollection :
+            return {
+                ...state,
+                collection: state.collection.filter(i => i.id !== action.projectionId)
+            };
 
 
         /* Add Multi */
@@ -348,6 +360,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 })
             };
         
+
         /* UI Update*/
         case CalDataActionTypes.SnapShotSelectedUpdateUI :
             return {
@@ -356,7 +369,8 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     ...state.ui,
                     snapshotSelected: action.payload
                 }
-            };    
+            };
+
 
         /* Fall back */
         default:

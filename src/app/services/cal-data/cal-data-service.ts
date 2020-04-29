@@ -58,4 +58,11 @@ export class CalDataService {
         return of(projection);
     }
 
+    // DELTE
+    public deleteProjection(userId: string, projectionId: string): Observable<string> {
+        // toggle active flag to false in the backend, soft delete
+        // on success, return HTTP 200 and projectionId
+        return of(projectionId);
+    }
+
 }

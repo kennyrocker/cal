@@ -70,9 +70,7 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.routeSub.unsubscribe();
         this.projectionSub.unsubscribe();
-        if (!this.isNewProjection) {
-            this.isLoadedSub.unsubscribe();
-        }
+        this.isLoadedSub.unsubscribe();
     }
 
 }

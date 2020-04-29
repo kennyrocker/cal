@@ -38,6 +38,9 @@ export enum CalDataActionTypes {
     AddProjection = '[Add Projection] Add',
     AddSnapShot = '[Add SnapShot] Add',
     DeleteProjection = '[Delete Projection] Delete',
+    DeleteProjectionFailed = '[Delete Projection] Delete Failed',
+    DeleteProjectionFromSnapshots = '[Delete Projection From Snapshot] Delete',
+    DeleteProjectionFromCollection = '[Delete Projection From Collection] Delete',
     SnapShotSelectedUpdateUI = '[Snapshot Selected UI] Update'
 }
 
@@ -204,6 +207,16 @@ export class SnapShotSelectedUpdateUIAction implements Action {
     constructor(public payload: string[]) {}
 }
 
+export class DeleteProjectionFromSnapshotAction implements Action {
+    readonly type = CalDataActionTypes.DeleteProjectionFromSnapshots;
+    constructor(public projectionId: string) {}
+}
+
+export class DeleteProjectionFromCollectionAction implements Action {
+    readonly type = CalDataActionTypes.DeleteProjectionFromCollection;
+    constructor(public projectionId: string) {}
+}
+
 
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
@@ -220,4 +233,4 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | BulkAddPeriodicalVariableItemAction | DeleteProjectionAction
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction
- | SnapShotSelectedUpdateUIAction;
+ | SnapShotSelectedUpdateUIAction | DeleteProjectionFromSnapshotAction | DeleteProjectionFromCollectionAction;

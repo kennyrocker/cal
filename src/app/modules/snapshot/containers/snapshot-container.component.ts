@@ -2,7 +2,7 @@ import { OnInit, OnDestroy, Component } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
-import { GetAllProjectionSnapshotAction, SnapShotSelectedUpdateUIAction } from 'src/app/actions/calData.action';
+import { GetAllProjectionSnapshotAction, SnapShotSelectedUpdateUIAction, DeleteProjectionAction } from 'src/app/actions/calData.action';
 
 import { Snapshot } from 'src/app/constants/interfaces/snapshot';
 
@@ -99,9 +99,8 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
         }
     }
 
-    public removeProjection(projectionId: string): void {
-        //
-        console.log(projectionId);
+    public deleteProjection(projectionId: string): void {
+        this.store.dispatch(new DeleteProjectionAction(projectionId));
     }
     
 
