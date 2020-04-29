@@ -33,6 +33,7 @@ export enum CalDataActionTypes {
     UpdateProjection = '[Update Projection] Update',
     UpdateProjectionFailed = '[Update Projection] Update Failed',
     PostProjection = '[Post Projection] Post',
+    PostProjectionSuccess = '[Post Projection] Post Success',
     UpdateSnapShot = '[Update Snapshot] Update',
     AddProjection = '[Add Projection] Add',
     AddSnapShot = '[Add SnapShot] Add',
@@ -184,6 +185,11 @@ export class PostProjectionAction implements Action {
     constructor(public projection: CalData) {}
 }
 
+export class PostProjectionActionSuccess implements Action {
+    readonly type = CalDataActionTypes.PostProjectionSuccess;
+    constructor(public projectionId: string) {}
+}
+
 export class UpdatePorjectionActionFailed implements Action {
     readonly type = CalDataActionTypes.UpdateProjectionFailed;
 }
@@ -204,7 +210,7 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
  | GetProjectionBatchByIdsAction | GetProjectionBatchByIdsActionSuccess | GetProjectionBatchByIdsActionFailed
  | UpdatePorjectionAction | UpdateProjectionLastUpdatedAction | UpdatePorjectionActionFailed
- | UpdateSnapShotAction | PostProjectionAction | AddSnapShotAction
+ | UpdateSnapShotAction | PostProjectionAction | PostProjectionActionSuccess | AddSnapShotAction
  | UpdateConstantIncomeItemAction | UpdateProjectionNameAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction

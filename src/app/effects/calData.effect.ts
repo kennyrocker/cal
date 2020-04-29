@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CalDataActionTypes, GetAllProjectionSnapshotAction, GetAllProjectionSnapshotActionSuccess,
     GetProjectionByIdAction, GetProjectionByIdActionSuccess, UpdatePorjectionAction,
     UpdateSnapShotAction, UpdateProjectionLastUpdatedAction,
-    PostProjectionAction, AddSnapShotAction, GetProjectionBatchByIdsAction, GetProjectionBatchByIdsActionSuccess } from 'src/app/actions/calData.action';
+    PostProjectionAction, AddSnapShotAction, GetProjectionBatchByIdsAction, GetProjectionBatchByIdsActionSuccess, PostProjectionActionSuccess } from 'src/app/actions/calData.action';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -130,7 +130,8 @@ export class CalDataEffects {
                                 if (data.lastUpdated) {
                                     return [
                                             new AddSnapShotAction(this.constuctSnapShot(data)),
-                                            new UpdateProjectionLastUpdatedAction(data.id, data.lastUpdated)
+                                            new UpdateProjectionLastUpdatedAction(data.id, data.lastUpdated),
+                                            new PostProjectionActionSuccess(data.id)
                                     ];
                                 } else {
                                     return of ({
@@ -140,6 +141,16 @@ export class CalDataEffects {
                             }),
                             catchError((e) => of ({ type: 'Post Projection Error', error: e }))
                         );
+            }
+        )
+    );
+
+    @Effect({ dispatch: false })
+        postProjectionSuccess = this.actions$.pipe(
+            ofType(CalDataActionTypes.PostProjectionSuccess),
+            map((action: PostProjectionActionSuccess) => {
+                const url =  'projection/' + action.projectionId;
+                this.router.navigate([url]);
             }
         )
     );
