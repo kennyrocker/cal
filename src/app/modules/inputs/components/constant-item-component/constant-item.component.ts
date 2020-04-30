@@ -131,6 +131,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
   public activeChange(value: boolean): void {
     this.constantForm.patchValue({active: value});
     this.updateAction();
+    this.constantForm.markAsTouched(); // for container to detect change
   }
 
   public nameChange(value: string): void {

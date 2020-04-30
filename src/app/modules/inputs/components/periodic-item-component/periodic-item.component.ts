@@ -132,6 +132,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   public activeChange(value: boolean): void {
     this.periodicForm.patchValue({active: value});
     this.updateAction();
+    this.periodicForm.markAsTouched(); // for container to detect change
   }
 
   public nameChange(value: string): void {
