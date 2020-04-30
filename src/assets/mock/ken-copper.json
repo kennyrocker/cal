@@ -1,6 +1,6 @@
 {
     "id": "106363041",
-    "name": "Copper CRM",
+    "name": "Comapny A",
     "lastUpdated": 1587759094366,
     "constantIncome":[
       {
@@ -28,7 +28,7 @@
       },
       {
         "id":280680652,
-        "name":"vivian pocket money",
+        "name":"wify pocket money",
         "amount":300,
         "cycle":12,
         "active":true

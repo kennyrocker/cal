@@ -1,7 +1,7 @@
 [
         {
             "id": "1003023041",
-            "name": "Home Depot",
+            "name": "Comapny B",
             "lastUpdated": 1587759094366,
             "constantIncome":[
               {
@@ -22,7 +22,7 @@
             "constantExpense":[
               {
                 "id":254251529,
-                "name":"vivian pocket money",
+                "name":"wify pocket money",
                 "amount":300,
                 "cycle":12,
                 "active":true
@@ -142,7 +142,7 @@
               },
               {
                 "id":2223522,
-                "name":"cp bonus",
+                "name":"company bonus",
                 "amount":650,
                 "cycle":12,
                 "affectiveMonth":[
@@ -153,7 +153,7 @@
               },
               {
                 "id":2243542,
-                "name":"cp stock sharing",
+                "name":"company stock sharing",
                 "amount":1485,
                 "cycle":12,
                 "affectiveMonth":[
