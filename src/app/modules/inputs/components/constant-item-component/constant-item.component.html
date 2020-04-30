@@ -1,6 +1,10 @@
 <div class="constant-item">
-  <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
-         (change)=bindActiveChangeSubject(!itemData.active) />
+
+  <label class="checkbox-label">
+    <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
+          (change)=bindActiveChangeSubject(!itemData.active) />
+      <span class="checkbox-custom"></span>
+  </label>
 
   <form name="constantForm" [formGroup]="constantForm" class="item-form">
 
@@ -36,6 +40,6 @@
 
   </form>
 
-  <span class="close-x" (click)="removeItem()">x</span>
-  <span class="clear-both"></span>
+  <span class="close-x" (click)="removeItem()"></span>
+
 </div>

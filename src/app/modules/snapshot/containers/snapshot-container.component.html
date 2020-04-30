@@ -7,7 +7,9 @@
     <div class="snapshot-wrapper">
         <div class="snapshot-item create-button">
             <div class="top" (click)="createProjection()">
-                <div class="name">Create New Projection</div>
+                <div class="name">
+                    Create New Projection
+                </div>
             </div>
             <div class="bottom" (click)="createProjection()"></div>
         </div>
@@ -17,9 +19,12 @@
                 <div class="last-updated">{{ item.lastUpdated | time }}</div>
             </div>
             <div class="bottom">
-                <input type="checkbox" [checked]="isItemSelected(item.id)" 
+                <label class="checkbox-label">
+                    <input type="checkbox" [checked]="isItemSelected(item.id)" 
                         class="action-checkbox" (change)=bindSelectionChangeSubject(item.id)/>
-                <span class="close-x" (click)="deleteProjection(item.id)">x</span>
+                    <span class="checkbox-custom"></span>
+                </label>
+                <span class="close-x" (click)="deleteProjection(item.id)"></span>
             </div>
             
         </div>

@@ -34,6 +34,14 @@
   height: 42px;
 }
 
+.checkbox-label {
+  width: 35px;
+  display: inline-block;
+  .checkbox-custom {
+    margin: 13px 8px;
+  }
+}
+
 .input-section {
   display: inline-block;
   vertical-align: top;
@@ -72,6 +80,17 @@ button {
       background-color: $green-1;
       cursor: pointer;
     }
+
+    .icon-back-arrow {
+       display: inline-block;
+       font-size: 2em;
+       height: 16px;
+       color:$gray-3;
+       vertical-align: top;
+       line-height: 16px;
+       height: 16px;
+       margin-right: 0.5rem;
+    }
 }
 
 
@@ -81,6 +100,7 @@ button {
 
 .periodic-item,
 .constant-item {
+  position: relative;
   border-bottom: 1px solid $white-2;
   border-left: 1px solid $white-2;
   padding: 0.5rem 0.5rem;

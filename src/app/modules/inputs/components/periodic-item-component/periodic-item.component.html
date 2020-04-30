@@ -1,7 +1,11 @@
 <div class="periodic-item">
-    <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
-           (change)=bindActiveChangeSubject(!itemData.active) />
 
+    <label class="checkbox-label">
+        <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
+            (change)=bindActiveChangeSubject(!itemData.active) />
+        <span class="checkbox-custom"></span>
+    </label>
+    
     <form name="periodicForm" [formGroup]="periodicForm" class="item-form">
 
       <div class="input-field field-name" [ngClass]="{'field-error' :
@@ -46,6 +50,6 @@
 
     </form>
 
-    <span class="close-x" (click)="removeItem()">x</span>
-    <span class="clear-both"></span>
+    <span class="close-x" (click)="removeItem()"></span>
+
 </div>

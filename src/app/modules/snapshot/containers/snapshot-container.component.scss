@@ -73,24 +73,27 @@
             position: relative;
             padding: 20px;
 
-            .action-checkbox {
+            .checkbox-label {
                 position: absolute;
                 left: 10px;
-                bottom: 10px;
+                bottom: 9px;
                 z-index: $lvl-2;
                 outline: 0 none;
-    
-                &:hover {
-                    cursor: pointer;
-                    outline: 0 none;
+
+                .checkbox-custom {
+                    margin: 0;
                 }
             }
 
             .close-x {
-                position: absolute;
+
                 right: 12px;
                 top: 7px;
-                border: 0 none;
+
+                &:before,
+                &:after {
+                    background-color: $white-2;
+                }
             }
         }
 
@@ -113,4 +116,3 @@
     }
 
 }
-
