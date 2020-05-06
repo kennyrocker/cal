@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormateTimePipe } from 'src/app/modules/share/pipes/formateTimePipe';
-
+import { HeaderContainerComponent } from './container/header-container';
 
 @NgModule({
     declarations: [
-        FormateTimePipe
+        HeaderContainerComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        FormateTimePipe
+        HeaderContainerComponent
     ]
 })
-export class ShareModule {}
+export class HeaderModule {}

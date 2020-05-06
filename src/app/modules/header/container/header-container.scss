@@ -1,0 +1,49 @@
+@import '../../../styles/index.scss';
+
+.header {
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: $white-1;
+    height: 100px;
+    top: 0;
+    position: fixed;
+    z-index: $lvl-2;
+}
+
+.title {
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2.3rem;
+    color: $black;
+    text-align: center;
+}
+
+.account {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.3rem 1rem 0 0;
+    color: $orange-2;
+
+    .text {
+        padding-right: 0.5rem;
+    }
+
+    .signin,
+    .signup,
+    .user {
+       
+       opacity: 0.6;
+       padding-right: 0.5rem;
+       
+
+       &:hover {
+            cursor: pointer;
+            opacity: 1;
+       }
+    }
+}

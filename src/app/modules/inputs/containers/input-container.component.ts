@@ -34,8 +34,8 @@ export class InputContainerComponent implements OnInit {
   @Input('isNewProjection')
   public isNewProjection: boolean;
   // tslint:disable-next-line:no-input-rename
-  @Input('isCompareMode')
-  public isCompareMode: boolean;
+  @Input('compareIndex')
+  public compareIndex: number;
 
   public groupType = InputGroup;
   private backUrl: string;
@@ -49,6 +49,7 @@ export class InputContainerComponent implements OnInit {
 
   public ngOnInit(): void {
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    console.log(this.compareIndex, this.data.name);
   }
 
   public addConstantIncomeItem(): void {

@@ -3,12 +3,13 @@
 .compare-wrapper {
     width: 100%;
     box-sizing: border-box;
+    padding-right: 8px;
+    padding-left: 8px;
     display: flex;
     justify-content: space-between;
 
     .compare-item {
         flex: 1;
     }
+
 }
-
-

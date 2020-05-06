@@ -7,6 +7,9 @@
 .input-wrapper {
   width: 100%;
   padding-top: 155px;
+  padding-right: 8px;
+  padding-left: 8px;
+  box-sizing: border-box;
 }
 
 .input-projection-name {
@@ -209,6 +212,8 @@ button {
 
         .input-wrapper {
           padding-top: 100px;
+          padding-right: 0;
+          padding-left: 0;
         }
 
         .input-heading {

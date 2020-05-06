@@ -1,28 +1,7 @@
 @import './styles/index.scss';
 
-.header {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: center;
-  background-color: $white-1;
-  height: 100px;
-  top: 0;
-  position: fixed;
-  z-index: $lvl-2;
-}
-hr {
-  clear:both;
-  color: $black;
-  opacity: 0.2;
-}
-.title {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-size: 2.3rem;
-  color: $black;
-  text-align: center;
-}
+
+// TODO:: move to its own module
 .footer {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   width: 100%;
@@ -32,7 +11,7 @@ hr {
   clear: both;
 }
 
-.sign {
+.signature {
   text-align: center;
   padding-top: 3rem;
   color: $gray-1;
