@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -17,7 +17,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-constant-item-component',
   templateUrl: './constant-item.component.html',
-  styleUrls: ['./constant-item.component.scss']
+  styleUrls: ['./constant-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConstantItemComponent implements OnInit, OnDestroy {
 

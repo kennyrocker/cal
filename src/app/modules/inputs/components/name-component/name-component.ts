@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -11,7 +11,8 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
 @Component({
     selector: 'app-name-component',
     templateUrl: './name-component.html',
-    styleUrls: ['./name-component.scss']
+    styleUrls: ['./name-component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
   })
   export class NameComponent implements OnInit, OnDestroy {
 

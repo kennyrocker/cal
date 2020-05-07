@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
@@ -15,11 +15,13 @@ from 'src/app/modules/inputs/components/constant-item-component/constant-item.co
 import { PeriodicItemComponent }
 from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
 
+
 @Component({
   selector: 'app-input-container',
   templateUrl: './input-container.component.html',
   styleUrls: ['./input-container.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputContainerComponent implements OnInit {
 
@@ -123,7 +125,4 @@ export class InputContainerComponent implements OnInit {
           }
       }
   }
-
-
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { PeriodCalCycleUI } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -15,7 +15,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-periodic-item-component',
   templateUrl: './periodic-item.component.html',
-  styleUrls: ['./periodic-item.component.scss']
+  styleUrls: ['./periodic-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeriodicItemComponent implements OnInit, OnDestroy {
 
