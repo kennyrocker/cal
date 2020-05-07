@@ -28,7 +28,7 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     private selectionChangeSubject = new Subject<any>();
     private selectionSubjectSub: Subscription;
     private snapshotSelectedSub: Subscription;
-    private snapshotSelected = [];
+    public snapshotSelected = [];
 
     constructor(public store: Store<reducerRoot.CalDataState>, private router: Router) {}
 

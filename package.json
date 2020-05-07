@@ -5,9 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "analyze": "webpack-bundle-analyzer dist/cal-app/stats-es2015.json",
+    "build:stats": "ng build --prod --stats-json"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +50,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "webpack-bundle-analyzer": "^3.7.0"
   }
 }
