@@ -51,7 +51,6 @@ export class InputContainerComponent implements OnInit {
 
   public ngOnInit(): void {
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    console.log(this.compareIndex, this.data.name);
   }
 
   public addConstantIncomeItem(): void {

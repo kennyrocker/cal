@@ -8,6 +8,5 @@ import { Component } from '@angular/core';
   })
 export class NotFoundComponent {
     constructor() {
-      console.log('NotFound Constructor called');
     }
 }

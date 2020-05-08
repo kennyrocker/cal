@@ -59,6 +59,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.nameChangeSub.unsubscribe();
     this.amountChangeSub.unsubscribe();
     this.cycleChangeSub.unsubscribe();
+    this.monthChangeSub.unsubscribe();
   }
 
   private initForm(): void {

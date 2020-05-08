@@ -32,6 +32,7 @@
       </div>
 
       <select #amountCycle [value]="itemData.cycle" class="field-cycle"
+              formControlName="cycle"
               (change)=bindCycleChangeSubject(amountCycle.value)>
         <option [value]="item.value" *ngFor="let item of cycleArr">
           {{item.key}}</option>
