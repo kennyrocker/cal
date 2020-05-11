@@ -10,8 +10,8 @@
                 <div class="name">
                     Create New Projection
                 </div>
+                <div class="name">&#43;</div>
             </div>
-            <div class="bottom" (click)="createProjection()"></div>
         </div>
         <div *ngFor="let item of list" class="snapshot-item">
             <div class="top" routerLink="/projection/{{item.id}}">
