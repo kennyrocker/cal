@@ -1,10 +1,8 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ProjectionContainerComponent } from 'src/app/modules/projection/containers/projection-container.component';
 import { SnapshotContainerComponent } from 'src/app/modules/snapshot/containers/snapshot-container.component';
-
 import { CompareContainerComponent } from './modules/compare/container/compare-container.component';
 import { NotFoundComponent } from './modules/static/components/not-found/not-found-component';
 

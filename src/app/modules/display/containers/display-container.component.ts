@@ -92,11 +92,6 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       }
   }
 
-  private renderChartSingle(): void {
-    this.xAxisLabel = CalCycle[this.displayCalCycle];
-    this.displayDataSingle = this.calByCycle(this.single, this.displayCalCycle);
-  }
-
   private calByCycle(data: CalData, cycle: number): DisplaySingleItem[] {
     switch (cycle) {
       case CalCycle.BIWEEKLY :
@@ -113,6 +108,15 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       default:
           return [];    
     }
+  }
+
+  private renderChartSingle(): void {
+    this.xAxisLabel = CalCycle[this.displayCalCycle];
+    if (this.isPlaceHolderData(this.single)) {
+      this.displayDataSingle = [];
+      return;
+    };
+    this.displayDataSingle = this.calByCycle(this.single, this.displayCalCycle);
   }
 
   private renderChartMulti(): void {
@@ -143,8 +147,15 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
     }
 
     return out;
-  } 
+  }
 
+  private isPlaceHolderData(calData: CalData): boolean {
+      return calData.constantIncome.length === 1 && calData.constantExpense.length === 1 &&
+             calData.periodicalVariable.length === 1 && calData.constantIncome[0].amount === 0 &&
+             calData.constantExpense[0].amount === 0 && calData.periodicalVariable[0].amount === 0;
+  }
+
+  // place holder
   onSelect(event) {
     console.log(event);
   }

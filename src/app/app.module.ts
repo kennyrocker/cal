@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from 'src/app/app.routes';
 import { StaticModule } from 'src/app/modules/static/app.static.module';
 import { HeaderModule } from './modules/header/app.header.module';
+import { FooterModule } from './modules/footer/app.footer.module';
 
 // Services
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
@@ -37,6 +38,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpClientModule,
     StaticModule,
     HeaderModule,
+    FooterModule,
     NgxChartsModule,
     StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({

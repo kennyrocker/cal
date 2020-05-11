@@ -1,7 +1,7 @@
 @import '../../../styles/index';
 
 /**
- *  Input Container
+ *  All Input Moudle Style Here
  */
 
 .input-wrapper {
@@ -17,6 +17,14 @@
   text-align: center;
 }
 
+.projection-name {
+  border: 0 none;
+  font-size: 32px;
+  color: $gray-3;
+  border-bottom: 1px solid $gray-1;
+  text-align: center;
+  padding: 0 0 3px 0;
+}
 
 .input-heading {
   display: flex;
@@ -202,39 +210,34 @@ button {
   }
 }
 
+/* *
+ *  Compare Mode Input Container Style Variant 
+ */
+:host-context(.compare-wrapper)  {
+    
+    .input-wrapper {
+      padding-top: 100px;
+      padding-right: 0;
+      padding-left: 0;
+    }
 
-// this is more of for the compare view, TODO:: try to move this to compare module later
-.compare-wrapper {
+    .input-heading {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
 
-    .compare-item {
-        
+    .input-section {
+      display: block;
+      width: 100%;
+    }
 
+    .group-items {
+      border-right: 1px solid $white-3;
+    }
 
-        .input-wrapper {
-          padding-top: 100px;
-          padding-right: 0;
-          padding-left: 0;
-        }
-
-        .input-heading {
-          position: relative;
-          top: 0;
-          left: 0;
-        }
-
-        .input-section {
-          display: block;
-          width: 100%;
-        }
-
-        .group-items {
-          border-right: 1px solid $white-3;
-        }
-
-        .input-projection-name input {
-          text-align: left;
-        }
-
+    .projection-name {
+      text-align: left;
     }
 
 }

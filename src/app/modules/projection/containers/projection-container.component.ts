@@ -23,7 +23,7 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private projectionSub: Subscription;
     public projection: any;
     public projectionFound: boolean;
-    private isNewProjection = false;
+    public isNewProjection = false;
 
     constructor(private route: ActivatedRoute,
         public store: Store<reducerRoot.CalDataState>) {
@@ -70,7 +70,9 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.routeSub.unsubscribe();
         this.projectionSub.unsubscribe();
-        this.isLoadedSub.unsubscribe();
+        if (!this.isNewProjection) {
+            this.isLoadedSub.unsubscribe();
+        }
     }
 
 }
