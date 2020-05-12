@@ -14,7 +14,7 @@
              formControlName="name"
              (keyup)="bindNameChangeSubject(name.value)"/>
       <div *ngIf="constantForm.get('name').touched && constantForm.get('name').invalid"
-           class="field-message">
+           class="field-message"><div class="tip"></div>
            name is required
       </div>
     </div>
@@ -26,7 +26,7 @@
              formControlName="amount"
              (keyup)="bindAmountChangeSubject(amount.value)"/>
       <div *ngIf="constantForm.get('amount').touched && constantForm.get('amount').invalid"
-           class="field-message">
+           class="field-message"><div class="tip"></div>
         amount is required
       </div>
     </div>

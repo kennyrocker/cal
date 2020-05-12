@@ -14,7 +14,7 @@
                formControlName="name"
                (keyup)="bindNameChangeSubject(name.value)"/>
         <div *ngIf="periodicForm.get('name').touched && periodicForm.get('name').invalid"
-             class="field-message">
+             class="field-message"><div class="tip"></div>
           name is required
         </div>
       </div>
@@ -26,7 +26,7 @@
                formControlName="amount"
                (keyup)="bindAmountChangeSubject(amount.value)"/>
         <div *ngIf="periodicForm.get('amount').touched && periodicForm.get('amount').invalid"
-             class="field-message">
+             class="field-message"><div class="tip"></div>
           amount is required
         </div>
       </div>
@@ -38,14 +38,14 @@
           {{item.key}}</option>
       </select>
 
-      <div class="input-field field-affective" [ngClass]="{'field-error' :
+      <div class="input-field field-affective end" [ngClass]="{'field-error' :
         periodicForm.get('affectiveMonth').touched && periodicForm.get('affectiveMonth').invalid}">
         <input #month type="text" value="{{affectiveMonth}}"
                formControlName="affectiveMonth"
                (keyup)="bindMonthChangeSubject(month.value)"/>
         <div *ngIf="periodicForm.get('affectiveMonth').touched && periodicForm.get('affectiveMonth').invalid"
-             class="field-message">
-          affectiveMonth is required
+             class="field-message"><div class="tip"></div>
+          affective month is required
         </div>
       </div>
 

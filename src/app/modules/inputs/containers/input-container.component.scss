@@ -24,6 +24,7 @@
   border-bottom: 1px solid $gray-1;
   text-align: center;
   padding: 0 0 3px 0;
+
 }
 
 .input-heading {
@@ -36,7 +37,7 @@
   left: 0;
   background-color: $white-1;
   padding: 0 10px 20px;
-  z-index: $lvl-1;
+  z-index: $lvl-2;
   box-sizing: border-box;
 }
 
@@ -131,11 +132,11 @@ button {
 .item-form {
   display: inline-block;
   font-size: 1.4rem;
-
-
+  position: relative;
 
   .input-field {
     display: inline-block;
+    position: relative;
 
     input {
       height: 1.75rem;
@@ -147,6 +148,18 @@ button {
       box-shadow: none;
       border: 1px solid $gray-1;
       padding-left: 5px;
+    }
+
+    &.end {
+      .field-message {
+        left: unset;
+        right: 0px;
+        min-width: 215px;
+      }
+      .tip {
+        left: unset;
+        right: 20px;
+      }
     }
   }
 
@@ -191,23 +204,57 @@ button {
     width: 100px;
   }
 
-}
-
-.close-x {
-  float: right;
-}  
-
-.clear-both {
-  clear: both;
-}
-
-.field-error {
-  input {
-    border: 1px solid $red-1;
+  .field-error {
+    input {
+      border: 1px solid $red-2;
+    }
   }
+
   .field-message {
-    color: $red-1;
+    position: absolute;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    left: 0;
+    top: -48px;
+    color: $red-2;
+    padding: 10px 10px;
+    font-size: 1rem;
+    background-color: $white-1;
+    z-index: $lvl-1;
+    border-radius: 5px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+
+    .tip {
+      position: absolute;
+      left: 20px;
+      bottom: -5px;
+      background-color: $white-1;
+      width: 10px;
+      height: 10px;
+      transform:rotate(45deg);
+      z-index: $lvl-1;
+    }
+
+    &::before,
+    &::after {
+      content: '*';
+    }
+
   }
+
+}
+
+:host-context(.input-projection-name) {
+
+  .ng-invalid.ng-touched {
+    input {
+      border-bottom: 1px solid $red-2;
+    }
+    .field-message {
+      font-size: 1.3rem;
+      padding: 10px 16px;
+    }
+  }
+
 }
 
 /* *

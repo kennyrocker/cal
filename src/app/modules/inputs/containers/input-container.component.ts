@@ -109,11 +109,12 @@ export class InputContainerComponent implements OnInit {
       if (this.nameCmp.nameForm.touched === true) {
           touched = true;
       }
-      return (valid === true && touched === true) || this.hasDeletedItem;
+
+      return (valid === true && touched === true);
   }
 
   public save(): void {
-      if (this.isValidToSave()) {
+      if (this.isValidToSave() || this.isValidToSave() && this.hasDeleted) {
           // when is update aka this.data.id is not null
           if (this.isNewProjection) {
               this.store.dispatch(new PostProjectionAction(this.data));

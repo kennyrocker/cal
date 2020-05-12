@@ -3,7 +3,7 @@
             (keyup)="bindProjectionNameChangeSubject(projectionName.value)"
             class="projection-name" type="text" value="{{name}}">
     <div *ngIf="nameForm.get('projectionName').touched && nameForm.get('projectionName').invalid"
-            class="field-message">
+            class="field-message"><div class="tip"></div>
             projection name is required
     </div>
 </form>
