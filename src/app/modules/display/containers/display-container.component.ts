@@ -2,12 +2,13 @@ import { Input, Component, OnDestroy, OnInit, AfterViewInit, ViewChild, OnChange
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { DisplaySingleItem } from 'src/app/constants/interfaces/display-single-item';
 
-import {CalCycle} from '../../../constants/enums/cal-cycle';
-import {MapperUtil} from '../../../utils/mapper-util';
-import {Subject, Subscription} from 'rxjs';
-import {distinctUntilChanged} from 'rxjs/internal/operators/distinctUntilChanged';
-import {CalData} from '../../../constants/interfaces/cal-data';
+import { CalCycle } from '../../../constants/enums/cal-cycle';
+import { MapperUtil } from '../../../utils/mapper-util';
+import { Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
+import { CalData } from '../../../constants/interfaces/cal-data';
 import { DisplayMultiItem } from 'src/app/constants/interfaces/display-multi-item';
+import { Constant } from '../../../constants/constant';
 
 @Component({
   selector: 'app-display-container',
@@ -33,21 +34,18 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
   public displayDataMulti: DisplayMultiItem[];
 
   // TODO:: make width to fill viewport width
-  view: any[] = [1080, 450];
-
+  public view: any[] = [1080, 450];
   // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = true;
-  xAxisLabel = CalCycle[this.displayCalCycle];
-  showYAxisLabel = true;
-  yAxisLabel = 'Balance';
-
-  colorScheme = {
-    domain: ['#132a13', '#31572c', '#4f772d', '#90a955', '#ecf39e']
-  };
+  public showXAxis = true;
+  public showYAxis = true;
+  public gradient = false;
+  public showLegend = true;
+  public showXAxisLabel = true;
+  public xAxisLabel = CalCycle[this.displayCalCycle];
+  public showYAxisLabel = true;
+  public yAxisLabel = 'Balance';
+  public colorSchemeSingle = Constant.DISPLAY_CHART_SCHEME_SINGLE;
+  public colorSchemeMulti = Constant.DISPLAY_CHART_SCHEME_MULTI;
 
   constructor(private calService: CalculateService) {
     this.cycleArr = MapperUtil.EnumMapToArray(this.calCycleEnum);
@@ -96,17 +94,12 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
     switch (cycle) {
       case CalCycle.BIWEEKLY :
           return this.calService.getBiWeeklyProjection(0, 1, cycle, data);
-          break;
-
       case CalCycle.MONTHLY :
           return this.calService.getMonthlyProjection(0, 1, cycle, data);
-          break;
-
       case CalCycle.ANNUALLY :
           return this.calService.getAnnuallyProjection(0, 1, data);
-          break;
       default:
-          return [];    
+          return [];
     }
   }
 
