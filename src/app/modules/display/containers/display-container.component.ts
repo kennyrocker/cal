@@ -1,4 +1,4 @@
-import { Input, Component, OnDestroy, OnInit, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
+import { Input, Component, OnDestroy, OnInit, AfterViewInit, ViewChild, OnChanges, HostListener } from '@angular/core';
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { DisplaySingleItem } from 'src/app/constants/interfaces/display-single-item';
 
@@ -32,9 +32,8 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
 
   public displayDataSingle: DisplaySingleItem[];
   public displayDataMulti: DisplayMultiItem[];
-
-  // TODO:: make width to fill viewport width
-  public view: any[] = [1080, 450];
+  
+  public view: any[];
   // options
   public showXAxis = true;
   public showYAxis = true;
@@ -52,8 +51,13 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
     this.initSub();
   }
 
+  @HostListener('window:resize', ['$event'])
+    onResize(event) {
+      this.sizingChart();
+  }
+
   ngOnInit() {
-  
+      this.sizingChart();
   }
 
   ngOnChanges() {
@@ -146,6 +150,15 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       return calData.constantIncome.length === 1 && calData.constantExpense.length === 1 &&
              calData.periodicalVariable.length === 1 && calData.constantIncome[0].amount === 0 &&
              calData.constantExpense[0].amount === 0 && calData.periodicalVariable[0].amount === 0;
+  }
+
+  private sizingChart(): void {
+    if (window && window.innerWidth) { // unit as px
+      const chartHeight = 450; 
+      const chartOffset = 120;
+      const innerWidth = window.innerWidth - chartOffset;
+      this.view = [innerWidth, chartHeight];
+    }
   }
 
   // place holder
