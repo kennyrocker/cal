@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -20,15 +20,17 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./constant-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConstantItemComponent implements OnInit, OnDestroy {
+export class ConstantItemComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Output() deleted: EventEmitter<boolean> = new EventEmitter();
+  @Output() update: EventEmitter<boolean> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
+  // tslint:disable-next-line:no-input-rename
+  @Input('markAsTouched') markAsTouched: boolean;
 
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;
@@ -57,6 +59,12 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     this.initSub();
   }
 
+  ngOnChanges() {
+    if(this.markAsTouched && this.constantForm) {
+      this.constantForm.markAllAsTouched();
+    }
+  }
+ 
   ngOnDestroy() {
     this.activeChangeSub.unsubscribe();
     this.nameChangeSub.unsubscribe();
@@ -68,7 +76,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     this.constantForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
       name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required ]),
+      amount: new FormControl(this.itemData.amount, [ Validators.required, Validators.min(1)]),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ])
     });
@@ -126,7 +134,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(new DeleteConstantExpenseItemAction(this.projectionId, this.itemData.id));
     }
-    this.deleted.emit(true);
+    this.update.emit(true);
   }
 
   public activeChange(value: boolean): void {
@@ -159,6 +167,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(new UpdateConstantExpenseItemAction(this.projectionId, this.constantForm.value));
     }
+    this.update.emit(true);
   }
 
 }

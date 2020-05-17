@@ -40,8 +40,9 @@ export class InputContainerComponent implements OnInit {
 
   public groupType = InputGroup;
   private backUrl: string;
-  private hasDeletedItem = false;
+  private hasUpdatedItem = false;
   private saved = false;
+  public markAsTouched = false;
 
   constructor(public store: Store<reducerRoot.CalDataState>,
               private route: ActivatedRoute,
@@ -79,34 +80,39 @@ export class InputContainerComponent implements OnInit {
     this.router.navigateByUrl(this.backUrl);
   }
 
-  public hasDeleted(bool: boolean): void {
-    this.hasDeletedItem = bool;
+  public hasUpdated(bool: boolean): void {
+    this.hasUpdatedItem = bool;
   }
 
   private isValidToSave(): boolean {
-      const condition = 'VALID';
       let valid = true;
       let touched = false;
+
       this.constantCmps.forEach(ele => {
-          if (ele.constantForm.status !== condition) {
+          const cform = ele.constantForm;
+          if (cform.status === 'INVALID') {
               valid = false;
           }
-          if (ele.constantForm.touched === true) {
+          if (cform.touched === true) {
             touched = true;
           }
       });
+
       this.periodicCmps.forEach(ele => {
-          if (ele.periodicForm.status !== condition) {
+          const pform = ele.periodicForm;
+          if (pform.status === 'INVALID') {
               valid = false;
           }
-          if (ele.periodicForm.touched === true) {
+          if (pform.touched === true) {
               touched = true;
           }
       });
-      if (this.nameCmp.nameForm.status !== condition) {
+      
+      const nform = this.nameCmp.nameForm;
+      if (nform.status === 'INVALID') {
           valid = false;
       }
-      if (this.nameCmp.nameForm.touched === true) {
+      if (nform.touched === true) {
           touched = true;
       }
 
@@ -114,7 +120,8 @@ export class InputContainerComponent implements OnInit {
   }
 
   public save(): void {
-      if (this.isValidToSave() || this.isValidToSave() && this.hasDeleted) {
+      this.showValidationMessages(true);
+      if (this.hasUpdatedItem && this.isValidToSave()) {
           // when is update aka this.data.id is not null
           if (this.isNewProjection) {
               this.store.dispatch(new PostProjectionAction(this.data));
@@ -122,6 +129,17 @@ export class InputContainerComponent implements OnInit {
           } else {
               this.store.dispatch(new UpdatePorjectionAction(this.data));
           }
+          this.resetValidation();
       }
   }
+
+  private showValidationMessages(bool: boolean): void {
+    this.markAsTouched = bool;
+  }
+
+  private resetValidation(): void {
+    this.showValidationMessages(false);
+    this.hasUpdatedItem = false;
+  }
+
 }

@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="input-field field-amount" [ngClass]="{'field-error' :
+      <div class="input-field field-amount periodic-amount" [ngClass]="{'field-error' :
         periodicForm.get('amount').touched && periodicForm.get('amount').invalid}">
         <label>$</label>
         <input #amount type="text" value="{{itemData.amount}}"
@@ -27,7 +27,7 @@
                (keyup)="bindAmountChangeSubject(amount.value)"/>
         <div *ngIf="periodicForm.get('amount').touched && periodicForm.get('amount').invalid"
              class="field-message"><div class="tip"></div>
-          amount is required
+          amount can not be 0
         </div>
       </div>
 

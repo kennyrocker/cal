@@ -6,7 +6,8 @@
           <span class="icon-back-arrow">&#8249;</span>Back
       </button>
       <div class="input-projection-name">
-          <app-name-component [projectionId]="data.id" [name]="data.name"></app-name-component>
+          <app-name-component [projectionId]="data.id" [name]="data.name" 
+            [markAsTouched]="markAsTouched" (update)="hasUpdated($event)"></app-name-component>
       </div>
       <button class="primary-button" (click)="save()">Save Projection</button>
   </div>
@@ -17,8 +18,8 @@
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
     <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
       <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-            [itemGroupType]="groupType.CONSTANT_INCOME" (deleted)="hasDeleted($event)">
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [markAsTouched]="markAsTouched"
+            [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
         </app-constant-item-component>
       </div>
     </div>
@@ -30,8 +31,8 @@
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
     <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
       <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item" 
-            [itemGroupType]="groupType.CONSTANT_EXPENSE" (deleted)="hasDeleted($event)">
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [markAsTouched]="markAsTouched"
+            [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
         </app-constant-item-component>
       </div>
     </div>
@@ -43,8 +44,8 @@
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
     <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
       <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-        <app-periodic-item-component [projectionId]="data.id" [itemData]="item" 
-            [itemGroupType]="groupType.PERIODICAL_VARIBLE" (deleted)="hasDeleted($event)">
+        <app-periodic-item-component [projectionId]="data.id" [itemData]="item" [markAsTouched]="markAsTouched"
+            [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
         </app-periodic-item-component>
       </div>
     </div>

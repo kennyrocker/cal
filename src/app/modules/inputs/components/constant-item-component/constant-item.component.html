@@ -27,7 +27,7 @@
              (keyup)="bindAmountChangeSubject(amount.value)"/>
       <div *ngIf="constantForm.get('amount').touched && constantForm.get('amount').invalid"
            class="field-message"><div class="tip"></div>
-        amount is required
+        amount must be greater than 0
       </div>
     </div>
 

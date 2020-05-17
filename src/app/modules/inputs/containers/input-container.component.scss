@@ -152,13 +152,11 @@ button {
 
     &.end {
       .field-message {
-        left: unset;
-        right: 0px;
+        left: -60px;
         min-width: 215px;
       }
       .tip {
-        left: unset;
-        right: 20px;
+        left: 80px;
       }
     }
   }
@@ -196,6 +194,16 @@ button {
 
     input {
       padding-left: 12px;
+    }
+
+    .field-message {
+      width: 245px;
+    }
+  }
+
+  .periodic-amount {
+    .field-message {
+      width: 175px;
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { PeriodCalCycleUI } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -18,15 +18,18 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./periodic-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PeriodicItemComponent implements OnInit, OnDestroy {
+export class PeriodicItemComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Output() deleted: EventEmitter<boolean> = new EventEmitter();
+  @Output() update: EventEmitter<boolean> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
   @Input('projectionId') projectionId: string;
   // tslint:disable-next-line:no-input-rename
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
+  // tslint:disable-next-line:no-input-rename
+  @Input('markAsTouched')  markAsTouched: boolean;
+
   private calCycleEnum = PeriodCalCycleUI;
   public cycleArr = [];
   public affectiveMonth: string;
@@ -43,7 +46,6 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   private monthChangeSub: Subscription;
   private monthChangeSubject = new Subject<any>();
 
-
   constructor(public store: Store<reducerRoot.CalDataState>) {
     this.cycleArr = MapperUtil.EnumMapToArray(this.calCycleEnum);
   }
@@ -52,6 +54,12 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.initForm();
     this.initSetup();
     this.initSub();
+  }
+
+  ngOnChanges() {
+    if(this.markAsTouched && this.periodicForm) {
+      this.periodicForm.markAllAsTouched();
+    }
   }
 
   ngOnDestroy() {
@@ -66,7 +74,8 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.periodicForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
       name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required ]),
+      amount: new FormControl(this.itemData.amount, [ Validators.required, 
+        Validators.pattern('^-([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$|^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$') ]),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ]),
       affectiveMonth: new FormControl(this.itemData.affectiveMonth, [Validators.required])
@@ -171,6 +180,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
       return;
     }
     this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.projectionId, this.periodicForm.value));
+    this.update.emit(true);
   }
 
   private initSetup(): void {
@@ -181,7 +191,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
 
   public removeItem(): void {
     this.store.dispatch(new DeletePeriodicalVariableItemAction(this.projectionId, this.itemData.id));
-    this.deleted.emit(true);
+    this.update.emit(true);
   }
 
 }
