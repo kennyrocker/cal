@@ -76,13 +76,11 @@ export class InputContainerComponent implements OnInit {
   }
 
   public backClick(): void {
-
     if (this.isValidToSave()) {
         this.backModalShow = true;
     } else {
         this.routeBack();
     }
-
   }
 
   public backModalConfirmationHandle(): void {
@@ -110,41 +108,30 @@ export class InputContainerComponent implements OnInit {
   }
 
   private isValidToSave(): boolean {
-      let valid = true;
-      let touched = false;
+
+      const nform = this.nameCmp.nameForm;
+      if (nform.status === 'INVALID') {
+          nform.markAllAsTouched();
+          return false;
+      }
 
       this.constantCmps.forEach(ele => {
           const cform = ele.constantForm;
-          cform.markAllAsTouched();
           if (cform.status === 'INVALID') {
-              valid = false;
-          }
-          if (cform.touched === true) {
-            touched = true;
+              cform.markAllAsTouched();
+              return false;
           }
       });
 
       this.periodicCmps.forEach(ele => {
           const pform = ele.periodicForm;
-          pform.markAllAsTouched();
           if (pform.status === 'INVALID') {
-              valid = false;
-          }
-          if (pform.touched === true) {
-              touched = true;
+              pform.markAllAsTouched();
+              return false;
           }
       });
       
-      const nform = this.nameCmp.nameForm;
-      nform.markAllAsTouched();
-      if (nform.status === 'INVALID') {
-          valid = false;
-      }
-      if (nform.touched === true) {
-          touched = true;
-      }
-
-      return (valid === true && touched === true && this.hasUpdatedItem);
+      return this.hasUpdatedItem;
   }
 
   public handleSave(): void {

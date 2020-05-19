@@ -11,7 +11,8 @@ import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';
 import { Constant } from '../../../../constants/constant';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -67,7 +68,8 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     this.constantForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
       name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required, Validators.min(1)]),
+      amount: new FormControl(this.itemData.amount, [ Validators.required, Validators.min(1), 
+          Validators.pattern('^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$')]),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ])
     });
@@ -84,13 +86,16 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
                               debounceTime(Constant.INPUT_DEBOUNCE_TIME),
-                              distinctUntilChanged()
+                              distinctUntilChanged(),
+                              filter(value => value !== '')
                           ).subscribe((value) => {
                               this.nameChange(value);
                           });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
-                              debounceTime(Constant.INPUT_DEBOUNCE_TIME)
+                              debounceTime(Constant.INPUT_DEBOUNCE_TIME),
+                              distinctUntilChanged(),
+                              filter(value => value !== 0 && value !== '')
                           ).subscribe((value) => {
                               this.amountChange(value);
                           });
@@ -131,7 +136,6 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
   public activeChange(value: boolean): void {
     this.constantForm.patchValue({active: value});
     this.updateAction();
-    this.constantForm.markAsTouched(); // for container to detect change
   }
 
   public nameChange(value: string): void {

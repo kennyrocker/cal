@@ -1,4 +1,4 @@
-import { Input, Component, OnDestroy, OnInit, AfterViewInit, ViewChild, OnChanges, HostListener } from '@angular/core';
+import { Input, Component, OnDestroy, OnInit, AfterViewInit, ViewChild, OnChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { DisplaySingleItem } from 'src/app/constants/interfaces/display-single-item';
 
@@ -10,10 +10,12 @@ import { CalData } from '../../../constants/interfaces/cal-data';
 import { DisplayMultiItem } from 'src/app/constants/interfaces/display-multi-item';
 import { Constant } from '../../../constants/constant';
 
+
 @Component({
   selector: 'app-display-container',
   templateUrl: './display-container.component.html',
-  styleUrls: ['./display-container.component.scss']
+  styleUrls: ['./display-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
 
