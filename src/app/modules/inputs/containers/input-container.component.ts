@@ -108,30 +108,30 @@ export class InputContainerComponent implements OnInit {
   }
 
   private isValidToSave(): boolean {
-
+      let valid = true;
       const nform = this.nameCmp.nameForm;
+      nform.markAllAsTouched();
       if (nform.status === 'INVALID') {
-          nform.markAllAsTouched();
-          return false;
+          valid = false;
       }
 
       this.constantCmps.forEach(ele => {
           const cform = ele.constantForm;
+          cform.markAllAsTouched();
           if (cform.status === 'INVALID') {
-              cform.markAllAsTouched();
-              return false;
+              valid = false;
           }
       });
 
       this.periodicCmps.forEach(ele => {
           const pform = ele.periodicForm;
+          pform.markAllAsTouched();
           if (pform.status === 'INVALID') {
-              pform.markAllAsTouched();
-              return false;
+              valid = false;
           }
       });
       
-      return this.hasUpdatedItem;
+      return valid && this.hasUpdatedItem;
   }
 
   public handleSave(): void {

@@ -152,11 +152,11 @@ button {
 
     &.end {
       .field-message {
-        left: -60px;
-        min-width: 215px;
+        left: -88px;
+        min-width: 240px;
       }
       .tip {
-        left: 80px;
+        left: 100px;
       }
     }
   }
@@ -197,13 +197,13 @@ button {
     }
 
     .field-message {
-      width: 245px;
+      width: 222px;
     }
   }
 
   .periodic-amount {
     .field-message {
-      width: 175px;
+      width: 150px;
     }
   }
 
@@ -242,10 +242,10 @@ button {
       z-index: $lvl-1;
     }
 
-    &::before,
-    &::after {
-      content: '*';
-    }
+    // &::before,
+    // &::after {
+    //   content: '*';
+    // }
 
   }
 

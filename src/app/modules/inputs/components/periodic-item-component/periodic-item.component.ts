@@ -157,10 +157,13 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
 
   private monthChange(value: string): void {
     const months =  this.parseMonthsToUniqueArray(value);
-    if (months.length === 0) {
-      // show validation message
+    if (months.length === 0) { 
+      // TODO:: apply correct regex to affectiveMonth form control as pattern, remove manul validation
+      this.periodicForm.setErrors({ affectiveMonth: false });
+      this.periodicForm.controls['affectiveMonth'].setErrors({ affectiveMonth: false });
+      this.periodicForm.controls['affectiveMonth'].markAllAsTouched();
       return;
-    }
+    } 
     this.periodicForm.patchValue({affectiveMonth: months});
     this.updateAction();
   }
