@@ -4,68 +4,68 @@
  *  All Input Moudle Style Here
  */
 
+
 .input-wrapper {
-  width: 100%;
-  padding-top: 155px;
-  padding-right: 8px;
-  padding-left: 8px;
-  box-sizing: border-box;
+    width: 100%;
+    padding-top: 155px;
+    padding-right: 8px;
+    padding-left: 8px;
+    box-sizing: border-box;
 }
 
 .input-projection-name {
-  display: block;
-  text-align: center;
+    display: block;
+    text-align: center;
 }
 
 .projection-name {
-  border: 0 none;
-  font-size: 32px;
-  color: $gray-3;
-  border-bottom: 1px solid $gray-1;
-  text-align: center;
-  padding: 0 0 3px 0;
-
+    border: 0 none;
+    font-size: 32px;
+    color: $gray-3;
+    border-bottom: 1px solid $gray-1;
+    text-align: center;
+    padding: 0 0 3px 0;
 }
 
 .input-heading {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  position: fixed;
-  top: 100px;
-  left: 0;
-  background-color: $white-1;
-  padding: 0 10px 20px;
-  z-index: $lvl-2;
-  box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    background-color: $white-1;
+    padding: 0 10px 20px;
+    z-index: $lvl-2;
+    box-sizing: border-box;
 }
 
 .primary-button {
-  width: 200px;
-  height: 42px;
+    width: 200px;
+    height: 42px;
 }
 
 .checkbox-label {
-  width: 35px;
-  display: inline-block;
-  .checkbox-custom {
-    margin: 13px 8px;
-  }
+    width: 35px;
+    display: inline-block;
+    .checkbox-custom {
+        margin: 13px 8px;
+    }
 }
 
 .input-section {
-  display: inline-block;
-  vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .constant-income,
 .constant-expense {
-  width: 30%;
+    width: 30%;
 }
 
 .periodic-variable {
-  width: 40%;
+   width: 40%;
 }
 
 .group-title {
@@ -89,19 +89,19 @@ button {
     outline: 0 none;
 
     &:hover {
-      background-color: $green-1;
-      cursor: pointer;
+        background-color: $green-1;
+        cursor: pointer;
     }
 
     .icon-back-arrow {
-       display: inline-block;
-       font-size: 2em;
-       height: 16px;
-       color:$gray-3;
-       vertical-align: top;
-       line-height: 16px;
-       height: 16px;
-       margin-right: 0.5rem;
+        display: inline-block;
+        font-size: 2em;
+        height: 16px;
+        color:$gray-3;
+        vertical-align: top;
+        line-height: 16px;
+        height: 16px;
+        margin-right: 0.5rem;
     }
 }
 
@@ -112,27 +112,27 @@ button {
 
 .periodic-item,
 .constant-item {
-  position: relative;
-  border-bottom: 1px solid $white-2;
-  border-left: 1px solid $white-2;
-  padding: 0.5rem 0.5rem;
+    position: relative;
+    border-bottom: 1px solid $white-2;
+    border-left: 1px solid $white-2;
+    padding: 0.5rem 0.5rem;
 }
 
 
 .item-checkbox {
-  display: inline-block;
-  width: 1rem;
-  margin-right: 0.45rem;
+    display: inline-block;
+    width: 1rem;
+    margin-right: 0.45rem;
 
-  &:hover {
-    cursor: pointer;
-  }
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .item-form {
-  display: inline-block;
-  font-size: 1.4rem;
-  position: relative;
+    display: inline-block;
+    font-size: 1.4rem;
+    position: relative;
 
   .input-field {
     display: inline-block;
@@ -251,17 +251,21 @@ button {
 
 }
 
+
+
+
+
 :host-context(.input-projection-name) {
 
-  .ng-invalid.ng-touched {
-    input {
-      border-bottom: 1px solid $red-2;
+    .ng-invalid.ng-touched {
+        input {
+            border-bottom: 1px solid $red-2;
+        }
+        .field-message {
+            font-size: 1.3rem;
+            padding: 10px 16px;
+        }
     }
-    .field-message {
-      font-size: 1.3rem;
-      padding: 10px 16px;
-    }
-  }
 
 }
 

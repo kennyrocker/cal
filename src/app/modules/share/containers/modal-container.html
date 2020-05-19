@@ -1,0 +1,11 @@
+<div *ngIf="show" class="modal-root">
+    <div *ngIf="modalType === 'Close Type'" class="close-x" (click)="closeModal()"></div>
+    
+    <ng-content></ng-content>
+
+    <div *ngIf="modalType === 'Confirmation Type'" class="button-container">
+        <div class="primary-button" (click)="confirmClick()">{{confirmButtonText}}</div>
+        <div class="primary-button" (click)="closeModal()">{{cancelButtonText}}</div>
+    </div>
+</div>
+<div *ngIf="show" class="modal-backdrop" (click)="backDropClick($event)"></div>

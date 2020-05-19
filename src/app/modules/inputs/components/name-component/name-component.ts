@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -11,10 +11,9 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
 @Component({
     selector: 'app-name-component',
     templateUrl: './name-component.html',
-    styleUrls: ['./name-component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./name-component.scss']
   })
-  export class NameComponent implements OnInit, OnChanges, OnDestroy {
+  export class NameComponent implements OnInit, OnDestroy {
       
     @Output() update: EventEmitter<boolean> = new EventEmitter();
     // tslint:disable-next-line:no-input-rename
@@ -23,9 +22,7 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
     // tslint:disable-next-line:no-input-rename
     @Input('name')
     public name: string;
-    // tslint:disable-next-line:no-input-rename
-    @Input('markAsTouched') 
-    public markAsTouched: boolean;
+
     public nameForm: FormGroup;
     private projectionNameChangeSub: Subscription;
     private projectionNameChangeSubject = new Subject<any>();
@@ -35,12 +32,6 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
     ngOnInit() {
         this.initForm();
         this.initSub();
-    }
-
-    ngOnChanges() {
-        if(this.markAsTouched && this.nameForm) {
-            this.nameForm.markAllAsTouched();
-        }
     }
 
     ngOnDestroy() {

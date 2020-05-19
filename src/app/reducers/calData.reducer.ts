@@ -1,4 +1,4 @@
-import { CalDataActionTypes, CalDataActions } from '../actions/calData.action';
+import { CalDataActionTypes, CalDataActions, DeleteEmptyItemFromProjectionAction } from '../actions/calData.action';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 import { Entites } from 'src/app/constants/interfaces/entites';
@@ -229,7 +229,24 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 ...state,
                 collection: state.collection.filter(i => i.id !== action.projectionId)
             };
-
+        
+        case CalDataActionTypes.DeleteEmptyItemFromProjection :
+            return {
+                ...state,
+                collection: state.collection.map((obj) => {
+                    if (obj.id === action.projectionId) {
+                        return {
+                            ...obj,
+                            constantIncome: obj.constantIncome.filter(i => i.name !== '' || i.amount !== 0),
+                            constantExpense: obj.constantExpense.filter(i => i.name !== '' || i.amount !== 0),
+                            periodicalVariable: obj.periodicalVariable.filter(i => i.name !== '' || i.amount !== 0 || i.affectiveMonth.length !== 0)
+                        };
+                    } else {
+                        return obj;
+                    }
+                })
+            };  
+            
 
         /* Add Multi */
         case CalDataActionTypes.BulkAddConstantIncomeItem :

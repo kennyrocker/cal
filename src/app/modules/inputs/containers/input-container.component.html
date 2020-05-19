@@ -2,14 +2,22 @@
   
   <div class="input-heading">
       <!-- TODO:: only index 0 show back button, and style it -->
-      <button *ngIf="!compareIndex && compareIndex !== 0" class="primary-button" (click)="routeBack()">
-          <span class="icon-back-arrow">&#8249;</span>Back
-      </button>
+      <div class="modal-anchor" *ngIf="!compareIndex && compareIndex !== 0">
+          <button class="primary-button" (click)="backClick()">
+              <span class="icon-back-arrow">&#8249;</span>Back
+          </button>
+          <app-modal [show]="backModalShow" [modalType]="modalType.CONFIRMATION_TYPE" 
+                     [confirmButtonText]="'Save'" [cancelButtonText]="'Skip'"
+                     (confirmationClick)="backModalConfirmationHandle()" (cancelationClick)="backModalCancelHandle()">
+              Changes have not yet been saved
+          </app-modal>
+      </div>
+
       <div class="input-projection-name">
           <app-name-component [projectionId]="data.id" [name]="data.name" 
-            [markAsTouched]="markAsTouched" (update)="hasUpdated($event)"></app-name-component>
+            (update)="hasUpdated($event)"></app-name-component>
       </div>
-      <button class="primary-button" (click)="save()">Save Projection</button>
+      <button class="primary-button" (click)="handleSave()">Save Projection</button>
   </div>
 
   <section class="input-section constant-income">
@@ -18,7 +26,7 @@
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
     <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
       <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [markAsTouched]="markAsTouched"
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item"
             [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
         </app-constant-item-component>
       </div>
@@ -31,7 +39,7 @@
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
     <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
       <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item" [markAsTouched]="markAsTouched"
+        <app-constant-item-component [projectionId]="data.id" [itemData]="item"
             [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
         </app-constant-item-component>
       </div>
@@ -44,7 +52,7 @@
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
     <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
       <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-        <app-periodic-item-component [projectionId]="data.id" [itemData]="item" [markAsTouched]="markAsTouched"
+        <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
             [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
         </app-periodic-item-component>
       </div>

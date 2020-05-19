@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { PeriodCalCycleUI } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -15,10 +15,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-periodic-item-component',
   templateUrl: './periodic-item.component.html',
-  styleUrls: ['./periodic-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./periodic-item.component.scss']
 })
-export class PeriodicItemComponent implements OnInit, OnChanges, OnDestroy {
+export class PeriodicItemComponent implements OnInit, OnDestroy {
 
   @Output() update: EventEmitter<boolean> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
@@ -27,8 +26,6 @@ export class PeriodicItemComponent implements OnInit, OnChanges, OnDestroy {
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
-  // tslint:disable-next-line:no-input-rename
-  @Input('markAsTouched')  markAsTouched: boolean;
 
   private calCycleEnum = PeriodCalCycleUI;
   public cycleArr = [];
@@ -54,12 +51,6 @@ export class PeriodicItemComponent implements OnInit, OnChanges, OnDestroy {
     this.initForm();
     this.initSetup();
     this.initSub();
-  }
-
-  ngOnChanges() {
-    if(this.markAsTouched && this.periodicForm) {
-      this.periodicForm.markAllAsTouched();
-    }
   }
 
   ngOnDestroy() {

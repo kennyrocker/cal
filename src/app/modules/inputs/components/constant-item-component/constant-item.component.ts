@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
@@ -17,10 +17,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-constant-item-component',
   templateUrl: './constant-item.component.html',
-  styleUrls: ['./constant-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./constant-item.component.scss']
 })
-export class ConstantItemComponent implements OnInit, OnChanges, OnDestroy {
+export class ConstantItemComponent implements OnInit, OnDestroy {
 
   @Output() update: EventEmitter<boolean> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
@@ -29,8 +28,6 @@ export class ConstantItemComponent implements OnInit, OnChanges, OnDestroy {
   @Input('itemData') itemData: any;
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
-  // tslint:disable-next-line:no-input-rename
-  @Input('markAsTouched') markAsTouched: boolean;
 
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;
@@ -57,12 +54,6 @@ export class ConstantItemComponent implements OnInit, OnChanges, OnDestroy {
     // TODO:: make itemData input with its own model, then set the modal data only once when init container
     this.isIncome = (this.itemGroupType === this.groupType.CONSTANT_INCOME);
     this.initSub();
-  }
-
-  ngOnChanges() {
-    if(this.markAsTouched && this.constantForm) {
-      this.constantForm.markAllAsTouched();
-    }
   }
  
   ngOnDestroy() {

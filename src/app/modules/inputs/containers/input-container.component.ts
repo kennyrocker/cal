@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction,
-   UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction } from 'src/app/actions/calData.action';
+   UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction, 
+   DeleteEmptyItemFromProjectionAction } from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
@@ -14,6 +15,7 @@ from 'src/app/modules/inputs/components/constant-item-component/constant-item.co
 // tslint:disable-next-line:import-spacing
 import { PeriodicItemComponent }
 from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
+import { ModalType } from 'src/app/constants/enums/modal-type';
 
 
 @Component({
@@ -38,11 +40,14 @@ export class InputContainerComponent implements OnInit {
   @Input('compareIndex')
   public compareIndex: number;
 
+  public modalType = ModalType;
   public groupType = InputGroup;
   private backUrl: string;
   private hasUpdatedItem = false;
   private saved = false;
-  public markAsTouched = false;
+
+  // back modal
+  public backModalShow = false;
 
   constructor(public store: Store<reducerRoot.CalDataState>,
               private route: ActivatedRoute,
@@ -70,14 +75,34 @@ export class InputContainerComponent implements OnInit {
     return item ? item.id : undefined;
   }
 
-  public routeBack(): void {
-    // TODO:: if form state is touched && status is VALID,
-    // ask user if they want to save data before redirect
-    // if isNewProjection and not saved, before navigate back, need to clear data from collection
-    if (this.isNewProjection && !this.saved) {
-        this.store.dispatch(new DeleteProjectionAction(this.data.id));
+  public backClick(): void {
+
+    if (this.isValidToSave()) {
+        this.backModalShow = true;
+    } else {
+        this.routeBack();
     }
-    this.router.navigateByUrl(this.backUrl);
+
+  }
+
+  public backModalConfirmationHandle(): void {
+      this.save();
+      this.backModalShow = false;
+      this.router.navigateByUrl(this.backUrl);
+  }
+
+  public backModalCancelHandle(): void {
+      this.backModalShow = false;
+      this.routeBack();
+  }
+
+  private routeBack(): void {
+      if (this.isNewProjection && !this.saved) {
+          this.store.dispatch(new DeleteProjectionAction(this.data.id));
+      } else {
+          this.store.dispatch(new DeleteEmptyItemFromProjectionAction(this.data.id));
+      }
+      this.router.navigateByUrl(this.backUrl);
   }
 
   public hasUpdated(bool: boolean): void {
@@ -90,6 +115,7 @@ export class InputContainerComponent implements OnInit {
 
       this.constantCmps.forEach(ele => {
           const cform = ele.constantForm;
+          cform.markAllAsTouched();
           if (cform.status === 'INVALID') {
               valid = false;
           }
@@ -100,6 +126,7 @@ export class InputContainerComponent implements OnInit {
 
       this.periodicCmps.forEach(ele => {
           const pform = ele.periodicForm;
+          pform.markAllAsTouched();
           if (pform.status === 'INVALID') {
               valid = false;
           }
@@ -109,6 +136,7 @@ export class InputContainerComponent implements OnInit {
       });
       
       const nform = this.nameCmp.nameForm;
+      nform.markAllAsTouched();
       if (nform.status === 'INVALID') {
           valid = false;
       }
@@ -116,29 +144,25 @@ export class InputContainerComponent implements OnInit {
           touched = true;
       }
 
-      return (valid === true && touched === true);
+      return (valid === true && touched === true && this.hasUpdatedItem);
   }
 
-  public save(): void {
-      this.showValidationMessages(true);
-      if (this.hasUpdatedItem && this.isValidToSave()) {
-          // when is update aka this.data.id is not null
-          if (this.isNewProjection) {
-              this.store.dispatch(new PostProjectionAction(this.data));
-              this.saved = true;
-          } else {
-              this.store.dispatch(new UpdatePorjectionAction(this.data));
-          }
-          this.resetValidation();
+  public handleSave(): void {
+      if (!this.isValidToSave()) return;
+      this.save();
+  }
+
+  private save(): void {
+      if (this.isNewProjection) {
+          this.store.dispatch(new PostProjectionAction(this.data));
+          this.saved = true;
+      } else {
+          this.store.dispatch(new UpdatePorjectionAction(this.data));
       }
-  }
-
-  private showValidationMessages(bool: boolean): void {
-    this.markAsTouched = bool;
+      this.resetValidation();    
   }
 
   private resetValidation(): void {
-    this.showValidationMessages(false);
     this.hasUpdatedItem = false;
   }
 

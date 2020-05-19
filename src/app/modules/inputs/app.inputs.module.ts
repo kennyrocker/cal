@@ -14,6 +14,7 @@ import { PeriodicItemComponent } from './components/periodic-item-component/peri
 import { ConstantItemComponent } from './components/constant-item-component/constant-item.component';
 import { InputContainerComponent } from './containers/input-container.component';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
+import { ShareModule } from '../share/app.share.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { NameComponent } from 'src/app/modules/inputs/components/name-component/
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        ShareModule,
         StoreModule.forRoot(reducer),
         EffectsModule.forRoot([CalDataEffects])
     ],
