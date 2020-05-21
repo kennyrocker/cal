@@ -97,29 +97,53 @@
 :host-context(.modal-root) {
     .tab-content {
         padding: 25px 0 30px;
-        min-height: 400px;
     }
 }
 
+
+// account form
 .account-form {
     box-sizing: border-box;
     padding-top: 40px;
+    padding-bottom: 40px;
 
 
-    input {
-        border-radius: 3px;
-        border: 1px solid $white-2;
-        width: 55%;
-        color: $gray-5;
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
-        padding: 0.5rem 1rem;
+    .account-field {
+        position: relative;
+        box-sizing: border-box;
+        margin: 1rem 15%;
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 3px;
+            border: 1px solid $white-3;
+            color: $gray-5;
+            font-size: 1.1rem;
+            padding: 0.75rem 1rem;
+        }
     }
 
-    button {
-        margin-top: 10px;
+    .field-error {
+        input {
+            border-color: $red-2;
+        }
+    }
+
+    .field-message {
+        @include field-message;
+    
+        .tip {
+            @include field-message-tip;
+            font-size: 1.1rem;
+        }
+    }
+
+    .primary-button {
+        box-sizing: border-box;
         height: 46px;
-        width: calc(55% + 2rem);
+        width: 70%;
+        outline: 0 none;
     }
    
 }

@@ -5,17 +5,19 @@ import { RouterModule } from '@angular/router';
 import { ShareModule } from '../share/app.share.module';
 import { SigninContainer } from './containers/signin/signin-container';
 import { SignupContainer } from './containers/signup/signup-container';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
         HeaderContainerComponent,
-        SigninContainer,
-        SignupContainer
+        SignupContainer,
+        SigninContainer
     ],
     imports: [
         CommonModule,
         RouterModule,
-        ShareModule
+        ShareModule,
+        ReactiveFormsModule
     ],
     exports: [
         HeaderContainerComponent

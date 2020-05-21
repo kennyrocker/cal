@@ -63,9 +63,9 @@
     .modal-root {
         padding: 0;
         position: fixed;
-        left: 25%;
+        left: calc(50% - 225px);
         top: 100px;
-        width: 50%;
+        width: 450px;
     }
     
 }

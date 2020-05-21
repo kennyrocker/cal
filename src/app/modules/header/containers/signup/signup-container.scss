@@ -1,3 +1,13 @@
 @import './../header-container.scss';
 
 
+.privacy-link {
+    padding-top: 1rem;
+    color: $gray-2;
+    font-size: 0.85rem;
+
+    &:hover {
+        cursor: pointer;
+        color: $gray-5;
+    }
+}

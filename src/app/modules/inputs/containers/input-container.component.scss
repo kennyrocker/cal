@@ -213,35 +213,18 @@ button {
   }
 
   .field-error {
+    
     input {
       border: 1px solid $red-2;
     }
   }
 
   .field-message {
-    position: absolute;
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    left: 0;
-    top: -48px;
-    color: $red-2;
-    padding: 10px 10px;
-    font-size: 1rem;
-    background-color: $white-1;
-    z-index: $lvl-1;
-    border-radius: 5px;
-    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    @include field-message;
 
     .tip {
-      position: absolute;
-      left: 20px;
-      bottom: -5px;
-      background-color: $white-1;
-      width: 10px;
-      height: 10px;
-      transform:rotate(45deg);
-      z-index: $lvl-1;
+      @include field-message-tip;
     }
-
   }
 
 }

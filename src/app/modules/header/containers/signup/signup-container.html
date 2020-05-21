@@ -15,14 +15,15 @@
 
     <div class="sign-up-method">
 
-        <form class="account-form" name="signupForm" [formGroup]="signupForm">
+        <form name="signupForm" [formGroup]="signupForm" class="account-form">
 
             <div class="account-field" [ngClass]="{'field-error' :
                         signupForm.get('email').touched && signupForm.get('email').invalid}">
 
-                <input #email type="text" placeholder="email" formControlName="email">
+                <input #email type="text" placeholder="email" formControlName="email" 
+                        (keyup)="bindEmailChangeSubject(email.value)">
 
-                <div *ngIf="signupForm.get('email').touched && constantForm.get('email').invalid"
+                <div *ngIf="signupForm.get('email').touched && signupForm.get('email').invalid"
                     class="field-message"><div class="tip"></div>
                     email is required
                 </div>
@@ -32,9 +33,10 @@
             <div class="account-field"  [ngClass]="{'field-error' :
                         signupForm.get('userName').touched && signupForm.get('userName').invalid}">
 
-                <input #userName type="text" placeholder="user name" formControlName="userName">
+                <input #userName type="text" placeholder="user name" formControlName="userName"
+                        (keyup)="bindUserNameChangeSubject(userName.value)">
 
-                <div *ngIf="signupForm.get('userName').touched && constantForm.get('userName').invalid"
+                <div *ngIf="signupForm.get('userName').touched && signupForm.get('userName').invalid"
                     class="field-message"><div class="tip"></div>
                     user name is required
                 </div>
@@ -43,31 +45,21 @@
             <div class="account-field" [ngClass]="{'field-error' :
                         signupForm.get('password').touched && signupForm.get('password').invalid}">
 
-                <input #password type="password" placeholder="password"formControlName="password">
+                <input #password type="password" placeholder="password"formControlName="password"
+                        (keyup)="bindPasswordChangeSubject(password.value)">
 
-                <div *ngIf="signupForm.get('password').touched && constantForm.get('password').invalid"
+                <div *ngIf="signupForm.get('password').touched && signupForm.get('password').invalid"
                     class="field-message"><div class="tip"></div>
                     password is required
                 </div>
             </div>
 
-
-            <div class="account-field" [ngClass]="{'field-error' :
-                        signupForm.get('conformPw').touched && signupForm.get('conformPw').invalid}">
-
-                <input #conformPw type="password" placeholder="confirm password" formControlName="conformPw">
-
-                <div *ngIf="signupForm.get('conformPw').touched && constantForm.get('conformPw').invalid"
-                    class="field-message"><div class="tip"></div>
-                    confirm password must match
-                </div>
-
-            </div>
-
-            <button class="primary-button" (click)="signupClick()">Register</button>
+            <button class="primary-button" (click)="signupClick()">Create account</button>
 
         </form>
 
     </div>
+
+    <div class="privacy-link">Privacy & Terms</div>
 
 </div>
