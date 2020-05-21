@@ -10,7 +10,7 @@
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     position: absolute;
     min-width: 300px;
-    color: $gray-3;
+    color: $gray-5;
     z-index: $lvl-4;
     text-align: center;
     box-sizing: border-box;
@@ -53,6 +53,19 @@
     .modal-root {
         left: 10px;
         top: 52px;
+    }
+    
+}
+
+// Account Modal
+:host-context(.account) {
+
+    .modal-root {
+        padding: 0;
+        position: fixed;
+        left: 25%;
+        top: 100px;
+        width: 50%;
     }
     
 }

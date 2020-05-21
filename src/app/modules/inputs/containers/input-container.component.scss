@@ -21,7 +21,7 @@
 .projection-name {
     border: 0 none;
     font-size: 32px;
-    color: $gray-3;
+    color: $gray-5;
     border-bottom: 1px solid $gray-1;
     text-align: center;
     padding: 0 0 3px 0;
@@ -73,7 +73,7 @@
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     padding: 1.3rem 0.5rem 0.25rem 0.5rem;
     font-size: 1.4rem;
-    color: $gray-3;
+    color: $gray-5;
 }
 
 button {
@@ -97,7 +97,7 @@ button {
         display: inline-block;
         font-size: 2em;
         height: 16px;
-        color:$gray-3;
+        color:$gray-5;
         vertical-align: top;
         line-height: 16px;
         height: 16px;
@@ -241,11 +241,6 @@ button {
       transform:rotate(45deg);
       z-index: $lvl-1;
     }
-
-    // &::before,
-    // &::after {
-    //   content: '*';
-    // }
 
   }
 

@@ -8,7 +8,8 @@
           </button>
           <app-modal [show]="backModalShow" [modalType]="modalType.CONFIRMATION_TYPE" 
                      [confirmButtonText]="'Save'" [cancelButtonText]="'Skip'"
-                     (confirmationClick)="backModalConfirmationHandle()" (cancelationClick)="backModalCancelHandle()">
+                     (confirmationClick)="backModalConfirmationHandle()" 
+                     (cancelationClick)="backModalCancelHandle()">
               Changes have not yet been saved
           </app-modal>
       </div>

@@ -186,18 +186,18 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
       return [];
   }
 
+  private initSetup(): void {
+    if (this.itemData.affectiveMonth) {
+      this.affectiveMonth = MapperUtil.FormatAffectiveMonth(this.itemData.affectiveMonth);
+    }
+  }
+
   private updateAction(): void {
     if (this.periodicForm.invalid) {
       return;
     }
     this.store.dispatch(new UpdatePeriodicalVariableItemAction(this.projectionId, this.periodicForm.value));
     this.update.emit(true);
-  }
-
-  private initSetup(): void {
-    if (this.itemData.affectiveMonth) {
-      this.affectiveMonth = MapperUtil.FormatAffectiveMonth(this.itemData.affectiveMonth);
-    }
   }
 
   public removeItem(): void {

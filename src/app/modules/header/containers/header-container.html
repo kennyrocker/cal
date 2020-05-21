@@ -1,0 +1,23 @@
+<div class="header">
+
+    <span class="title" routerLink="/">logo</span>
+
+    <div class="account">
+        <!-- <span class="text">Hello,</span> -->
+        <div class="text-button" (click)="showModal(SIGN_IN);">Sign in</div>
+        <span class="text">/</span>
+        <div class="text-button" (click)="showModal(SIGN_UP);">Sign up</div>
+        <!-- <div class="user">Hello User</div> -->
+
+        <app-modal [show]="accountModalShow" [modalType]="modalType" (cancelationClick)="closeHandle()">
+            <div class="tab-wrapper">
+                <div #tab class="tab-item signin" (click)="activeTab(SIGN_IN)">Sign In</div>
+                <div #tab class="tab-item signup" (click)="activeTab(SIGN_UP)">Sign Up</div>
+            </div>
+            <app-signin *ngIf="activeTap === SIGN_IN"></app-signin>
+            <app-signup *ngIf="activeTap === SIGN_UP"></app-signup>
+        </app-modal>
+
+    </div>
+
+</div>

@@ -34,6 +34,10 @@ export class ModalContainer implements OnInit {
     }
 
     public backDropClick(event: any): void {
+        if (this.modalType === ModalType.PLAIN_TYPE) {
+            this.closeModal();
+            return;
+        }
         event.stopPropagation();
     }
 

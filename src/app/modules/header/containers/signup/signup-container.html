@@ -1,0 +1,73 @@
+<div class="tab-content sign-up">
+
+    <!-- // TODO:: Ouath2  -->
+    <!-- <div class="sign-up-method">
+        <button class="primary-button">Sign up with google</button>
+    </div>
+    
+    <div class="separator">or</div>
+
+    <div class="sign-up-method">
+        <button class="primary-button">Sign up with facebook</button>   
+    </div>
+
+    <div class="separator">or</div> -->
+
+    <div class="sign-up-method">
+
+        <form class="account-form" name="signupForm" [formGroup]="signupForm">
+
+            <div class="account-field" [ngClass]="{'field-error' :
+                        signupForm.get('email').touched && signupForm.get('email').invalid}">
+
+                <input #email type="text" placeholder="email" formControlName="email">
+
+                <div *ngIf="signupForm.get('email').touched && constantForm.get('email').invalid"
+                    class="field-message"><div class="tip"></div>
+                    email is required
+                </div>
+
+            </div>
+
+            <div class="account-field"  [ngClass]="{'field-error' :
+                        signupForm.get('userName').touched && signupForm.get('userName').invalid}">
+
+                <input #userName type="text" placeholder="user name" formControlName="userName">
+
+                <div *ngIf="signupForm.get('userName').touched && constantForm.get('userName').invalid"
+                    class="field-message"><div class="tip"></div>
+                    user name is required
+                </div>
+            </div>
+
+            <div class="account-field" [ngClass]="{'field-error' :
+                        signupForm.get('password').touched && signupForm.get('password').invalid}">
+
+                <input #password type="password" placeholder="password"formControlName="password">
+
+                <div *ngIf="signupForm.get('password').touched && constantForm.get('password').invalid"
+                    class="field-message"><div class="tip"></div>
+                    password is required
+                </div>
+            </div>
+
+
+            <div class="account-field" [ngClass]="{'field-error' :
+                        signupForm.get('conformPw').touched && signupForm.get('conformPw').invalid}">
+
+                <input #conformPw type="password" placeholder="confirm password" formControlName="conformPw">
+
+                <div *ngIf="signupForm.get('conformPw').touched && constantForm.get('conformPw').invalid"
+                    class="field-message"><div class="tip"></div>
+                    confirm password must match
+                </div>
+
+            </div>
+
+            <button class="primary-button" (click)="signupClick()">Register</button>
+
+        </form>
+
+    </div>
+
+</div>
