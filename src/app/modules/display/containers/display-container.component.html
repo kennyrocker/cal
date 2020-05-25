@@ -22,10 +22,13 @@
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
+        [roundEdges]="false"
         (select)="onSelect($event)">
       </ngx-charts-bar-vertical>
   </div>
 
+
+  <!-- [roundEdges]="false" to make d3 console error go away  -->
   <div *ngIf="multi" class="multiple-chart">
       <ngx-charts-bar-vertical-2d
         class="chart-wrapper"
@@ -40,6 +43,7 @@
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
+        [roundEdges]="false"
         (select)="onSelect($event)">
       </ngx-charts-bar-vertical-2d>
   </div>
