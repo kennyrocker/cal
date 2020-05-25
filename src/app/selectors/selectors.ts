@@ -27,7 +27,7 @@ export const isProjectionExistedFromCollection = createSelector(
     }
 );
 
-// compare module selector
+// Compare module selector
 export const isProjectionsExistedFromCollection = createSelector(
     getCollections,
     (collections, props) => {
@@ -48,7 +48,13 @@ export const getProjectionsByIds = createSelector(
     }
 );
 
+// UI selector
 export const getSnapshotSelected = createSelector(
     (state: any) => state.calData.ui.snapshotSelected,
     (snapshotSelected) => snapshotSelected 
+)
+
+export const getUILock = createSelector(
+    (state: any) => state.calData.ui.lock,
+    (lock) => lock
 )

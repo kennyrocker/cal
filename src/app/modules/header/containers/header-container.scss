@@ -6,10 +6,11 @@
     box-sizing: border-box;
     text-align: center;
     background-color: $white-1;
-    height: 100px;
+    height: 58px;
     top: 0;
+    left: 0;
     position: fixed;
-    z-index: $lvl-3;
+    z-index: $lvl-2;
 }
 
 .title {
@@ -111,7 +112,7 @@
     .account-field {
         position: relative;
         box-sizing: border-box;
-        margin: 1rem 15%;
+        margin: 1.15rem 15%;
 
         input {
             box-sizing: border-box;

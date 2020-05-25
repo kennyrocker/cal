@@ -5,8 +5,9 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction,
-   UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction, 
-   DeleteEmptyItemFromProjectionAction } from 'src/app/actions/calData.action';
+   UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction,
+   UIUpdateLockAction,
+   RollBackProjectionAction} from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
@@ -22,7 +23,7 @@ import { ModalType } from 'src/app/constants/enums/modal-type';
   selector: 'app-input-container',
   templateUrl: './input-container.component.html',
   styleUrls: ['./input-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputContainerComponent implements OnInit {
 
@@ -46,6 +47,8 @@ export class InputContainerComponent implements OnInit {
   private hasUpdatedItem = false;
   private saved = false;
 
+  private rollBackData: CalData;
+
   // back modal
   public backModalShow = false;
 
@@ -56,6 +59,7 @@ export class InputContainerComponent implements OnInit {
 
   public ngOnInit(): void {
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.rollBackData =  this.data;
   }
 
   public addConstantIncomeItem(): void {
@@ -96,9 +100,11 @@ export class InputContainerComponent implements OnInit {
 
   private routeBack(): void {
       if (this.isNewProjection && !this.saved) {
+          // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: true }));
           this.store.dispatch(new DeleteProjectionAction(this.data.id));
       } else {
-          this.store.dispatch(new DeleteEmptyItemFromProjectionAction(this.data.id));
+          // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: true }));
+          this.store.dispatch(new RollBackProjectionAction(this.rollBackData));
       }
       this.router.navigateByUrl(this.backUrl);
   }
@@ -136,6 +142,7 @@ export class InputContainerComponent implements OnInit {
 
   public handleSave(): void {
       if (!this.isValidToSave()) return;
+      // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: false }));
       this.save();
   }
 
@@ -146,6 +153,7 @@ export class InputContainerComponent implements OnInit {
       } else {
           this.store.dispatch(new UpdatePorjectionAction(this.data));
       }
+      this.rollBackData = this.data;
       this.resetValidation();    
   }
 

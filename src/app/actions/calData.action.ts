@@ -4,6 +4,7 @@ import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 import { FixItem } from 'src/app/constants/interfaces/fix-item';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { Snapshot } from 'src/app/constants/interfaces/snapshot';
+import { Lock } from '../constants/interfaces/lock';
 
 export enum CalDataActionTypes {
     GetAllProjectionSnapshot = '[Get All Projection Snapshot] Get',
@@ -42,7 +43,8 @@ export enum CalDataActionTypes {
     DeleteProjectionFromSnapshots = '[Delete Projection From Snapshot] Delete',
     DeleteProjectionFromCollection = '[Delete Projection From Collection] Delete',
     SnapShotSelectedUpdateUI = '[Snapshot Selected UI] Update',
-    DeleteEmptyItemFromProjection = '[Delete Empty Item From Projection] Delete' 
+    UIUpdateLock = '[UI Update Lock] Update',
+    RollBackProjection = '[Projection] RollBack'
 }
 
 
@@ -218,9 +220,14 @@ export class DeleteProjectionFromCollectionAction implements Action {
     constructor(public projectionId: string) {}
 }
 
-export class DeleteEmptyItemFromProjectionAction implements Action {
-    readonly type = CalDataActionTypes.DeleteEmptyItemFromProjection;
-    constructor(public projectionId: string) {}
+export class UIUpdateLockAction implements Action {
+    readonly type = CalDataActionTypes.UIUpdateLock;
+    constructor(public lock: Lock) {}
+}
+
+export class RollBackProjectionAction implements Action {
+    readonly type = CalDataActionTypes.RollBackProjection;
+    constructor(public payload: CalData) {}
 }
 
 
@@ -240,4 +247,4 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction
  | SnapShotSelectedUpdateUIAction | DeleteProjectionFromSnapshotAction | DeleteProjectionFromCollectionAction
- | DeleteEmptyItemFromProjectionAction;
+ | UIUpdateLockAction | RollBackProjectionAction;

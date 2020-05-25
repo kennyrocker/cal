@@ -15,6 +15,7 @@ import { AppRoutingModule } from 'src/app/app.routes';
 import { StaticModule } from 'src/app/modules/static/app.static.module';
 import { HeaderModule } from './modules/header/app.header.module';
 import { FooterModule } from './modules/footer/app.footer.module';
+import { ShareModule } from './modules/share/app.share.module';
 
 // Services
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
@@ -25,6 +26,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LockModule } from './modules/lock/app-lock.module';
+
 
 
 @NgModule({
@@ -39,6 +42,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StaticModule,
     HeaderModule,
     FooterModule,
+    LockModule,
     NgxChartsModule,
     StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({

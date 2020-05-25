@@ -92,6 +92,7 @@ export class CalDataEffects {
         )
     );
 
+    /* UPDATE EXISTING PROJECTION EFFECT */
     @Effect()
     public updateProjection$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.UpdateProjection),
@@ -119,6 +120,7 @@ export class CalDataEffects {
         )
     );
 
+    /* ADD NEW PROJECTION EFFECT */        
     @Effect()
     public postProjection$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.PostProjection),
@@ -147,6 +149,18 @@ export class CalDataEffects {
         )
     );
 
+    @Effect({ dispatch: false })
+    postProjectionSuccess = this.actions$.pipe(
+            ofType(CalDataActionTypes.PostProjectionSuccess),
+            map((action: PostProjectionActionSuccess) => {
+                const url =  'projection/' + action.projectionId;
+                this.router.navigate([url]);
+            }
+        )
+    );
+
+
+
     @Effect()
     public deleteProjection$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.DeleteProjection),
@@ -172,15 +186,6 @@ export class CalDataEffects {
         })  
     );
 
-    @Effect({ dispatch: false })
-        postProjectionSuccess = this.actions$.pipe(
-            ofType(CalDataActionTypes.PostProjectionSuccess),
-            map((action: PostProjectionActionSuccess) => {
-                const url =  'projection/' + action.projectionId;
-                this.router.navigate([url]);
-            }
-        )
-    );
 
     protected constuctSnapShot(data: CalData): Snapshot {
         return {

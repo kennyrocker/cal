@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormateTimePipe } from 'src/app/modules/share/pipes/formateTimePipe';
-import { ModalContainer } from './containers/modal-container';
+import { ModalContainer } from './containers/modal/modal-container';
 
 
 @NgModule({

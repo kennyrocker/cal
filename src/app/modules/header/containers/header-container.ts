@@ -1,5 +1,8 @@
 import { Component, ElementRef, QueryList, ViewChildren } from "@angular/core";
 import { ModalType } from 'src/app/constants/enums/modal-type';
+import { Store } from '@ngrx/store';
+import * as reducerRoot from '../../../reducers/index';
+import { UIUpdateLockAction } from 'src/app/actions/calData.action';
 
 @Component({
     selector: 'app-header',
@@ -18,10 +21,12 @@ export class HeaderContainerComponent {
     @ViewChildren('tab') 
     public tabs: QueryList<ElementRef>;
 
+    constructor(private store: Store<reducerRoot.CalDataState>) {}
 
     public showModal(tabString: string): void {
         this.activeTab(tabString);
         this.accountModalShow = true;
+        this.store.dispatch(new UIUpdateLockAction({ full: false, scroll: true }))
     }
 
     public activeTab(tabString: string): void {
@@ -42,6 +47,7 @@ export class HeaderContainerComponent {
 
     public closeHandle() {
         this.accountModalShow = false;
+        this.store.dispatch(new UIUpdateLockAction({ full: false, scroll: false }))
     }
 
 }

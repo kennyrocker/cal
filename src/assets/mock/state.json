@@ -4,7 +4,11 @@
         "snapshotSelected" : [
             "106363041",
             "1003023041"
-        ]
+        ],
+        "lock": {
+            "full": false,
+            "scroll": false
+        }
     },
 
     "snapshot" : [

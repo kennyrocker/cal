@@ -17,7 +17,6 @@ import { DisplayModule } from 'src/app/modules/display/app.display.module';
 
 // Route
 import { RouterModule, Routes } from '@angular/router';
-import { ShareModule } from '../share/app.share.module';
 
 
 const routes: Routes = [
