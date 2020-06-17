@@ -1,6 +1,6 @@
 {
-    "id": "1003023041",
-    "name": "Comapny B",
+    "id": "106363041",
+    "name": "Comapny A",
     "lastUpdated": 1587759094366,
     "constantIncome":[
       {
@@ -20,14 +20,21 @@
     ],
     "constantExpense":[
       {
-        "id":254251529,
+        "id":305430753,
+        "name":"presdro",
+        "amount":225,
+        "cycle":12,
+        "active":true
+      },
+      {
+        "id":280680652,
         "name":"wify pocket money",
         "amount":300,
         "cycle":12,
         "active":true
       },
       {
-        "id":800108822,
+        "id":356665119,
         "name":"family saving fund",
         "amount":1000,
         "cycle":12,
@@ -35,7 +42,7 @@
       },
       {
         "id":886787861,
-        "name":"house contribution",
+        "name":"house expense",
         "amount":3000,
         "cycle":12,
         "active":true
@@ -57,7 +64,7 @@
       {
         "id":2223521,
         "name":"mortage",
-        "amount":934,
+        "amount":935,
         "cycle":12,
         "active":true
       },
@@ -99,7 +106,7 @@
       {
         "id":2223528,
         "name":"bmw gas",
-        "amount":230,
+        "amount":120,
         "cycle":12,
         "active":true
       },
@@ -115,8 +122,9 @@
       {
         "id":4253512,
         "name":"condo property tax",
-        "amount":-240,
+        "amount":-247,
         "cycle":12,
+        "active":true,
         "affectiveMonth":[
           3,
           4,
@@ -124,8 +132,7 @@
           6,
           7,
           8
-        ],
-        "active":true
+        ]
       },
       {
         "id":2223512,
@@ -140,26 +147,15 @@
         "active":true
       },
       {
-        "id":2223522,
-        "name":"compnay bonus",
-        "amount":650,
-        "cycle":12,
-        "affectiveMonth":[
-          4,
-          10
-        ],
-        "active":true
-      },
-      {
-        "id":2243542,
-        "name":"company stock sharing",
-        "amount":1485,
-        "cycle":12,
-        "affectiveMonth":[
-          6,
+        "id": 354572562,
+        "name": "stock share vesting",
+        "amount": 6500,
+        "cycle": 1,
+        "active": true,
+        "affectiveMonth": [
           12
-        ],
-        "active":true
+        ]
       }
     ]
+
 }

@@ -18,9 +18,9 @@ export class CalDataService {
     // GET
     public getProjectionById(id: string): Observable<any> {
         if (id === '1003023041') {
-            return this.http.get('../../../assets/mock/ken-hd.json');
+            return this.http.get('../../../assets/mock/single-hd.json');
         } else if (id === '106363041') {
-            return this.http.get('../../../assets/mock/ken-copper.json');
+            return this.http.get('../../../assets/mock/single-cp.json');
         } else {
             return of ({});
         }

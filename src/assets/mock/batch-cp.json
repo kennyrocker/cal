@@ -14,7 +14,7 @@
               {
                 "id":2323523,
                 "name":"paycheck",
-                "amount":3076,
+                "amount":2700,
                 "cycle":26,
                 "active":true
               }
@@ -158,6 +158,6 @@
                 ]
               }
             ]
-        
-        }       
+
+        }
 ]
