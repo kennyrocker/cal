@@ -844,85 +844,202 @@ describe('Calculate Service', () => {
         },
     ];
 
+    const biWeeklyPeriodicMonth6and12Input = {
+        periodicalVariable: [
+          {
+            id: 22235123,
+            name : 'test',
+            amount : 10,
+            cycle : CalCycle.MONTHLY,
+            affectiveMonth : [6, 12],
+            active: true
+          }
+        ]
+    };
 
-  const fullInputWithInactive = {
-    constantIncome : [
-      {
-        id: 2323523,
-        name: 'income1',
-        amount: 100,
-        cycle: CalCycle.MONTHLY,
-        active: false
-      },
-      {
-        id: 2323529,
-        name: 'income2',
-        amount: 200,
-        cycle: CalCycle.MONTHLY,
-        active: true
-      }
-    ],
-    constantExpense: [
-      {
-        id: 2223521,
-        name :  'expense1',
-        amount : 100,
-        cycle : CalCycle.MONTHLY,
-        active: true
-      },
-      {
-        id: 2223522,
-        name : 'expense2',
-        amount : 100,
-        cycle : CalCycle.MONTHLY,
-        active: true
-      },
-      {
-        id: 2225652,
-        name : 'expense3',
-        amount : 100,
-        cycle : CalCycle.MONTHLY,
-        active: true
-      }
-    ],
-    periodicalVariable: [
-      {
-        id: 2223512,
-        name : 'p1',
-        amount : -100,
-        cycle : CalCycle.MONTHLY,
-        affectiveMonth : [1, 2, 3],
-        active: true
-      },
-      {
-        id: 2223522,
-        name : 'p2',
-        amount : 300,
-        cycle : CalCycle.ANNUALLY,
-        affectiveMonth : [4],
-        active: true
-      }
-    ]
-  };
+    const biWeeklyPeriodicMonth6and12InputOutput = [
+        {
+            name: '1',
+            value: 0
+        },
+        {
+            name: '2',
+            value: 0
+        },
+        {
+            name: '3',
+            value: 0
+        },
+        {
+            name: '4',
+            value: 0
+        },{
+            name: '5',
+            value: 0
+        },
+        {
+            name: '6',
+            value: 0
+        },
+        {
+            name: '7',
+            value: 0
+        },
+        {
+            name: '8',
+            value: 0
+        },
+        {
+            name: '9',
+            value: 0
+        },
+        {
+            name: '10',
+            value: 0
+        },
+        {
+            name: '11',
+            value: 3.33
+        },
+        {
+            name: '12',
+            value: 6.66
+        },
+        {
+            name: '13',
+            value: 9.99
+        },
+        {
+            name: '14',
+            value: 9.99
+        },{
+            name: '15',
+            value: 9.99
+        },
+        {
+            name: '16',
+            value: 9.99
+        },
+        {
+            name: '17',
+            value: 9.99
+        },
+        {
+            name: '18',
+            value: 9.99
+        },
+        {
+            name: '19',
+            value: 9.99
+        },
+        {
+            name: '20',
+            value: 9.99
+        },
+        {
+            name: '21',
+            value: 9.99
+        },
+        {
+            name: '22',
+            value: 9.99
+        },
+        {
+            name: '23',
+            value: 9.99
+        },
+        {
+            name: '24',
+            value: 13.32
+        },{
+            name: '25',
+            value: 16.64
+        },
+        {
+            name: '26',
+            value: 19.97
+        }
+    ];
 
-  const fullOutputWithInactive = [
-    {
-      name: '1',
-      value: -200
-    },
-    {
-      name: '2',
-      value: -400
-    },
-    {
-      name: '3',
-      value: -600
-    },
-    {
-      name: '4',
-      value: -400
-    }
-  ];
+
+    const fullInputWithInactive = {
+        constantIncome : [
+        {
+            id: 2323523,
+            name: 'income1',
+            amount: 100,
+            cycle: CalCycle.MONTHLY,
+            active: false
+        },
+        {
+            id: 2323529,
+            name: 'income2',
+            amount: 200,
+            cycle: CalCycle.MONTHLY,
+            active: true
+        }
+        ],
+        constantExpense: [
+        {
+            id: 2223521,
+            name :  'expense1',
+            amount : 100,
+            cycle : CalCycle.MONTHLY,
+            active: true
+        },
+        {
+            id: 2223522,
+            name : 'expense2',
+            amount : 100,
+            cycle : CalCycle.MONTHLY,
+            active: true
+        },
+        {
+            id: 2225652,
+            name : 'expense3',
+            amount : 100,
+            cycle : CalCycle.MONTHLY,
+            active: true
+        }
+        ],
+        periodicalVariable: [
+        {
+            id: 2223512,
+            name : 'p1',
+            amount : -100,
+            cycle : CalCycle.MONTHLY,
+            affectiveMonth : [1, 2, 3],
+            active: true
+        },
+        {
+            id: 2223522,
+            name : 'p2',
+            amount : 300,
+            cycle : CalCycle.ANNUALLY,
+            affectiveMonth : [4],
+            active: true
+        }
+        ]
+    };
+
+    const fullOutputWithInactive = [
+        {
+        name: '1',
+        value: -200
+        },
+        {
+        name: '2',
+        value: -400
+        },
+        {
+        name: '3',
+        value: -600
+        },
+        {
+        name: '4',
+        value: -400
+        }
+    ];
 
     // Setup
     let service: CalculateService;
@@ -1180,6 +1297,11 @@ describe('Calculate Service', () => {
     it('#getBiWeeklyProjection with biWeeklyNoConstantInput and numberOfWeeks of 9  and biWeeklyNoConstantInput input should return biWeeklyNoConstantOutput', () => {
         expect(service.getBiWeeklyProjection(0, 1, 9, biWeeklyNoConstantInput)).toEqual(biWeeklyNoConstantOutput);
     });
+
+    it('#getBiWeeklyProjection with fullBiWeeklyPeriodicMonth6and12Input and numberOfWeeks of 26 input should return fullBiWeeklyPeriodicMonth6and12InputOutput', () => {
+        expect(service.getBiWeeklyProjection(0, 1, 26, biWeeklyPeriodicMonth6and12Input)).toEqual(biWeeklyPeriodicMonth6and12InputOutput);
+    });
+    
 
 
     /* ///////////////////////////////////// */
