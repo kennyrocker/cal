@@ -1,4 +1,5 @@
-<div class="periodic-item">
+<div class="periodic-item" [ngClass]="{'drag-item-effect' : dragEffect}" draggable="true"
+    (dragstart)="dragItemStart()" (dragend)="dragItemEnd()">
 
     <label class="checkbox-label">
         <input type="checkbox" [checked]="itemData.active" class="item-checkbox"

@@ -11,7 +11,8 @@ const initialState: Entites = {
         lock: {
             full: false,
             scroll: false
-        }
+        },
+        dragItem: null
     },
     snapshot: [],
     collection: []
@@ -394,8 +395,25 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     ...state.ui,
                     lock: action.lock
                 }
-            }    
-
+            };    
+        
+        case  CalDataActionTypes.UIitemDragAction :
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    dragItem: action.payload
+                }
+            };
+        
+        case CalDataActionTypes.UIitemDragClearAction :
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    dragItem: null
+                }
+            };    
 
         /* Fall back */
         default:

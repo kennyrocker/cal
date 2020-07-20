@@ -4,14 +4,14 @@
     "lastUpdated": 1587759094366,
     "constantIncome":[
       {
-        "id":728114984,
+        "id":711844984,
         "name":"condo rental",
         "amount":1900,
         "cycle":12,
         "active":true
       },
       {
-        "id":2323523,
+        "id":152303923,
         "name":"paycheck",
         "amount":2700,
         "cycle":26,
@@ -20,98 +20,98 @@
     ],
     "constantExpense":[
       {
-        "id":305430753,
+        "id":539034543,
         "name":"presdro",
         "amount":225,
         "cycle":12,
         "active":true
       },
       {
-        "id":280680652,
+        "id":693853352,
         "name":"wify pocket money",
         "amount":300,
         "cycle":12,
         "active":true
       },
       {
-        "id":356665119,
+        "id":34305119,
         "name":"family saving fund",
         "amount":1000,
         "cycle":12,
         "active":true
       },
       {
-        "id":886787861,
+        "id":92787031,
         "name":"house expense",
         "amount":3000,
         "cycle":12,
         "active":true
       },
       {
-        "id":713992392,
+        "id":71894392,
         "name":"benz insurance",
         "amount":275,
         "cycle":12,
         "active":true
       },
       {
-        "id":487546491,
+        "id":12802361,
         "name":"condo insurance",
         "amount":12,
         "cycle":12,
         "active":true
       },
       {
-        "id":2223521,
+        "id":98241521,
         "name":"mortage",
         "amount":935,
         "cycle":12,
         "active":true
       },
       {
-        "id":2223522,
+        "id":7862522,
         "name":"condoFee",
         "amount":404,
         "cycle":12,
         "active":true
       },
       {
-        "id":2223523,
+        "id":15835223,
         "name":"bmw Insurance",
         "amount":122,
         "cycle":12,
         "active":true
       },
       {
-        "id":2223524,
+        "id":5825524,
         "name":"house Insurance",
         "amount":36,
         "cycle":12,
         "active":true
       },
       {
-        "id":2213524,
+        "id":12163524,
         "name":"cellPhoneBill",
         "amount":55,
         "cycle":12,
         "active":true
       },
       {
-        "id":2223526,
+        "id":23473226,
         "name":"internetBill",
         "amount":50,
         "cycle":12,
         "active":true
       },
       {
-        "id":2223528,
+        "id":2263428,
         "name":"bmw gas",
         "amount":120,
         "cycle":12,
         "active":true
       },
       {
-        "id":2243558,
+        "id":27233558,
         "name":"lunch",
         "amount":250,
         "cycle":12,
@@ -120,7 +120,7 @@
     ],
     "periodicalVariable":[
       {
-        "id":4253512,
+        "id":4253412,
         "name":"condo property tax",
         "amount":-247,
         "cycle":12,
@@ -135,7 +135,7 @@
         ]
       },
       {
-        "id":2223512,
+        "id":123560512,
         "name":"auto repair",
         "amount":-100,
         "cycle":12,
@@ -147,7 +147,7 @@
         "active":true
       },
       {
-        "id": 354572562,
+        "id": 7323872521,
         "name": "stock share vesting",
         "amount": 6500,
         "cycle": 1,

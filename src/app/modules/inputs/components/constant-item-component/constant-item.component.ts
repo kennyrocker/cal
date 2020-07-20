@@ -9,10 +9,11 @@ import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChang
 import * as reducerRoot from '../../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
-   DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction } from 'src/app/actions/calData.action';
+   DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction, UIitemDragAction } from 'src/app/actions/calData.action';
 import { Constant } from '../../../../constants/constant';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import { DragItem } from 'src/app/constants/interfaces/drag-item';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
 
+  public dragEffect: boolean;
   public groupType = InputGroup;
   private calCycleEnum = CalCycle;
   public cycleArr = [];
@@ -163,6 +165,23 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
       this.store.dispatch(new UpdateConstantExpenseItemAction(this.projectionId, this.constantForm.value));
     }
     this.update.emit(true);
+  }
+
+
+  /* Drag and Drop */
+  public dragItemStart(): void {
+      this.dragEffect = true;
+      const type = this.isIncome ? InputGroup.CONSTANT_INCOME : InputGroup.CONSTANT_EXPENSE;
+      const payload: DragItem = {
+          projectionId: this.projectionId,
+          type: type,
+          ...this.itemData
+      };
+      this.store.dispatch(new UIitemDragAction(payload));
+  }
+
+  public dragItemEnd(): void {
+      this.dragEffect = false;
   }
 
 }

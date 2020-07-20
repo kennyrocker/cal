@@ -5,6 +5,7 @@ import { FixItem } from 'src/app/constants/interfaces/fix-item';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { Snapshot } from 'src/app/constants/interfaces/snapshot';
 import { Lock } from '../constants/interfaces/lock';
+import { DragItem } from '../constants/interfaces/drag-item';
 
 export enum CalDataActionTypes {
     GetAllProjectionSnapshot = '[Get All Projection Snapshot] Get',
@@ -44,7 +45,10 @@ export enum CalDataActionTypes {
     DeleteProjectionFromCollection = '[Delete Projection From Collection] Delete',
     SnapShotSelectedUpdateUI = '[Snapshot Selected UI] Update',
     UIUpdateLock = '[UI Update Lock] Update',
-    RollBackProjection = '[Projection] RollBack'
+    RollBackProjection = '[Projection] RollBack',
+    UIitemDragAction = '[UI Item] Drag',
+    UIitemDragClearAction = '[Ui Item] Drag Clear',
+    UIitemDropAction = '[UI item] Drop'
 }
 
 
@@ -230,6 +234,20 @@ export class RollBackProjectionAction implements Action {
     constructor(public payload: CalData) {}
 }
 
+export class UIitemDragAction implements Action {
+    readonly type = CalDataActionTypes.UIitemDragAction;
+    constructor(public payload: DragItem) {}
+}
+
+export class UIitemDragClearAction implements Action {
+    readonly type = CalDataActionTypes.UIitemDragClearAction;
+}
+
+export class UIitemDropAction implements Action {
+    readonly type = CalDataActionTypes.UIitemDropAction;
+    constructor(public payload: any) {}
+}
+
 
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
@@ -247,4 +265,5 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction
  | SnapShotSelectedUpdateUIAction | DeleteProjectionFromSnapshotAction | DeleteProjectionFromCollectionAction
- | UIUpdateLockAction | RollBackProjectionAction;
+ | UIUpdateLockAction | RollBackProjectionAction
+ | UIitemDragAction | UIitemDragClearAction | UIitemDropAction;

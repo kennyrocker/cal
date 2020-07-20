@@ -21,43 +21,53 @@
       <button class="primary-button" (click)="handleSave()">Save Projection</button>
   </div>
 
-  <section class="input-section constant-income">
+  <section class="input-section constant-income" (dragover)="dragOver($event)" (drop)="dragItemPickup(groupType.CONSTANT_INCOME)">
     <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
     <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
-    <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
-      <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-            [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
-        </app-constant-item-component>
+    <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)" 
+        [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
+      <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
+        <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
+          <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+              [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
+          </app-constant-item-component>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="input-section constant-expense">
+  <section class="input-section constant-expense" (drop)="dragItemPickup(groupType.CONSTANT_EXPENSE)">
     <div class="group-title">{{groupType.CONSTANT_EXPENSE}}</div>
     <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
-    <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
-      <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-        <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-            [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
-        </app-constant-item-component>
+    <div (dragover)="dragOver($event, groupType.CONSTANT_EXPENSE)" (dragend)="dragEnd($event)"
+        [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
+      <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
+        <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
+          <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+              [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
+          </app-constant-item-component>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="input-section periodic-variable">
+  <section class="input-section periodic-variable" (drop)="dragItemPickup(groupType.PERIODICAL_VARIBLE)">
     <div class="group-title">{{groupType.PERIODICAL_VARIBLE}}</div>
     <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.PERIODICAL_VARIBLE"></app-quick-input-component>
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
-    <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
-      <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-        <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
-            [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
-        </app-periodic-item-component>
+    <div (dragover)="dragOver($event, groupType.PERIODICAL_VARIBLE)" (dragend)="dragEnd($event)"
+        [ngClass]="{ 'periodic-drop-section-effect' : periodicDropEffect }">
+      <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
+        <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
+          <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
+              [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
+          </app-periodic-item-component>
+        </div>
       </div>
     </div>
+    
   </section>
   
   <!--TODO:: STATIC_VARIBLE-->

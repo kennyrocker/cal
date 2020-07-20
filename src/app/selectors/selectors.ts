@@ -58,3 +58,8 @@ export const getUILock = createSelector(
     (state: any) => state.calData.ui.lock,
     (lock) => lock
 )
+
+export const getUIdragItem = createSelector(
+    (state: any) => state.calData.ui.dragItem,
+    (dragItem) => dragItem
+)

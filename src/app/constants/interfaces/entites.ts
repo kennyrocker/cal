@@ -7,6 +7,7 @@ export interface Entites {
     snapshotLoaded: boolean;
     snapshotSelected: string[];
     lock: Lock;
+    dragItem: any;
   };
   snapshot: Snapshot[];
   collection: CalData[];

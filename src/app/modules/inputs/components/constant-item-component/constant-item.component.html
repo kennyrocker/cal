@@ -1,5 +1,6 @@
-<div class="constant-item">
-
+<div class="constant-item" [ngClass]="{'drag-item-effect' : dragEffect}" draggable="true" 
+    (dragstart)="dragItemStart()" (dragend)="dragItemEnd()">
+  
   <label class="checkbox-label">
     <input type="checkbox" [checked]="itemData.active" class="item-checkbox"
           (change)=bindActiveChangeSubject(!itemData.active) />

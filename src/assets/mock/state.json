@@ -8,7 +8,8 @@
         "lock": {
             "full": false,
             "scroll": false
-        }
+        },
+        "dragItem": null
     },
 
     "snapshot" : [

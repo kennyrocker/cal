@@ -5,13 +5,14 @@ import { MapperUtil } from 'src/app/utils/mapper-util';
 
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../../reducers/index';
-import { DeletePeriodicalVariableItemAction, UpdatePeriodicalVariableItemAction } from 'src/app/actions/calData.action';
+import { DeletePeriodicalVariableItemAction, UpdatePeriodicalVariableItemAction, UIitemDragAction } from 'src/app/actions/calData.action';
 import { debounceTime} from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { Subject, Subscription } from 'rxjs';
 import { Constant } from '../../../../constants/constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import { DragItem } from 'src/app/constants/interfaces/drag-item';
 
 @Component({
   selector: 'app-periodic-item-component',
@@ -28,6 +29,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('itemGroupType') itemGroupType: InputGroup;
 
+  public dragEffect: boolean;
   private calCycleEnum = PeriodCalCycleUI;
   public cycleArr = [];
   public affectiveMonth: string;
@@ -203,6 +205,21 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   public removeItem(): void {
     this.store.dispatch(new DeletePeriodicalVariableItemAction(this.projectionId, this.itemData.id));
     this.update.emit(true);
+  }
+
+  /* Drag and Drop */
+  public dragItemStart(): void {
+    this.dragEffect = true;
+    const payload: DragItem = {
+        projectionId: this.projectionId,
+        type: InputGroup.PERIODICAL_VARIBLE,
+        ...this.itemData
+    };
+    this.store.dispatch(new UIitemDragAction(payload));
+  }
+
+  public dragItemEnd(): void {
+    this.dragEffect = false;
   }
 
 }

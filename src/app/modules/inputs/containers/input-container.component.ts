@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
@@ -6,8 +6,7 @@ import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction,
    UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction,
-   UIUpdateLockAction,
-   RollBackProjectionAction} from 'src/app/actions/calData.action';
+   UIUpdateLockAction, RollBackProjectionAction, UIitemDropAction } from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
@@ -17,6 +16,9 @@ from 'src/app/modules/inputs/components/constant-item-component/constant-item.co
 import { PeriodicItemComponent }
 from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
 import { ModalType } from 'src/app/constants/enums/modal-type';
+import { Subscription } from 'rxjs';
+import { getUIdragItem } from 'src/app/selectors/selectors';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -25,7 +27,7 @@ import { ModalType } from 'src/app/constants/enums/modal-type';
   styleUrls: ['./input-container.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputContainerComponent implements OnInit {
+export class InputContainerComponent implements OnInit, OnDestroy {
 
   @ViewChild(NameComponent) nameCmp: NameComponent;
   @ViewChildren(ConstantItemComponent) constantCmps: QueryList<ConstantItemComponent>;
@@ -41,12 +43,15 @@ export class InputContainerComponent implements OnInit {
   @Input('compareIndex')
   public compareIndex: number;
 
+  public constantDropEffect: boolean;
+  public periodicDropEffect: boolean;
   public modalType = ModalType;
   public groupType = InputGroup;
   private backUrl: string;
   private hasUpdatedItem = false;
   private saved = false;
-
+  private dragItemSub: Subscription;
+  private dragItem: any;
   private rollBackData: CalData;
 
   // back modal
@@ -60,6 +65,17 @@ export class InputContainerComponent implements OnInit {
   public ngOnInit(): void {
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.rollBackData =  this.data;
+    this.dragItemSub = this.store.select(getUIdragItem).pipe(
+          distinctUntilChanged(),
+          debounceTime(500),
+        ).subscribe((item) => {
+            this.dragItem = item;
+        }
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.dragItemSub.unsubscribe();
   }
 
   public addConstantIncomeItem(): void {
@@ -159,6 +175,36 @@ export class InputContainerComponent implements OnInit {
 
   private resetValidation(): void {
     this.hasUpdatedItem = false;
+  }
+
+  /* Drag and Drop */
+  public dragEnd(e): void {
+      e.preventDefault();
+  }
+
+  public dragOver(e, groupType: InputGroup): void {
+      e.preventDefault();
+      if (!this.dragItem) return;
+      if (this.data.id !== this.dragItem.projectionId) {
+          if ((groupType === InputGroup.CONSTANT_INCOME || groupType === InputGroup.CONSTANT_EXPENSE) 
+              && (this.dragItem.type === InputGroup.CONSTANT_INCOME || this.dragItem.type === InputGroup.CONSTANT_EXPENSE)) {
+            this.constantDropEffect = true;
+            this.periodicDropEffect = false;
+          } else if (groupType === InputGroup.PERIODICAL_VARIBLE && this.dragItem.type === InputGroup.PERIODICAL_VARIBLE) {
+            this.periodicDropEffect = true;
+            this.constantDropEffect = false;
+          }
+      } else {
+          this.constantDropEffect = false;
+          this.periodicDropEffect = false;
+      }
+  }
+
+  public dragItemPickup(groupType: InputGroup): void {
+      if (!this.dragItem) return;
+      this.constantDropEffect = false;
+      this.periodicDropEffect = false;
+      this.store.dispatch(new UIitemDropAction( { type: groupType,  projectionId: this.data.id, item: this.dragItem } ));
   }
 
 }
