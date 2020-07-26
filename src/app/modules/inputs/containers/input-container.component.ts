@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
@@ -40,8 +40,15 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   @Input('isNewProjection')
   public isNewProjection: boolean;
   // tslint:disable-next-line:no-input-rename
-  @Input('compareIndex')
-  public compareIndex: number;
+  @Input('constantIncomeMaxRow')
+  public constantIncomeMaxRow: number;
+  // tslint:disable-next-line:no-input-rename
+  @Input('constantExpenseMaxRow')
+  public constantExpenseMaxRow: number;
+  // tslint:disable-next-line:no-input-rename
+  @Input('periodicMaxRow')
+  public periodicMaxRow: number;
+
 
   public constantDropEffect: boolean;
   public periodicDropEffect: boolean;
@@ -53,6 +60,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private dragItemSub: Subscription;
   private dragItem: any;
   private rollBackData: CalData;
+  private ITEM_HEIGHT = 50; // px
 
   // back modal
   public backModalShow = false;
@@ -62,7 +70,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
               private router: Router) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.rollBackData =  this.data;
     this.dragItemSub = this.store.select(getUIdragItem).pipe(
@@ -74,7 +82,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
     );
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.dragItemSub.unsubscribe();
   }
 
@@ -205,6 +213,17 @@ export class InputContainerComponent implements OnInit, OnDestroy {
       this.constantDropEffect = false;
       this.periodicDropEffect = false;
       this.store.dispatch(new UIitemDropAction( { type: groupType,  projectionId: this.data.id, item: this.dragItem } ));
+  }
+
+  public groupHeight(): any {
+      let income = `${this.constantIncomeMaxRow * this.ITEM_HEIGHT}px`;
+      let expense = `${this.constantExpenseMaxRow * this.ITEM_HEIGHT}px`;
+      let periodic = `${this.periodicMaxRow * this.ITEM_HEIGHT}px`;
+      return {
+        'income' : income,
+        'expense' : expense,
+        'periodic' : periodic
+      };
   }
 
 }

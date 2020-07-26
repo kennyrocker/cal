@@ -21,6 +21,9 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     private projectionSub: Subscription;
     private routeSub: Subscription;
     public compares = [];
+    public constantIncomeMaxRow = 0;
+    public constantExpenseMaxRow = 0;
+    public periodicMaxRow = 0;
 
     constructor(private route: ActivatedRoute,
                 private store: Store<reducerRoot.CalDataState>) {
@@ -56,6 +59,7 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
             filter(collection => (collection !== undefined  && collection.length > 0))
         ).subscribe((collection) => {
             this.compares = collection;
+            this.setMaxRows(collection);
         });
 
     }
@@ -78,6 +82,14 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
             obj[i.toString()] = false; 
         })
         return obj;        
+    }
+    
+    private setMaxRows(collection: any): void {
+        collection.forEach( cal => {
+            this.constantIncomeMaxRow = Math.max(this.constantIncomeMaxRow, cal.constantIncome.length);
+            this.constantExpenseMaxRow = Math.max(this.constantExpenseMaxRow, cal.constantExpense.length);
+            this.periodicMaxRow = Math.max(this.periodicMaxRow, cal.periodicalVariable.length);
+        });
     }
 
 }

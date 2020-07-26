@@ -108,8 +108,9 @@ button {
 
 .periodic-drop-section-effect,
 .constant-drop-section-effect {
-    border: 1px dashed $orange-1;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: $orange-2;
+    border-radius: 3px;
 }
 
 
@@ -286,7 +287,8 @@ button {
       width: 100%;
     }
 
-    .group-items {
+    .constant-item,
+    .periodic-item {
       border-right: 1px solid $white-3;
     }
 

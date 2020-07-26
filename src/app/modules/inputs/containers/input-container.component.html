@@ -27,12 +27,14 @@
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
     <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)" 
         [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
-      <div *ngIf="data.constantIncome && data.constantIncome.length > 0" class="group-items">
-        <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-          <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-              [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
-          </app-constant-item-component>
-        </div>
+        <div class="group-items" [ngStyle]="{'min-height': groupHeight().income}">
+          <div *ngIf="data.constantIncome && data.constantIncome.length > 0">
+              <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
+                <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+                    [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
+                </app-constant-item-component>
+              </div>
+          </div>
       </div>
     </div>
   </section>
@@ -43,13 +45,15 @@
     <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
     <div (dragover)="dragOver($event, groupType.CONSTANT_EXPENSE)" (dragend)="dragEnd($event)"
         [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
-      <div *ngIf="data.constantExpense && data.constantExpense.length > 0" class="group-items">
-        <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-          <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-              [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
-          </app-constant-item-component>
+        <div class="group-items" [ngStyle]="{'min-height': groupHeight().expense}">
+            <div *ngIf="data.constantExpense && data.constantExpense.length > 0">
+                <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
+                    <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+                        [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
+                    </app-constant-item-component>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
   </section>
 
@@ -59,13 +63,15 @@
     <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
     <div (dragover)="dragOver($event, groupType.PERIODICAL_VARIBLE)" (dragend)="dragEnd($event)"
         [ngClass]="{ 'periodic-drop-section-effect' : periodicDropEffect }">
-      <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" class="group-items">
-        <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-          <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
-              [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
-          </app-periodic-item-component>
+        <div class="group-items" [ngStyle]="{'min-height': groupHeight().periodic}">
+            <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" >
+                <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
+                    <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
+                        [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
+                    </app-periodic-item-component>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     
   </section>
