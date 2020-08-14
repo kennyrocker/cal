@@ -4,11 +4,11 @@
     <!-- <div class="sign-up-method">
         <button class="primary-button">Sign up with google</button>
     </div>
-    
+
     <div class="separator">or</div>
 
     <div class="sign-up-method">
-        <button class="primary-button">Sign up with facebook</button>   
+        <button class="primary-button">Sign up with facebook</button>
     </div>
 
     <div class="separator">or</div> -->
@@ -17,15 +17,27 @@
 
         <form name="signupForm" [formGroup]="signupForm" class="account-form">
 
+            <div *ngIf="registerSuccess" class="success-message">
+                Register successful, login in 3 sec!
+            </div>
+
+            <div *ngIf="registerError" class="error-message">
+                Register failed, please try later!
+            </div>
+
             <div class="account-field" [ngClass]="{'field-error' :
                         signupForm.get('email').touched && signupForm.get('email').invalid}">
 
-                <input #email type="text" placeholder="email" formControlName="email" 
+                <input #email type="text" placeholder="email" formControlName="email"
                         (keyup)="bindEmailChangeSubject(email.value)">
 
-                <div *ngIf="signupForm.get('email').touched && signupForm.get('email').invalid"
+                <div *ngIf="signupForm.get('email').touched && signupForm.get('email').invalid && !signupForm.get('email').hasError('notUnique')"
                     class="field-message"><div class="tip"></div>
                     email is required
+                </div>
+                <div *ngIf="signupForm.get('email').touched && signupForm.get('email').hasError('notUnique')"
+                     class="field-message"><div class="tip"></div>
+                    email already existed
                 </div>
 
             </div>

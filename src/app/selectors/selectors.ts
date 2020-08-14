@@ -1,5 +1,10 @@
 import {createSelector } from '@ngrx/store';
 
+export const getUser = createSelector(
+   (state: any) => state.calData.user,
+  (user) => user
+);
+
 export const isSnapShotsLoaded = createSelector(
     (state: any) => state.calData.ui.snapshotLoaded,
     (loaded) => loaded
@@ -36,7 +41,7 @@ export const isProjectionsExistedFromCollection = createSelector(
             if (collections.find(i => i.id === obj)) {
                 delete map[obj];
             }
-        } 
+        }
         return map;
     }
 );
@@ -51,7 +56,7 @@ export const getProjectionsByIds = createSelector(
 // UI selector
 export const getSnapshotSelected = createSelector(
     (state: any) => state.calData.ui.snapshotSelected,
-    (snapshotSelected) => snapshotSelected 
+    (snapshotSelected) => snapshotSelected
 )
 
 export const getUILock = createSelector(

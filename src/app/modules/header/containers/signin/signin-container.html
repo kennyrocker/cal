@@ -1,18 +1,29 @@
 <div class="tab-content">
-    
+
     <div class="sign-in-method">
 
         <form name="signinForm" [formGroup]="signinForm" class="account-form">
 
+            <div *ngIf="signInError" class="error-message">
+                Login failed, please try later!
+            </div>
+
             <div class="account-field" [ngClass]="{'field-error' :
                         signinForm.get('email').touched && signinForm.get('email').invalid}">
 
-                <input #email type="text" placeholder="email" formControlName="email" 
+                <input #email type="text" placeholder="email" formControlName="email"
                         (keyup)="bindEmailChangeSubject(email.value)">
 
-                <div *ngIf="signinForm.get('email').touched && signinForm.get('email').invalid"
+                <div *ngIf="signinForm.get('email').touched && signinForm.get('email').invalid
+                        && !signinForm.get('email').hasError('invalidEmail')"
                     class="field-message"><div class="tip"></div>
                     email is required
+                </div>
+
+                <div *ngIf="signinForm.get('email').touched && signinForm.get('email').invalid
+                          && signinForm.get('email').hasError('invalidEmail')"
+                     class="field-message"><div class="tip"></div>
+                    email invalid
                 </div>
 
             </div>
@@ -23,9 +34,16 @@
                 <input #password type="password" placeholder="password"formControlName="password"
                         (keyup)="bindPasswordChangeSubject(password.value)">
 
-                <div *ngIf="signinForm.get('password').touched && signinForm.get('password').invalid"
+                <div *ngIf="signinForm.get('password').touched && signinForm.get('password').invalid &&
+                          !signinForm.get('password').hasError('invalidPassword')"
                     class="field-message"><div class="tip"></div>
                     password is required
+                </div>
+
+                <div *ngIf="signinForm.get('password').touched && signinForm.get('password').invalid
+                          && signinForm.get('password').hasError('invalidPassword')"
+                     class="field-message"><div class="tip"></div>
+                    password invalid
                 </div>
             </div>
 
@@ -33,7 +51,7 @@
 
             <button class="primary-button" (click)="signinClick()">Sign in</button>
 
-        </form>    
+        </form>
 
     </div>
 

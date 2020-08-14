@@ -10,6 +10,7 @@ import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { ShareModule } from 'src/app/modules/share/app.share.module';
 
 import { SnapshotContainerComponent } from 'src/app/modules/snapshot/containers/snapshot-container.component';
+import {UIEffects} from '../../effects/ui.effect';
 
 
 const routes: Routes = [
@@ -25,7 +26,7 @@ const routes: Routes = [
         ShareModule,
         RouterModule.forChild(routes),
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects])
+        EffectsModule.forRoot([CalDataEffects, UIEffects])
     ]
 })
 export class SnapshotModule {}

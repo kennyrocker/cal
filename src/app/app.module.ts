@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/app/reducers';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
+import { UserEffects } from './effects/user.effect';
+import { UIEffects } from './effects/ui.effect';
 import { EffectsModule } from '@ngrx/effects';
 
 // Modules
@@ -20,6 +22,8 @@ import { ShareModule } from './modules/share/app.share.module';
 // Services
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
+import { TokenService } from './services/auth/token';
+import { CookieModule, CookieService } from 'ngx-cookie';
 
 // 3d Party
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -27,7 +31,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LockModule } from './modules/lock/app-lock.module';
-
 
 
 @NgModule({
@@ -48,7 +51,7 @@ import { LockModule } from './modules/lock/app-lock.module';
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
-    EffectsModule.forRoot([CalDataEffects])
+    EffectsModule.forRoot([CalDataEffects, UserEffects, UIEffects])
   ],
   providers: [
     CalculateService,

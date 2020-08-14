@@ -5,6 +5,11 @@ import { Entites } from 'src/app/constants/interfaces/entites';
 
 
 const initialState: Entites = {
+    user: {
+        id: null,
+        userName: null,
+        email: null
+    },
     ui: {
         snapshotLoaded: false,
         snapshotSelected: [],
@@ -70,7 +75,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     ...state.collection,
                     ...action.payload
                 ]
-            };  
+            };
 
 
         /* Add Blank */
@@ -222,7 +227,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     }
                 })
             };
-        
+
         case CalDataActionTypes.DeleteProjectionFromSnapshots :
             return {
                 ...state,
@@ -233,8 +238,8 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
             return {
                 ...state,
                 collection: state.collection.filter(i => i.id !== action.projectionId)
-            }; 
-            
+            };
+
 
         /* Add Multi */
         case CalDataActionTypes.BulkAddConstantIncomeItem :
@@ -365,7 +370,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 })
             };
 
-        /* Projection RollBack */    
+        /* Projection RollBack */
         case CalDataActionTypes.RollBackProjection :
             return {
                 ...state,
@@ -395,8 +400,8 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     ...state.ui,
                     lock: action.lock
                 }
-            };    
-        
+            };
+
         case  CalDataActionTypes.UIitemDragAction :
             return {
                 ...state,
@@ -405,7 +410,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     dragItem: action.payload
                 }
             };
-        
+
         case CalDataActionTypes.UIitemDragClearAction :
             return {
                 ...state,
@@ -413,7 +418,14 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     ...state.ui,
                     dragItem: null
                 }
-            };    
+            };
+
+        /* User Update */
+      case CalDataActionTypes.UpdateUser :
+        return {
+            ...state,
+            user: action.user
+        };
 
         /* Fall back */
         default:

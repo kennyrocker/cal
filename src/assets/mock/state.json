@@ -1,4 +1,11 @@
 {
+
+    "user": {
+        "email": "kennyrocker82@gmail.com",
+        "id": "5f3591d6533209bb0a8325d2",
+        "userName": "kenny"
+    },
+
     "ui" : {
         "snapshotLoaded" : true,
         "snapshotSelected" : [
@@ -13,7 +20,7 @@
     },
 
     "snapshot" : [
-        
+
         {
             "id": "106363041",
             "name": "Copper CRM",
@@ -30,7 +37,7 @@
     ],
 
     "collection" : [
-        
+
         {
             "id": "106363041",
             "name": "Company A",

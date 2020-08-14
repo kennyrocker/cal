@@ -17,6 +17,7 @@ import { DisplayModule } from 'src/app/modules/display/app.display.module';
 
 // Route
 import { RouterModule, Routes } from '@angular/router';
+import {UIEffects} from '../../effects/ui.effect';
 
 
 const routes: Routes = [
@@ -34,7 +35,7 @@ const routes: Routes = [
         InputsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects])
+        EffectsModule.forRoot([CalDataEffects, UIEffects])
     ]
 })
 export class ProjectionModule { }

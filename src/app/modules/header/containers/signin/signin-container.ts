@@ -1,8 +1,13 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Constant } from 'src/app/constants/constant';
+import {ActionsSubject, Store} from '@ngrx/store';
+import * as reducerRoot from '../../../../reducers';
+import { CalDataActionTypes, PostUserLoginAction } from '../../../../actions/calData.action';
+import { ofType } from '@ngrx/effects';
+import {HttpStatus} from '../../../../constants/enums/http-status';
 
 @Component({
     selector: 'app-signin',
@@ -10,13 +15,20 @@ import { Constant } from 'src/app/constants/constant';
     styleUrls: ['./signin-container.scss']
 })
 export class SigninContainer implements OnInit, OnDestroy {
-    
+
     public signinForm: FormGroup;
     private emailChangeSub: Subscription;
     private emailChangeSubject = new Subject<any>();
     private passwordChangeSub: Subscription;
     private passwordChangeSubject = new Subject<any>();
+    private signInFailedSubject = new Subject<any>();
+    public signInError = false;
 
+    constructor(
+        private actionsSubject: ActionsSubject,
+        private store: Store<reducerRoot.CalDataState>) {
+        this.initSignInSub();
+    }
 
     ngOnInit() {
         this.initForm();
@@ -34,6 +46,8 @@ export class SigninContainer implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.emailChangeSub.unsubscribe();
         this.passwordChangeSub.unsubscribe();
+        this.signInFailedSubject.next();
+        this.signInFailedSubject.complete();
     }
 
     private initForm(): void {
@@ -43,14 +57,14 @@ export class SigninContainer implements OnInit, OnDestroy {
         });
     }
 
-    private initSub(): void { 
+    private initSub(): void {
         this.emailChangeSub = this.emailChangeSubject.pipe(
                 debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                 distinctUntilChanged()
             ).subscribe((value) => {
                 this.signinForm.patchValue({email: value});
             });
-     
+
         this.passwordChangeSub = this.passwordChangeSubject.pipe(
                 debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                 distinctUntilChanged()
@@ -59,11 +73,28 @@ export class SigninContainer implements OnInit, OnDestroy {
             });
     }
 
+    private initSignInSub(): void {
+        this.actionsSubject.pipe(
+            ofType(CalDataActionTypes.PostUserLoginFailed),
+            takeUntil(this.signInFailedSubject)
+        ).subscribe((res: any) => {
+            if (res && res.error && res.error.status === HttpStatus.BAD_REQUEST) {
+                this.signinForm.controls['email'].setErrors( { 'invalidEmail': true });
+            }
+            if (res && res.error && res.error.status === HttpStatus.ACCESS_DENIED) {
+                this.signinForm.controls['password'].setErrors( { 'invalidPassword': true });
+            }
+            if (res && res.error && res.error.status === HttpStatus.SERVER_ERROR) {
+                this.signInError = true;
+            }
+        });
+    }
+
     public signinClick(): void {
+        this.signInError = false;
         this.signinForm.markAllAsTouched();
         if (this.signinForm.invalid) return;
-        console.log(this.signinForm.value);
-        // dispatch action
+        this.store.dispatch(new PostUserLoginAction(this.signinForm.value));
     }
 
 }

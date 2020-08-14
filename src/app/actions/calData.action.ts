@@ -6,6 +6,7 @@ import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { Snapshot } from 'src/app/constants/interfaces/snapshot';
 import { Lock } from '../constants/interfaces/lock';
 import { DragItem } from '../constants/interfaces/drag-item';
+import { Login, User, UserState } from '../constants/interfaces/user';
 
 export enum CalDataActionTypes {
     GetAllProjectionSnapshot = '[Get All Projection Snapshot] Get',
@@ -48,7 +49,14 @@ export enum CalDataActionTypes {
     RollBackProjection = '[Projection] RollBack',
     UIitemDragAction = '[UI Item] Drag',
     UIitemDragClearAction = '[Ui Item] Drag Clear',
-    UIitemDropAction = '[UI item] Drop'
+    UIitemDropAction = '[UI item] Drop',
+    PostUser = '[User] Post',
+    PostUserSuccess = '[User] Post Success',
+    PostUserFailed = '[User] Post Failed',
+    PostUserLogin = '[User Login] Post',
+    PostUserLoginFailed = '[User Login] Post Failed',
+    UpdateUser = '[User] Update',
+    UserLogOut = '[User] LogOut'
 }
 
 
@@ -248,6 +256,39 @@ export class UIitemDropAction implements Action {
     constructor(public payload: any) {}
 }
 
+export class PostUserAction implements Action {
+  readonly type = CalDataActionTypes.PostUser;
+  constructor(public payload: User) {}
+}
+
+export class PostUserSuccessAction implements Action {
+  readonly type = CalDataActionTypes.PostUserSuccess;
+  constructor(public payload: any) {}
+}
+
+export class PostUserFailedAction implements Action {
+  readonly type = CalDataActionTypes.PostUserFailed;
+  constructor(public error: any) {}
+}
+
+export class PostUserLoginAction implements Action {
+  readonly type = CalDataActionTypes.PostUserLogin;
+  constructor(public payload: Login) {}
+}
+
+export class PostUserLoginFailedAction implements Action {
+  readonly type = CalDataActionTypes.PostUserLoginFailed;
+  constructor(public error: any) {}
+}
+
+export class UpdateUserAction implements Action {
+  readonly type = CalDataActionTypes.UpdateUser;
+  constructor(public user: UserState) {}
+}
+
+export class UserLogOutAction implements Action {
+  readonly type = CalDataActionTypes.UserLogOut;
+}
 
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
@@ -266,4 +307,7 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction
  | SnapShotSelectedUpdateUIAction | DeleteProjectionFromSnapshotAction | DeleteProjectionFromCollectionAction
  | UIUpdateLockAction | RollBackProjectionAction
- | UIitemDragAction | UIitemDragClearAction | UIitemDropAction;
+ | UIitemDragAction | UIitemDragClearAction | UIitemDropAction
+ | PostUserAction | PostUserSuccessAction | PostUserFailedAction
+ | PostUserLoginAction | PostUserLoginFailedAction | UserLogOutAction
+ | UpdateUserAction;

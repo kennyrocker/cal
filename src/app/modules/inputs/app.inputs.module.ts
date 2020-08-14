@@ -15,6 +15,7 @@ import { ConstantItemComponent } from './components/constant-item-component/cons
 import { InputContainerComponent } from './containers/input-container.component';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 import { ShareModule } from '../share/app.share.module';
+import {UIEffects} from '../../effects/ui.effect';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { ShareModule } from '../share/app.share.module';
         ReactiveFormsModule,
         ShareModule,
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects])
+        EffectsModule.forRoot([CalDataEffects, UIEffects])
     ],
     exports: [
         InputContainerComponent

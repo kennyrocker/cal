@@ -9,4 +9,5 @@ export class Constant {
   public static DISPLAY_CHART_SCHEME_MULTI = {
     domain: ['#31393C',  '#33A1FD', '#FBB13C', '#8A817C', '#2176FF']
   };
+  public static ACCESS_TOKEN = 'access_token';
 }

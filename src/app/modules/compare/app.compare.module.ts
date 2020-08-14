@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/app/reducers';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { EffectsModule } from '@ngrx/effects';
+import {UIEffects} from '../../effects/ui.effect';
 
 const routes: Routes = [
     { path: 'compare', component: CompareContainerComponent }
@@ -29,7 +30,7 @@ const routes: Routes = [
         InputsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects])
+        EffectsModule.forRoot([CalDataEffects, UIEffects])
     ]
 })
 export class CompareModule { }
