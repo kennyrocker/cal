@@ -10,4 +10,5 @@ export class Constant {
     domain: ['#31393C',  '#33A1FD', '#FBB13C', '#8A817C', '#2176FF']
   };
   public static ACCESS_TOKEN = 'access_token';
+  public static TEMP_PROJECTION_ID = 'temp_id';
 }

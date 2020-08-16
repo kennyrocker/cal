@@ -3,7 +3,7 @@ import { StandarItem } from 'src/app/constants/interfaces/standar-item';
 import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
 import { FixItem } from 'src/app/constants/interfaces/fix-item';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
-import { Snapshot } from 'src/app/constants/interfaces/snapshot';
+import { CalSnapShot } from 'src/app/constants/interfaces/cal-snap-shot';
 import { Lock } from '../constants/interfaces/lock';
 import { DragItem } from '../constants/interfaces/drag-item';
 import { Login, User, UserState } from '../constants/interfaces/user';
@@ -38,7 +38,8 @@ export enum CalDataActionTypes {
     PostProjection = '[Post Projection] Post',
     PostProjectionSuccess = '[Post Projection] Post Success',
     UpdateSnapShot = '[Update Snapshot] Update',
-    AddProjection = '[Add Projection] Add',
+    AddBlankProjection = '[Blank Projection] Add',
+    AddProjection = '[Projection] Add',
     AddSnapShot = '[Add SnapShot] Add',
     DeleteProjection = '[Delete Projection] Delete',
     DeleteProjectionFailed = '[Delete Projection] Delete Failed',
@@ -56,7 +57,8 @@ export enum CalDataActionTypes {
     PostUserLogin = '[User Login] Post',
     PostUserLoginFailed = '[User Login] Post Failed',
     UpdateUser = '[User] Update',
-    UserLogOut = '[User] LogOut'
+    UserLogOut = '[User] LogOut',
+    ResetState = '[State] Reset',
 }
 
 
@@ -100,12 +102,17 @@ export class GetProjectionBatchByIdsActionFailed implements Action {
 
 export class AddSnapShotAction implements Action {
     readonly type = CalDataActionTypes.AddSnapShot;
-    constructor(public snapshot: Snapshot) {}
+    constructor(public snapshot: CalSnapShot) {}
+}
+
+export class AddBlankProjectionAction implements Action {
+    readonly type = CalDataActionTypes.AddBlankProjection;
+    constructor(public projectionId: string) {}
 }
 
 export class AddProjectionAction implements Action {
-    readonly type = CalDataActionTypes.AddProjection;
-    constructor(public projectionId: string) {}
+  readonly type = CalDataActionTypes.AddProjection;
+  constructor(public projection: CalData) {}
 }
 
 export class AddConstantIncomeItemAction implements Action {
@@ -125,7 +132,7 @@ export class AddPeriodicalVariableItemAction implements Action {
 
 export class DeleteProjectionAction implements Action {
     readonly type = CalDataActionTypes.DeleteProjection;
-    constructor(public projectionId: string) {}
+    constructor(public projectionId: string, public deleteLocalOnly?: boolean) {}
 }
 
 export class DeleteConstantIcomeItemAction implements Action {
@@ -200,7 +207,7 @@ export class UpdatePorjectionAction implements Action {
 
 export class PostProjectionAction implements Action {
     readonly type = CalDataActionTypes.PostProjection;
-    constructor(public projection: CalData) {}
+    constructor(public userId, public projection: CalData) {}
 }
 
 export class PostProjectionActionSuccess implements Action {
@@ -214,7 +221,7 @@ export class UpdatePorjectionActionFailed implements Action {
 
 export class UpdateSnapShotAction implements Action {
     readonly type = CalDataActionTypes.UpdateSnapShot;
-    constructor(public payload: Snapshot) {}
+    constructor(public payload: CalSnapShot) {}
 }
 
 export class SnapShotSelectedUpdateUIAction implements Action {
@@ -290,6 +297,10 @@ export class UserLogOutAction implements Action {
   readonly type = CalDataActionTypes.UserLogOut;
 }
 
+export class ResetStateAction implements Action {
+  readonly type = CalDataActionTypes.ResetState;
+}
+
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
@@ -300,7 +311,7 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
  | AddConstantExpenseItemAction | AddPeriodicalVariableItemAction
- | AddProjectionAction
+ | AddBlankProjectionAction | AddProjectionAction
  | BulkAddConstantIncomeItemAction | BulkAddConstantExpenseItemAction
  | BulkAddPeriodicalVariableItemAction | DeleteProjectionAction
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
@@ -309,5 +320,5 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | UIUpdateLockAction | RollBackProjectionAction
  | UIitemDragAction | UIitemDragClearAction | UIitemDropAction
  | PostUserAction | PostUserSuccessAction | PostUserFailedAction
- | PostUserLoginAction | PostUserLoginFailedAction | UserLogOutAction
+ | PostUserLoginAction | PostUserLoginFailedAction | UserLogOutAction | ResetStateAction
  | UpdateUserAction;

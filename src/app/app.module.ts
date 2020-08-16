@@ -17,13 +17,10 @@ import { AppRoutingModule } from 'src/app/app.routes';
 import { StaticModule } from 'src/app/modules/static/app.static.module';
 import { HeaderModule } from './modules/header/app.header.module';
 import { FooterModule } from './modules/footer/app.footer.module';
-import { ShareModule } from './modules/share/app.share.module';
 
 // Services
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
-import { CalDataService } from 'src/app/services/cal-data/cal-data-service';
-import { TokenService } from './services/auth/token';
-import { CookieModule, CookieService } from 'ngx-cookie';
+import { Projection } from 'src/app/services/projection/projection';
 
 // 3d Party
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -55,7 +52,7 @@ import { LockModule } from './modules/lock/app-lock.module';
   ],
   providers: [
     CalculateService,
-    CalDataService
+    Projection
   ],
   bootstrap: [AppComponent]
 })

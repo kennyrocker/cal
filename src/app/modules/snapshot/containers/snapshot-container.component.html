@@ -1,9 +1,9 @@
 <div class="snapshot">
     <div class="snapshot-filter">
-        <button *ngIf="snapshotSelected.length > 1" 
+        <button *ngIf="snapshotSelected.length > 1"
                 class="primary-button" (click)="compare()">Compare Selected</button>
     </div>
-    
+
     <div class="snapshot-wrapper">
         <div class="snapshot-item create-button">
             <div class="top" (click)="createProjection()">
@@ -20,13 +20,13 @@
             </div>
             <div class="bottom">
                 <label class="checkbox-label">
-                    <input type="checkbox" [checked]="isItemSelected(item.id)" 
-                        class="action-checkbox" (change)=bindSelectionChangeSubject(item.id)/>
+                    <input type="checkbox" [checked]="isItemSelected(item.id)"
+                        class="action-checkbox" (change)="bindSelectionChangeSubject(item.id)" />
                     <span class="checkbox-custom"></span>
                 </label>
-                <span class="close-x" (click)="deleteProjection(item.id)"></span>
+                <span class="close-x" (click)="deleteProjection(item.id, $event)"></span>
             </div>
-            
+
         </div>
     </div>
 </div>

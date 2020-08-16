@@ -1,6 +1,6 @@
 import * as calData from './calData.reducer';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
-import { Snapshot } from 'src/app/constants/interfaces/snapshot';
+import { CalSnapShot } from 'src/app/constants/interfaces/cal-snap-shot';
 
 
 // TODO:: clean up

@@ -60,7 +60,7 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
 
         if (!this.tabs) return;
         this.tabs.forEach(item => {
-            let eleClass = item.nativeElement.className;
+            const eleClass = item.nativeElement.className;
             if (eleClass.indexOf(tabString) !== -1) {
                 if (eleClass.indexOf('tab-active') === -1) {
                     item.nativeElement.className = eleClass + ' tab-active';

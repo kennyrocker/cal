@@ -2,8 +2,7 @@ import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Subject } from 'rxjs/internal/Subject';
-import { Constant } from 'src/app/constants/constant';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ActionsSubject, Store } from '@ngrx/store';
 import * as reducerRoot from '../../../../reducers';
 import { PostUserAction } from '../../../../actions/calData.action';
@@ -79,24 +78,15 @@ export class SignupContainer implements OnInit, OnDestroy {
 
     private initFormSub(): void {
 
-        this.emailChangeSub = this.emailChangeSubject.pipe(
-                debounceTime(Constant.INPUT_DEBOUNCE_TIME),
-                distinctUntilChanged()
-            ).subscribe((value) => {
+        this.emailChangeSub = this.emailChangeSubject.subscribe((value) => {
                 this.signupForm.patchValue({email: value});
             });
 
-        this.userNameChangeSub = this.userNameChangeSubject.pipe(
-                debounceTime(Constant.INPUT_DEBOUNCE_TIME),
-                distinctUntilChanged()
-            ).subscribe((value) => {
+        this.userNameChangeSub = this.userNameChangeSubject.subscribe((value) => {
                 this.signupForm.patchValue({userName: value});
             });
 
-        this.passwordChangeSub = this.passwordChangeSubject.pipe(
-                debounceTime(Constant.INPUT_DEBOUNCE_TIME),
-                distinctUntilChanged()
-            ).subscribe((value) => {
+        this.passwordChangeSub = this.passwordChangeSubject.subscribe((value) => {
                 this.signupForm.patchValue({password: value});
             });
     }

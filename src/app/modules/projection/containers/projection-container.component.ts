@@ -7,8 +7,9 @@ import * as reducerRoot from '../../../reducers/index';
 import { filter } from 'rxjs/operators';
 import { select } from '@ngrx/store';
 import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
-import { GetProjectionByIdAction, AddProjectionAction } from 'src/app/actions/calData.action';
+import { GetProjectionByIdAction, AddBlankProjectionAction } from 'src/app/actions/calData.action';
 import { MapperUtil } from 'src/app/utils/mapper-util';
+import {Constant} from '../../../constants/constant';
 
 @Component({
     selector: 'app-projection-container',
@@ -53,9 +54,8 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
 
     private prepareNewProjection(): void {
         this.isNewProjection = true;
-        // TODO:: user real userid
-        this.projectionId = MapperUtil.generateProjectionId('userId');
-        this.store.dispatch(new AddProjectionAction(this.projectionId));
+        this.projectionId = Constant.TEMP_PROJECTION_ID;
+        this.store.dispatch(new AddBlankProjectionAction(this.projectionId));
     }
 
     private initProjectionSub(): void {

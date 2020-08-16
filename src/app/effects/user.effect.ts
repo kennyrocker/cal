@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Action } from '@ngrx/store';
 import {
   CalDataActionTypes, PostUserAction, PostUserLoginAction,
-  PostUserSuccessAction, UpdateUserAction, UserLogOutAction
+  PostUserSuccessAction, ResetStateAction, UpdateUserAction, UserLogOutAction
 } from '../actions/calData.action';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -56,7 +56,7 @@ export class UserEffects {
         ofType(CalDataActionTypes.UserLogOut),
         map((action: UserLogOutAction) => {
            this.tokenService.clearTokens();
-           return new UpdateUserAction({ id: null, email: null, userName: null });
+           return new ResetStateAction();
         })
     );
 

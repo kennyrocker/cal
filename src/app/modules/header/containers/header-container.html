@@ -9,7 +9,7 @@
             <div class="text-button" (click)="showModal(SIGN_UP);">Sign up</div>
         </span>
         <span *ngIf="hasLogin">
-            <span class="text">Hello {{userName}}</span>
+            <span class="text">Hello <span class="capitalize">{{ userName }}</span></span>
             <span class="text">/</span>
             <div class="text-button" (click)="logOut();">Sign out</div>
         </span>

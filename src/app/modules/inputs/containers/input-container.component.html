@@ -1,21 +1,21 @@
 <div *ngIf="data" class="input-wrapper">
-  
+
   <div class="input-heading">
       <!-- TODO:: only index 0 show back button, and style it -->
-      <div class="modal-anchor" *ngIf="!compareIndex && compareIndex !== 0">
+      <div class="modal-anchor">
           <button class="primary-button" (click)="backClick()">
               <span class="icon-back-arrow">&#8249;</span>Back
           </button>
-          <app-modal [show]="backModalShow" [modalType]="modalType.CONFIRMATION_TYPE" 
+          <app-modal [show]="backModalShow" [modalType]="modalType.CONFIRMATION_TYPE"
                      [confirmButtonText]="'Save'" [cancelButtonText]="'Skip'"
-                     (confirmationClick)="backModalConfirmationHandle()" 
+                     (confirmationClick)="backModalConfirmationHandle()"
                      (cancelationClick)="backModalCancelHandle()">
               Changes have not yet been saved
           </app-modal>
       </div>
 
       <div class="input-projection-name">
-          <app-name-component [projectionId]="data.id" [name]="data.name" 
+          <app-name-component [projectionId]="data.id" [name]="data.name"
             (update)="hasUpdated($event)"></app-name-component>
       </div>
       <button class="primary-button" (click)="handleSave()">Save Projection</button>
@@ -25,7 +25,7 @@
     <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
     <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
     <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
-    <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)" 
+    <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)"
         [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
         <div class="group-items" [ngStyle]="{'min-height': groupHeight().income}">
           <div *ngIf="data.constantIncome && data.constantIncome.length > 0">
@@ -73,9 +73,9 @@
             </div>
         </div>
     </div>
-    
+
   </section>
-  
+
   <!--TODO:: STATIC_VARIBLE-->
 
 </div>

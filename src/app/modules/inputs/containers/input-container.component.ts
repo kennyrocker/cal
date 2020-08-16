@@ -17,8 +17,9 @@ import { PeriodicItemComponent }
 from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
 import { ModalType } from 'src/app/constants/enums/modal-type';
 import { Subscription } from 'rxjs';
-import { getUIdragItem } from 'src/app/selectors/selectors';
+import { getUIdragItem, getUser } from 'src/app/selectors/selectors';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import {UserState} from '../../../constants/interfaces/user';
 
 
 @Component({
@@ -57,10 +58,13 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private backUrl: string;
   private hasUpdatedItem = false;
   private saved = false;
+  public userId = null;
+  private userSub: Subscription;
   private dragItemSub: Subscription;
   private dragItem: any;
   private rollBackData: CalData;
   private ITEM_HEIGHT = 50; // px
+  private timeOut;
 
   // back modal
   public backModalShow = false;
@@ -80,10 +84,14 @@ export class InputContainerComponent implements OnInit, OnDestroy {
             this.dragItem = item;
         }
     );
+    this.userSub = this.store.select(getUser).subscribe((user: UserState) => {
+        this.userId = user.id;
+    });
   }
 
   ngOnDestroy(): void {
     this.dragItemSub.unsubscribe();
+    if (this.timeOut) clearTimeout(this.timeOut);
   }
 
   public addConstantIncomeItem(): void {
@@ -112,9 +120,16 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   public backModalConfirmationHandle(): void {
-      this.save();
+      if (this.userId === null) {
+        // TODO::
+        console.log('// pop sign in / register popup');
+        return;
+      }
       this.backModalShow = false;
-      this.router.navigateByUrl(this.backUrl);
+      this.save();
+      this.timeOut = setTimeout(() => {
+        this.router.navigateByUrl(this.backUrl);
+      }, 500);
   }
 
   public backModalCancelHandle(): void {
@@ -125,7 +140,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private routeBack(): void {
       if (this.isNewProjection && !this.saved) {
           // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: true }));
-          this.store.dispatch(new DeleteProjectionAction(this.data.id));
+          this.store.dispatch(new DeleteProjectionAction(this.data.id, true));
       } else {
           // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: true }));
           this.store.dispatch(new RollBackProjectionAction(this.rollBackData));
@@ -160,25 +175,31 @@ export class InputContainerComponent implements OnInit, OnDestroy {
               valid = false;
           }
       });
-      
+
       return valid && this.hasUpdatedItem;
   }
 
   public handleSave(): void {
       if (!this.isValidToSave()) return;
+
+      if (this.userId === null) {
+        // TODO::
+        console.log('// pop sign in / register popup');
+        return;
+      }
       // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: false }));
       this.save();
   }
 
   private save(): void {
       if (this.isNewProjection) {
-          this.store.dispatch(new PostProjectionAction(this.data));
+          this.store.dispatch(new PostProjectionAction(this.userId, this.data));
           this.saved = true;
       } else {
           this.store.dispatch(new UpdatePorjectionAction(this.data));
       }
       this.rollBackData = this.data;
-      this.resetValidation();    
+      this.resetValidation();
   }
 
   private resetValidation(): void {
@@ -194,7 +215,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
       e.preventDefault();
       if (!this.dragItem) return;
       if (this.data.id !== this.dragItem.projectionId) {
-          if ((groupType === InputGroup.CONSTANT_INCOME || groupType === InputGroup.CONSTANT_EXPENSE) 
+          if ((groupType === InputGroup.CONSTANT_INCOME || groupType === InputGroup.CONSTANT_EXPENSE)
               && (this.dragItem.type === InputGroup.CONSTANT_INCOME || this.dragItem.type === InputGroup.CONSTANT_EXPENSE)) {
             this.constantDropEffect = true;
             this.periodicDropEffect = false;

@@ -1,10 +1,10 @@
-import { CalDataActionTypes, CalDataActions } from '../actions/calData.action';
-import { CalCycle } from 'src/app/constants/enums/cal-cycle';
-import { MapperUtil } from 'src/app/utils/mapper-util';
-import { Entites } from 'src/app/constants/interfaces/entites';
+import {CalDataActions, CalDataActionTypes} from '../actions/calData.action';
+import {CalCycle} from 'src/app/constants/enums/cal-cycle';
+import {MapperUtil} from 'src/app/utils/mapper-util';
+import {Entities} from 'src/app/constants/interfaces/entities';
 
 
-const initialState: Entites = {
+const initialState: Entities = {
     user: {
         id: null,
         userName: null,
@@ -79,7 +79,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
 
 
         /* Add Blank */
-        case CalDataActionTypes.AddProjection :
+        case CalDataActionTypes.AddBlankProjection :
             const newProjection = {
                 id: action.projectionId,
                 name: '',
@@ -92,6 +92,15 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 ...state,
                 collection: [
                     newProjection,
+                    ...state.collection
+                ]
+            };
+
+      case CalDataActionTypes.AddProjection :
+            return {
+                ...state,
+                collection: [
+                    action.projection,
                     ...state.collection
                 ]
             };
@@ -237,7 +246,9 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
         case CalDataActionTypes.DeleteProjectionFromCollection :
             return {
                 ...state,
-                collection: state.collection.filter(i => i.id !== action.projectionId)
+                collection: [
+                  ...state.collection.filter(i => i.id !== action.projectionId)
+                ]
             };
 
 
@@ -363,7 +374,7 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                         return {
                             ...obj,
                             lastUpdated: action.lastUpdated
-                        }
+                        };
                     } else {
                         return obj;
                     }
@@ -376,12 +387,12 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 ...state,
                 collection: state.collection.map((obj) => {
                     if (obj.id === action.payload.id) {
-                        return action.payload
+                        return action.payload;
                     } else {
                         return obj;
                     }
                 })
-            }
+            };
 
         /* UI Update*/
         case CalDataActionTypes.SnapShotSelectedUpdateUI :
@@ -421,11 +432,15 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
             };
 
         /* User Update */
-      case CalDataActionTypes.UpdateUser :
-        return {
-            ...state,
-            user: action.user
-        };
+        case CalDataActionTypes.UpdateUser :
+            return {
+                ...state,
+                user: action.user
+            };
+
+        /* Reeset State */
+        case CalDataActionTypes.ResetState :
+            return initialState;
 
         /* Fall back */
         default:

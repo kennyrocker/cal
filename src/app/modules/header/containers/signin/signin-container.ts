@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Constant } from 'src/app/constants/constant';
+import { takeUntil } from 'rxjs/operators';
 import {ActionsSubject, Store} from '@ngrx/store';
 import * as reducerRoot from '../../../../reducers';
 import { CalDataActionTypes, PostUserLoginAction } from '../../../../actions/calData.action';
@@ -58,17 +57,10 @@ export class SigninContainer implements OnInit, OnDestroy {
     }
 
     private initSub(): void {
-        this.emailChangeSub = this.emailChangeSubject.pipe(
-                debounceTime(Constant.INPUT_DEBOUNCE_TIME),
-                distinctUntilChanged()
-            ).subscribe((value) => {
+        this.emailChangeSub = this.emailChangeSubject.subscribe((value) => {
                 this.signinForm.patchValue({email: value});
             });
-
-        this.passwordChangeSub = this.passwordChangeSubject.pipe(
-                debounceTime(Constant.INPUT_DEBOUNCE_TIME),
-                distinctUntilChanged()
-            ).subscribe((value) => {
+        this.passwordChangeSub = this.passwordChangeSubject.subscribe((value) => {
                 this.signinForm.patchValue({password: value});
             });
     }
@@ -95,6 +87,7 @@ export class SigninContainer implements OnInit, OnDestroy {
         this.signinForm.markAllAsTouched();
         if (this.signinForm.invalid) return;
         this.store.dispatch(new PostUserLoginAction(this.signinForm.value));
+        this.initForm();
     }
 
 }

@@ -30,7 +30,7 @@ const routes: Routes = [
         InputsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects, UIEffects])
+        EffectsModule.forRoot([CalDataEffects])
     ]
 })
 export class CompareModule { }

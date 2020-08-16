@@ -26,7 +26,7 @@ const routes: Routes = [
         ShareModule,
         RouterModule.forChild(routes),
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects, UIEffects])
+        EffectsModule.forRoot([CalDataEffects])
     ]
 })
 export class SnapshotModule {}

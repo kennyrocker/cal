@@ -1,9 +1,9 @@
-import { Snapshot } from './snapshot';
+import { CalSnapShot } from './cal-snap-shot';
 import { CalData } from './cal-data';
 import { Lock } from './lock';
 import { UserState } from './user';
 
-export interface Entites {
+export interface Entities {
   user: UserState;
   ui: {
     snapshotLoaded: boolean;
@@ -11,6 +11,6 @@ export interface Entites {
     lock: Lock;
     dragItem: any;
   };
-  snapshot: Snapshot[];
+  snapshot: CalSnapShot[];
   collection: CalData[];
 }
