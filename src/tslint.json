@@ -12,6 +12,8 @@
             "element",
             "app",
             "kebab-case"
-        ]
+        ],
+        "curly": [true, "ignore-same-line"],
+        "ter-indent": [true, 4]
     }
 }

@@ -211,7 +211,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
       e.preventDefault();
   }
 
-  public dragOver(e, groupType: InputGroup): void {
+  public dragOver(e, groupType?: InputGroup): void {
       e.preventDefault();
       if (!this.dragItem) return;
       if (this.data.id !== this.dragItem.projectionId) {
@@ -237,9 +237,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   public groupHeight(): any {
-      let income = `${this.constantIncomeMaxRow * this.ITEM_HEIGHT}px`;
-      let expense = `${this.constantExpenseMaxRow * this.ITEM_HEIGHT}px`;
-      let periodic = `${this.periodicMaxRow * this.ITEM_HEIGHT}px`;
+      const income = `${this.constantIncomeMaxRow * this.ITEM_HEIGHT}px`;
+      const expense = `${this.constantExpenseMaxRow * this.ITEM_HEIGHT}px`;
+      const periodic = `${this.periodicMaxRow * this.ITEM_HEIGHT}px`;
       return {
         'income' : income,
         'expense' : expense,

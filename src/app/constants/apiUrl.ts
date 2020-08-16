@@ -1,12 +1,16 @@
-// for npm run start
+// TODO:: config this from environment file
 const host = 'http://localhost:6080';
 
-export const USER_REGISTER_URL = `${host}/user`;
-export const USER_LOGIN_URL = `${host}/user/login`;
+export const apiUrls = {
 
-export const GET_SNAP_SHOT_URL = (userId: string) => `${host}/snap-shot/${userId}`;
-export const GET_PROJECTION_URL = (projectionId: string) => `${host}/projection/${projectionId}`;
-export const GET_PROJECTION_BATCH = `${host}/get-projection-batch`;
-export const PROJECTION_POST_URL = `${host}/projection`;
-export const DELETE_PROJECTION_URL = (projectionId: string) => `${host}/projection/${projectionId}`;
-export const UPDATE_PROJECTION_URL = (projectionId: string) => `${host}/projection/${projectionId}`;
+  USER_REGISTER : `${host}/user`,
+  USER_LOGIN : `${host}/user/login`,
+
+  GET_SNAP_SHOT : (userId: string) => `${host}/snap-shot/${userId}`,
+  GET_PROJECTION : (projectionId: string) => `${host}/projection/${projectionId}`,
+  GET_PROJECTION_BATCH : `${host}/get-projection-batch`,
+  POST_PROJECTION : `${host}/projection`,
+  UPDATE_PROJECTION : (projectionId: string) => `${host}/projection/${projectionId}`,
+  DELETE_PROJECTION : (projectionId: string) => `${host}/projection/${projectionId}`
+
+};

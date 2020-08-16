@@ -9,14 +9,15 @@ import {
 } from '../actions/calData.action';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { TokenService } from '../services/auth/token';
+import { AuthCookieService } from '../services/auth/authCookie';
+import { Constant } from '../constants/constant';
 
 @Injectable()
 export class UserEffects {
 
     constructor(private actions$: Actions,
                 private userService: UserService,
-                private tokenService: TokenService) {}
+                private authCookieService: AuthCookieService) {}
 
     @Effect()
     public registerUser$: Observable<Action> = this.actions$.pipe(
@@ -42,7 +43,10 @@ export class UserEffects {
                 .login(action.payload)
                 .pipe(
                     map((res) => {
-                        this.tokenService.setAccessToken(res.token);
+                        this.authCookieService.setCookie(Constant.USER_ID_COOKIE, res.user.id);
+                        this.authCookieService.setCookie(Constant.USER_NAME_COOKIE, res.user.userName);
+                        this.authCookieService.setCookie(Constant.USER_EMAIL_COOKIE, res.user.email);
+                        this.authCookieService.setCookie(Constant.USER_ACCESS_TOKEN_COOKIE, res.token);
                         return new UpdateUserAction(res.user);
                     }),
                     catchError((err) => of ({ type: CalDataActionTypes.PostUserLoginFailed, error: err }))
@@ -55,7 +59,7 @@ export class UserEffects {
     public logOutUser$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.UserLogOut),
         map((action: UserLogOutAction) => {
-           this.tokenService.clearTokens();
+           this.authCookieService.clearAllCookies();
            return new ResetStateAction();
         })
     );

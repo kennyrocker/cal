@@ -9,7 +9,7 @@ import { ShareModule } from '../share/app.share.module';
 import { UserService } from '../../services/user/user';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from '../../effects/user.effect';
-import { TokenService } from '../../services/auth/token';
+import { AuthCookieService } from '../../services/auth/authCookie';
 import { CookieModule, CookieService } from 'ngx-cookie';
 
 
@@ -29,7 +29,7 @@ import { CookieModule, CookieService } from 'ngx-cookie';
     ],
     providers: [
         UserService,
-        TokenService,
+        AuthCookieService,
         CookieService
     ],
     exports: [

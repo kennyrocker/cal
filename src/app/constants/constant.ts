@@ -9,6 +9,12 @@ export class Constant {
   public static DISPLAY_CHART_SCHEME_MULTI = {
     domain: ['#31393C',  '#33A1FD', '#FBB13C', '#8A817C', '#2176FF']
   };
-  public static ACCESS_TOKEN = 'access_token';
+
+  public static USER_ID_COOKIE = 'uid';
+  public static USER_EMAIL_COOKIE = 'email';
+  public static USER_NAME_COOKIE = 'name';
+  public static USER_ACCESS_TOKEN_COOKIE = 'uat';
+  public static COOKIE_EXPIRE_DAY = 1; // is now 1 day, make sure this is the same as the server session time
+  public static TEMP_ROUTE_NAME = 'new';
   public static TEMP_PROJECTION_ID = 'temp_id';
 }

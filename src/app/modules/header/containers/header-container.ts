@@ -3,9 +3,12 @@ import { Component, ElementRef, OnInit,
 import { ModalType } from 'src/app/constants/enums/modal-type';
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
-import {UIUpdateLockAction, UserLogOutAction} from 'src/app/actions/calData.action';
+import {UIUpdateLockAction, UpdateUserAction, UserLogOutAction} from 'src/app/actions/calData.action';
 import { Subscription } from 'rxjs';
 import { getUser } from '../../../selectors/selectors';
+import { AuthCookieService } from '../../../services/auth/authCookie';
+import { Constant } from '../../../constants/constant';
+import { UserState } from '../../../constants/interfaces/user';
 
 @Component({
     selector: 'app-header',
@@ -26,7 +29,9 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
     public userName;
 
 
-    constructor(private store: Store<reducerRoot.CalDataState>) {}
+    constructor(private store: Store<reducerRoot.CalDataState>, private authTokenService: AuthCookieService) {
+        this.loginFromCookie();
+    }
 
     ngOnInit() {
         this.initSub();
@@ -78,6 +83,18 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
 
     public logOut(): void {
         this.store.dispatch(new UserLogOutAction());
+    }
+
+    public loginFromCookie(): void {
+        const user: UserState = {
+            id: this.authTokenService.getCookie(Constant.USER_ID_COOKIE),
+            userName: this.authTokenService.getCookie(Constant.USER_NAME_COOKIE),
+            email: this.authTokenService.getCookie(Constant.USER_EMAIL_COOKIE)
+        };
+        const token = this.authTokenService.getCookie(Constant.USER_ACCESS_TOKEN_COOKIE);
+        if (user.id && user.userName && user.email && token) {
+            this.store.dispatch(new UpdateUserAction(user));
+        }
     }
 
 }

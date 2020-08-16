@@ -84,7 +84,7 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     }
 
     public createProjection(): void {
-        this.router.navigateByUrl('/projection/new');
+        this.routeToProjection(Constant.TEMP_ROUTE_NAME);
     }
 
     public compare(): void {
@@ -108,9 +108,18 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
         }
     }
 
-    public deleteProjection(projectionId: string, event: any): void {
-        event.stopPropagation();
+    public deleteProjection(projectionId: string): void {
         this.store.dispatch(new DeleteProjectionAction(projectionId));
+    }
+
+    public stopPropagation(event: any): void {
+        event.stopPropagation();
+    }
+
+
+    public routeToProjection(projectionId: string): void {
+        const url = `/projection/${projectionId}`;
+        this.router.navigateByUrl(url);
     }
 
 

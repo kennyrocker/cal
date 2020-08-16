@@ -8,8 +8,7 @@ import { filter } from 'rxjs/operators';
 import { select } from '@ngrx/store';
 import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
 import { GetProjectionByIdAction, AddBlankProjectionAction } from 'src/app/actions/calData.action';
-import { MapperUtil } from 'src/app/utils/mapper-util';
-import {Constant} from '../../../constants/constant';
+import { Constant } from '../../../constants/constant';
 
 @Component({
     selector: 'app-projection-container',
@@ -23,7 +22,6 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private isLoadedSub: Subscription;
     private projectionSub: Subscription;
     public projection: any;
-    public projectionFound: boolean;
     public isNewProjection = false;
 
     constructor(private route: ActivatedRoute,
@@ -32,9 +30,9 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if (params['id'] === 'new') { // projection/new route
+            if (params['id'] === Constant.TEMP_ROUTE_NAME) { // projection/new route
                 this.prepareNewProjection();
-            } else {                      // projection/:id route
+            } else { // projection/:id route
                 this.prepareProjection(params['id']);
             }
         });
