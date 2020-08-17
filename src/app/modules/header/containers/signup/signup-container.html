@@ -31,11 +31,15 @@
                 <input #email type="text" placeholder="email" formControlName="email"
                         (keyup)="bindEmailChangeSubject(email.value)">
 
-                <div *ngIf="signupForm.get('email').touched && signupForm.get('email').invalid && !signupForm.get('email').hasError('notUnique')"
+                <div *ngIf="signupForm.get('email').touched
+                          && signupForm.get('email').invalid
+                          && !signupForm.get('email').hasError('notUnique')
+                          && !signupForm.get('email').pristine"
                     class="field-message"><div class="tip"></div>
                     email is required
                 </div>
-                <div *ngIf="signupForm.get('email').touched && signupForm.get('email').hasError('notUnique')"
+                <div *ngIf="signupForm.get('email').touched
+                           && signupForm.get('email').hasError('notUnique')"
                      class="field-message"><div class="tip"></div>
                     email already existed
                 </div>
@@ -43,24 +47,30 @@
             </div>
 
             <div class="account-field"  [ngClass]="{'field-error' :
-                        signupForm.get('userName').touched && signupForm.get('userName').invalid}">
+                        signupForm.get('userName').touched
+                        && signupForm.get('userName').invalid}">
 
                 <input #userName type="text" placeholder="user name" formControlName="userName"
                         (keyup)="bindUserNameChangeSubject(userName.value)">
 
-                <div *ngIf="signupForm.get('userName').touched && signupForm.get('userName').invalid"
+                <div *ngIf="signupForm.get('userName').touched
+                          && signupForm.get('userName').invalid
+                          && !signupForm.get('userName').pristine"
                     class="field-message"><div class="tip"></div>
                     user name is required
                 </div>
             </div>
 
             <div class="account-field" [ngClass]="{'field-error' :
-                        signupForm.get('password').touched && signupForm.get('password').invalid}">
+                        signupForm.get('password').touched
+                        && signupForm.get('password').invalid}">
 
                 <input #password type="password" placeholder="password"formControlName="password"
                         (keyup)="bindPasswordChangeSubject(password.value)">
 
-                <div *ngIf="signupForm.get('password').touched && signupForm.get('password').invalid"
+                <div *ngIf="signupForm.get('password').touched
+                            && signupForm.get('password').invalid
+                            && !signupForm.get('password').pristine"
                     class="field-message"><div class="tip"></div>
                     password is required
                 </div>

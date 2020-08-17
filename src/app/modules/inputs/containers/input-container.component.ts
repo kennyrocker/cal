@@ -4,9 +4,11 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 
 import * as reducerRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
-import { AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction,
-   UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction,
-   UIUpdateLockAction, RollBackProjectionAction, UIitemDropAction } from 'src/app/actions/calData.action';
+import {
+  AddConstantIncomeItemAction, AddConstantExpenseItemAction, AddPeriodicalVariableItemAction,
+  UpdatePorjectionAction, DeleteProjectionAction, PostProjectionAction,
+  UIUpdateLockAction, RollBackProjectionAction, UIitemDropAction, UIAuthModalAction
+} from 'src/app/actions/calData.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
@@ -121,9 +123,8 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   public backModalConfirmationHandle(): void {
       if (this.userId === null) {
-        // TODO::
-        console.log('// pop sign in / register popup');
-        return;
+          this.store.dispatch(new UIAuthModalAction(true));
+          return;
       }
       this.backModalShow = false;
       this.save();
@@ -181,11 +182,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   public handleSave(): void {
       if (!this.isValidToSave()) return;
-
       if (this.userId === null) {
-        // TODO::
-        console.log('// pop sign in / register popup');
-        return;
+          this.store.dispatch(new UIAuthModalAction(true));
+          return;
       }
       // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: false }));
       this.save();
@@ -234,6 +233,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
       this.constantDropEffect = false;
       this.periodicDropEffect = false;
       this.store.dispatch(new UIitemDropAction( { type: groupType,  projectionId: this.data.id, item: this.dragItem } ));
+      this.hasUpdated(true);
   }
 
   public groupHeight(): any {

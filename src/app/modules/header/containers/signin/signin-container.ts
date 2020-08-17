@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -6,15 +6,18 @@ import {ActionsSubject, Store} from '@ngrx/store';
 import * as reducerRoot from '../../../../reducers';
 import { CalDataActionTypes, PostUserLoginAction } from '../../../../actions/calData.action';
 import { ofType } from '@ngrx/effects';
-import {HttpStatus} from '../../../../constants/enums/http-status';
+import { HttpStatus } from '../../../../constants/enums/http-status';
+import { Constant } from '../../../../constants/constant';
 
 @Component({
     selector: 'app-signin',
     templateUrl: './signin-container.html',
     styleUrls: ['./signin-container.scss']
 })
-export class SigninContainer implements OnInit, OnDestroy {
+export class SigninContainer implements OnInit, OnDestroy, OnChanges {
 
+    @Input('show')
+    public show: boolean;
     public signinForm: FormGroup;
     private emailChangeSub: Subscription;
     private emailChangeSubject = new Subject<any>();
@@ -34,7 +37,13 @@ export class SigninContainer implements OnInit, OnDestroy {
         this.initSub();
     }
 
-    public bindEmailChangeSubject(value): void {
+    ngOnChanges(changes: SimpleChanges) {
+        if (!this.show) {
+            this.initForm();
+        }
+    }
+
+  public bindEmailChangeSubject(value): void {
         this.emailChangeSubject.next(value);
       }
 
@@ -47,11 +56,12 @@ export class SigninContainer implements OnInit, OnDestroy {
         this.passwordChangeSub.unsubscribe();
         this.signInFailedSubject.next();
         this.signInFailedSubject.complete();
+        this.initForm();
     }
 
     private initForm(): void {
         this.signinForm = new FormGroup({
-            email: new FormControl('', [ Validators.required, Validators.email ]),
+            email: new FormControl('', [ Validators.required, Validators.pattern(Constant.EMAIL_PATTERN)]),
             password: new FormControl('', [ Validators.required ])
         });
     }
@@ -70,10 +80,10 @@ export class SigninContainer implements OnInit, OnDestroy {
             ofType(CalDataActionTypes.PostUserLoginFailed),
             takeUntil(this.signInFailedSubject)
         ).subscribe((res: any) => {
-            if (res && res.error && res.error.status === HttpStatus.BAD_REQUEST) {
+            if (this.signinForm && res && res.error && res.error.status === HttpStatus.BAD_REQUEST) {
                 this.signinForm.controls['email'].setErrors( { 'invalidEmail': true });
             }
-            if (res && res.error && res.error.status === HttpStatus.ACCESS_DENIED) {
+            if (this.signinForm && res && res.error && res.error.status === HttpStatus.ACCESS_DENIED) {
                 this.signinForm.controls['password'].setErrors( { 'invalidPassword': true });
             }
             if (res && res.error && res.error.status === HttpStatus.SERVER_ERROR) {
@@ -87,7 +97,6 @@ export class SigninContainer implements OnInit, OnDestroy {
         this.signinForm.markAllAsTouched();
         if (this.signinForm.invalid) return;
         this.store.dispatch(new PostUserLoginAction(this.signinForm.value));
-        this.initForm();
     }
 
 }

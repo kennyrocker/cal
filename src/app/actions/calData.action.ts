@@ -45,12 +45,7 @@ export enum CalDataActionTypes {
     DeleteProjectionFailed = '[Delete Projection] Delete Failed',
     DeleteProjectionFromSnapshots = '[Delete Projection From Snapshot] Delete',
     DeleteProjectionFromCollection = '[Delete Projection From Collection] Delete',
-    SnapShotSelectedUpdateUI = '[Snapshot Selected UI] Update',
-    UIUpdateLock = '[UI Update Lock] Update',
     RollBackProjection = '[Projection] RollBack',
-    UIitemDragAction = '[UI Item] Drag',
-    UIitemDragClearAction = '[Ui Item] Drag Clear',
-    UIitemDropAction = '[UI item] Drop',
     PostUser = '[User] Post',
     PostUserSuccess = '[User] Post Success',
     PostUserFailed = '[User] Post Failed',
@@ -59,6 +54,12 @@ export enum CalDataActionTypes {
     UpdateUser = '[User] Update',
     UserLogOut = '[User] LogOut',
     ResetState = '[State] Reset',
+    UIUpdateLock = '[UI Update Lock] Update',
+    SnapShotSelectedUpdateUI = '[Snapshot Selected UI] Update',
+    UIitemDragAction = '[UI Item] Drag',
+    UIitemDragClearAction = '[Ui Item] Drag Clear',
+    UIitemDropAction = '[UI item] Drop',
+    UIAuthModalAction = '[UI auth modal] Update'
 }
 
 
@@ -301,6 +302,11 @@ export class ResetStateAction implements Action {
   readonly type = CalDataActionTypes.ResetState;
 }
 
+export class UIAuthModalAction implements Action {
+  readonly type = CalDataActionTypes.UIAuthModalAction;
+  constructor(public open: boolean) {}
+}
+
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
@@ -317,7 +323,7 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | DeleteConstantIcomeItemAction | DeleteConstantExpenseItemAction
  | DeletePeriodicalVariableItemAction | DeleteStaticVariableItemAction
  | SnapShotSelectedUpdateUIAction | DeleteProjectionFromSnapshotAction | DeleteProjectionFromCollectionAction
- | UIUpdateLockAction | RollBackProjectionAction
+ | UIUpdateLockAction | RollBackProjectionAction | UIAuthModalAction
  | UIitemDragAction | UIitemDragClearAction | UIitemDropAction
  | PostUserAction | PostUserSuccessAction | PostUserFailedAction
  | PostUserLoginAction | PostUserLoginFailedAction | UserLogOutAction | ResetStateAction

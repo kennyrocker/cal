@@ -3,9 +3,9 @@ import { Component, ElementRef, OnInit,
 import { ModalType } from 'src/app/constants/enums/modal-type';
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
-import {UIUpdateLockAction, UpdateUserAction, UserLogOutAction} from 'src/app/actions/calData.action';
+import {UIAuthModalAction, UIUpdateLockAction, UpdateUserAction, UserLogOutAction} from 'src/app/actions/calData.action';
 import { Subscription } from 'rxjs';
-import { getUser } from '../../../selectors/selectors';
+import { getAuthModalState, getUser } from '../../../selectors/selectors';
 import { AuthCookieService } from '../../../services/auth/authCookie';
 import { Constant } from '../../../constants/constant';
 import { UserState } from '../../../constants/interfaces/user';
@@ -25,6 +25,7 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
     @ViewChildren('tab')
     public tabs: QueryList<ElementRef>;
     private userSub: Subscription;
+    private uiAuthModalSub: Subscription;
     public hasLogin = false;
     public userName;
 
@@ -39,6 +40,7 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.userSub.unsubscribe();
+        this.uiAuthModalSub.unsubscribe();
     }
 
     private initSub(): void {
@@ -51,13 +53,23 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
                 } else {
                     this.hasLogin = false;
                 }
-          });
+            });
+
+        this.uiAuthModalSub = this.store.select(getAuthModalState)
+          .subscribe((open) => {
+              if (this.accountModalShow) return;
+              if (open) this.showModal(this.SIGN_IN);
+        });
     }
 
     public showModal(tabString: string): void {
         this.activeTab(tabString);
         this.accountModalShow = true;
         this.store.dispatch(new UIUpdateLockAction({ full: false, scroll: true }));
+        // This is to keep the state in sync when trigger locally,
+        // it will make the local uiAuthModalSub going into infinity loop,
+        // so it has to gard with a check if the accountModalShow is already true
+        this.store.dispatch(new UIAuthModalAction(true));
     }
 
     public activeTab(tabString: string): void {
@@ -79,6 +91,7 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
     public closeHandle() {
         this.accountModalShow = false;
         this.store.dispatch(new UIUpdateLockAction({ full: false, scroll: false }));
+        this.store.dispatch(new UIAuthModalAction(false));
     }
 
     public logOut(): void {

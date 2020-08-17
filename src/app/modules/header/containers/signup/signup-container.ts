@@ -9,6 +9,7 @@ import { PostUserAction } from '../../../../actions/calData.action';
 import { ofType } from '@ngrx/effects';
 import { CalDataActionTypes } from '../../../../actions/calData.action';
 import { HttpStatus } from '../../../../constants/enums/http-status';
+import { Constant } from '../../../../constants/constant';
 
 @Component({
     selector: 'app-signup',
@@ -32,7 +33,6 @@ export class SignupContainer implements OnInit, OnDestroy {
     public registerSuccess = false;
     private timeOut;
     private timeOutDuration = 3000;
-
 
     constructor(
         private actionsSubject: ActionsSubject,
@@ -70,7 +70,7 @@ export class SignupContainer implements OnInit, OnDestroy {
 
     private initForm(): void {
         this.signupForm = new FormGroup({
-            email: new FormControl('', [ Validators.required, Validators.email ]),
+            email: new FormControl('', [ Validators.required, Validators.pattern(Constant.EMAIL_PATTERN)]),
             userName: new FormControl('', [ Validators.required ]),
             password: new FormControl('', [ Validators.required ])
         });

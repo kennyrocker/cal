@@ -10,6 +10,9 @@ export class Constant {
     domain: ['#31393C',  '#33A1FD', '#FBB13C', '#8A817C', '#2176FF']
   };
 
+  // tslint:disable-next-line:max-line-length
+  public static EMAIL_PATTERN = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
+
   public static USER_ID_COOKIE = 'uid';
   public static USER_EMAIL_COOKIE = 'email';
   public static USER_NAME_COOKIE = 'name';

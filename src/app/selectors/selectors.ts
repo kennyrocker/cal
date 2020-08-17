@@ -1,4 +1,5 @@
 import {createSelector } from '@ngrx/store';
+import {UiState} from '../constants/interfaces/ui';
 
 export const getUser = createSelector(
    (state: any) => state.calData.user,
@@ -54,17 +55,22 @@ export const getProjectionsByIds = createSelector(
 );
 
 // UI selector
+export const getAuthModalState = createSelector(
+    (state: any) => state.calData.ui.authModalOpen,
+  (authModalOpen) => authModalOpen
+);
+
 export const getSnapshotSelected = createSelector(
     (state: any) => state.calData.ui.snapshotSelected,
     (snapshotSelected) => snapshotSelected
-)
+);
 
 export const getUILock = createSelector(
     (state: any) => state.calData.ui.lock,
     (lock) => lock
-)
+);
 
 export const getUIdragItem = createSelector(
     (state: any) => state.calData.ui.dragItem,
     (dragItem) => dragItem
-)
+);

@@ -17,7 +17,8 @@ const initialState: Entities = {
             full: false,
             scroll: false
         },
-        dragItem: null
+        dragItem: null,
+        authModalOpen: false
     },
     snapshot: [],
     collection: []
@@ -428,6 +429,15 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 ui: {
                     ...state.ui,
                     dragItem: null
+                }
+            };
+
+        case CalDataActionTypes.UIAuthModalAction :
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    authModalOpen: action.open
                 }
             };
 
