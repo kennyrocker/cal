@@ -6,11 +6,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from 'src/app/reducers';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
-
 import { ShareModule } from 'src/app/modules/share/app.share.module';
 
 import { SnapshotContainerComponent } from 'src/app/modules/snapshot/containers/snapshot-container.component';
-import {UIEffects} from '../../effects/ui.effect';
 
 
 const routes: Routes = [

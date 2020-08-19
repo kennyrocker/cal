@@ -9,6 +9,7 @@ import { reducer } from 'src/app/reducers';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { UserEffects } from './effects/user.effect';
 import { UIEffects } from './effects/ui.effect';
+import { TemplateEffects } from './effects/template.effect';
 import { EffectsModule } from '@ngrx/effects';
 
 // Modules
@@ -21,6 +22,7 @@ import { FooterModule } from './modules/footer/app.footer.module';
 // Services
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { Projection } from 'src/app/services/projection/projection';
+import { TemplateService } from './services/template/template';
 
 // 3d Party
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -48,11 +50,12 @@ import { LockModule } from './modules/lock/app-lock.module';
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
-    EffectsModule.forRoot([CalDataEffects, UserEffects, UIEffects])
+    EffectsModule.forRoot([CalDataEffects, UserEffects, UIEffects, TemplateEffects])
   ],
   providers: [
     CalculateService,
-    Projection
+    Projection,
+    TemplateService
   ],
   bootstrap: [AppComponent]
 })

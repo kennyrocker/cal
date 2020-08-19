@@ -18,7 +18,10 @@
           <app-name-component [projectionId]="data.id" [name]="data.name"
             (update)="hasUpdated($event)"></app-name-component>
       </div>
-      <button class="primary-button" (click)="handleSave()">Save Projection</button>
+      <div class="right-wrapper">
+          <button *ngIf="!isSampleProjection" class="primary-button" (click)="handleSave()">Save Projection</button>
+      </div>
+
   </div>
 
   <section class="input-section constant-income" (dragover)="dragOver($event)" (drop)="dragItemPickup(groupType.CONSTANT_INCOME)">

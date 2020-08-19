@@ -2,12 +2,17 @@ import { OnInit, OnDestroy, Component } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
-import { GetAllProjectionSnapshotAction, SnapShotSelectedUpdateUIAction, DeleteProjectionAction } from 'src/app/actions/calData.action';
+import {
+  GetAllProjectionSnapshotAction,
+  SnapShotSelectedUpdateUIAction,
+  DeleteProjectionAction
+} from 'src/app/actions/calData.action';
 
 import { CalSnapShot } from 'src/app/constants/interfaces/cal-snap-shot';
 
 import { Subscription } from 'rxjs/internal/Subscription';
-import { getAllSnapShots, isSnapShotsLoaded, getSnapshotSelected, getUser } from 'src/app/selectors/selectors';
+import { getAllSnapShots, isSnapShotsLoaded, getSnapshotSelected,
+         getUser } from 'src/app/selectors/selectors';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
@@ -30,8 +35,6 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     private selectionSubjectSub: Subscription;
     private snapshotSelectedSub: Subscription;
     public snapshotSelected = [];
-
-
     private userState$: Observable<UserState>;
     private isLoaded$: Observable<boolean>;
     private fetchSnapShotSub: Subscription;
@@ -120,6 +123,10 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     public routeToProjection(projectionId: string): void {
         const url = `/projection/${projectionId}`;
         this.router.navigateByUrl(url);
+    }
+
+    public isSampleProjection(projectionId: string): boolean {
+        return projectionId === Constant.SAMPLE_PROJECTION_ID;
     }
 
 

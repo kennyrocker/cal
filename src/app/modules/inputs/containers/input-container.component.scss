@@ -14,17 +14,7 @@
 }
 
 .input-projection-name {
-    display: block;
     text-align: center;
-}
-
-.projection-name {
-    border: 0 none;
-    font-size: 32px;
-    color: $gray-5;
-    border-bottom: 1px solid $gray-1;
-    text-align: center;
-    padding: 0 0 3px 0;
 }
 
 .input-heading {
@@ -39,6 +29,25 @@
     padding: 42px 10px 20px;
     z-index: $lvl-1;
     box-sizing: border-box;
+}
+
+.projection-name {
+    border: 0 none;
+    font-size: 32px;
+    color: $gray-5;
+    border-bottom: 1px solid $gray-1;
+    text-align: center;
+    padding: 0 0 3px 0;
+}
+
+.modal-anchor,
+.right-wrapper,
+.input-projection-name {
+    flex: 1;
+}
+.right-wrapper {
+    flex: 1;
+    text-align: right;
 }
 
 .primary-button {
@@ -231,7 +240,7 @@ button {
   }
 
   .field-error {
-    
+
     input {
       border: 1px solid $red-2;
     }
@@ -266,10 +275,10 @@ button {
 }
 
 /* *
- *  Compare Mode Input Container Style Variant 
+ *  Compare Mode Input Container Style Variant
  */
 :host-context(.compare-wrapper)  {
-    
+
     .input-wrapper {
       padding-top: 100px;
       padding-right: 0;
@@ -290,10 +299,6 @@ button {
     .constant-item,
     .periodic-item {
       border-right: 1px solid $white-3;
-    }
-
-    .projection-name {
-      text-align: left;
     }
 
 }

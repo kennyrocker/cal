@@ -24,7 +24,8 @@
                         class="action-checkbox" (change)="bindSelectionChangeSubject(item.id)" />
                     <span class="checkbox-custom"></span>
                 </label>
-                <span class="close-x" (click)="deleteProjection(item.id)"></span>
+                <span *ngIf="!isSampleProjection(item.id)"
+                      class="close-x" (click)="deleteProjection(item.id)"></span>
             </div>
 
         </div>

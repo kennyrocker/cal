@@ -13,15 +13,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NameComponent } from 'src/app/modules/inputs/components/name-component/name-component';
 // tslint:disable-next-line:import-spacing
 import { ConstantItemComponent }
-from 'src/app/modules/inputs/components/constant-item-component/constant-item.component';
+  from 'src/app/modules/inputs/components/constant-item-component/constant-item.component';
 // tslint:disable-next-line:import-spacing
 import { PeriodicItemComponent }
-from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
+  from 'src/app/modules/inputs/components/periodic-item-component/periodic-item.component';
 import { ModalType } from 'src/app/constants/enums/modal-type';
 import { Subscription } from 'rxjs';
 import { getUIdragItem, getUser } from 'src/app/selectors/selectors';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import {UserState} from '../../../constants/interfaces/user';
+import { UserState } from '../../../constants/interfaces/user';
+import { Constant } from '../../../constants/constant';
 
 
 @Component({
@@ -67,6 +68,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private rollBackData: CalData;
   private ITEM_HEIGHT = 50; // px
   private timeOut;
+  public isSampleProjection = false;
 
   // back modal
   public backModalShow = false;
@@ -77,6 +79,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isSampleProjection = this.data.id === Constant.SAMPLE_PROJECTION_ID;
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.rollBackData =  this.data;
     this.dragItemSub = this.store.select(getUIdragItem).pipe(
@@ -114,7 +117,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   public backClick(): void {
-    if (this.isValidToSave()) {
+    if (this.isValidToSave() && !this.isSampleProjection) {
         this.backModalShow = true;
     } else {
         this.routeBack();
@@ -154,30 +157,24 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   private isValidToSave(): boolean {
-      let valid = true;
       const nform = this.nameCmp.nameForm;
       nform.markAllAsTouched();
-      if (nform.status === 'INVALID') {
-          valid = false;
+      if (nform.status === 'INVALID') return false;
+      if (this.isCmpsInvalid(this.constantCmps)) return false;
+      if (this.isCmpsInvalid(this.periodicCmps)) return false;
+      if (!this.hasUpdatedItem) return false;
+      return true;
+  }
+
+  private isCmpsInvalid(cmps: any): boolean {
+      for ( const ele of cmps) {
+          const form = ele.constantForm || ele.periodicForm;
+          form.markAllAsTouched();
+          if (form.status === 'INVALID') {
+              return true;
+          }
       }
-
-      this.constantCmps.forEach(ele => {
-          const cform = ele.constantForm;
-          cform.markAllAsTouched();
-          if (cform.status === 'INVALID') {
-              valid = false;
-          }
-      });
-
-      this.periodicCmps.forEach(ele => {
-          const pform = ele.periodicForm;
-          pform.markAllAsTouched();
-          if (pform.status === 'INVALID') {
-              valid = false;
-          }
-      });
-
-      return valid && this.hasUpdatedItem;
+      return false;
   }
 
   public handleSave(): void {

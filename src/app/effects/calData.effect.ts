@@ -45,7 +45,14 @@ export class CalDataEffects {
             this.calDataService
                 .getSnapshotsByUserId(action.userId)
                 .pipe(
-                    map((data: any) => new GetAllProjectionSnapshotActionSuccess(data)),
+                    switchMap((data: any) => {
+                        if (data && data.length > 0) {
+                            return [
+                              new GetAllProjectionSnapshotActionSuccess(data)
+                            ];
+                        }
+                        return [];
+                    }),
                     catchError((e) => of ({ type: 'Get CalSnapshot Data Error', error: e }))
                 )
         )

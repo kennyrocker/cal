@@ -11,6 +11,7 @@ const initialState: Entities = {
         email: null
     },
     ui: {
+        sampleLoaded: false,
         snapshotLoaded: false,
         snapshotSelected: [],
         lock: {
@@ -50,7 +51,10 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                     ...state.ui,
                     snapshotLoaded: true
                 },
-                snapshot : action.payload
+                snapshot : [
+                    ...action.payload,
+                    ...state.snapshot
+                ]
             };
 
         case CalDataActionTypes.GetProjectionByIdSuccess :
@@ -438,6 +442,15 @@ export function calDataReducer(state = initialState, action: CalDataActions) {
                 ui: {
                     ...state.ui,
                     authModalOpen: action.open
+                }
+            };
+
+        case CalDataActionTypes.UISampleLoaded :
+            return {
+                ...state,
+                ui: {
+                  ...state.ui,
+                  sampleLoaded: true
                 }
             };
 

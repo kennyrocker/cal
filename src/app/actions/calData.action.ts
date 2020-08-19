@@ -59,7 +59,9 @@ export enum CalDataActionTypes {
     UIitemDragAction = '[UI Item] Drag',
     UIitemDragClearAction = '[Ui Item] Drag Clear',
     UIitemDropAction = '[UI item] Drop',
-    UIAuthModalAction = '[UI auth modal] Update'
+    UIAuthModalAction = '[UI auth modal] Update',
+    UISampleLoaded = '[UI sample] Loaded',
+    GetTemplateSample = '[Template] Get Sample',
 }
 
 
@@ -307,6 +309,15 @@ export class UIAuthModalAction implements Action {
   constructor(public open: boolean) {}
 }
 
+export class UISampleLoadedAction implements Action {
+  readonly type = CalDataActionTypes.UISampleLoaded;
+}
+
+export class TemplateGetSampleAction implements Action {
+  readonly type = CalDataActionTypes.GetTemplateSample;
+  constructor(public lang: string) {}
+}
+
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
@@ -327,4 +338,5 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | UIitemDragAction | UIitemDragClearAction | UIitemDropAction
  | PostUserAction | PostUserSuccessAction | PostUserFailedAction
  | PostUserLoginAction | PostUserLoginFailedAction | UserLogOutAction | ResetStateAction
- | UpdateUserAction;
+ | UpdateUserAction
+ | TemplateGetSampleAction | UISampleLoadedAction;

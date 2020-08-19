@@ -6,6 +6,11 @@ export const getUser = createSelector(
   (user) => user
 );
 
+export const isSampleLoaded = createSelector(
+  (state: any) => state.calData.ui.sampleLoaded,
+  (loaded) => loaded
+);
+
 export const isSnapShotsLoaded = createSelector(
     (state: any) => state.calData.ui.snapshotLoaded,
     (loaded) => loaded
