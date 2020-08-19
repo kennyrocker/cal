@@ -7,6 +7,11 @@
   box-sizing: border-box;
   padding: 5rem 0 0 0;
   text-align: center;
+
+  .cycle-col,
+  .year-col {
+    display: inline-block;
+  }
 }
 
 .display-container {
@@ -23,18 +28,33 @@
 }
 
 .field-label {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
+  padding: 0 0.5rem;
 }
 
 .field-cycle  {
   height: 1.75rem;
   font-size: 0.7rem;
-  margin-left: 0.25rem;
   vertical-align: top;
   margin-top: -0.125rem;
   border: 1px solid $gray-1;
   background-color: $white-1;
   border-radius: 0.25rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.field-year {
+  height: 1.5rem;
+  width: 50px;
+  font-size: 0.85rem;
+  vertical-align: top;
+  margin-top: -0.125rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding-left: 8px;
 
   &:hover {
     cursor: pointer;

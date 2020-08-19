@@ -25,6 +25,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
   @Input('multi') public multi: CalData[];
 
   @ViewChild('amountCycle') monthSelector: any;
+  @ViewChild('year') yearInput: any;
 
   private calCycleEnum = CalCycle;
   public cycleArr = [];
@@ -34,7 +35,10 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
 
   public displayDataSingle: DisplaySingleItem[];
   public displayDataMulti: DisplayMultiItem[];
-  
+
+  public yearEnable = false;
+  private year = 1;
+
   public view: any[];
   // options
   public showXAxis = true;
@@ -78,19 +82,30 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
     this.cycleChangeSubject.next(value);
   }
 
+  public bindYearChangeSubject(event): void {
+      const year = Number(event.target.value);
+      if ( year < 1 || year > 50 ) {
+          this.yearInput.nativeElement.value = 1;
+      } else {
+          this.year = year;
+          this.render();
+      }
+  }
+
   private initSub(): void {
-    this.cycleChangeSub = this.cycleChangeSubject.pipe(
-      distinctUntilChanged()
-    ).subscribe((value) => { // only apply when cycle change
-      this.displayCalCycle = Number(value);
-      this.render();
-    });
+      this.cycleChangeSub = this.cycleChangeSubject.pipe(
+          distinctUntilChanged()
+      ).subscribe((value) => { // only apply when cycle change
+          this.displayCalCycle = Number(value);
+          this.yearEnable = this.displayCalCycle === 1;
+          this.render();
+      });
   }
 
   private render(): void {
       if (this.single) {
           this.renderChartSingle();
-      } 
+      }
       if (this.multi && this.multi.length > 1) {
           this.renderChartMulti();
       }
@@ -103,49 +118,56 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       case CalCycle.MONTHLY :
           return this.calService.getMonthlyProjection(0, 1, cycle, data);
       case CalCycle.ANNUALLY :
-          return this.calService.getAnnuallyProjection(0, 1, data);
+          return this.calService.getAnnuallyProjection(0, this.year, data);
       default:
           return [];
     }
   }
 
   private renderChartSingle(): void {
-    this.xAxisLabel = CalCycle[this.displayCalCycle];
+    if (this.yearEnable) {
+        this.xAxisLabel = `In ${this.year} year`;
+    } else {
+        this.xAxisLabel = CalCycle[this.displayCalCycle];
+    }
     if (this.isPlaceHolderData(this.single)) {
-      this.displayDataSingle = [];
-      return;
-    };
+        this.displayDataSingle = [];
+        return;
+    }
     this.displayDataSingle = this.calByCycle(this.single, this.displayCalCycle);
   }
 
   private renderChartMulti(): void {
-    this.xAxisLabel = CalCycle[this.displayCalCycle];
-    this.displayDataMulti = this.convertMultiDisplay(this.multi);
+      if (this.yearEnable) {
+          this.xAxisLabel = `In ${this.year} years`;
+      } else {
+          this.xAxisLabel = CalCycle[this.displayCalCycle];
+
+      }
+      this.displayDataMulti = this.convertMultiDisplay(this.multi);
   }
 
+
   private convertMultiDisplay(data: CalData[]): DisplayMultiItem[] {
-
-    const set = {};
-    const out = [];
-
-    data.forEach(calData => {
-        set[calData.name] = this.calByCycle(calData, this.displayCalCycle);
-    });
-
-    for (let i = 0; i< this.displayCalCycle; i++) {
-        const oj = {
-          name: undefined,
-          series: []
-        };
-        oj.name = (i+1).toString();
-        
-        for (let k in set) {
-           oj.series.push({ name: k, value: Number(set[k][i].value) });
-        }
-        out.push(oj);
-    }
-
-    return out;
+      const set = {};
+      const out = [];
+      data.forEach(calData => {
+          set[calData.name] = this.calByCycle(calData, this.displayCalCycle);
+      });
+      const key = data[0].name;
+      const length = set[key].length;
+      for (let i = 0; i < length; i++) {
+          const oj = {
+              name: undefined,
+              series: []
+          };
+          oj.name = (i + 1).toString();
+          for (const k in set) {
+              oj.series.push({ name: k, value: Number(set[k][i].value) });
+          }
+          out.push(oj);
+      }
+      return out;
   }
 
   private isPlaceHolderData(calData: CalData): boolean {
@@ -156,7 +178,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
 
   private sizingChart(): void {
     if (window && window.innerWidth) { // unit as px
-      const chartHeight = 450; 
+      const chartHeight = 450;
       const chartOffset = 120;
       const innerWidth = window.innerWidth - chartOffset;
       this.view = [innerWidth, chartHeight];

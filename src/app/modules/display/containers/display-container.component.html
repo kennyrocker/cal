@@ -1,13 +1,23 @@
 <div class="display-options">
-  <span class="field-label">Display Cycle:</span>
-  <select #amountCycle class="field-cycle"
-          (change)=bindCycleChangeSubject(amountCycle.value)>
-    <option [value]="item.value" *ngFor="let item of cycleArr">
-      {{item.key}}</option>
-  </select>
+    <div class="cycle-col">
+        <span class="field-label">Display Cycle:</span>
+        <select #amountCycle class="field-cycle"
+                (change)=bindCycleChangeSubject(amountCycle.value)>
+            <option [value]="item.value"
+                    *ngFor="let item of cycleArr">
+                    {{item.key}}
+            </option>
+        </select>
+    </div>
+    <div class="year-col" *ngIf="yearEnable">
+        <span class="field-label">for</span>
+        <input #year class="field-year" type="number" [value]="1" (change)="bindYearChangeSubject($event)">
+        <span class="field-label">year</span>
+    </div>
+
 </div>
 <div class="display-container">
-  
+
   <div *ngIf="single" class="single-chart">
       <ngx-charts-bar-vertical
         class="chart-wrapper"
@@ -47,5 +57,5 @@
         (select)="onSelect($event)">
       </ngx-charts-bar-vertical-2d>
   </div>
-  
+
 </div>
