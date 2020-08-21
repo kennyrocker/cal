@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { isProjectionsExistedFromCollection, getProjectionsByIds } from 'src/app/selectors/selectors';
 import { GetProjectionBatchByIdsAction } from 'src/app/actions/calData.action';
 import { filter } from 'rxjs/internal/operators/filter';
+import { throttleTime } from 'rxjs/operators';
+import { Constant } from '../../../constants/constant';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { filter } from 'rxjs/internal/operators/filter';
     styleUrls: ['./compare-container.component.scss']
 })
 export class CompareContainerComponent implements OnInit, OnDestroy {
-    
+
     private idsForCheck = {};
     public idsForLoad = {};
     private preLoadProjectionSub: Subscription;
@@ -47,7 +49,7 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
         ).subscribe((notLoaded) => {
             if (notLoaded && Object.keys(notLoaded).length > 0) {
                 const projectionIdsNotLoaded = [];
-                for(const id in notLoaded) {
+                for (const id in notLoaded) {
                     projectionIdsNotLoaded.push(id);
                 }
                 this.store.dispatch(new GetProjectionBatchByIdsAction(projectionIdsNotLoaded));
@@ -56,7 +58,8 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
 
         this.projectionSub = this.store.pipe(
             select(getProjectionsByIds, {ids: this.idsForLoad}),
-            filter(collection => (collection !== undefined  && collection.length > 0))
+            filter(collection => (collection !== undefined  && collection.length > 0)),
+            throttleTime(Constant.DISPLAY_CAL_THROTTLE_TIME)
         ).subscribe((collection) => {
             this.compares = collection;
             this.setMaxRows(collection);
@@ -76,14 +79,14 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     }
 
     private deserializeIds(paramIds: string): any {
-        const ids: string[] = paramIds.split("&");
+        const ids: string[] = paramIds.split('&');
         const obj = {};
         ids.forEach(i => {
-            obj[i.toString()] = false; 
-        })
-        return obj;        
+            obj[i.toString()] = false;
+        });
+        return obj;
     }
-    
+
     private setMaxRows(collection: any): void {
         collection.forEach( cal => {
             this.constantIncomeMaxRow = Math.max(this.constantIncomeMaxRow, cal.constantIncome.length);

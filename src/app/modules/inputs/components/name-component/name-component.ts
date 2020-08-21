@@ -4,8 +4,7 @@ import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../../reducers/index';
-import { debounceTime, distinctUntilChanged } from 'rxjs/internal/operators';
-import { Constant } from 'src/app/constants/constant';
+import { distinctUntilChanged } from 'rxjs/internal/operators';
 import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
 
 @Component({
@@ -14,7 +13,7 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
     styleUrls: ['./name-component.scss']
   })
   export class NameComponent implements OnInit, OnDestroy {
-      
+
     @Output() update: EventEmitter<boolean> = new EventEmitter();
     // tslint:disable-next-line:no-input-rename
     @Input('projectionId')
@@ -40,7 +39,6 @@ import { UpdateProjectionNameAction } from 'src/app/actions/calData.action';
 
     private initSub(): void {
         this.projectionNameChangeSub = this.projectionNameChangeSubject.pipe(
-            debounceTime(Constant.INPUT_DEBOUNCE_TIME),
             distinctUntilChanged()
         ).subscribe((value) => {
             this.updateNameAction(value);

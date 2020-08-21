@@ -6,10 +6,8 @@ import { MapperUtil } from 'src/app/utils/mapper-util';
 import { Store } from '@ngrx/store';
 import * as reducerRoot from '../../../../reducers/index';
 import { DeletePeriodicalVariableItemAction, UpdatePeriodicalVariableItemAction, UIitemDragAction } from 'src/app/actions/calData.action';
-import { debounceTime} from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { Subject, Subscription } from 'rxjs';
-import { Constant } from '../../../../constants/constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { DragItem } from 'src/app/constants/interfaces/drag-item';
@@ -68,7 +66,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.periodicForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
       name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required, 
+      amount: new FormControl(this.itemData.amount, [ Validators.required,
         Validators.pattern('^-([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$|^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$') ]),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ]),
@@ -79,14 +77,12 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   private initSub(): void {
 
     this.activeChangeSub = this.activeChangeSubject.pipe(
-      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
       this.activeChange(value);
     });
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
-      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged(),
       filter(value => value !== '')
     ).subscribe((value) => {
@@ -94,7 +90,6 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
-      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged(),
       filter(value => value !== 0 && value !== '')
     ).subscribe((value) => {
@@ -102,14 +97,12 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     });
 
     this.cycleChangeSub = this.cycleChangeSubject.pipe(
-      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
       this.cycleChange(value);
     });
 
     this.monthChangeSub = this.monthChangeSubject.pipe(
-      debounceTime(Constant.INPUT_DEBOUNCE_TIME),
       distinctUntilChanged()
     ).subscribe((value) => {
       this.monthChange(value);
@@ -159,13 +152,13 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
 
   private monthChange(value: string): void {
     const months =  this.parseMonthsToUniqueArray(value);
-    if (months.length === 0) { 
+    if (months.length === 0) {
       // TODO:: apply correct regex to affectiveMonth form control as pattern, remove manul validation
       this.periodicForm.setErrors({ affectiveMonth: false });
       this.periodicForm.controls['affectiveMonth'].setErrors({ affectiveMonth: false });
       this.periodicForm.controls['affectiveMonth'].markAllAsTouched();
       return;
-    } 
+    }
     this.periodicForm.patchValue({affectiveMonth: months});
     this.updateAction();
   }

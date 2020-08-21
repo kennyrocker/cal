@@ -3,14 +3,12 @@ import { InputGroup } from 'src/app/constants/enums/input-group';
 import { CalCycle } from 'src/app/constants/enums/cal-cycle';
 import { MapperUtil } from 'src/app/utils/mapper-util';
 import { Subscription, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 
 import * as reducerRoot from '../../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction, UIitemDragAction } from 'src/app/actions/calData.action';
-import { Constant } from '../../../../constants/constant';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { DragItem } from 'src/app/constants/interfaces/drag-item';
@@ -58,7 +56,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     this.isIncome = (this.itemGroupType === this.groupType.CONSTANT_INCOME);
     this.initSub();
   }
- 
+
   ngOnDestroy() {
     this.activeChangeSub.unsubscribe();
     this.nameChangeSub.unsubscribe();
@@ -70,7 +68,7 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
     this.constantForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
       name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required, Validators.min(1), 
+      amount: new FormControl(this.itemData.amount, [ Validators.required, Validators.min(1),
           Validators.pattern('^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$')]),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ])
@@ -80,14 +78,12 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
   private initSub(): void {
 
     this.activeChangeSub = this.activeChangeSubject.pipe(
-                            debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                             distinctUntilChanged()
                           ).subscribe((value) => {
                             this.activeChange(value);
                           });
 
     this.nameChangeSub = this.nameChangeSubject.pipe(
-                              debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                               distinctUntilChanged(),
                               filter(value => value !== '')
                           ).subscribe((value) => {
@@ -95,7 +91,6 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
                           });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
-                              debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                               distinctUntilChanged(),
                               filter(value => value !== 0 && value !== '')
                           ).subscribe((value) => {
@@ -103,7 +98,6 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
                           });
 
     this.cycleChangeSub = this.cycleChangeSubject.pipe(
-                            debounceTime(Constant.INPUT_DEBOUNCE_TIME),
                             distinctUntilChanged()
                           ).subscribe((value) => {
                             this.cycleChange(value);

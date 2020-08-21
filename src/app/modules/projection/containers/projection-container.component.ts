@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as reducerRoot from '../../../reducers/index';
-import { filter } from 'rxjs/operators';
+import { filter, throttleTime } from 'rxjs/operators';
 import { select } from '@ngrx/store';
 import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
 import { GetProjectionByIdAction, AddBlankProjectionAction } from 'src/app/actions/calData.action';
@@ -59,7 +59,8 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private initProjectionSub(): void {
         this.projectionSub = this.store.pipe(
             select(getProjectionById, {id: this.projectionId}),
-            filter(data => data !== undefined)
+            filter(data => data !== undefined),
+            throttleTime(Constant.DISPLAY_CAL_THROTTLE_TIME)
         ).subscribe( data => {
             this.projection = data;
         });
