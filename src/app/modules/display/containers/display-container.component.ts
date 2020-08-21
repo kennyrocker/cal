@@ -147,7 +147,6 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       this.displayDataMulti = this.convertMultiDisplay(this.multi);
   }
 
-
   private convertMultiDisplay(data: CalData[]): DisplayMultiItem[] {
       const set = {};
       const out = [];

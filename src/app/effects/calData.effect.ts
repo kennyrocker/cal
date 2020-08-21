@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import {
   CalDataActionTypes,
@@ -22,13 +22,15 @@ import {
   AddProjectionAction
 } from 'src/app/actions/calData.action';
 import { Projection } from 'src/app/services/projection/projection';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { tap } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
 import { CalSnapShot } from '../constants/interfaces/cal-snap-shot';
 import { Constant } from '../constants/constant';
+import { isSnapShotsLoaded } from '../selectors/selectors';
+import * as reducerRoot from '../reducers';
 
 
 @Injectable()
@@ -36,7 +38,8 @@ export class CalDataEffects {
 
     constructor(private actions$: Actions,
                 private calDataService: Projection,
-                private router: Router) {}
+                private router: Router,
+                private store: Store<reducerRoot.CalDataState>) {}
 
     @Effect()
     public getSnapshot$: Observable<Action> = this.actions$.pipe(
@@ -145,17 +148,26 @@ export class CalDataEffects {
     public postProjection$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.PostProjection),
         switchMap((action: PostProjectionAction) => {
-            return this.calDataService
-                        .postProjection(action.userId, action.projection)
-                        .pipe(
-                            switchMap((data: CalData) => {
+              return this.calDataService
+                  .postProjection(action.userId, action.projection)
+                      .pipe(
+                            withLatestFrom(this.store.select(isSnapShotsLoaded)),
+                            switchMap(([data, snapShotLoaded]) => {
                                 if (data.id && data.lastUpdated) {
-                                    return [
+                                    if (snapShotLoaded) {
+                                        return [
                                             new AddProjectionAction(data),
                                             new AddSnapShotAction(this.constructSnapShot(data.id, data.name, data.lastUpdated)),
                                             new PostProjectionActionSuccess(data.id),
                                             new DeleteProjectionFromCollectionAction(Constant.TEMP_PROJECTION_ID)
-                                    ];
+                                        ];
+                                    } else {
+                                        return [
+                                            new AddProjectionAction(data),
+                                            new PostProjectionActionSuccess(data.id),
+                                            new DeleteProjectionFromCollectionAction(Constant.TEMP_PROJECTION_ID)
+                                        ];
+                                    }
                                 } else {
                                     return of ({
                                         type: CalDataActionTypes.UpdateProjectionFailed
