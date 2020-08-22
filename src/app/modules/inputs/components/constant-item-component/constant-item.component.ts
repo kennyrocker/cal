@@ -9,7 +9,7 @@ import * as reducerRoot from '../../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { UpdateConstantIncomeItemAction, UpdateConstantExpenseItemAction,
    DeleteConstantIcomeItemAction, DeleteConstantExpenseItemAction, UIitemDragAction } from 'src/app/actions/calData.action';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { DragItem } from 'src/app/constants/interfaces/drag-item';
 
@@ -45,7 +45,6 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
   private cycleChangeSub: Subscription;
   private cycleChangeSubject = new Subject<any>();
 
-
   constructor(public store: Store<reducerRoot.CalDataState>) {
     this.cycleArr = MapperUtil.EnumMapToArray(this.calCycleEnum);
   }
@@ -67,9 +66,8 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.constantForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
-      name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required, Validators.min(1),
-          Validators.pattern('^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$')]),
+      name: new FormControl(this.itemData.name, []),
+      amount: new FormControl(this.itemData.amount, []),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ])
     });
@@ -88,6 +86,12 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
                               filter(value => value !== '')
                           ).subscribe((value) => {
                               this.nameChange(value);
+                              this.constantForm.get('amount').setValidators([
+                                Validators.required,
+                                Validators.min(1),
+                                Validators.pattern('^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$')
+                              ]);
+                              this.constantForm.get('amount').updateValueAndValidity();
                           });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
@@ -95,6 +99,8 @@ export class ConstantItemComponent implements OnInit, OnDestroy {
                               filter(value => value !== 0 && value !== '')
                           ).subscribe((value) => {
                               this.amountChange(value);
+                              this.constantForm.get('name').setValidators(Validators.required);
+                              this.constantForm.get('name').updateValueAndValidity();
                           });
 
     this.cycleChangeSub = this.cycleChangeSubject.pipe(

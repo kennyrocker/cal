@@ -101,14 +101,17 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   public addConstantIncomeItem(): void {
     this.store.dispatch(new AddConstantIncomeItemAction(this.data.id));
+    this.hasUpdated(true);
   }
 
   public addConstantExpenseItem(): void {
     this.store.dispatch(new AddConstantExpenseItemAction(this.data.id));
+    this.hasUpdated(true);
   }
 
   public addPeriodicalVaribleItem(): void {
     this.store.dispatch(new AddPeriodicalVariableItemAction(this.data.id));
+    this.hasUpdated(true);
   }
 
   // performance boost

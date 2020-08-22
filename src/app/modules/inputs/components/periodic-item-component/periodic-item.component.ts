@@ -65,12 +65,11 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.periodicForm = new FormGroup({
       id: new FormControl(this.itemData.id, [ Validators.required ]),
-      name: new FormControl(this.itemData.name, [ Validators.required ]),
-      amount: new FormControl(this.itemData.amount, [ Validators.required,
-        Validators.pattern('^-([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$|^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$') ]),
+      name: new FormControl(this.itemData.name),
+      amount: new FormControl(this.itemData.amount),
       cycle: new FormControl(this.itemData.cycle, [ Validators.required ]),
       active: new FormControl(this.itemData.active, [ Validators.required ]),
-      affectiveMonth: new FormControl(this.itemData.affectiveMonth, [Validators.required])
+      affectiveMonth: new FormControl(this.itemData.affectiveMonth)
     });
   }
 
@@ -86,14 +85,18 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       filter(value => value !== '')
     ).subscribe((value) => {
-      this.nameChange(value);
+        this.nameChange(value);
+        this.addAmountFieldValidation();
+        this.addAffectiveMonthFieldValidation();
     });
 
     this.amountChangeSub = this.amountChangeSubject.pipe(
       distinctUntilChanged(),
       filter(value => value !== 0 && value !== '')
     ).subscribe((value) => {
-      this.amountChange(value);
+        this.amountChange(value);
+        this.addNameFieldValidation();
+        this.addAffectiveMonthFieldValidation();
     });
 
     this.cycleChangeSub = this.cycleChangeSubject.pipe(
@@ -105,9 +108,34 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.monthChangeSub = this.monthChangeSubject.pipe(
       distinctUntilChanged()
     ).subscribe((value) => {
-      this.monthChange(value);
+        this.monthChange(value);
+        this.addNameFieldValidation();
+        this.addAmountFieldValidation();
     });
 
+  }
+
+  private addNameFieldValidation(): void {
+      this.periodicForm.get('name').setValidators([
+        Validators.required
+      ]);
+      this.periodicForm.get('name').updateValueAndValidity();
+  }
+
+  private addAmountFieldValidation(): void {
+      this.periodicForm.get('amount').setValidators([
+        Validators.required,
+        // tslint:disable-next-line:max-line-length
+        Validators.pattern('^-([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$|^([0-9]*[1-9][0-9]*(\.[0-9]+)?|[0]+\.[0-9]*[1-9][0-9]*)$')
+      ]);
+      this.periodicForm.get('amount').updateValueAndValidity();
+  }
+
+  private addAffectiveMonthFieldValidation(): void {
+      this.periodicForm.get('affectiveMonth').setValidators([
+        Validators.required
+      ]);
+      this.periodicForm.get('affectiveMonth').updateValueAndValidity();
   }
 
   public bindActiveChangeSubject(value): void {
