@@ -6,8 +6,6 @@ import { Subscription } from 'rxjs';
 import { isProjectionsExistedFromCollection, getProjectionsByIds } from 'src/app/selectors/selectors';
 import { GetProjectionBatchByIdsAction } from 'src/app/actions/calData.action';
 import { filter } from 'rxjs/internal/operators/filter';
-import { throttleTime } from 'rxjs/operators';
-import { Constant } from '../../../constants/constant';
 
 
 @Component({
@@ -58,8 +56,7 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
 
         this.projectionSub = this.store.pipe(
             select(getProjectionsByIds, {ids: this.idsForLoad}),
-            filter(collection => (collection !== undefined  && collection.length > 0)),
-            throttleTime(Constant.DISPLAY_CAL_THROTTLE_TIME)
+            filter(collection => (collection !== undefined  && collection.length > 0))
         ).subscribe((collection) => {
             this.compares = collection;
             this.setMaxRows(collection);
@@ -96,6 +93,9 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
             this.constantExpenseMaxRow = Math.max(this.constantExpenseMaxRow, cal.constantExpense.length);
             this.periodicMaxRow = Math.max(this.periodicMaxRow, cal.periodicalVariable.length);
         });
+        this.constantIncomeMaxRow++;
+        this.constantExpenseMaxRow++;
+        this.periodicMaxRow++;
     }
 
 }

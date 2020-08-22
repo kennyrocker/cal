@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as reducerRoot from '../../../reducers/index';
-import { filter, throttleTime } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { select } from '@ngrx/store';
 import { getProjectionById, isProjectionExistedFromCollection } from 'src/app/selectors/selectors';
 import { GetProjectionByIdAction, AddBlankProjectionAction } from 'src/app/actions/calData.action';
@@ -23,6 +23,10 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private projectionSub: Subscription;
     public projection: any;
     public isNewProjection = false;
+
+    public constantIncomeMaxRow = 0;
+    public constantExpenseMaxRow = 0;
+    public periodicMaxRow = 0;
 
     constructor(private route: ActivatedRoute,
         public store: Store<reducerRoot.CalDataState>) {
@@ -59,10 +63,10 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     private initProjectionSub(): void {
         this.projectionSub = this.store.pipe(
             select(getProjectionById, {id: this.projectionId}),
-            filter(data => data !== undefined),
-            throttleTime(Constant.DISPLAY_CAL_THROTTLE_TIME)
+            filter(data => data !== undefined)
         ).subscribe( data => {
             this.projection = data;
+            this.setMaxRows(data);
         });
     }
 
@@ -72,6 +76,14 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
         if (!this.isNewProjection) {
             this.isLoadedSub.unsubscribe();
         }
+    }
+
+    private setMaxRows(cal: any): void {
+        let constantMaxRow = 0;
+        constantMaxRow = Math.max(constantMaxRow,  cal.constantIncome.length, cal.constantExpense.length);
+        this.constantIncomeMaxRow = constantMaxRow + 1;
+        this.constantExpenseMaxRow = constantMaxRow + 1;
+        this.periodicMaxRow = cal.periodicalVariable.length + 1;
     }
 
 }

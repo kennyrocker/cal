@@ -1,5 +1,8 @@
 <div *ngIf="projection">
-    <app-input-container [data]="projection" [isNewProjection]="isNewProjection"></app-input-container>
+    <app-input-container [data]="projection" [isNewProjection]="isNewProjection"
+        [constantIncomeMaxRow]="constantIncomeMaxRow"
+        [constantExpenseMaxRow]="constantExpenseMaxRow"
+        [periodicMaxRow]="periodicMaxRow"></app-input-container>
     <app-display-container [single]="projection"></app-display-container>
 </div>
 <div *ngIf="!projection">

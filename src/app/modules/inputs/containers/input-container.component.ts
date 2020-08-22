@@ -20,7 +20,7 @@ import { PeriodicItemComponent }
 import { ModalType } from 'src/app/constants/enums/modal-type';
 import { Subscription } from 'rxjs';
 import { getUIdragItem, getUser } from 'src/app/selectors/selectors';
-import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { UserState } from '../../../constants/interfaces/user';
 import { Constant } from '../../../constants/constant';
 
@@ -83,10 +83,13 @@ export class InputContainerComponent implements OnInit, OnDestroy {
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.rollBackData =  this.data;
     this.dragItemSub = this.store.select(getUIdragItem).pipe(
-          distinctUntilChanged(),
-          debounceTime(500),
+          distinctUntilChanged()
         ).subscribe((item) => {
-            this.dragItem = item;
+            if (item) {
+                this.dragItem = item;
+            } else {
+                this.resetDropEffect();
+            }
         }
     );
     this.userSub = this.store.select(getUser).subscribe((user: UserState) => {
@@ -222,16 +225,25 @@ export class InputContainerComponent implements OnInit, OnDestroy {
             this.periodicDropEffect = true;
             this.constantDropEffect = false;
           }
-      } else {
-          this.constantDropEffect = false;
-          this.periodicDropEffect = false;
       }
+      else if (this.data.id === this.dragItem.projectionId) {
+          if (groupType === InputGroup.CONSTANT_INCOME || groupType === InputGroup.CONSTANT_EXPENSE) {
+              this.constantDropEffect = true;
+          }
+      }
+      else {
+          this.resetDropEffect();
+      }
+  }
+
+  private resetDropEffect(): void {
+      this.constantDropEffect = false;
+      this.periodicDropEffect = false;
   }
 
   public dragItemPickup(groupType: InputGroup): void {
       if (!this.dragItem) return;
-      this.constantDropEffect = false;
-      this.periodicDropEffect = false;
+      this.resetDropEffect();
       this.store.dispatch(new UIitemDropAction( { type: groupType,  projectionId: this.data.id, item: this.dragItem } ));
       this.hasUpdated(true);
   }
