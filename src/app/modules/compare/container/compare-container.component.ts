@@ -88,6 +88,9 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     }
 
     private setMaxRows(collection: any): void {
+        this.constantIncomeMaxRow = 0;
+        this.constantExpenseMaxRow = 0;
+        this.periodicMaxRow = 0;
         collection.forEach( cal => {
             this.constantIncomeMaxRow = Math.max(this.constantIncomeMaxRow, cal.constantIncome.length);
             this.constantExpenseMaxRow = Math.max(this.constantExpenseMaxRow, cal.constantExpense.length);
