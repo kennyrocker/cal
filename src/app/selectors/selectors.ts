@@ -1,5 +1,4 @@
-import {createSelector } from '@ngrx/store';
-import {UiState} from '../constants/interfaces/ui';
+import { createSelector } from '@ngrx/store';
 
 export const getUser = createSelector(
    (state: any) => state.calData.user,

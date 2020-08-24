@@ -19,6 +19,11 @@
 
     .primary-button {
         height: 42px;
+
+        &:focus,
+        &:hover {
+          outline: 0 none;
+        }
     }
 }
 
@@ -32,7 +37,7 @@
 
 
     .snapshot-item {
-        text-align: center;        
+        text-align: center;
         justify-content: space-around;
         margin: 10px;
         border-radius: 0.25rem;
@@ -45,7 +50,7 @@
         position: relative;
 
         .top {
-            
+
             width: 205px;
             height: 100%;
             padding: 30px 10px 60px 10px;
@@ -55,7 +60,7 @@
             .name {
                 font-size: 1.5rem;
             }
-    
+
             .last-updated {
                 padding-top: 0.45rem;
                 font-size: 1rem;

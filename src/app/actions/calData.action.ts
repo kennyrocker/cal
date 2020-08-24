@@ -36,7 +36,7 @@ export enum CalDataActionTypes {
     UpdateProjection = '[Update Projection] Update',
     UpdateProjectionFailed = '[Update Projection] Update Failed',
     PostProjection = '[Post Projection] Post',
-    PostProjectionSuccess = '[Post Projection] Post Success',
+    RouteToProjection = '[Route To] Projection',
     UpdateSnapShot = '[Update Snapshot] Update',
     AddBlankProjection = '[Blank Projection] Add',
     AddProjection = '[Projection] Add',
@@ -62,6 +62,8 @@ export enum CalDataActionTypes {
     UIAuthModalAction = '[UI auth modal] Update',
     UISampleLoaded = '[UI sample] Loaded',
     GetTemplateSample = '[Template] Get Sample',
+    SelectedCopyProjectionPreload = '[Selected Projection] Copy Preload',
+    SelectedCopyProjectionLoaded = '[Selected Projection] Copy Loaded'
 }
 
 
@@ -213,8 +215,8 @@ export class PostProjectionAction implements Action {
     constructor(public userId, public projection: CalData) {}
 }
 
-export class PostProjectionActionSuccess implements Action {
-    readonly type = CalDataActionTypes.PostProjectionSuccess;
+export class RouteToProjectionAction implements Action {
+    readonly type = CalDataActionTypes.RouteToProjection;
     constructor(public projectionId: string) {}
 }
 
@@ -318,12 +320,22 @@ export class TemplateGetSampleAction implements Action {
   constructor(public lang: string) {}
 }
 
+export class SelectedCopyProjectionPreloadAction implements Action {
+  readonly type = CalDataActionTypes.SelectedCopyProjectionPreload;
+  constructor(public projectionId: string) {}
+}
+
+export class SelectedCopyProjectionLoadedAction implements Action {
+  readonly type = CalDataActionTypes.SelectedCopyProjectionLoaded;
+  constructor(public payload: CalData) {}
+}
+
 
 export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSnapshotActionSuccess
  | GetProjectionByIdAction | GetProjectionByIdActionSuccess | GetProjectionByIdActionFailed
  | GetProjectionBatchByIdsAction | GetProjectionBatchByIdsActionSuccess | GetProjectionBatchByIdsActionFailed
  | UpdatePorjectionAction | UpdateProjectionLastUpdatedAction | UpdatePorjectionActionFailed
- | UpdateSnapShotAction | PostProjectionAction | PostProjectionActionSuccess | AddSnapShotAction
+ | UpdateSnapShotAction | PostProjectionAction | RouteToProjectionAction | AddSnapShotAction
  | UpdateConstantIncomeItemAction | UpdateProjectionNameAction
  | UpdateConstantExpenseItemAction | UpdatePeriodicalVariableItemAction
  | UpdateStaticVariableItemAction | AddConstantIncomeItemAction
@@ -339,4 +351,5 @@ export type CalDataActions = GetAllProjectionSnapshotAction | GetAllProjectionSn
  | PostUserAction | PostUserSuccessAction | PostUserFailedAction
  | PostUserLoginAction | PostUserLoginFailedAction | UserLogOutAction | ResetStateAction
  | UpdateUserAction
- | TemplateGetSampleAction | UISampleLoadedAction;
+ | TemplateGetSampleAction | UISampleLoadedAction
+ | SelectedCopyProjectionPreloadAction | SelectedCopyProjectionLoadedAction;

@@ -5,14 +5,16 @@ import * as reducerRoot from '../../../reducers/index';
 import {
   GetAllProjectionSnapshotAction,
   SnapShotSelectedUpdateUIAction,
-  DeleteProjectionAction
+  DeleteProjectionAction, SelectedCopyProjectionPreloadAction, GetProjectionByIdAction
 } from 'src/app/actions/calData.action';
 
 import { CalSnapShot } from 'src/app/constants/interfaces/cal-snap-shot';
 
 import { Subscription } from 'rxjs/internal/Subscription';
-import { getAllSnapShots, isSnapShotsLoaded, getSnapshotSelected,
-         getUser } from 'src/app/selectors/selectors';
+import {
+  getAllSnapShots, isSnapShotsLoaded, getSnapshotSelected,
+  getUser, isProjectionExistedFromCollection
+} from 'src/app/selectors/selectors';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
@@ -87,7 +89,7 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     }
 
     public createProjection(): void {
-        this.routeToProjection(Constant.TEMP_ROUTE_NAME);
+        this.routeToProjection(Constant.NEW_ROUTE_NAME);
     }
 
     public compare(): void {
@@ -96,11 +98,24 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(url);
     }
 
+    public copy(): void {
+        const id = this.snapshotSelected[0];
+        this.store.dispatch(new SelectedCopyProjectionPreloadAction(id));
+    }
+
     public isItemSelected(projectionId: string): boolean {
         return this.snapshotSelected.indexOf(projectionId) !== -1;
     }
 
     private toggleSelection(projectionId: string): void {
+        // pre fetch projection for operations
+        // TODO:: dispatch loading UI lock
+        if (projectionId !== Constant.SAMPLE_PROJECTION_ID) {
+            this.store.select(isProjectionExistedFromCollection, {id: projectionId})
+                .subscribe((bool) => {
+                    if (!bool) this.store.dispatch(new GetProjectionByIdAction(projectionId));
+            });
+        }
         // TODO:: This mess up with the projection order,
         // but later the compare should presist the order by filter such as lastupdated
         if (this.isItemSelected(projectionId)) {
@@ -128,6 +143,5 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     public isSampleProjection(projectionId: string): boolean {
         return projectionId === Constant.SAMPLE_PROJECTION_ID;
     }
-
 
 }

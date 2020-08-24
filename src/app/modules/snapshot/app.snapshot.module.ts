@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { UIEffects } from '../../effects/ui.effect';
 import { reducer } from 'src/app/reducers';
 import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { ShareModule } from 'src/app/modules/share/app.share.module';
@@ -24,7 +25,7 @@ const routes: Routes = [
         ShareModule,
         RouterModule.forChild(routes),
         StoreModule.forRoot(reducer),
-        EffectsModule.forRoot([CalDataEffects])
+        EffectsModule.forRoot([CalDataEffects, UIEffects])
     ]
 })
 export class SnapshotModule {}

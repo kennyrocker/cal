@@ -1,5 +1,8 @@
 <div class="snapshot">
     <div class="snapshot-filter">
+        <button *ngIf="snapshotSelected.length === 1"
+              class="primary-button" (click)="copy()">Copy Selected</button>
+
         <button *ngIf="snapshotSelected.length > 1"
                 class="primary-button" (click)="compare()">Compare Selected</button>
     </div>

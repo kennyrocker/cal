@@ -34,10 +34,15 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if (params['id'] === Constant.TEMP_ROUTE_NAME) { // projection/new route
+            const id = params['id'];
+            if (id === Constant.NEW_ROUTE_NAME) { // projection/new route
+                this.isNewProjection = true;
                 this.prepareNewProjection();
+            } else if (id === Constant.COPY_ID) { // projection/copy_id route
+                this.isNewProjection = true;
+                this.prepareProjection(id);
             } else { // projection/:id route
-                this.prepareProjection(params['id']);
+                this.prepareProjection(id);
             }
         });
         this.initProjectionSub();
@@ -48,15 +53,14 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
         this.isLoadedSub = this.store.pipe(
             select(isProjectionExistedFromCollection, {id:  this.projectionId})
         ).subscribe((isLoaded) => {
-            if (!isLoaded) {
+            if (!isLoaded && this.projectionId !== Constant.COPY_ID) {
                 this.store.dispatch(new GetProjectionByIdAction(this.projectionId));
             }
         });
     }
 
     private prepareNewProjection(): void {
-        this.isNewProjection = true;
-        this.projectionId = Constant.TEMP_PROJECTION_ID;
+        this.projectionId = Constant.NEW_PROJECTION_ID;
         this.store.dispatch(new AddBlankProjectionAction(this.projectionId));
     }
 
@@ -73,9 +77,7 @@ export class ProjectionContainerComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.routeSub.unsubscribe();
         this.projectionSub.unsubscribe();
-        if (!this.isNewProjection) {
-            this.isLoadedSub.unsubscribe();
-        }
+        if (this.isLoadedSub) this.isLoadedSub.unsubscribe();
     }
 
     private setMaxRows(cal: any): void {

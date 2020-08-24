@@ -118,6 +118,9 @@ button {
 .periodic-drop-section-effect,
 .constant-drop-section-effect {
     background-color: $gray-1;
+    border-right: 1px solid $white-2;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
 }
 
 

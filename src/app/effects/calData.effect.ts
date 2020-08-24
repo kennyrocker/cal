@@ -15,7 +15,7 @@ import {
   AddSnapShotAction,
   GetProjectionBatchByIdsAction,
   GetProjectionBatchByIdsActionSuccess,
-  PostProjectionActionSuccess,
+  RouteToProjectionAction,
   DeleteProjectionAction,
   DeleteProjectionFromSnapshotAction,
   DeleteProjectionFromCollectionAction,
@@ -152,21 +152,36 @@ export class CalDataEffects {
                   .postProjection(action.userId, action.projection)
                       .pipe(
                             withLatestFrom(this.store.select(isSnapShotsLoaded)),
-                            switchMap(([data, snapShotLoaded]) => {
+                            switchMap(([data, snapShotsLoaded]) => {
                                 if (data.id && data.lastUpdated) {
-                                    if (snapShotLoaded) {
-                                        return [
-                                            new AddProjectionAction(data),
-                                            new AddSnapShotAction(this.constructSnapShot(data.id, data.name, data.lastUpdated)),
-                                            new PostProjectionActionSuccess(data.id),
-                                            new DeleteProjectionFromCollectionAction(Constant.TEMP_PROJECTION_ID)
-                                        ];
+                                    if (snapShotsLoaded) {
+                                        if (action.projection.id === Constant.COPY_ID) {
+                                            return [
+                                                new AddProjectionAction(data),
+                                                new AddSnapShotAction(this.constructSnapShot(data.id, data.name, data.lastUpdated)),
+                                                new DeleteProjectionFromCollectionAction(Constant.COPY_ID)
+                                            ];
+                                        } else {
+                                            return [
+                                                new AddProjectionAction(data),
+                                                new AddSnapShotAction(this.constructSnapShot(data.id, data.name, data.lastUpdated)),
+                                                new RouteToProjectionAction(data.id),
+                                                new DeleteProjectionFromCollectionAction(Constant.NEW_PROJECTION_ID)
+                                            ];
+                                        }
                                     } else {
-                                        return [
-                                            new AddProjectionAction(data),
-                                            new PostProjectionActionSuccess(data.id),
-                                            new DeleteProjectionFromCollectionAction(Constant.TEMP_PROJECTION_ID)
-                                        ];
+                                        if (action.projection.id === Constant.COPY_ID) {
+                                            return [
+                                                new AddProjectionAction(data),
+                                                new DeleteProjectionFromCollectionAction(Constant.COPY_ID)
+                                            ];
+                                        } else {
+                                            return [
+                                                new AddProjectionAction(data),
+                                                new RouteToProjectionAction(data.id),
+                                                new DeleteProjectionFromCollectionAction(Constant.NEW_PROJECTION_ID)
+                                            ];
+                                        }
                                     }
                                 } else {
                                     return of ({
@@ -182,8 +197,8 @@ export class CalDataEffects {
 
     @Effect({ dispatch: false })
     postProjectionSuccess = this.actions$.pipe(
-            ofType(CalDataActionTypes.PostProjectionSuccess),
-            map((action: PostProjectionActionSuccess) => {
+            ofType(CalDataActionTypes.RouteToProjection),
+            map((action: RouteToProjectionAction) => {
                 const url =  'projection/' + action.projectionId;
                 this.router.navigate([url]);
             }
@@ -195,10 +210,16 @@ export class CalDataEffects {
         ofType(CalDataActionTypes.DeleteProjection),
         switchMap((action: DeleteProjectionAction) => {
             if (action.deleteLocalOnly) {
-                return [
-                    new DeleteProjectionFromSnapshotAction(action.projectionId),
-                    new DeleteProjectionFromCollectionAction(action.projectionId)
-                ];
+                if (action.projectionId === Constant.COPY_ID) {
+                    return [
+                        new DeleteProjectionFromCollectionAction(action.projectionId)
+                    ];
+                } else {
+                    return [
+                        new DeleteProjectionFromSnapshotAction(action.projectionId),
+                        new DeleteProjectionFromCollectionAction(action.projectionId)
+                    ];
+                }
             } else {
                 return this.calDataService
                     .deleteProjection(action.projectionId)

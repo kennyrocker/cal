@@ -79,6 +79,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.hasUpdatedItem = this.data.id === Constant.COPY_ID;
     this.isSampleProjection = this.data.id === Constant.SAMPLE_PROJECTION_ID;
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.rollBackData =  this.data;
@@ -148,6 +149,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   private routeBack(): void {
+
       if (this.isNewProjection && !this.saved) {
           // this.store.dispatch(new UIUpdateLockAction({ full: true, scroll: true }));
           this.store.dispatch(new DeleteProjectionAction(this.data.id, true));

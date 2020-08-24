@@ -18,7 +18,9 @@ export class Constant {
   public static USER_NAME_COOKIE = 'name';
   public static USER_ACCESS_TOKEN_COOKIE = 'uat';
   public static COOKIE_EXPIRE_DAY = 1; // is now 1 day, make sure this is the same as the server session time
-  public static TEMP_ROUTE_NAME = 'new';
-  public static TEMP_PROJECTION_ID = 'temp_id';
+  public static NEW_ROUTE_NAME = 'new';
+  public static NEW_PROJECTION_ID = 'new_id';
   public static SAMPLE_PROJECTION_ID = 'sample_id';
+  public static COPY_SUFFIX = '_COPY';
+  public static COPY_ID = 'copy_id';
 }
