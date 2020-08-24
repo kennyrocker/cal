@@ -72,9 +72,28 @@
 .constant-expense {
     width: 30%;
 }
-
 .periodic-variable {
    width: 40%;
+}
+
+@media only screen and (max-width: 1580px) {
+    .constant-income,
+    .constant-expense {
+      width: 50%;
+    }
+    .periodic-variable {
+        display: block;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+  .constant-income,
+  .constant-expense,
+  .periodic-variable {
+    display: block;
+    width: 100%;
+  }
 }
 
 .group-title {
@@ -290,6 +309,7 @@ button {
       position: relative;
       top: 0;
       left: 0;
+      z-index: unset;
     }
 
     .input-section {
