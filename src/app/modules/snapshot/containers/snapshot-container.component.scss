@@ -7,13 +7,14 @@
 
 .snapshot-filter {
     position: fixed;
-    top: 100px;
+    top: 57px;
+    height: 90px;
     left: 0;
     background-color: $white-1;
     z-index: $lvl-2;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 1.5rem;
+    padding: 2rem 1.5rem 0 1.5rem;
     display: flex;
     justify-content: flex-end;
 
@@ -35,6 +36,9 @@
     display: flex;
     flex-wrap: wrap;
 
+    @media only screen and (max-width: $medium-view-port) {
+      padding-left: 15px;
+    }
 
     .snapshot-item {
         text-align: center;

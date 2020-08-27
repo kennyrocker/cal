@@ -1,6 +1,7 @@
 @import './color.scss';
 @import './zindex.scss';
 @import './button.scss';
+@import './responsive';
 
 .modal-anchor {
     position: relative;
@@ -51,10 +52,16 @@
 :host-context(.input-wrapper) {
 
     .modal-root {
-        left: 10px;
-        top: 92px;
+      left: 10px;
+      top: 92px;
     }
-    
+    @media only screen and (max-width: $small-view-port) {
+        .modal-root {
+          top: 62px;
+          left: 0;
+        }
+    }
+
 }
 
 // Account Modal
@@ -67,5 +74,5 @@
         top: 100px;
         width: 450px;
     }
-    
+
 }

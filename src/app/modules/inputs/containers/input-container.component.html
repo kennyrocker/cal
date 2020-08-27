@@ -2,21 +2,22 @@
 
   <div class="input-heading">
       <!-- TODO:: only index 0 show back button, and style it -->
-      <div class="modal-anchor">
+
+      <div class="input-projection-name">
+          <app-name-component [projectionId]="data.id" [name]="data.name"
+            (update)="hasUpdated($event)"></app-name-component>
+      </div>
+
+      <div class="left-wrapper modal-anchor">
           <button class="primary-button" (click)="backClick()">
-              <span class="icon-back-arrow">&#8249;</span>Back
+            <span class="icon-back-arrow">&#8249;</span>Back
           </button>
           <app-modal [show]="backModalShow" [modalType]="modalType.CONFIRMATION_TYPE"
                      [confirmButtonText]="'Save'" [cancelButtonText]="'Skip'"
                      (confirmationClick)="backModalConfirmationHandle()"
                      (cancelationClick)="backModalCancelHandle()">
-              Changes have not yet been saved
+            Changes have not yet been saved
           </app-modal>
-      </div>
-
-      <div class="input-projection-name">
-          <app-name-component [projectionId]="data.id" [name]="data.name"
-            (update)="hasUpdated($event)"></app-name-component>
       </div>
       <div class="right-wrapper">
           <button *ngIf="!isSampleProjection" class="primary-button" (click)="handleSave()">Save Projection</button>

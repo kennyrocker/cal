@@ -11,17 +11,20 @@
     padding-right: 8px;
     padding-left: 8px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .input-projection-name {
     text-align: center;
+    display: block;
+    margin-left: 33%;
+    width: 33%;
+    box-sizing: border-box;
 }
 
 .input-heading {
-    display: flex;
+    display: block;
     width: 100%;
-    justify-content: space-between;
-    flex-wrap: wrap;
     position: fixed;
     top: 58px;
     left: 0;
@@ -32,6 +35,7 @@
 }
 
 .projection-name {
+    width: 100%;
     border: 0 none;
     font-size: 32px;
     color: $gray-5;
@@ -40,13 +44,16 @@
     padding: 0 0 3px 0;
 }
 
-.modal-anchor,
-.right-wrapper,
-.input-projection-name {
-    flex: 1;
+.left-wrapper {
+    position: absolute;
+    left: 15px;
+    top: 42px;
 }
+
 .right-wrapper {
-    flex: 1;
+    position: absolute;
+    right: 15px;
+    top: 42px;
     text-align: right;
 }
 
@@ -63,6 +70,30 @@
     }
 }
 
+@media only screen and (max-width: $small-view-port) {
+  .input-heading {
+    padding-bottom: 63px;
+  }
+  .input-projection-name {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .left-wrapper,
+  .right-wrapper {
+    top: 90px;
+    width: 46%;
+  }
+  .primary-button {
+    width: 100%;
+  }
+  .input-wrapper {
+    padding-top: 205px;
+  }
+}
+
+
+
+
 .input-section {
     display: inline-block;
     vertical-align: top;
@@ -76,7 +107,7 @@
    width: 40%;
 }
 
-@media only screen and (max-width: 1580px) {
+@media only screen and (max-width: $large-view-port) {
     .constant-income,
     .constant-expense {
       width: 50%;
@@ -87,7 +118,7 @@
     }
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: $medium-view-port) {
   .constant-income,
   .constant-expense,
   .periodic-variable {
@@ -300,7 +331,7 @@ button {
 :host-context(.compare-wrapper)  {
 
     .input-wrapper {
-      padding-top: 100px;
+      padding-top: 50px;
       padding-right: 0;
       padding-left: 0;
     }
@@ -320,6 +351,30 @@ button {
     .constant-item,
     .periodic-item {
       border-right: 1px solid $white-3;
+    }
+
+    .input-heading {
+      padding-bottom: 73px;
+    }
+
+    .input-projection-name {
+      width: 90%;
+      margin-left: 5%;
+    }
+
+    .left-wrapper {
+      top: 90px;
+      width: 48%;
+      left: 5px;
+    }
+    .right-wrapper {
+      top: 90px;
+      width: 48%;
+      right: 5px;
+    }
+
+    .primary-button {
+      width: 100%;
     }
 
 }
