@@ -52,6 +52,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('periodicMaxRow')
   public periodicMaxRow: number;
+  // tslint:disable-next-line:no-input-rename
+  @Input('itemBaseHeight')
+  public itemBaseHeight: number;
 
 
   public constantDropEffect: boolean;
@@ -66,7 +69,6 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private dragItemSub: Subscription;
   private dragItem: any;
   private rollBackData: CalData;
-  private ITEM_HEIGHT = 50; // px
   private timeOut;
   public isSampleProjection = false;
 
@@ -251,9 +253,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   public groupHeight(): any {
-      const income = `${this.constantIncomeMaxRow * this.ITEM_HEIGHT}px`;
-      const expense = `${this.constantExpenseMaxRow * this.ITEM_HEIGHT}px`;
-      const periodic = `${this.periodicMaxRow * this.ITEM_HEIGHT}px`;
+      const income = `${this.constantIncomeMaxRow * this.itemBaseHeight}px`;
+      const expense = `${this.constantExpenseMaxRow * this.itemBaseHeight}px`;
+      const periodic = `${this.periodicMaxRow * this.itemBaseHeight}px`;
       return {
         'income' : income,
         'expense' : expense,

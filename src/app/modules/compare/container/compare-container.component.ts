@@ -24,6 +24,7 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     public constantIncomeMaxRow = 0;
     public constantExpenseMaxRow = 0;
     public periodicMaxRow = 0;
+    public itemBaseHeight;
 
     constructor(private route: ActivatedRoute,
                 private store: Store<reducerRoot.CalDataState>) {
@@ -60,6 +61,7 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
         ).subscribe((collection) => {
             this.compares = collection;
             this.setMaxRows(collection);
+            this.setItemBaseHeightByScreenSize(collection);
         });
 
     }
@@ -96,6 +98,17 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
         this.constantIncomeMaxRow++;
         this.constantExpenseMaxRow++;
         this.periodicMaxRow++;
+    }
+
+    private setItemBaseHeightByScreenSize(collection: any): void {
+        // TODO:: get screen size, separate constant item height and periodic item height
+        // base item height 50px;
+        // more than 3 projection on desktop screen height 85px;
+        if (collection.length > 3 ) {
+            this.itemBaseHeight = 85;
+        } else {
+            this.itemBaseHeight = 50;
+        }
     }
 
 }

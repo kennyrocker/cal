@@ -196,6 +196,10 @@ button {
     }
 }
 
+.periodic-item {
+    padding-bottom: 0.75rem;
+}
+
 
 .item-checkbox {
     display: inline-block;
@@ -211,10 +215,12 @@ button {
     display: inline-block;
     font-size: 1.4rem;
     position: relative;
+    width: 85%;
 
   .input-field {
     display: inline-block;
     position: relative;
+    margin-top: 0.25rem;
 
     input {
       height: 1.75rem;
@@ -242,7 +248,7 @@ button {
   .field-cycle  {
     height: 1.75rem;
     font-size: 0.7rem;
-    margin-left: 0.25rem;
+    margin-right: 0.25rem;
     border-radius: 0.25rem;
     border: 1px solid $gray-1;
     background-color: $white-1;
@@ -254,12 +260,13 @@ button {
 
   .field-name {
     width: 170px;
+    margin-right: 0.25rem;
   }
 
   .field-amount {
     position: relative;
     width: 100px;
-    margin-left: 0.25rem;
+    margin-right: 0.25rem;
 
     label {
       position: absolute;
@@ -286,7 +293,6 @@ button {
   }
 
   .field-affective {
-    margin-left: 0.25rem;
     width: 100px;
   }
 
