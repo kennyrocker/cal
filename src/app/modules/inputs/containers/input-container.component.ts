@@ -1,4 +1,13 @@
-import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
 
@@ -53,8 +62,11 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   @Input('periodicMaxRow')
   public periodicMaxRow: number;
   // tslint:disable-next-line:no-input-rename
-  @Input('itemBaseHeight')
-  public itemBaseHeight: number;
+  @Input('constantItemHeight')
+  public constantItemHeight: number;
+  // tslint:disable-next-line:no-input-rename
+  @Input('periodicItemHeight')
+  public periodicItemHeight: number;
 
 
   public constantDropEffect: boolean;
@@ -229,13 +241,11 @@ export class InputContainerComponent implements OnInit, OnDestroy {
             this.periodicDropEffect = true;
             this.constantDropEffect = false;
           }
-      }
-      else if (this.data.id === this.dragItem.projectionId) {
+      } else if (this.data.id === this.dragItem.projectionId) {
           if (groupType === InputGroup.CONSTANT_INCOME || groupType === InputGroup.CONSTANT_EXPENSE) {
               this.constantDropEffect = true;
           }
-      }
-      else {
+      } else {
           this.resetDropEffect();
       }
   }
@@ -253,9 +263,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   }
 
   public groupHeight(): any {
-      const income = `${this.constantIncomeMaxRow * this.itemBaseHeight}px`;
-      const expense = `${this.constantExpenseMaxRow * this.itemBaseHeight}px`;
-      const periodic = `${this.periodicMaxRow * this.itemBaseHeight}px`;
+      const income = `${this.constantIncomeMaxRow * this.constantItemHeight}px`;
+      const expense = `${this.constantExpenseMaxRow * this.constantItemHeight}px`;
+      const periodic = `${this.periodicMaxRow * this.periodicItemHeight}px`;
       return {
         'income' : income,
         'expense' : expense,

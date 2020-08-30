@@ -178,7 +178,8 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
   private sizingChart(): void {
     if (window && window.innerWidth) { // unit as px
       const chartHeight = 450;
-      const chartOffset = 120;
+      // 1580 === large-view-port
+      const chartOffset = window.innerWidth < 1580 ? 20 : 120;
       const innerWidth = window.innerWidth - chartOffset;
       this.view = [innerWidth, chartHeight];
     }

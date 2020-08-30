@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as reducerRoot from '../../../reducers/index';
@@ -24,7 +24,11 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     public constantIncomeMaxRow = 0;
     public constantExpenseMaxRow = 0;
     public periodicMaxRow = 0;
-    public itemBaseHeight;
+    public constantItemHeight: number;
+    public periodicItemHeight: number;
+    private winWidth: number;
+    private collectionSize: number;
+
 
     constructor(private route: ActivatedRoute,
                 private store: Store<reducerRoot.CalDataState>) {
@@ -34,8 +38,14 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
         this.initSub();
     }
 
-    private initSub(): void {
 
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.winWidth = window.innerWidth;
+        this.setItemBaseHeightByScreenSize(this.winWidth, this.collectionSize || 2);
+    }
+
+    private initSub(): void {
         this.routeSub = this.route.params.subscribe(params => {
             if (params['ids']) {
                  this.idsForCheck = this.deserializeIds(params['ids']); // will be deleted
@@ -61,7 +71,10 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
         ).subscribe((collection) => {
             this.compares = collection;
             this.setMaxRows(collection);
-            this.setItemBaseHeightByScreenSize(collection);
+            const size = collection.length;
+            this.collectionSize = size;
+            const width = this.winWidth || window.innerWidth;
+            this.setItemBaseHeightByScreenSize(width, size);
         });
 
     }
@@ -100,15 +113,70 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
         this.periodicMaxRow++;
     }
 
-    private setItemBaseHeightByScreenSize(collection: any): void {
-        // TODO:: get screen size, separate constant item height and periodic item height
-        // base item height 50px;
-        // more than 3 projection on desktop screen height 85px;
-        if (collection.length > 3 ) {
-            this.itemBaseHeight = 85;
-        } else {
-            this.itemBaseHeight = 50;
+    /**
+     *   Collection size                                \___2___\___3___\___4___\
+     *   Periodic item win width break point  @3 line   \  756  \  1018 \  1480 \
+     *   Constant item win width break point  @2 line   \  952  \  1412 \  1872 \
+     *   Periodic item win width break point  @2 line   \  1360 \  2024 \  2688 \
+     */
+    private setItemBaseHeightByScreenSize(width: number, size: number): void {
+        if (size === 2) {
+            this.handleByBreakPointsAndWidth(width, 756, 952, 1360);
         }
+        if (size === 3) {
+            this.handleByBreakPointsAndWidth(width, 1018, 1412, 2024);
+        }
+        if (size >= 4) {
+            this.handleByBreakPointsAndWidth(width, 1480, 1872, 2688);
+        }
+    }
+
+    private handleByBreakPointsAndWidth(width: number, breakpoint1: number, breakpoint2: number, breakpoint3: number): void {
+        if (width < breakpoint1) {
+          this.setPeriodicThreeLine();
+        } else if (width > breakpoint1 && width < breakpoint2 ) {
+          this.setAllTwoLine();
+        } else if (width > breakpoint2 && width < breakpoint3) {
+          this.setPeriodicTwoLine();
+        } else {
+          this.setAllOneLine();
+        }
+    }
+
+    /**
+     *   Constant item Height @2 line 82px
+     *   Periodic item Height @3 line 120px
+     */
+    private setPeriodicThreeLine(): void {
+        this.constantItemHeight = 82;
+        this.periodicItemHeight = 120;
+    }
+
+    /**
+     *   Constant item Height @2 line 82px
+     *   Periodic item Height @2 line 87px
+     */
+    private setAllTwoLine(): void  {
+        this.constantItemHeight = 82;
+        this.periodicItemHeight = 87;
+    }
+
+    /**
+     *   Constant item Height @1 line 52px
+     *   Periodic item Height @2 line 87px
+     */
+    private setPeriodicTwoLine(): void {
+        this.constantItemHeight = 52;
+        this.periodicItemHeight = 87;
+    }
+
+    /**
+     *   Constant item Height @1 line 52px
+     *   Periodic item Height @1 line 54px
+     */
+    private setAllOneLine(): void {
+        this.constantItemHeight = 52;
+        this.periodicItemHeight = 54;
     }
 
 }
