@@ -191,6 +191,7 @@ button {
     }
 
     &.drag-item-effect {
+        opacity: 0.4;
         border: 1px solid transparent;
         background-color: $orange-2;
     }
