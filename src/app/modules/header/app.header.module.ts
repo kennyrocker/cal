@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from '../../effects/user.effect';
 import { AuthCookieService } from '../../services/auth/authCookie';
 import { CookieModule, CookieService } from 'ngx-cookie';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CookieModule, CookieService } from 'ngx-cookie';
     ],
     imports: [
         CommonModule,
+        FontAwesomeModule,
         RouterModule,
         ShareModule,
         ReactiveFormsModule,

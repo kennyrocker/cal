@@ -1,10 +1,16 @@
 <div class="snapshot">
     <div class="snapshot-filter">
         <button *ngIf="snapshotSelected.length === 1"
-              class="primary-button" (click)="copy()">Copy Selected</button>
+              class="primary-button" (click)="copy()">
+              <fa-icon class="button-icon" [icon]="copyIcon"></fa-icon>
+              <span>Copy Selected</span>
+        </button>
 
         <button *ngIf="snapshotSelected.length > 1"
-                class="primary-button" (click)="compare()">Compare Selected</button>
+                class="primary-button" (click)="compare()">
+                <fa-icon class="button-icon" [icon]="scaleIcon"></fa-icon>
+                <span>Compare Selected</span>
+        </button>
     </div>
 
     <div class="snapshot-wrapper">
@@ -13,7 +19,7 @@
                 <div class="name">
                     Create New Projection
                 </div>
-                <div class="name">&#43;</div>
+                <fa-icon class="icon" [icon]="pluseIcon"></fa-icon>
             </div>
         </div>
         <div *ngFor="let item of list" class="snapshot-item">

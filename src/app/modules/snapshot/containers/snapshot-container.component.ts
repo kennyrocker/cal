@@ -21,6 +21,7 @@ import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Constant } from 'src/app/constants/constant';
 import { UserState } from '../../../constants/interfaces/user';
 import { combineLatest, Observable } from 'rxjs';
+import { faCopy, faBalanceScale, faChartBar } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -40,6 +41,10 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     private userState$: Observable<UserState>;
     private isLoaded$: Observable<boolean>;
     private fetchSnapShotSub: Subscription;
+
+    public copyIcon = faCopy;
+    public scaleIcon = faBalanceScale;
+    public pluseIcon = faChartBar;
 
     constructor(public store: Store<reducerRoot.CalDataState>, private router: Router) {}
 

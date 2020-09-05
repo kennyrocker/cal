@@ -4,14 +4,26 @@
 
     <div class="account">
         <span *ngIf="!hasLogin">
-            <div class="text-button" (click)="showModal(SIGN_IN);">Sign in</div>
+            <div class="text-button" (click)="showModal(SIGN_IN)">
+                <fa-icon class="text-icon" [icon]="signInIcon"></fa-icon>
+                <span>Sign in</span>
+            </div>
             <span class="text">/</span>
-            <div class="text-button" (click)="showModal(SIGN_UP);">Sign up</div>
+            <div class="text-button" (click)="showModal(SIGN_UP)">
+                <fa-icon class="text-icon" [icon]="signUpIcon"></fa-icon>
+                <span>Sign up</span>
+            </div>
         </span>
         <span *ngIf="hasLogin">
-            <span class="text">Hello <span class="capitalize">{{ userName }}</span></span>
+            <span class="text">
+              <fa-icon class="text-icon" [icon]="userIcon"></fa-icon>
+              <span class="capitalize">{{ userName }}</span>
+            </span>
             <span class="text">/</span>
-            <div class="text-button" (click)="logOut();">Sign out</div>
+            <div class="text-button" (click)="logOut()">
+              <span>Sign out</span>
+              <fa-icon class="text-icon text-icon-padding-left" [icon]="signOutIcon"></fa-icon>
+            </div>
         </span>
 
         <app-modal [show]="accountModalShow" [modalType]="modalType" (cancelationClick)="closeHandle()">

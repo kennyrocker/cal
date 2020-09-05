@@ -10,6 +10,7 @@ import { MapperUtil } from '../../../../utils/mapper-util';
 import { BulkAddConstantIncomeItemAction, BulkAddConstantExpenseItemAction,
          BulkAddPeriodicalVariableItemAction } from '../../../../actions/calData.action';
 import { PeriodicItem } from 'src/app/constants/interfaces/periodic-item';
+import { faKeyboard } from '@fortawesome/free-solid-svg-icons/faKeyboard';
 
 @Component({
   selector: 'app-quick-input-component',
@@ -26,6 +27,8 @@ export class QuickInputComponent implements OnInit, OnDestroy {
   private inputChangeSubject = new Subject<any>();
   public quickInput: string;
   public placeHolder: string;
+
+  public keyIcon = faKeyboard;
 
   constructor(public store: Store<reducerRoot.CalDataState>) { }
 

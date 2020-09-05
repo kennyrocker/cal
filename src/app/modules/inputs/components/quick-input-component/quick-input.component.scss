@@ -11,9 +11,19 @@ button {
   border-left: 1px solid $white-3;
   outline: 0 none;
 
+  .button-icon {
+      padding: 0 0.5rem 0 0;
+      font-size: 1rem;
+      color: $white-5;
+  }
+
   &:hover {
     background-color: $black;
     cursor: pointer;
+
+      .button-icon {
+        color: $white-1;
+      }
   }
 }
 .quick-input {

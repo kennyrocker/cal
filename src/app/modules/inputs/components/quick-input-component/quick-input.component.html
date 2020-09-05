@@ -1,5 +1,8 @@
 <div>
-  <button (click)="showQuickInput = !showQuickInput">Quick Inputs</button>
+  <button (click)="showQuickInput = !showQuickInput">
+      <fa-icon class="button-icon" [icon]="keyIcon"></fa-icon>
+      <span>Quick Inputs</span>
+  </button>
   <textarea *ngIf="showQuickInput" #input rows="5" class="quick-input"
             placeholder="{{placeHolder}}"
             value="{{quickInput}}"

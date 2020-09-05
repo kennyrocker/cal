@@ -48,10 +48,19 @@
     display: flex;
     justify-content: flex-end;
     padding: 1.3rem 1rem 0 0;
-    color: $orange-2;
+    color: $gray-5;
 
     .text {
         padding-right: 0.5rem;
+    }
+
+    .text-icon {
+        color: $green-1;
+        padding-right: 0.45rem;
+    }
+
+    .text-icon-padding-left {
+        padding-left: 0.45rem;
     }
 
     .text-button,

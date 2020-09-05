@@ -10,6 +10,7 @@ import { ofType } from '@ngrx/effects';
 import { CalDataActionTypes } from '../../../../actions/calData.action';
 import { HttpStatus } from '../../../../constants/enums/http-status';
 import { Constant } from '../../../../constants/constant';
+import {faUserPlus} from '@fortawesome/free-solid-svg-icons/faUserPlus';
 
 @Component({
     selector: 'app-signup',
@@ -33,6 +34,7 @@ export class SignupContainer implements OnInit, OnDestroy {
     public registerSuccess = false;
     private timeOut;
     private timeOutDuration = 3000;
+    public signUpIcon = faUserPlus;
 
     constructor(
         private actionsSubject: ActionsSubject,

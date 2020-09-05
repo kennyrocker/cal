@@ -10,7 +10,8 @@
 
       <div class="left-wrapper modal-anchor">
           <button class="primary-button" (click)="backClick()">
-            <span class="icon-back-arrow">&#8249;</span>Back
+              <fa-icon class="button-icon" [icon]="backIcon"></fa-icon>
+              <span>Back</span>
           </button>
           <app-modal [show]="backModalShow" [modalType]="modalType.CONFIRMATION_TYPE"
                      [confirmButtonText]="'Save'" [cancelButtonText]="'Skip'"
@@ -20,7 +21,10 @@
           </app-modal>
       </div>
       <div class="right-wrapper">
-          <button *ngIf="!isSampleProjection" class="primary-button" (click)="handleSave()">Save</button>
+          <button *ngIf="!isSampleProjection" class="primary-button" (click)="handleSave()">
+              <fa-icon class="button-icon" [icon]="saveIcon"></fa-icon>
+              <span>Save</span>
+          </button>
       </div>
 
   </div>
@@ -41,7 +45,10 @@
 
     <div class="group-content" *ngIf="showIncomeSection || !isCompareView">
         <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
-        <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
+        <button (click)="addConstantIncomeItem()">
+            <fa-icon class="button-icon" [icon]="plusIcon"></fa-icon>
+            <span>Add Item</span>
+        </button>
         <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)"
             [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
             <div class="group-items" [ngStyle]="{'min-height': groupHeight().income}">
@@ -74,7 +81,10 @@
 
     <div class="group-content" *ngIf="showExpenseSection || !isCompareView">
         <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
-        <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
+        <button (click)="addConstantExpenseItem()">
+            <fa-icon class="button-icon" [icon]="plusIcon"></fa-icon>
+            <span>Add Item</span>
+        </button>
         <div (dragover)="dragOver($event, groupType.CONSTANT_EXPENSE)" (dragend)="dragEnd($event)"
              [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
           <div class="group-items" [ngStyle]="{'min-height': groupHeight().expense}">
@@ -107,7 +117,10 @@
 
     <div class="group-content" *ngIf="showPeriodicSection || !isCompareView">
         <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.PERIODICAL_VARIABLE"></app-quick-input-component>
-        <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
+        <button (click)="addPeriodicalVaribleItem()">
+            <fa-icon class="button-icon" [icon]="plusIcon"></fa-icon>
+            <span>Add Item</span>
+        </button>
         <div (dragover)="dragOver($event, groupType.PERIODICAL_VARIABLE)" (dragend)="dragEnd($event)"
              [ngClass]="{ 'periodic-drop-section-effect' : periodicDropEffect }">
             <div class="group-items" [ngStyle]="{'min-height': groupHeight().periodic}">

@@ -148,9 +148,19 @@ button {
     outline: 0 none;
     margin-bottom: 1px;
 
+    .button-icon {
+      padding: 0 0.5rem 0 0;
+      font-size: 1rem;
+      color: $white-5;
+    }
+
     &:hover {
         background-color: $green-1;
         cursor: pointer;
+
+        .button-icon {
+          color: $white-1;
+        }
     }
 
     .icon-back-arrow {

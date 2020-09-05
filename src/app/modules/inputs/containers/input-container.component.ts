@@ -33,7 +33,7 @@ import { getUIdragItem, getUser } from 'src/app/selectors/selectors';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { UserState } from '../../../constants/interfaces/user';
 import { Constant } from '../../../constants/constant';
-import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretUp, faCaretDown, faChevronLeft, faSave, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -95,6 +95,10 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   // back modal
   public backModalShow = false;
+
+  public saveIcon = faSave;
+  public backIcon = faChevronLeft;
+  public plusIcon = faPlus;
 
 
   constructor(public store: Store<reducerRoot.CalDataState>,

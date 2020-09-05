@@ -8,13 +8,24 @@
     border: 0 none;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  
+
+    .button-icon {
+      padding: 0 0.5rem 0 0;
+      font-size: 1rem;
+      color: $gray-4;
+    }
+
     &:hover {
         cursor: pointer;
         color: $white-2;
         background-color: $orange-2;
+
+        .button-icon {
+          color: $gray-5;
+        }
     }
 }
+
 
 .close-x {
     position: absolute;
@@ -28,7 +39,7 @@
         opacity: 1;
         cursor: pointer;
     }
-    &:before, 
+    &:before,
     &:after {
         position: absolute;
         left: 15px;

@@ -119,6 +119,13 @@
                 padding-bottom: 20px;
             }
 
+            .icon {
+               display: inline-block;
+               padding-top: 0.25rem;
+               font-size: 1.5rem;
+               color: $gray-4;
+            }
+
             .top:hover,
             &:hover {
 
@@ -127,6 +134,10 @@
                 color: $white-2;
                 cursor: pointer;
                 outline: 0 none;
+
+                .icon {
+                  color: $gray-5;
+                }
             }
 
         }

@@ -8,6 +8,7 @@ import { CalDataActionTypes, PostUserLoginAction } from '../../../../actions/cal
 import { ofType } from '@ngrx/effects';
 import { HttpStatus } from '../../../../constants/enums/http-status';
 import { Constant } from '../../../../constants/constant';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
 
 @Component({
     selector: 'app-signin',
@@ -25,6 +26,8 @@ export class SigninContainer implements OnInit, OnDestroy, OnChanges {
     private passwordChangeSubject = new Subject<any>();
     private signInFailedSubject = new Subject<any>();
     public signInError = false;
+
+    public signInIcon = faSignInAlt;
 
     constructor(
         private actionsSubject: ActionsSubject,
