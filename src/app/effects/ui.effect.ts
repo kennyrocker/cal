@@ -41,7 +41,7 @@ export class UIEffects {
             const isOnSameProjection = item.projectionId === payload.projectionId;
             const bothConstant = (payload.type === InputGroup.CONSTANT_INCOME || payload.type === InputGroup.CONSTANT_EXPENSE)
               && (item.type === InputGroup.CONSTANT_INCOME || item.type === InputGroup.CONSTANT_EXPENSE);
-            const bothPeriodic = payload.type === InputGroup.PERIODICAL_VARIBLE && item.type === InputGroup.PERIODICAL_VARIBLE;
+            const bothPeriodic = payload.type === InputGroup.PERIODICAL_VARIABLE && item.type === InputGroup.PERIODICAL_VARIABLE;
             const actionAble = bothConstant || bothPeriodic;
 
             const movingItem = {
@@ -70,7 +70,7 @@ export class UIEffects {
                       new BulkAddConstantExpenseItemAction(payload.projectionId, [movingItem]),
                       new UIitemDragClearAction()
                     ];
-                } else if (payload.type === InputGroup.PERIODICAL_VARIBLE) {
+                } else if (payload.type === InputGroup.PERIODICAL_VARIABLE) {
                     const periodicMovingItem = {
                       ...movingItem,
                       affectiveMonth: item.affectiveMonth

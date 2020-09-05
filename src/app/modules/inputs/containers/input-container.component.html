@@ -26,53 +26,97 @@
   </div>
 
   <section class="input-section constant-income" (dragover)="dragOver($event)" (drop)="dragItemPickup(groupType.CONSTANT_INCOME)">
-    <div class="group-title">{{groupType.CONSTANT_INCOME}}</div>
-    <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
-    <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
-    <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)"
-        [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
-        <div class="group-items" [ngStyle]="{'min-height': groupHeight().income}">
-          <div *ngIf="data.constantIncome && data.constantIncome.length > 0">
-              <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
-                <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-                    [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
-                </app-constant-item-component>
+
+    <div *ngIf="!isCompareView else incomeExpandable" class="group-title">
+      {{groupType.CONSTANT_INCOME}}
+    </div>
+    <ng-template #incomeExpandable>
+      <div class="group-title" (click)="toggleSection(groupType.CONSTANT_INCOME)">
+        <div class="compare-title">
+          <span>{{groupType.CONSTANT_INCOME}}</span>
+          <fa-icon class="expandable" [icon]="incomeCaret()"></fa-icon>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="group-content" *ngIf="showIncomeSection || !isCompareView">
+        <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_INCOME"></app-quick-input-component>
+        <button (click)="addConstantIncomeItem()">Add Constant Income Item</button>
+        <div (dragover)="dragOver($event, groupType.CONSTANT_INCOME)" (dragend)="dragEnd($event)"
+            [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
+            <div class="group-items" [ngStyle]="{'min-height': groupHeight().income}">
+              <div *ngIf="data.constantIncome && data.constantIncome.length > 0">
+                  <div *ngFor="let item of data.constantIncome; trackBy: trackByItem">
+                    <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+                        [itemGroupType]="groupType.CONSTANT_INCOME" (update)="hasUpdated($event)">
+                    </app-constant-item-component>
+                  </div>
               </div>
           </div>
-      </div>
+        </div>
     </div>
+
   </section>
 
   <section class="input-section constant-expense" (drop)="dragItemPickup(groupType.CONSTANT_EXPENSE)">
-    <div class="group-title">{{groupType.CONSTANT_EXPENSE}}</div>
-    <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
-    <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
-    <div (dragover)="dragOver($event, groupType.CONSTANT_EXPENSE)" (dragend)="dragEnd($event)"
-        [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
-        <div class="group-items" [ngStyle]="{'min-height': groupHeight().expense}">
+
+    <div *ngIf="!isCompareView else expenseExpandable" class="group-title">
+      <span>{{groupType.PERIODICAL_VARIABLE}}</span>
+    </div>
+    <ng-template #expenseExpandable>
+      <div *ngIf="isCompareView" class="group-title" (click)="toggleSection(groupType.CONSTANT_EXPENSE)">
+        <div class="compare-title">
+          <span>{{groupType.CONSTANT_EXPENSE}}</span>
+          <fa-icon class="expandable" [icon]="expenseCaret()"></fa-icon>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="group-content" *ngIf="showExpenseSection || !isCompareView">
+        <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.CONSTANT_EXPENSE"></app-quick-input-component>
+        <button (click)="addConstantExpenseItem()">Add Constant Expense Item</button>
+        <div (dragover)="dragOver($event, groupType.CONSTANT_EXPENSE)" (dragend)="dragEnd($event)"
+             [ngClass]="{ 'constant-drop-section-effect' : constantDropEffect }">
+          <div class="group-items" [ngStyle]="{'min-height': groupHeight().expense}">
             <div *ngIf="data.constantExpense && data.constantExpense.length > 0">
-                <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
-                    <app-constant-item-component [projectionId]="data.id" [itemData]="item"
-                        [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
-                    </app-constant-item-component>
-                </div>
+              <div *ngFor="let item of data.constantExpense; trackBy: trackByItem">
+                <app-constant-item-component [projectionId]="data.id" [itemData]="item"
+                                             [itemGroupType]="groupType.CONSTANT_EXPENSE" (update)="hasUpdated($event)">
+                </app-constant-item-component>
+              </div>
             </div>
+          </div>
         </div>
     </div>
+
   </section>
 
-  <section class="input-section periodic-variable" (drop)="dragItemPickup(groupType.PERIODICAL_VARIBLE)">
-    <div class="group-title">{{groupType.PERIODICAL_VARIBLE}}</div>
-    <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.PERIODICAL_VARIBLE"></app-quick-input-component>
-    <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
-    <div (dragover)="dragOver($event, groupType.PERIODICAL_VARIBLE)" (dragend)="dragEnd($event)"
-        [ngClass]="{ 'periodic-drop-section-effect' : periodicDropEffect }">
-        <div class="group-items" [ngStyle]="{'min-height': groupHeight().periodic}">
-            <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" >
-                <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
-                    <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
-                        [itemGroupType]="groupType.PERIODICAL_VARIBLE" (update)="hasUpdated($event)">
-                    </app-periodic-item-component>
+  <section class="input-section periodic-variable" (drop)="dragItemPickup(groupType.PERIODICAL_VARIABLE)">
+
+    <div *ngIf="!isCompareView else periodicExpandable" class="group-title">
+        <span>{{groupType.PERIODICAL_VARIABLE}}</span>
+    </div>
+    <ng-template #periodicExpandable>
+      <div class="group-title" (click)="toggleSection(groupType.PERIODICAL_VARIABLE)">
+        <div class="compare-title">
+          <span>{{groupType.PERIODICAL_VARIABLE}}</span>
+          <fa-icon class="expandable" [icon]="periodicCaret()"></fa-icon>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="group-content" *ngIf="showPeriodicSection || !isCompareView">
+        <app-quick-input-component [projectionId]="data.id" [itemGroupType]="groupType.PERIODICAL_VARIABLE"></app-quick-input-component>
+        <button (click)="addPeriodicalVaribleItem()">Add Periodical Variable Item</button>
+        <div (dragover)="dragOver($event, groupType.PERIODICAL_VARIABLE)" (dragend)="dragEnd($event)"
+             [ngClass]="{ 'periodic-drop-section-effect' : periodicDropEffect }">
+            <div class="group-items" [ngStyle]="{'min-height': groupHeight().periodic}">
+                <div *ngIf="data.periodicalVariable && data.periodicalVariable.length > 0" >
+                    <div *ngFor="let item of data.periodicalVariable; trackBy: trackByItem">
+                        <app-periodic-item-component [projectionId]="data.id" [itemData]="item"
+                                                     [itemGroupType]="groupType.PERIODICAL_VARIABLE" (update)="hasUpdated($event)">
+                        </app-periodic-item-component>
+                    </div>
                 </div>
             </div>
         </div>

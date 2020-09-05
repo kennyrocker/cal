@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Ngrx
 import { StoreModule } from '@ngrx/store';
@@ -28,6 +29,7 @@ import {UIEffects} from '../../effects/ui.effect';
     ],
     imports: [
         CommonModule,
+        FontAwesomeModule,
         ReactiveFormsModule,
         ShareModule,
         StoreModule.forRoot(reducer),

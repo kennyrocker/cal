@@ -384,4 +384,28 @@ button {
       width: 100%;
     }
 
+    .expandable {
+        color: $green-2;
+        font-size: 1.2rem;
+        line-height: 1rem;
+        padding-left: 0.5rem;
+    }
+
+    .group-title {
+      border: 1px solid $gray-1;
+      border-radius: 3px;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      background-color: $white-2;
+      box-sizing: border-box;
+      width: calc(100% - 1px);
+      margin-left: 1px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $white-5;
+        color: $black;
+      }
+    }
+
 }

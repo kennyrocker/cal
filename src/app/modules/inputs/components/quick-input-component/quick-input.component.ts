@@ -45,7 +45,7 @@ export class QuickInputComponent implements OnInit, OnDestroy {
           + '\n{ condo rental : name} { 1000 : amount } { m | a | b : monthly | annually | biweekly cycle}'
           + '\nMultiple items can be enter seprated by ; such as "condo rental1000m; car lease250b"';
     }
-    if (this.itemGroupType === InputGroup.PERIODICAL_VARIBLE) {
+    if (this.itemGroupType === InputGroup.PERIODICAL_VARIABLE) {
       this.placeHolder = 'Enter item with short cut for example "property tax-500@2,8" '
                       + '\n{ property tax : name} { -500 : amount } { 2, 8 : month of the year }'
                       + '\nMultiple items can be enter seprated by ; such as "auto matainence200@2,6; property tax2250@4,9"';
@@ -64,7 +64,7 @@ export class QuickInputComponent implements OnInit, OnDestroy {
         if (this.itemGroupType === InputGroup.CONSTANT_INCOME || this.itemGroupType === InputGroup.CONSTANT_EXPENSE) {
           this.quickInput = inputs.join(';');
           this.updateStanderItemInputsByType(inputs, this.itemGroupType);
-        } else if (this.itemGroupType === InputGroup.PERIODICAL_VARIBLE) {
+        } else if (this.itemGroupType === InputGroup.PERIODICAL_VARIABLE) {
           this.quickInput = inputs.join(';');
           this.updatePeriodicVariables(this.mapPeriodicItems(inputs));
         }

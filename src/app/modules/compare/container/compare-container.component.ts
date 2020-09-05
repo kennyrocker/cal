@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { isProjectionsExistedFromCollection, getProjectionsByIds } from 'src/app/selectors/selectors';
 import { GetProjectionBatchByIdsAction } from 'src/app/actions/calData.action';
 import { filter } from 'rxjs/internal/operators/filter';
+import {InputGroup} from '../../../constants/enums/input-group';
+import {faCaretDown, faCaretUp} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -28,6 +30,9 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     public periodicItemHeight: number;
     private winWidth: number;
     private collectionSize: number;
+    public showIncomeSection = false;
+    public showExpenseSection = false;
+    public showPeriodicSection = false;
 
 
     constructor(private route: ActivatedRoute,
@@ -177,6 +182,18 @@ export class CompareContainerComponent implements OnInit, OnDestroy {
     private setAllOneLine(): void {
         this.constantItemHeight = 52;
         this.periodicItemHeight = 54;
+    }
+
+    public trackSectionToggle(section: InputGroup): void {
+      if (section === InputGroup.CONSTANT_INCOME) {
+        this.showIncomeSection = !this.showIncomeSection;
+      }
+      if (section === InputGroup.CONSTANT_EXPENSE) {
+        this.showExpenseSection = !this.showExpenseSection;
+      }
+      if (section === InputGroup.PERIODICAL_VARIABLE) {
+        this.showPeriodicSection = !this.showPeriodicSection;
+      }
     }
 
 }

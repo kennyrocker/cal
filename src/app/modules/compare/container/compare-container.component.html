@@ -1,11 +1,16 @@
 <div *ngIf="compares && compares.length > 0" class="compare-wrapper">
     <div *ngFor="let data of compares; trackBy: trackByItem; let i = index" class="compare-item">
         <app-input-container [data]="data" [isNewProjection]="false"
+            [isCompareView]="true"
             [constantIncomeMaxRow]="constantIncomeMaxRow"
             [constantExpenseMaxRow]="constantExpenseMaxRow"
             [periodicMaxRow]="periodicMaxRow"
             [constantItemHeight]="constantItemHeight"
-            [periodicItemHeight]="periodicItemHeight"></app-input-container>
+            [periodicItemHeight]="periodicItemHeight"
+            [showIncomeSection]="showIncomeSection"
+            [showExpenseSection]="showExpenseSection"
+            [showPeriodicSection]="showPeriodicSection"
+            (toggleSectionClick)="trackSectionToggle($event)"></app-input-container>
     </div>
 </div>
 <app-display-container [multi]="compares"></app-display-container>

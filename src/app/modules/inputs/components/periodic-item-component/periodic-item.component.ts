@@ -233,7 +233,7 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.dragEffect = true;
     const payload: DragItem = {
         projectionId: this.projectionId,
-        type: InputGroup.PERIODICAL_VARIBLE,
+        type: InputGroup.PERIODICAL_VARIABLE,
         ...this.itemData
     };
     this.store.dispatch(new UIitemDragAction(payload));

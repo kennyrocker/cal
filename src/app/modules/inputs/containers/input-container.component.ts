@@ -1,12 +1,13 @@
 import {
   Component,
   Input,
+  Output,
   OnInit,
   ViewChild,
   ViewChildren,
   QueryList,
   ChangeDetectionStrategy,
-  OnDestroy,
+  OnDestroy, EventEmitter,
 } from '@angular/core';
 import { CalData } from 'src/app/constants/interfaces/cal-data';
 import { InputGroup } from 'src/app/constants/enums/input-group';
@@ -32,6 +33,7 @@ import { getUIdragItem, getUser } from 'src/app/selectors/selectors';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { UserState } from '../../../constants/interfaces/user';
 import { Constant } from '../../../constants/constant';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -46,9 +48,13 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   @ViewChildren(ConstantItemComponent) constantCmps: QueryList<ConstantItemComponent>;
   @ViewChildren(PeriodicItemComponent) periodicCmps: QueryList<PeriodicItemComponent>;
 
+  @Output() toggleSectionClick: EventEmitter<InputGroup> = new EventEmitter();
   // tslint:disable-next-line:no-input-rename
   @Input('data')
   public data: CalData;
+  // tslint:disable-next-line:no-input-rename
+  @Input('isCompareView')
+  public isCompareView: boolean;
   // tslint:disable-next-line:no-input-rename
   @Input('isNewProjection')
   public isNewProjection: boolean;
@@ -67,6 +73,9 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('periodicItemHeight')
   public periodicItemHeight: number;
+  @Input() public showIncomeSection: boolean;
+  @Input() public showExpenseSection: boolean;
+  @Input() public showPeriodicSection: boolean;
 
 
   public constantDropEffect: boolean;
@@ -86,6 +95,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   // back modal
   public backModalShow = false;
+
 
   constructor(public store: Store<reducerRoot.CalDataState>,
               private route: ActivatedRoute,
@@ -237,7 +247,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
               && (this.dragItem.type === InputGroup.CONSTANT_INCOME || this.dragItem.type === InputGroup.CONSTANT_EXPENSE)) {
             this.constantDropEffect = true;
             this.periodicDropEffect = false;
-          } else if (groupType === InputGroup.PERIODICAL_VARIBLE && this.dragItem.type === InputGroup.PERIODICAL_VARIBLE) {
+          } else if (groupType === InputGroup.PERIODICAL_VARIABLE && this.dragItem.type === InputGroup.PERIODICAL_VARIABLE) {
             this.periodicDropEffect = true;
             this.constantDropEffect = false;
           }
@@ -271,6 +281,22 @@ export class InputContainerComponent implements OnInit, OnDestroy {
         'expense' : expense,
         'periodic' : periodic
       };
+  }
+
+  public toggleSection(section: InputGroup): void {
+      this.toggleSectionClick.emit(section);
+  }
+
+  public incomeCaret(): any {
+     return this.showIncomeSection ?  faCaretUp : faCaretDown;
+  }
+
+  public expenseCaret(): any {
+    return this.showExpenseSection ?  faCaretUp : faCaretDown;
+  }
+
+  public periodicCaret(): any {
+    return this.showPeriodicSection ?  faCaretUp : faCaretDown;
   }
 
 }
