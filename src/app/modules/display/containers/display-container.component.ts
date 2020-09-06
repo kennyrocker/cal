@@ -46,7 +46,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
   public gradient = false;
   public showLegend = true;
   public showXAxisLabel = true;
-  public xAxisLabel = CalCycle[this.displayCalCycle];
+  public xAxisLabel: string;
   public showYAxisLabel = true;
   public yAxisLabel = 'Balance';
   public colorSchemeSingle = Constant.DISPLAY_CHART_SCHEME_SINGLE;
@@ -128,7 +128,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
     if (this.yearEnable) {
         this.xAxisLabel = `In ${this.year} year`;
     } else {
-        this.xAxisLabel = CalCycle[this.displayCalCycle];
+        this.setXLabel();
     }
     if (this.isPlaceHolderData(this.single)) {
         this.displayDataSingle = [];
@@ -141,8 +141,7 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       if (this.yearEnable) {
           this.xAxisLabel = `In ${this.year} years`;
       } else {
-          this.xAxisLabel = CalCycle[this.displayCalCycle];
-
+          this.setXLabel();
       }
       this.displayDataMulti = this.convertMultiDisplay(this.multi);
   }
@@ -183,6 +182,13 @@ export class DisplayContainerComponent implements OnInit, OnDestroy, OnChanges, 
       const innerWidth = window.innerWidth - chartOffset;
       this.view = [innerWidth, chartHeight];
     }
+  }
+
+  private setXLabel(): void {
+    let str = (CalCycle[this.displayCalCycle]).toString().toLowerCase();
+    const letter = str.charAt(0).toUpperCase();
+    str = str.slice(1, str.length);
+    this.xAxisLabel = `${letter}${str}`;
   }
 
   // place holder
