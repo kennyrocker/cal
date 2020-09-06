@@ -49,6 +49,8 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   @ViewChildren(PeriodicItemComponent) periodicCmps: QueryList<PeriodicItemComponent>;
 
   @Output() toggleSectionClick: EventEmitter<InputGroup> = new EventEmitter();
+
+  @Input() index: number;
   // tslint:disable-next-line:no-input-rename
   @Input('data')
   public data: CalData;
@@ -301,6 +303,12 @@ export class InputContainerComponent implements OnInit, OnDestroy {
 
   public periodicCaret(): any {
     return this.showPeriodicSection ?  faCaretUp : faCaretDown;
+  }
+
+  // colorCode match display bar color
+  public colorCodeProjection(): string {
+      if (!this.isCompareView) return '';
+      return `projection-color-${this.index.toString()}`;
   }
 
 }

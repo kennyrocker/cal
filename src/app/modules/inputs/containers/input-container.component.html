@@ -1,13 +1,10 @@
-<div *ngIf="data" class="input-wrapper">
+<div *ngIf="data" class="input-wrapper" [ngClass]="colorCodeProjection()">
 
   <div class="input-heading">
-      <!-- TODO:: only index 0 show back button, and style it -->
-
       <div class="input-projection-name">
           <app-name-component [projectionId]="data.id" [name]="data.name"
             (update)="hasUpdated($event)"></app-name-component>
       </div>
-
       <div class="left-wrapper modal-anchor">
           <button class="primary-button" (click)="backClick()">
               <fa-icon class="button-icon" [icon]="backIcon"></fa-icon>
@@ -26,8 +23,10 @@
               <span>Save</span>
           </button>
       </div>
-
   </div>
+
+  <div class="input-content">
+
 
   <section class="input-section constant-income" (dragover)="dragOver($event)" (drop)="dragItemPickup(groupType.CONSTANT_INCOME)">
 
@@ -35,7 +34,7 @@
       {{groupType.CONSTANT_INCOME}}
     </div>
     <ng-template #incomeExpandable>
-      <div class="group-title" (click)="toggleSection(groupType.CONSTANT_INCOME)">
+      <div class="group-title no-margin-top" (click)="toggleSection(groupType.CONSTANT_INCOME)">
         <div class="compare-title">
           <span>{{groupType.CONSTANT_INCOME}}</span>
           <fa-icon class="expandable" [icon]="incomeCaret()"></fa-icon>
@@ -68,7 +67,7 @@
   <section class="input-section constant-expense" (drop)="dragItemPickup(groupType.CONSTANT_EXPENSE)">
 
     <div *ngIf="!isCompareView else expenseExpandable" class="group-title">
-      <span>{{groupType.PERIODICAL_VARIABLE}}</span>
+      <span>{{groupType.CONSTANT_EXPENSE}}</span>
     </div>
     <ng-template #expenseExpandable>
       <div *ngIf="isCompareView" class="group-title" (click)="toggleSection(groupType.CONSTANT_EXPENSE)">
@@ -138,6 +137,6 @@
   </section>
 
   <!--TODO:: STATIC_VARIBLE-->
-
+  </div>
 </div>
 <div *ngIf="!data">...loading</div>

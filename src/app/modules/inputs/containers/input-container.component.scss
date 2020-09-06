@@ -325,9 +325,6 @@ button {
 }
 
 
-
-
-
 :host-context(.input-projection-name) {
 
     .ng-invalid.ng-touched {
@@ -408,14 +405,65 @@ button {
       margin-top: 0.5rem;
       background-color: $white-2;
       box-sizing: border-box;
-      width: calc(100% - 1px);
+      width: calc(100% - 2px);
       margin-left: 1px;
+
+      &.no-margin-top {
+        margin-top: 0;
+      }
 
       &:hover {
         cursor: pointer;
-        background-color: $white-5;
+        background-color: $white-1;
         color: $black;
       }
+    }
+
+
+    .projection-name {
+        background-color: transparent;
+    }
+
+    /**
+     * matching display schema '#31393C',  '#33A1FD', '#FBB13C', '#8A817C', '#2176FF'
+     */
+    @mixin color-background($color-rgba) {
+      .input-heading {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        background-color: $color-rgba;
+      }
+      .input-content {
+        background-color: $color-rgba;
+        padding-bottom: 30px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+
+    .projection-color-0,
+    .projection-color-5 {
+      @include color-background(rgba(49,57,60, 0.125));
+    }
+
+    .projection-color-1,
+    .projection-color-6 {
+      @include color-background(rgba(52,162,253, 0.125));
+    }
+
+    .projection-color-2,
+    .projection-color-7 {
+      @include color-background(rgba(251,177,60, 0.125));
+    }
+
+    .projection-color-3,
+    .projection-color-8 {
+      @include color-background(rgba(138,129,124, 0.125));
+    }
+
+    .projection-color-4,
+    .projection-color-9 {
+      @include color-background(rgba(33,118,255, 0.125));
     }
 
 }
