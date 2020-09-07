@@ -24,8 +24,9 @@
     color: $gray-4;
     text-align: center;
     letter-spacing: -5px;
-    padding-top: 3px;
+    padding-top: 10px;
     font-weight: lighter;
+    display: block;
 
     &:hover,
     &:focus {
