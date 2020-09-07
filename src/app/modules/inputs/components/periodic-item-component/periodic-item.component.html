@@ -6,7 +6,7 @@
             (change)=bindActiveChangeSubject(!itemData.active) />
         <span class="checkbox-custom"></span>
     </label>
-    
+
     <form name="periodicForm" [formGroup]="periodicForm" class="item-form">
 
       <div class="input-field field-name" [ngClass]="{'field-error' :
@@ -23,7 +23,7 @@
       <div class="input-field field-amount periodic-amount" [ngClass]="{'field-error' :
         periodicForm.get('amount').touched && periodicForm.get('amount').invalid}">
         <label>$</label>
-        <input #amount type="text" value="{{itemData.amount}}"
+        <input #amount type="number" value="{{itemData.amount}}"
                formControlName="amount"
                (keyup)="bindAmountChangeSubject(amount.value)"/>
         <div *ngIf="periodicForm.get('amount').touched && periodicForm.get('amount').invalid"

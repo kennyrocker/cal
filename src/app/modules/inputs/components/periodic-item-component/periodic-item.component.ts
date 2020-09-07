@@ -71,6 +71,9 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
       active: new FormControl(this.itemData.active, [ Validators.required ]),
       affectiveMonth: new FormControl(this.itemData.affectiveMonth)
     });
+    if (this.itemData.amount !== 0) {
+      this.addAmountFieldValidation();
+    }
   }
 
   private initSub(): void {
@@ -168,8 +171,12 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
     this.updateAction();
   }
 
-  public amountChange(value: any): void {
-    this.periodicForm.patchValue({amount: Number(value)});
+  public amountChange(value: string): void {
+    const isMinus = value.indexOf('-') !== -1;
+    const num = isMinus ? Number(value.substring(1, value.length)) * -1 : Number(value);
+    if (isNaN(num)) return;
+    if (isMinus && value.length < 2) return;
+    this.periodicForm.patchValue({amount: num});
     this.updateAction();
   }
 
@@ -194,10 +201,10 @@ export class PeriodicItemComponent implements OnInit, OnDestroy {
   private parseMonthsToUniqueArray(months: string): number[] {
       if (!months) return [];
       let valid = true;
-      let list = [];
+      const list = [];
       months.replace(/\s/g, '').split(',').map((i) =>  {
                 const item = parseInt(i, 10);
-                if(item !== NaN && item > 0 && item < 13) {
+                if (!isNaN(item) && item > 0 && item < 13) {
                     list.push(item);
                 } else {
                     valid = false;
