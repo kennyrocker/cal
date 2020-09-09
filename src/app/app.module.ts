@@ -23,6 +23,7 @@ import { FooterModule } from './modules/footer/app.footer.module';
 import { CalculateService } from 'src/app/services/calculation/calculate-service';
 import { Projection } from 'src/app/services/projection/projection';
 import { TemplateService } from './services/template/template';
+import { Share } from './services/share/share';
 
 // 3d Party
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -30,6 +31,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 // Dev Only, Remove in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LockModule } from './modules/lock/app-lock.module';
+
 
 
 @NgModule({
@@ -55,6 +57,7 @@ import { LockModule } from './modules/lock/app-lock.module';
   providers: [
     CalculateService,
     Projection,
+    Share,
     TemplateService
   ],
   bootstrap: [AppComponent]

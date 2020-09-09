@@ -6,7 +6,7 @@
             (update)="hasUpdated($event)"></app-name-component>
       </div>
       <div class="left-wrapper modal-anchor">
-          <button class="primary-button" (click)="backClick()">
+          <button *ngIf="!isShareProjection" class="primary-button" (click)="backClick()">
               <fa-icon class="button-icon" [icon]="backIcon"></fa-icon>
               <span>Back</span>
           </button>
@@ -18,7 +18,7 @@
           </app-modal>
       </div>
       <div class="right-wrapper">
-          <button *ngIf="!isSampleProjection" class="primary-button" (click)="handleSave()">
+          <button *ngIf="!isSampleProjection && !isShareProjection" class="primary-button" (click)="handleSave()">
               <fa-icon class="button-icon" [icon]="saveIcon"></fa-icon>
               <span>Save</span>
           </button>

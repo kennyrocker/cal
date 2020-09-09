@@ -76,3 +76,11 @@
     }
 
 }
+
+// Share Modal
+:host-context(.snapshot) {
+  .modal-root {
+    right: 1.5rem;
+    top: 92px;
+  }
+}

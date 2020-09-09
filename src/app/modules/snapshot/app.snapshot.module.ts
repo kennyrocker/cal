@@ -10,6 +10,7 @@ import { CalDataEffects } from 'src/app/effects/calData.effect';
 import { ShareModule } from 'src/app/modules/share/app.share.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SnapshotContainerComponent } from 'src/app/modules/snapshot/containers/snapshot-container.component';
+import { Share } from '../../services/share/share';
 
 
 
@@ -28,6 +29,9 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         StoreModule.forRoot(reducer),
         EffectsModule.forRoot([CalDataEffects, UIEffects])
+    ],
+    providers: [
+        Share
     ]
 })
 export class SnapshotModule {}

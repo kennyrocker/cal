@@ -1,6 +1,6 @@
 <div *ngIf="show" class="modal-root">
     <div *ngIf="modalType === 'Close Type'" class="close-x" (click)="closeModal()"></div>
-    
+
     <ng-content></ng-content>
 
     <div *ngIf="modalType === 'Confirmation Type'" class="button-container">
@@ -9,5 +9,4 @@
     </div>
 </div>
 
-<div *ngIf="show" class="modal-backdrop"
-    (click)="backDropClick($event)" (scroll)="backDropScroll($event)"></div>
+<div *ngIf="show" class="modal-backdrop" (click)="backDropClick($event)"></div>

@@ -94,6 +94,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   private rollBackData: CalData;
   private timeOut;
   public isSampleProjection = false;
+  public isShareProjection = false;
 
   // back modal
   public backModalShow = false;
@@ -111,6 +112,7 @@ export class InputContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.hasUpdatedItem = this.data.id === Constant.COPY_ID;
     this.isSampleProjection = this.data.id === Constant.SAMPLE_PROJECTION_ID;
+    if (this.data.id.indexOf(Constant.SHARE_PROJECTION_ID_PREFIX) !== -1) this.isShareProjection = true;
     this.backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.rollBackData =  this.data;
     this.dragItemSub = this.store.select(getUIdragItem).pipe(

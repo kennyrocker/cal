@@ -9,7 +9,7 @@ import { getAuthModalState, getUser } from '../../../selectors/selectors';
 import { AuthCookieService } from '../../../services/auth/authCookie';
 import { Constant } from '../../../constants/constant';
 import { UserState } from '../../../constants/interfaces/user';
-import { faUser, faSignOutAlt, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-header',
@@ -31,9 +31,6 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
     public userName;
 
     public userIcon = faUser;
-    public signOutIcon = faSignOutAlt;
-    public signInIcon = faSignInAlt;
-    public signUpIcon = faUserPlus;
 
     constructor(private store: Store<reducerRoot.CalDataState>, private authTokenService: AuthCookieService) {
         this.loginFromCookie();

@@ -6,11 +6,28 @@
               <span>Copy Selected</span>
         </button>
 
+        <button *ngIf="snapshotSelected.length === 1 && !selectedIsSampleProjection()"
+                class="primary-button" (click)="share()">
+          <fa-icon class="button-icon" [icon]="shareIcon"></fa-icon>
+          <span>Share Selected</span>
+        </button>
+
         <button *ngIf="snapshotSelected.length > 1"
                 class="primary-button" (click)="compare()">
                 <fa-icon class="button-icon" [icon]="scaleIcon"></fa-icon>
                 <span>Compare Selected</span>
         </button>
+
+        <app-modal [show]="shareModalShow" [modalType]="modalType.CLOSE_TYPE"
+                   (cancelationClick)="shareModalShow = false">
+             <div class="share-modal">
+                 <input id="shareUrl" [value]="shareUrl"/>
+                 <button class="primary-button modal-button" (click)="copyToClipBoard()">
+                    <fa-icon class="button-icon" [icon]="shareCopyIcon"></fa-icon>
+                    <span>Copy Link</span>
+                 </button>
+             </div>
+        </app-modal>
     </div>
 
     <div class="snapshot-wrapper">

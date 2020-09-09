@@ -63,7 +63,7 @@ export enum CalDataActionTypes {
     UISampleLoaded = '[UI sample] Loaded',
     GetTemplateSample = '[Template] Get Sample',
     SelectedCopyProjectionPreload = '[Selected Projection] Copy Preload',
-    SelectedCopyProjectionLoaded = '[Selected Projection] Copy Loaded'
+    SelectedCopyProjectionLoaded = '[Selected Projection] Copy Loaded',
 }
 
 

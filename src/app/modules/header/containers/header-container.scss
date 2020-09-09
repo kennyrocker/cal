@@ -21,9 +21,9 @@
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     font-weight: bold;
     font-size: 2.3rem;
-    color: $gray-4;
+    color: $orange-0;
     text-align: center;
-    letter-spacing: -5px;
+    letter-spacing: -6px;
     padding-top: 10px;
     font-weight: lighter;
     display: block;
@@ -49,14 +49,14 @@
     display: flex;
     justify-content: flex-end;
     padding: 1.3rem 1rem 0 0;
-    color: $gray-5;
+    color: $orange-2;
 
     .text {
         padding-right: 0.5rem;
     }
 
     .text-icon {
-        color: $green-1;
+        color: $orange-0;
         padding-right: 0.45rem;
     }
 

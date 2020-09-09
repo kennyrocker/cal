@@ -23,4 +23,5 @@ export class Constant {
   public static SAMPLE_PROJECTION_ID = 'sample_id';
   public static COPY_SUFFIX = '_COPY';
   public static COPY_ID = 'copy_id';
+  public static SHARE_PROJECTION_ID_PREFIX = 'sid';
 }

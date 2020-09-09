@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter, HostListener } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter,
+  HostListener } from '@angular/core';
 import { ModalType } from 'src/app/constants/enums/modal-type';
 
 
@@ -7,8 +8,9 @@ import { ModalType } from 'src/app/constants/enums/modal-type';
     templateUrl: './modal-container.html',
     styleUrls: ['./modal-container.scss']
 })
+// tslint:disable-next-line:component-class-suffix
 export class ModalContainer implements OnInit {
-    
+
     @Output() confirmationClick: EventEmitter<null> = new EventEmitter();
     @Output() cancelationClick: EventEmitter<null> = new EventEmitter();
 

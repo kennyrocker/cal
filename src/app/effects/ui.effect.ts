@@ -12,9 +12,11 @@ import {
   DeleteConstantIcomeItemAction,
   UIitemDragClearAction,
   UIitemDropAction,
-  SelectedCopyProjectionLoadedAction, GetProjectionByIdActionSuccess, RouteToProjectionAction
+  SelectedCopyProjectionLoadedAction,
+  GetProjectionByIdActionSuccess,
+  RouteToProjectionAction
 } from '../actions/calData.action';
-import { switchMap } from 'rxjs/operators';
+import {catchError, map, switchMap} from 'rxjs/operators';
 import { InputGroup } from '../constants/enums/input-group';
 import { of } from 'rxjs';
 import { MapperUtil } from '../utils/mapper-util';
@@ -22,12 +24,14 @@ import { Router } from '@angular/router';
 import * as reducerRoot from '../reducers';
 import { getProjectionById } from '../selectors/selectors';
 import { Constant } from '../constants/constant';
+import { Share } from '../services/share/share';
 
 @Injectable()
 export class UIEffects {
 
     constructor(private actions$: Actions,
                 private router: Router,
+                private shareService: Share,
                 private store: Store<reducerRoot.CalDataState>) {}
 
     /* DRAG AND DROP EFFECT */
@@ -107,7 +111,7 @@ export class UIEffects {
     );
 
 
-    /* Select Copy and Compare */
+    /* Select Copy, Share, Compare */
     @Effect()
     public copySelectedProjectionPreload$: Observable<Action> = this.actions$.pipe(
         ofType(CalDataActionTypes.SelectedCopyProjectionPreload),

@@ -21,7 +21,10 @@ import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Constant } from 'src/app/constants/constant';
 import { UserState } from '../../../constants/interfaces/user';
 import { combineLatest, Observable } from 'rxjs';
-import { faCopy, faBalanceScale, faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faBalanceScale, faChartBar, faShare, faShareAltSquare } from '@fortawesome/free-solid-svg-icons';
+import { ModalType } from '../../../constants/enums/modal-type';
+import { Share } from '../../../services/share/share';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -37,6 +40,7 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     private selectionChangeSubject = new Subject<any>();
     private selectionSubjectSub: Subscription;
     private snapshotSelectedSub: Subscription;
+    private selectShareSub: Subscription;
     public snapshotSelected = [];
     private userState$: Observable<UserState>;
     private isLoaded$: Observable<boolean>;
@@ -45,8 +49,17 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
     public copyIcon = faCopy;
     public scaleIcon = faBalanceScale;
     public pluseIcon = faChartBar;
+    public shareIcon = faShareAltSquare;
+    public shareCopyIcon = faShare;
 
-    constructor(public store: Store<reducerRoot.CalDataState>, private router: Router) {}
+    // share modal
+    public modalType = ModalType;
+    public shareModalShow = false;
+    public shareUrl: string;
+
+    constructor(public store: Store<reducerRoot.CalDataState>,
+                private shareService: Share,
+                private router: Router) {}
 
     ngOnInit() {
 
@@ -87,6 +100,7 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
         this.selectionSubjectSub.unsubscribe();
         this.snapShotSub.unsubscribe();
         this.fetchSnapShotSub.unsubscribe();
+        if (this.selectShareSub) this.selectShareSub.unsubscribe();
     }
 
     public bindSelectionChangeSubject(value): void {
@@ -145,8 +159,35 @@ export class SnapshotContainerComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(url);
     }
 
+    public selectedIsSampleProjection(): boolean {
+        return this.snapshotSelected[0] === Constant.SAMPLE_PROJECTION_ID;
+    }
+
     public isSampleProjection(projectionId: string): boolean {
         return projectionId === Constant.SAMPLE_PROJECTION_ID;
+    }
+
+    public share(): void {
+        const id = this.snapshotSelected[0];
+        this.selectShareSub = this.shareService.postShareProjection(id)
+          .subscribe((res) => {
+              if (res.shareId) {
+                const url = `${environment.baseUrl}/projection/${res.shareId}`;
+                this.shareUrl = url;
+                this.shareModalShow = true;
+              }
+          });
+    }
+
+    public copyToClipBoard(): void {
+        const urlInput = document.getElementById('shareUrl') as HTMLInputElement;
+        urlInput.focus();
+        urlInput.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          console.log('browser not supported copy command');
+        }
     }
 
 }

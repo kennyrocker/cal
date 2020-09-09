@@ -21,7 +21,11 @@ export class Projection {
     }
     // GET
     public getProjectionById(projectionId: string): Observable<any> {
-        return this.http.get(apiUrls.GET_PROJECTION(projectionId), this.header());
+        if (projectionId.indexOf('sid') !== -1) {
+            return this.http.get(apiUrls.GET_SHARE_PROJECTION(projectionId));
+        } else {
+            return this.http.get(apiUrls.GET_PROJECTION(projectionId), this.header());
+        }
     }
     // GET
     public getProjectionBatchByIds(projectionIds: string[]): Observable<any> {
